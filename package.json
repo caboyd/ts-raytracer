@@ -1,0 +1,38 @@
+{
+  "name": "ts-webgl2-webpack-template",
+  "version": "0.1.0",
+  "description": "Typescript Webgl2 Template",
+  "main": "index.html",
+  "scripts": {
+    "watch": "webpack --progress --colors --watch",
+    "build": " webpack --progress --colors",
+    "dev": "webpack-dev-server --content-base ./ --colors --hot --inline"
+  },
+  "author": "Chris Boyd",
+  "license": "MIT",
+  "repository": {
+    "type": "git"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "useTabs": false,
+    "printWidth": 120,
+    "parser": "typescript"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/gl-matrix": "^2.4.0",
+    "@types/node": "^10.3.2",
+    "@types/webgl2": "^0.0.4",
+    "copy-webpack-plugin": "^4.5.1",
+    "gl-matrix": "^2.6.1",
+    "html-webpack-plugin": "^3.2.0",
+    "imagemin-webpack-plugin": "^2.1.5",
+    "raw-loader": "^0.5.1",
+    "ts-loader": "^3.5.0",
+    "typescript": "^2.8.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.11.2"
+  }
+}

@@ -1,0 +1,6 @@
+src/**/*.map
+src/**/*.js
+.idea/
+node_modules/
+.git/
+docs/bundle.js.map
