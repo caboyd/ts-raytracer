@@ -1,6 +1,6 @@
-# Typescript Webgl2 Webpack Template
+# Typescript Webgl2 Raytracer
 
-Starter template for webgl2 projects using typescript and webpack
+Implementation of a Raytracter in Typescript using webgl2
 
 ## Getting Started
 

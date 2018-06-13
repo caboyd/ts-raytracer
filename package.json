@@ -1,7 +1,7 @@
 {
-  "name": "ts-webgl2-webpack-template",
+  "name": "ts-raytracer",
   "version": "0.1.0",
-  "description": "Typescript Webgl2 Template",
+  "description": "Typescript Webgl2 Raytracer",
   "main": "index.html",
   "scripts": {
     "watch": "webpack --progress --colors --watch",
