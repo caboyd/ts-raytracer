@@ -7,6 +7,9 @@ export class SoftwareRenderer {
 
     image_data: ImageData;
 
+    color_temp = vec3.create();
+    color_temp2 = vec3.create();
+
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
@@ -22,23 +25,44 @@ export class SoftwareRenderer {
         let horizontal = vec3.fromValues(4,0,0);
         let vertical = vec3.fromValues(0, 2, 0);
         let origin = vec3.fromValues(0,0,0);
+        let direction = vec3.create();
+        let temp = vec3.create();
+        let temp2 = vec3.create();
+        let color = vec3.create();
         
+
         
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 let u = x/width;
                 let v = 1 - y/height;
-                
-                vec3.set(vec, x/width, 1- y/height, 0.2);
-                this.setPixelv3f(this.image_data, x, y, vec);
+                vec3.scale(temp,horizontal,u);
+                vec3.scale(temp2,vertical,v);
+                vec3.add(direction,temp,temp2);
+                vec3.add(direction,direction,lower_left_corner);
+                let r = new Ray(origin,direction);
+                this.color(color, r);
+                this.setPixelv3f(this.image_data, x, y, color);
             }
         }
         
         this.ctx.putImageData(this.image_data, 0, 0);
     }
     
-    private color(ray:Ray):void{
-        //Unit vector of direction
+    private color(out:vec3, ray:Ray):vec3{
+        vec3.copy(out, ray.direction);
+        vec3.normalize(out,out);
+        let unit_direction = out;
+        let t = 0.5 * (unit_direction[1] + 1.0);
+        
+        vec3.set(this.color_temp, 1,1,1);
+        vec3.set(this.color_temp2, 0.5, 0.7, 1.0);
+        
+        vec3.scale(this.color_temp, this.color_temp,1.0 - t);
+        vec3.scale(this.color_temp2, this.color_temp2, t);
+        vec3.add(out, this.color_temp, this.color_temp2);
+        
+        return out;
         
     }
     

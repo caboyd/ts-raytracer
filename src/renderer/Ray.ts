@@ -6,8 +6,8 @@ export class Ray{
     
     constructor(origin:vec3, directon:vec3)
     {
-        this._origin = vec3.clone(origin);
-        this._direction = vec3.clone(directon)
+        this._origin = origin;
+        this._direction = directon;
     }
     
     public pointAtParameter(out:vec3, t:number){

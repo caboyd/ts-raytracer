@@ -4880,7 +4880,7 @@ const forEach = (function() {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const SoftwareRenderer_1 = __webpack_require__(8);
-const WebglRenderer_1 = __webpack_require__(13);
+const WebglRenderer_1 = __webpack_require__(14);
 let software_renderer;
 let webgl_renderer;
 (function loadWebGL() {
@@ -4904,8 +4904,11 @@ function drawScene() {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(1);
+const Ray_1 = __webpack_require__(13);
 class SoftwareRenderer {
     constructor(canvas) {
+        this.color_temp = gl_matrix_1.vec3.create();
+        this.color_temp2 = gl_matrix_1.vec3.create();
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
@@ -4918,18 +4921,36 @@ class SoftwareRenderer {
         let horizontal = gl_matrix_1.vec3.fromValues(4, 0, 0);
         let vertical = gl_matrix_1.vec3.fromValues(0, 2, 0);
         let origin = gl_matrix_1.vec3.fromValues(0, 0, 0);
+        let direction = gl_matrix_1.vec3.create();
+        let temp = gl_matrix_1.vec3.create();
+        let temp2 = gl_matrix_1.vec3.create();
+        let color = gl_matrix_1.vec3.create();
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 let u = x / width;
                 let v = 1 - y / height;
-                gl_matrix_1.vec3.set(vec, x / width, 1 - y / height, 0.2);
-                this.setPixelv3f(this.image_data, x, y, vec);
+                gl_matrix_1.vec3.scale(temp, horizontal, u);
+                gl_matrix_1.vec3.scale(temp2, vertical, v);
+                gl_matrix_1.vec3.add(direction, temp, temp2);
+                gl_matrix_1.vec3.add(direction, direction, lower_left_corner);
+                let r = new Ray_1.Ray(origin, direction);
+                this.color(color, r);
+                this.setPixelv3f(this.image_data, x, y, color);
             }
         }
         this.ctx.putImageData(this.image_data, 0, 0);
     }
-    color(ray) {
-        //Unit vector of direction
+    color(out, ray) {
+        gl_matrix_1.vec3.copy(out, ray.direction);
+        gl_matrix_1.vec3.normalize(out, out);
+        let unit_direction = out;
+        let t = 0.5 * (unit_direction[1] + 1.0);
+        gl_matrix_1.vec3.set(this.color_temp, 1, 1, 1);
+        gl_matrix_1.vec3.set(this.color_temp2, 0.5, 0.7, 1.0);
+        gl_matrix_1.vec3.scale(this.color_temp, this.color_temp, 1.0 - t);
+        gl_matrix_1.vec3.scale(this.color_temp2, this.color_temp2, t);
+        gl_matrix_1.vec3.add(out, this.color_temp, this.color_temp2);
+        return out;
     }
     setPixelv3f(imageData, x, y, vec, a = 1.0) {
         let index = (x + y * imageData.width) * 4;
@@ -7482,7 +7503,35 @@ const forEach = (function() {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const shader_1 = __webpack_require__(14);
+class Ray {
+    constructor(origin, directon) {
+        this._origin = origin;
+        this._direction = directon;
+    }
+    pointAtParameter(out, t) {
+        out[0] = this.origin[0] + t * this.direction[0];
+        out[1] = this.origin[1] + t * this.direction[1];
+        out[2] = this.origin[2] + t * this.direction[2];
+        return out;
+    }
+    get origin() {
+        return this._origin;
+    }
+    get direction() {
+        return this._direction;
+    }
+}
+exports.Ray = Ray;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const shader_1 = __webpack_require__(15);
 class WebglRenderer {
     constructor(canvas) {
         this.initGL(canvas);
@@ -7513,8 +7562,8 @@ class WebglRenderer {
         //this.gl.enable(this.gl.DEPTH_TEST);
     }
     initShader() {
-        const frag = __webpack_require__(15);
-        const vert = __webpack_require__(16);
+        const frag = __webpack_require__(16);
+        const vert = __webpack_require__(17);
         this.shader = new shader_1.Shader(this.gl, vert, frag);
         this.shader.setAttributes(["a_vertex"]);
         this.shader.setUniforms(new Map([["width", this.gl.drawingBufferWidth], ["height", this.gl.drawingBufferHeight]]));
@@ -7545,7 +7594,7 @@ exports.WebglRenderer = WebglRenderer;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7677,13 +7726,13 @@ exports.Shader = Shader;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nvoid main()\r\n{        \r\n    float u = pos.x;\r\n    float v = pos.y;\r\n    fragColor = vec4(u,v,0.2, 1.0);\r\n}"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nvec3 color(vec3 direction){\r\n    direction = normalize(direction);\r\n    float t = 0.5 * (direction.y + 1.0);\r\n    return (1.0 - t) * vec3(1.0) + t * vec3(0.5,0.7,1.0);\r\n}\r\n\r\nvoid main()\r\n{        \r\n    vec3 lower_left_corner =  vec3(-2.0,-1.0,-1.0);\r\n    vec3 horizontal = vec3(4.0,0.0,0.0);\r\n    vec3 vertical = vec3(0.0,2.0,0.0);\r\n    float u = pos.x;\r\n    float v = pos.y;\r\n    fragColor = vec4(color(lower_left_corner + u*horizontal + v*vertical),1.0);\r\n}\r\n\r\n\r\n"
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = "#version 300 es\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\n\r\nout vec2 pos;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nvoid main()\r\n{\r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = a_vertex.xy * pos_fix + pos_fix;\r\n    \r\n    gl_Position = vec4(a_vertex,1.0f);\r\n}   "
