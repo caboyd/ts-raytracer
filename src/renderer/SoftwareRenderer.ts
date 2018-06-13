@@ -7,8 +7,8 @@ export class SoftwareRenderer {
 
     image_data: ImageData;
 
-    color_temp = vec3.create();
-    color_temp2 = vec3.create();
+    temp = vec3.create();
+    temp2 = vec3.create();
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -26,8 +26,6 @@ export class SoftwareRenderer {
         let vertical = vec3.fromValues(0, 2, 0);
         let origin = vec3.fromValues(0,0,0);
         let direction = vec3.create();
-        let temp = vec3.create();
-        let temp2 = vec3.create();
         let color = vec3.create();
         
 
@@ -36,9 +34,9 @@ export class SoftwareRenderer {
             for (let x = 0; x < width; x++) {
                 let u = x/width;
                 let v = 1 - y/height;
-                vec3.scale(temp,horizontal,u);
-                vec3.scale(temp2,vertical,v);
-                vec3.add(direction,temp,temp2);
+                vec3.scale(this.temp,horizontal,u);
+                vec3.scale(this.temp2,vertical,v);
+                vec3.add(direction,this.temp,this.temp2);
                 vec3.add(direction,direction,lower_left_corner);
                 let r = new Ray(origin,direction);
                 this.color(color, r);
@@ -50,20 +48,32 @@ export class SoftwareRenderer {
     }
     
     private color(out:vec3, ray:Ray):vec3{
+        if(this.hitSphere(vec3.fromValues(0,0,-1), 0.5, ray))
+            return vec3.set(out, 1,0,0);
+        
         vec3.copy(out, ray.direction);
         vec3.normalize(out,out);
         let unit_direction = out;
         let t = 0.5 * (unit_direction[1] + 1.0);
         
-        vec3.set(this.color_temp, 1,1,1);
-        vec3.set(this.color_temp2, 0.5, 0.7, 1.0);
+        vec3.set(this.temp, 1,1,1);
+        vec3.set(this.temp2, 0.5, 0.7, 1.0);
         
-        vec3.scale(this.color_temp, this.color_temp,1.0 - t);
-        vec3.scale(this.color_temp2, this.color_temp2, t);
-        vec3.add(out, this.color_temp, this.color_temp2);
+        vec3.scale(this.temp, this.temp,1.0 - t);
+        vec3.scale(this.temp2, this.temp2, t);
+        vec3.add(out, this.temp, this.temp2);
         
         return out;
         
+    }
+    
+    private hitSphere(center:vec3, radius:number, ray:Ray):boolean{
+        let oc = vec3.sub(this.temp,ray.origin,center);
+        let a = vec3.dot(ray.direction, ray.direction);
+        let b = 2.0 * vec3.dot(oc, ray.direction);
+        let c = vec3.dot(oc,oc) - radius*radius;
+        let discriminant = b*b - 4.0 * a * c;
+        return (discriminant > 0.0);
     }
     
     private setPixelv3f(imageData:ImageData, x:number, y:number, vec:vec3, a = 1.0):void{
