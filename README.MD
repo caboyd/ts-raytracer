@@ -2,6 +2,8 @@
 
 Implementation of a Raytracter in Typescript using webgl2
 
+[Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine.
