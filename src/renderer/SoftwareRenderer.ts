@@ -9,6 +9,7 @@ export class SoftwareRenderer {
 
     temp = vec3.create();
     temp2 = vec3.create();
+    sphere_pos = vec3.fromValues(0,0,-1);
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -48,13 +49,19 @@ export class SoftwareRenderer {
     }
     
     private color(out:vec3, ray:Ray):vec3{
-        if(this.hitSphere(vec3.fromValues(0,0,-1), 0.5, ray))
-            return vec3.set(out, 1,0,0);
+        let t = this.hitSphere(this.sphere_pos, 0.5, ray);
+        if(t > 0.0){
+            vec3.normalize(out, vec3.sub(out, ray.pointAtParameter(out, t),this.sphere_pos ));
+            vec3.set(out, out[0] + 1, out[1] + 1, out[2] + 1);
+            vec3.scale(out, out, 0.5);
+            return out;
+        }
+
         
         vec3.copy(out, ray.direction);
         vec3.normalize(out,out);
         let unit_direction = out;
-        let t = 0.5 * (unit_direction[1] + 1.0);
+        t = 0.5 * (unit_direction[1] + 1.0);
         
         vec3.set(this.temp, 1,1,1);
         vec3.set(this.temp2, 0.5, 0.7, 1.0);
@@ -67,13 +74,17 @@ export class SoftwareRenderer {
         
     }
     
-    private hitSphere(center:vec3, radius:number, ray:Ray):boolean{
+    private hitSphere(center:vec3, radius:number, ray:Ray):number{
         let oc = vec3.sub(this.temp,ray.origin,center);
         let a = vec3.dot(ray.direction, ray.direction);
         let b = 2.0 * vec3.dot(oc, ray.direction);
         let c = vec3.dot(oc,oc) - radius*radius;
         let discriminant = b*b - 4.0 * a * c;
-        return (discriminant > 0.0);
+        if (discriminant < 0.0){
+            return -1.0;
+        }else{
+            return (-b - Math.sqrt(discriminant)) / (2.0 * a);
+        }
     }
     
     private setPixelv3f(imageData:ImageData, x:number, y:number, vec:vec3, a = 1.0):void{
