@@ -18,7 +18,6 @@ export class SoftwareRenderer {
     }
 
     public draw(): void {
-        let vec = vec3.create();
         let width = this.canvas.width;
         let height = this.canvas.height;
         
@@ -75,10 +74,10 @@ export class SoftwareRenderer {
     }
     
     private hitSphere(center:vec3, radius:number, ray:Ray):number{
-        let oc = vec3.sub(this.temp,ray.origin,center);
+        let to_sphere = vec3.sub(this.temp,ray.origin,center);
         let a = vec3.dot(ray.direction, ray.direction);
-        let b = 2.0 * vec3.dot(oc, ray.direction);
-        let c = vec3.dot(oc,oc) - radius*radius;
+        let b = 2.0 * vec3.dot(to_sphere, ray.direction);
+        let c = vec3.dot(to_sphere,to_sphere) - radius*radius;
         let discriminant = b*b - 4.0 * a * c;
         if (discriminant < 0.0){
             return -1.0;

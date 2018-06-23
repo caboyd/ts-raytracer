@@ -4907,14 +4907,14 @@ const gl_matrix_1 = __webpack_require__(1);
 const Ray_1 = __webpack_require__(13);
 class SoftwareRenderer {
     constructor(canvas) {
-        this.color_temp = gl_matrix_1.vec3.create();
-        this.color_temp2 = gl_matrix_1.vec3.create();
+        this.temp = gl_matrix_1.vec3.create();
+        this.temp2 = gl_matrix_1.vec3.create();
+        this.sphere_pos = gl_matrix_1.vec3.fromValues(0, 0, -1);
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
     }
     draw() {
-        let vec = gl_matrix_1.vec3.create();
         let width = this.canvas.width;
         let height = this.canvas.height;
         let lower_left_corner = gl_matrix_1.vec3.fromValues(-2.0, -1.0, -1.0);
@@ -4922,16 +4922,14 @@ class SoftwareRenderer {
         let vertical = gl_matrix_1.vec3.fromValues(0, 2, 0);
         let origin = gl_matrix_1.vec3.fromValues(0, 0, 0);
         let direction = gl_matrix_1.vec3.create();
-        let temp = gl_matrix_1.vec3.create();
-        let temp2 = gl_matrix_1.vec3.create();
         let color = gl_matrix_1.vec3.create();
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 let u = x / width;
                 let v = 1 - y / height;
-                gl_matrix_1.vec3.scale(temp, horizontal, u);
-                gl_matrix_1.vec3.scale(temp2, vertical, v);
-                gl_matrix_1.vec3.add(direction, temp, temp2);
+                gl_matrix_1.vec3.scale(this.temp, horizontal, u);
+                gl_matrix_1.vec3.scale(this.temp2, vertical, v);
+                gl_matrix_1.vec3.add(direction, this.temp, this.temp2);
                 gl_matrix_1.vec3.add(direction, direction, lower_left_corner);
                 let r = new Ray_1.Ray(origin, direction);
                 this.color(color, r);
@@ -4941,16 +4939,36 @@ class SoftwareRenderer {
         this.ctx.putImageData(this.image_data, 0, 0);
     }
     color(out, ray) {
+        let t = this.hitSphere(this.sphere_pos, 0.5, ray);
+        if (t > 0.0) {
+            gl_matrix_1.vec3.normalize(out, gl_matrix_1.vec3.sub(out, ray.pointAtParameter(out, t), this.sphere_pos));
+            gl_matrix_1.vec3.set(out, out[0] + 1, out[1] + 1, out[2] + 1);
+            gl_matrix_1.vec3.scale(out, out, 0.5);
+            return out;
+        }
         gl_matrix_1.vec3.copy(out, ray.direction);
         gl_matrix_1.vec3.normalize(out, out);
         let unit_direction = out;
-        let t = 0.5 * (unit_direction[1] + 1.0);
-        gl_matrix_1.vec3.set(this.color_temp, 1, 1, 1);
-        gl_matrix_1.vec3.set(this.color_temp2, 0.5, 0.7, 1.0);
-        gl_matrix_1.vec3.scale(this.color_temp, this.color_temp, 1.0 - t);
-        gl_matrix_1.vec3.scale(this.color_temp2, this.color_temp2, t);
-        gl_matrix_1.vec3.add(out, this.color_temp, this.color_temp2);
+        t = 0.5 * (unit_direction[1] + 1.0);
+        gl_matrix_1.vec3.set(this.temp, 1, 1, 1);
+        gl_matrix_1.vec3.set(this.temp2, 0.5, 0.7, 1.0);
+        gl_matrix_1.vec3.scale(this.temp, this.temp, 1.0 - t);
+        gl_matrix_1.vec3.scale(this.temp2, this.temp2, t);
+        gl_matrix_1.vec3.add(out, this.temp, this.temp2);
         return out;
+    }
+    hitSphere(center, radius, ray) {
+        let to_sphere = gl_matrix_1.vec3.sub(this.temp, ray.origin, center);
+        let a = gl_matrix_1.vec3.dot(ray.direction, ray.direction);
+        let b = 2.0 * gl_matrix_1.vec3.dot(to_sphere, ray.direction);
+        let c = gl_matrix_1.vec3.dot(to_sphere, to_sphere) - radius * radius;
+        let discriminant = b * b - 4.0 * a * c;
+        if (discriminant < 0.0) {
+            return -1.0;
+        }
+        else {
+            return (-b - Math.sqrt(discriminant)) / (2.0 * a);
+        }
     }
     setPixelv3f(imageData, x, y, vec, a = 1.0) {
         let index = (x + y * imageData.width) * 4;
@@ -7729,7 +7747,7 @@ exports.Shader = Shader;
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nvec3 color(vec3 direction){\r\n    direction = normalize(direction);\r\n    float t = 0.5 * (direction.y + 1.0);\r\n    return (1.0 - t) * vec3(1.0) + t * vec3(0.5,0.7,1.0);\r\n}\r\n\r\nvoid main()\r\n{        \r\n    vec3 lower_left_corner =  vec3(-2.0,-1.0,-1.0);\r\n    vec3 horizontal = vec3(4.0,0.0,0.0);\r\n    vec3 vertical = vec3(0.0,2.0,0.0);\r\n    float u = pos.x;\r\n    float v = pos.y;\r\n    fragColor = vec4(color(lower_left_corner + u*horizontal + v*vertical),1.0);\r\n}\r\n\r\n\r\n"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nvec3 ray_pointAtParameter(Ray ray, float t){\r\n    vec3 result = ray.origin + t * ray.direction;\r\n    return result;\r\n}\r\n\r\nfloat hitSphere(const vec3 center, float radius, Ray ray){\r\n    vec3 oc = ray.origin - center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = 2.0 * dot(oc, ray.direction);\r\n    float c = dot(oc,oc) - radius*radius;\r\n    float discriminant = b*b - 4.0 * a * c;\r\n    if (discriminant < 0.0){\r\n        return -1.0;\r\n    }else{\r\n        return (-b - sqrt(discriminant)) / (2.0 * a);\r\n    }\r\n}\r\n\r\nvec3 color(Ray ray){\r\n    float t = hitSphere(vec3(0,0,-1), 0.5, ray);\r\n    if(t > 0.0){\r\n        vec3 N = normalize(ray_pointAtParameter(ray, t) - vec3(0,0,-1));\r\n        return 0.5*vec3(N.x+1.0, N.y+1.0, N.z+1.0);\r\n    }\r\n\r\n    vec3 unit_direction = normalize(ray.direction);\r\n    t = 0.5 * (unit_direction.y + 1.0);\r\n    return (1.0 - t) * vec3(1.0) + t * vec3(0.5,0.7,1.0);\r\n}\r\n\r\nvoid main()\r\n{        \r\n    Ray ray;\r\n    vec3 lower_left_corner =  vec3(-2.0,-1.0,-1.0);\r\n    vec3 horizontal = vec3(4.0,0.0,0.0);\r\n    vec3 vertical = vec3(0.0,2.0,0.0);\r\n    float u = pos.x;\r\n    float v = pos.y;\r\n    ray.origin = vec3(0);\r\n    ray.direction = lower_left_corner + u*horizontal + v*vertical;\r\n    fragColor = vec4(color(ray),1.0);\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 /* 17 */
