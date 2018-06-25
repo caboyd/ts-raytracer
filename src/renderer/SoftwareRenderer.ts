@@ -1,5 +1,8 @@
 import {vec3} from "gl-matrix";
 import {Ray} from "./Ray";
+import {Hitable, HitRecord} from "./Hitable";
+import {Sphere} from "./Sphere";
+import {HitableList} from "./HitableList";
 
 export class SoftwareRenderer {
     canvas: HTMLCanvasElement;
@@ -7,6 +10,7 @@ export class SoftwareRenderer {
 
     image_data: ImageData;
 
+   temp_rec = new HitRecord();
     temp = vec3.create();
     temp2 = vec3.create();
     sphere_pos = vec3.fromValues(0,0,-1);
@@ -28,7 +32,11 @@ export class SoftwareRenderer {
         let direction = vec3.create();
         let color = vec3.create();
         
-
+        let list = Array<Hitable>(2);
+        list[0] = new Sphere(vec3.fromValues(0,0,-1),0.5);
+        list[1] = new Sphere(vec3.fromValues(0,-100.5,-1),100);
+        let world:Hitable = new HitableList(list,2);
+        
         
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
@@ -39,7 +47,7 @@ export class SoftwareRenderer {
                 vec3.add(direction,this.temp,this.temp2);
                 vec3.add(direction,direction,lower_left_corner);
                 let r = new Ray(origin,direction);
-                this.color(color, r);
+                this.color(color, r, world);
                 this.setPixelv3f(this.image_data, x, y, color);
             }
         }
@@ -47,44 +55,30 @@ export class SoftwareRenderer {
         this.ctx.putImageData(this.image_data, 0, 0);
     }
     
-    private color(out:vec3, ray:Ray):vec3{
-        let t = this.hitSphere(this.sphere_pos, 0.5, ray);
-        if(t > 0.0){
-            vec3.normalize(out, vec3.sub(out, ray.pointAtParameter(out, t),this.sphere_pos ));
+    private color(out:vec3, ray:Ray, world:Hitable):vec3{
+        this.temp_rec.clear();
+        
+        if(world.hit(ray, 0.0, Number.MAX_VALUE, this.temp_rec)){
+            vec3.copy(out, this.temp_rec.normal);
             vec3.set(out, out[0] + 1, out[1] + 1, out[2] + 1);
             vec3.scale(out, out, 0.5);
             return out;
+        }else{
+            vec3.copy(out, ray.direction);
+            vec3.normalize(out,out);
+            let unit_direction = out;
+            let t = 0.5 * (unit_direction[1] + 1.0);
+            vec3.set(this.temp, 1,1,1);
+            vec3.set(this.temp2, 0.5, 0.7, 1.0);
+            vec3.scale(this.temp, this.temp,1.0 - t);
+            vec3.scale(this.temp2, this.temp2, t);
+            vec3.add(out, this.temp, this.temp2);
+            return out;
         }
-
-        
-        vec3.copy(out, ray.direction);
-        vec3.normalize(out,out);
-        let unit_direction = out;
-        t = 0.5 * (unit_direction[1] + 1.0);
-        
-        vec3.set(this.temp, 1,1,1);
-        vec3.set(this.temp2, 0.5, 0.7, 1.0);
-        
-        vec3.scale(this.temp, this.temp,1.0 - t);
-        vec3.scale(this.temp2, this.temp2, t);
-        vec3.add(out, this.temp, this.temp2);
-        
-        return out;
         
     }
     
-    private hitSphere(center:vec3, radius:number, ray:Ray):number{
-        let to_sphere = vec3.sub(this.temp,ray.origin,center);
-        let a = vec3.dot(ray.direction, ray.direction);
-        let b = 2.0 * vec3.dot(to_sphere, ray.direction);
-        let c = vec3.dot(to_sphere,to_sphere) - radius*radius;
-        let discriminant = b*b - 4.0 * a * c;
-        if (discriminant < 0.0){
-            return -1.0;
-        }else{
-            return (-b - Math.sqrt(discriminant)) / (2.0 * a);
-        }
-    }
+
     
     private setPixelv3f(imageData:ImageData, x:number, y:number, vec:vec3, a = 1.0):void{
         let index = (x + y * imageData.width) * 4;
