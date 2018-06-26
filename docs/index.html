@@ -18,7 +18,9 @@
 			overflow: hidden;
 			margin: 0;
 			padding: 0;
+			position: relative;
 		}
+
 		label {
 			cursor: pointer;
 			font-weight: bold;
@@ -27,7 +29,10 @@
 			background-color: #EEEEEE;
 			margin:0;
 		}
-
+		
+		body{
+			overflow:scroll;
+		}
 		#fpscounter {
 			z-index:2147483647;
 			color: greenyellow;
@@ -38,14 +43,12 @@
 		}
 
 		#container{
-			position: fixed;
+			position: absolute;
 			left: 50%;
 			top: 50%;
 			transform: translate(-50%, -50%);
-			display:flex;
-			flex-direction: column;
 		}
-		#container,div{
+		#container > div{
 			display:flex;
 			flex-direction: column;
 		}
@@ -54,13 +57,13 @@
 <body>
 <div id="container">
 	<div>
-		<span>Webgl2 Canvas</span>
-		<canvas id="canvas-webgl2" width="800" height="400"></canvas>
+		<span>Webgl2 Canvas</span><span id="webgl-text"></span>
+		<canvas id="canvas-webgl2" width="400" height="200"></canvas>
 	</div>
 	
 	<div>
-		<span>Canvas</span>
-		<canvas id="canvas" width="800" height="400"></canvas>
+		<span>Canvas</span><span id="canvas-text"></span>
+		<canvas id="canvas" width="400" height="200"></canvas>
 	</div>
 	</div>
 

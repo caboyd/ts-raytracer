@@ -13,10 +13,18 @@ let webgl_renderer: WebglRenderer;
 })();
 
 function drawScene() {
+    drawWebgl();
+    setTimeout(drawCanvas, 1);
+}
+
+function drawWebgl(){
     let now = performance.now();
     webgl_renderer.draw();
     document.getElementById("webgl-text").textContent = " " + (performance.now() - now) + " ms";
-    now = performance.now();
+}
+
+function drawCanvas(){
+    let now = performance.now();
     software_renderer.draw();
     document.getElementById("canvas-text").textContent = " " + (performance.now() - now) + " ms";
 }

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -128,15 +128,15 @@ function equals(a, b) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(7);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "glMatrix", function() { return __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2", function() { return __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2d", function() { return __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__; });
@@ -163,6 +163,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(1);
+class HitRecord {
+    constructor(t = 0, pos = gl_matrix_1.vec3.create(), normal = gl_matrix_1.vec3.create()) {
+        this.t = t;
+        this.pos = pos;
+        this.normal = normal;
+    }
+    clear() {
+        this.t = 0;
+        gl_matrix_1.vec3.set(this.pos, 0, 0, 0);
+        gl_matrix_1.vec3.set(this.normal, 0, 0, 0);
+    }
+}
+exports.HitRecord = HitRecord;
+class Hitable {
+}
+exports.Hitable = Hitable;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -950,7 +976,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2715,7 +2741,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2736,9 +2762,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["fromEuler"] = fromEuler;
 /* harmony export (immutable) */ __webpack_exports__["str"] = str;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(7);
 
 
 
@@ -3386,7 +3412,7 @@ const setAxes = (function() {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4217,7 +4243,7 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4873,14 +4899,14 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const SoftwareRenderer_1 = __webpack_require__(8);
-const WebglRenderer_1 = __webpack_require__(14);
+const SoftwareRenderer_1 = __webpack_require__(9);
+const WebglRenderer_1 = __webpack_require__(19);
 let software_renderer;
 let webgl_renderer;
 (function loadWebGL() {
@@ -4891,84 +4917,128 @@ let webgl_renderer;
     drawScene();
 })();
 function drawScene() {
+    drawWebgl();
+    setTimeout(drawCanvas, 1);
+}
+function drawWebgl() {
+    let now = performance.now();
     webgl_renderer.draw();
+    document.getElementById("webgl-text").textContent = " " + (performance.now() - now) + " ms";
+}
+function drawCanvas() {
+    let now = performance.now();
     software_renderer.draw();
+    document.getElementById("canvas-text").textContent = " " + (performance.now() - now) + " ms";
 }
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(1);
-const Ray_1 = __webpack_require__(13);
+const Ray_1 = __webpack_require__(14);
+const Hitable_1 = __webpack_require__(2);
+const Sphere_1 = __webpack_require__(15);
+const HitableList_1 = __webpack_require__(16);
+const Camera_1 = __webpack_require__(17);
+const random = __webpack_require__(18);
+const seed = 12345;
+const gen = random(seed);
 class SoftwareRenderer {
     constructor(canvas) {
         this.temp = gl_matrix_1.vec3.create();
         this.temp2 = gl_matrix_1.vec3.create();
         this.sphere_pos = gl_matrix_1.vec3.fromValues(0, 0, -1);
+        this.temp_rec = new Hitable_1.HitRecord();
+        this.max_ray_bounce = 4;
+        this.num_samples = 32;
         this.canvas = canvas;
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext("2d");
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
     }
     draw() {
         let width = this.canvas.width;
         let height = this.canvas.height;
-        let lower_left_corner = gl_matrix_1.vec3.fromValues(-2.0, -1.0, -1.0);
-        let horizontal = gl_matrix_1.vec3.fromValues(4, 0, 0);
-        let vertical = gl_matrix_1.vec3.fromValues(0, 2, 0);
-        let origin = gl_matrix_1.vec3.fromValues(0, 0, 0);
-        let direction = gl_matrix_1.vec3.create();
         let color = gl_matrix_1.vec3.create();
+        let sum_color = gl_matrix_1.vec3.create();
+        let list = Array(2);
+        list[0] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(0, 0, -1), 0.5);
+        list[1] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(0, -100.5, -1), 100);
+        let world = new HitableList_1.HitableList(list, 2);
+        let cam = new Camera_1.Camera();
+        let ray = new Ray_1.Ray();
+        let u, v;
+        //Self Sample
+        // for (let s = 0; s < num_samples; s++) {
+        //     for (let y = 0; y < height; y++) {
+        //         for (let x = 0; x < width; x++) {
+        //             this.getPixelv3f(this.image_data, x, y, sum_color);
+        //             let u = (x + gen.random()) / width;
+        //             let v = 1 - (y + gen.random()) / height;
+        //             let ray = cam.getRay(u, v);
+        //             ray.pointAtParameter(temp, 2.0);
+        //             this.color(color, ray, world);
+        //             //vec3.add(sum_color, sum_color, color);
+        //             this.colorLERP(sum_color, sum_color, color, 1 / (s + 1));
+        //             this.setPixelv3f(this.image_data, x, y, sum_color);
+        //         }
+        //     }
+        //
+        //     this.ctx.putImageData(this.image_data, 0, 0);
+        // }
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                let u = x / width;
-                let v = 1 - y / height;
-                gl_matrix_1.vec3.scale(this.temp, horizontal, u);
-                gl_matrix_1.vec3.scale(this.temp2, vertical, v);
-                gl_matrix_1.vec3.add(direction, this.temp, this.temp2);
-                gl_matrix_1.vec3.add(direction, direction, lower_left_corner);
-                let r = new Ray_1.Ray(origin, direction);
-                this.color(color, r);
-                this.setPixelv3f(this.image_data, x, y, color);
+                gl_matrix_1.vec3.set(sum_color, 0, 0, 0);
+                for (let s = 0; s < this.num_samples; s++) {
+                    u = (x + gen.nextFloat() - 0.5) / width;
+                    v = 1 - (y + gen.nextFloat() - 0.5) / height;
+                    cam.getRay(ray, u, v);
+                    //ray.pointAtParameter(temp, 2.0);
+                    this.color(color, ray, world);
+                    gl_matrix_1.vec3.add(sum_color, sum_color, color);
+                }
+                gl_matrix_1.vec3.scale(sum_color, sum_color, 1 / this.num_samples);
+                gl_matrix_1.vec3.set(sum_color, Math.sqrt(sum_color[0]), Math.sqrt(sum_color[1]), Math.sqrt(sum_color[2]));
+                this.setPixelv3f(this.image_data, x, y, sum_color);
             }
         }
         this.ctx.putImageData(this.image_data, 0, 0);
     }
-    color(out, ray) {
-        let t = this.hitSphere(this.sphere_pos, 0.5, ray);
-        if (t > 0.0) {
-            gl_matrix_1.vec3.normalize(out, gl_matrix_1.vec3.sub(out, ray.pointAtParameter(out, t), this.sphere_pos));
-            gl_matrix_1.vec3.set(out, out[0] + 1, out[1] + 1, out[2] + 1);
-            gl_matrix_1.vec3.scale(out, out, 0.5);
-            return out;
-        }
-        gl_matrix_1.vec3.copy(out, ray.direction);
-        gl_matrix_1.vec3.normalize(out, out);
-        let unit_direction = out;
-        t = 0.5 * (unit_direction[1] + 1.0);
-        gl_matrix_1.vec3.set(this.temp, 1, 1, 1);
-        gl_matrix_1.vec3.set(this.temp2, 0.5, 0.7, 1.0);
-        gl_matrix_1.vec3.scale(this.temp, this.temp, 1.0 - t);
-        gl_matrix_1.vec3.scale(this.temp2, this.temp2, t);
-        gl_matrix_1.vec3.add(out, this.temp, this.temp2);
+    randomInUnitSphere(out) {
+        do {
+            gl_matrix_1.vec3.set(out, 2 * gen.nextFloat() - 1, 2 * gen.nextFloat() - 1, 2 * gen.nextFloat() - 1);
+        } while (gl_matrix_1.vec3.dot(out, out) >= 1.0);
         return out;
     }
-    hitSphere(center, radius, ray) {
-        let to_sphere = gl_matrix_1.vec3.sub(this.temp, ray.origin, center);
-        let a = gl_matrix_1.vec3.dot(ray.direction, ray.direction);
-        let b = 2.0 * gl_matrix_1.vec3.dot(to_sphere, ray.direction);
-        let c = gl_matrix_1.vec3.dot(to_sphere, to_sphere) - radius * radius;
-        let discriminant = b * b - 4.0 * a * c;
-        if (discriminant < 0.0) {
-            return -1.0;
+    color(out, ray, world) {
+        let frac = 1.0;
+        for (let ray_bounce = 0; ray_bounce < this.max_ray_bounce; ray_bounce++) {
+            if (world.hit(ray, 0.0, Number.MAX_VALUE, this.temp_rec)) {
+                gl_matrix_1.vec3.add(this.temp, this.temp_rec.pos, this.randomInUnitSphere(this.temp));
+                gl_matrix_1.vec3.add(this.temp, this.temp, this.temp_rec.normal);
+                gl_matrix_1.vec3.copy(ray.origin, this.temp_rec.pos);
+                gl_matrix_1.vec3.sub(ray.direction, this.temp, this.temp_rec.pos);
+                frac *= 0.5;
+            }
+            else {
+                gl_matrix_1.vec3.copy(this.temp, ray.direction);
+                gl_matrix_1.vec3.normalize(this.temp, this.temp);
+                let t = 0.5 * (this.temp[1] + 1.0);
+                gl_matrix_1.vec3.set(out, (1.0 - t) + t * 0.5, (1.0 - t) + t * 0.7, (1.0 - t) + t * 1.0);
+                break;
+            }
         }
-        else {
-            return (-b - Math.sqrt(discriminant)) / (2.0 * a);
-        }
+        gl_matrix_1.vec3.scale(out, out, frac);
+        return out;
+    }
+    colorLERP(out_color, color1, color2, t) {
+        out_color[0] = color1[0] * (1 - t) + color2[0] * t;
+        out_color[1] = color1[1] * (1 - t) + color2[1] * t;
+        out_color[2] = color1[2] * (1 - t) + color2[2] * t;
     }
     setPixelv3f(imageData, x, y, vec, a = 1.0) {
         let index = (x + y * imageData.width) * 4;
@@ -4976,6 +5046,12 @@ class SoftwareRenderer {
         imageData.data[index + 1] = vec[1] * 255.99;
         imageData.data[index + 2] = vec[2] * 255.99;
         imageData.data[index + 3] = a * 255.99;
+    }
+    getPixelv3f(imageData, x, y, out_color) {
+        let index = (x + y * imageData.width) * 4;
+        out_color[0] = imageData.data[index + 0] / 255;
+        out_color[1] = imageData.data[index + 1] / 255;
+        out_color[2] = imageData.data[index + 2] / 255;
     }
     setPixelf(imageData, x, y, r, g, b, a = 1.0) {
         let index = (x + y * imageData.width) * 4;
@@ -5003,7 +5079,7 @@ exports.SoftwareRenderer = SoftwareRenderer;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5453,7 +5529,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5935,7 +6011,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5972,8 +6048,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
 /* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(4);
 
 
 
@@ -6831,7 +6907,7 @@ function equals(a, b) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7515,16 +7591,16 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 class Ray {
-    constructor(origin, directon) {
-        this._origin = origin;
-        this._direction = directon;
+    constructor(origin, direction) {
+        this.origin = origin;
+        this.direction = direction;
     }
     pointAtParameter(out, t) {
         out[0] = this.origin[0] + t * this.direction[0];
@@ -7532,24 +7608,163 @@ class Ray {
         out[2] = this.origin[2] + t * this.direction[2];
         return out;
     }
-    get origin() {
-        return this._origin;
-    }
-    get direction() {
-        return this._direction;
-    }
 }
 exports.Ray = Ray;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const shader_1 = __webpack_require__(15);
+const Hitable_1 = __webpack_require__(2);
+const gl_matrix_1 = __webpack_require__(1);
+class Sphere extends Hitable_1.Hitable {
+    constructor(center, radius) {
+        super();
+        this.center = center;
+        this.radius = radius;
+        this.temp = gl_matrix_1.vec3.create();
+    }
+    hit(ray, t_min, t_max, rec) {
+        let to_sphere = gl_matrix_1.vec3.sub(this.temp, ray.origin, this.center);
+        let a = gl_matrix_1.vec3.dot(ray.direction, ray.direction);
+        let b = gl_matrix_1.vec3.dot(to_sphere, ray.direction);
+        let c = gl_matrix_1.vec3.dot(to_sphere, to_sphere) - this.radius * this.radius;
+        let discriminant = b * b - a * c;
+        if (discriminant > 0) {
+            let temp = (-b - Math.sqrt(b * b - a * c)) / a;
+            if (temp < t_max && temp > t_min) {
+                rec.t = temp;
+                ray.pointAtParameter(rec.pos, rec.t);
+                gl_matrix_1.vec3.sub(rec.normal, rec.pos, this.center);
+                gl_matrix_1.vec3.scale(rec.normal, rec.normal, 1 / this.radius);
+                return true;
+            }
+            temp = (-b + Math.sqrt(b * b - a * c)) / a;
+            if (temp < t_max && temp > t_min) {
+                rec.t = temp;
+                ray.pointAtParameter(rec.pos, rec.t);
+                gl_matrix_1.vec3.sub(rec.normal, rec.pos, this.center);
+                gl_matrix_1.vec3.scale(rec.normal, rec.normal, 1 / this.radius);
+                return true;
+            }
+        }
+    }
+}
+exports.Sphere = Sphere;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const Hitable_1 = __webpack_require__(2);
+const gl_matrix_1 = __webpack_require__(1);
+class HitableList extends Hitable_1.Hitable {
+    constructor(list = [], size = 0) {
+        super();
+        this.list = list;
+        this.list_size = size;
+        this.temp_rec = new Hitable_1.HitRecord();
+    }
+    hit(ray, t_min, t_max, rec) {
+        let hit_anything = false;
+        let closest_so_far = t_max;
+        for (let hitable of this.list) {
+            if (hitable.hit(ray, t_min, closest_so_far, this.temp_rec)) {
+                hit_anything = true;
+                closest_so_far = this.temp_rec.t;
+                rec.t = this.temp_rec.t;
+                gl_matrix_1.vec3.copy(rec.pos, this.temp_rec.pos);
+                gl_matrix_1.vec3.copy(rec.normal, this.temp_rec.normal);
+            }
+        }
+        return hit_anything;
+    }
+}
+exports.HitableList = HitableList;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(1);
+class Camera {
+    constructor() {
+        this.direction = gl_matrix_1.vec3.create();
+        this.temp = gl_matrix_1.vec3.create();
+        this.temp2 = gl_matrix_1.vec3.create();
+        this.ORIGIN = gl_matrix_1.vec3.fromValues(0, 0, 0);
+        this.lower_left_corner = gl_matrix_1.vec3.fromValues(-2, -1, -1);
+        this.horizontal = gl_matrix_1.vec3.fromValues(4, 0, 0);
+        this.vertical = gl_matrix_1.vec3.fromValues(0, 2, 0);
+        this.origin = gl_matrix_1.vec3.clone(this.ORIGIN);
+    }
+    getRay(ray, u, v) {
+        gl_matrix_1.vec3.copy(this.origin, this.ORIGIN);
+        gl_matrix_1.vec3.scale(this.temp, this.horizontal, u);
+        gl_matrix_1.vec3.scale(this.temp2, this.vertical, v);
+        gl_matrix_1.vec3.add(this.direction, this.temp, this.temp2);
+        gl_matrix_1.vec3.add(this.direction, this.direction, this.lower_left_corner);
+        gl_matrix_1.vec3.sub(this.direction, this.direction, this.origin);
+        ray.origin = this.origin;
+        ray.direction = this.direction;
+        return ray;
+    }
+}
+exports.Camera = Camera;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+function random(seed) {
+	function _seed(s) {
+		if ((seed = (s|0) % 2147483647) <= 0) {
+			seed += 2147483646;
+		}
+	}
+
+	function _nextInt() {
+		return seed = seed * 48271 % 2147483647;
+	}
+
+	function _nextFloat() {
+		return (_nextInt() - 1) / 2147483646;
+	}
+
+	_seed(seed);
+
+	return {
+		seed: _seed,
+		nextInt: _nextInt,
+		nextFloat: _nextFloat
+	};
+}
+
+module.exports = random;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const shader_1 = __webpack_require__(20);
+const gl_matrix_1 = __webpack_require__(1);
 class WebglRenderer {
     constructor(canvas) {
         this.initGL(canvas);
@@ -7577,14 +7792,32 @@ class WebglRenderer {
             alert("WebGL2 is not available on your browser.");
         }
         this.gl.clearColor(0.2, 0.3, 0.3, 1.0);
-        //this.gl.enable(this.gl.DEPTH_TEST);
+        this.gl.disable(this.gl.DEPTH_TEST);
     }
     initShader() {
-        const frag = __webpack_require__(16);
-        const vert = __webpack_require__(17);
+        const frag = __webpack_require__(21);
+        const vert = __webpack_require__(22);
         this.shader = new shader_1.Shader(this.gl, vert, frag);
         this.shader.setAttributes(["a_vertex"]);
-        this.shader.setUniforms(new Map([["width", this.gl.drawingBufferWidth], ["height", this.gl.drawingBufferHeight]]));
+        let uniforms = new Map();
+        uniforms.set("width", this.gl.drawingBufferWidth);
+        uniforms.set("height", this.gl.drawingBufferHeight);
+        this.shader.setIntByName("sphere_count", 2);
+        // this.addSpheres(uniforms);
+        uniforms.set("spheres[0].center", gl_matrix_1.vec3.fromValues(0, 0, -1.0));
+        uniforms.set("spheres[0].radius", 0.5);
+        uniforms.set("spheres[1].center", gl_matrix_1.vec3.fromValues(0, -100.5, -1));
+        uniforms.set("spheres[1].radius", 100);
+        this.shader.setUniforms(uniforms);
+        this.shader.setIntByName("sample_count", 5000);
+        this.shader.setIntByName("max_rays", 4);
+    }
+    addSpheres(uniforms) {
+        for (let i = 0; i < 30; i++) {
+            uniforms.set(`spheres[${i}].center`, gl_matrix_1.vec3.fromValues(2 * Math.random() - 1, Math.random() / 3.0 - 0.5, -Math.random() / 2.0 - 0.5));
+            uniforms.set(`spheres[${i}].radius`, Math.random() / 10.0 + 0.05);
+        }
+        this.shader.setIntByName("sphere_count", 30);
     }
     initBuffers() {
         let gl = this.gl;
@@ -7612,13 +7845,12 @@ exports.WebglRenderer = WebglRenderer;
 
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const gl_matrix_1 = __webpack_require__(1);
 class Shader {
     constructor(gl, vertexSourceCode, fragmentSourceCode) {
         this.gl = gl;
@@ -7718,14 +7950,13 @@ class Shader {
         else if (value === "boolean") {
             this.setBool(uniform, value);
         }
-        else if (value instanceof gl_matrix_1.vec3) {
-            this.setVec3(uniform, value);
-        }
-        else if (value instanceof gl_matrix_1.vec4) {
-            this.setVec4(uniform, value);
-        }
-        else if (value instanceof gl_matrix_1.mat4) {
-            this.setMat4(uniform, value);
+        else if (value instanceof Float32Array) {
+            if (value.length == 3)
+                this.setVec3(uniform, value);
+            if (value.length == 4)
+                this.setVec4(uniform, value);
+            if (value.length == 16)
+                this.setMat4(uniform, value);
         }
     }
     getShader(gl, sourceCode, type) {
@@ -7744,13 +7975,13 @@ exports.Shader = Shader;
 
 
 /***/ }),
-/* 16 */
+/* 21 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nvec3 ray_pointAtParameter(Ray ray, float t){\r\n    vec3 result = ray.origin + t * ray.direction;\r\n    return result;\r\n}\r\n\r\nfloat hitSphere(const vec3 center, float radius, Ray ray){\r\n    vec3 oc = ray.origin - center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = 2.0 * dot(oc, ray.direction);\r\n    float c = dot(oc,oc) - radius*radius;\r\n    float discriminant = b*b - 4.0 * a * c;\r\n    if (discriminant < 0.0){\r\n        return -1.0;\r\n    }else{\r\n        return (-b - sqrt(discriminant)) / (2.0 * a);\r\n    }\r\n}\r\n\r\nvec3 color(Ray ray){\r\n    float t = hitSphere(vec3(0,0,-1), 0.5, ray);\r\n    if(t > 0.0){\r\n        vec3 N = normalize(ray_pointAtParameter(ray, t) - vec3(0,0,-1));\r\n        return 0.5*vec3(N.x+1.0, N.y+1.0, N.z+1.0);\r\n    }\r\n\r\n    vec3 unit_direction = normalize(ray.direction);\r\n    t = 0.5 * (unit_direction.y + 1.0);\r\n    return (1.0 - t) * vec3(1.0) + t * vec3(0.5,0.7,1.0);\r\n}\r\n\r\nvoid main()\r\n{        \r\n    Ray ray;\r\n    vec3 lower_left_corner =  vec3(-2.0,-1.0,-1.0);\r\n    vec3 horizontal = vec3(4.0,0.0,0.0);\r\n    vec3 vertical = vec3(0.0,2.0,0.0);\r\n    float u = pos.x;\r\n    float v = pos.y;\r\n    ray.origin = vec3(0);\r\n    ray.direction = lower_left_corner + u*horizontal + v*vertical;\r\n    fragColor = vec4(color(ray),1.0);\r\n}\r\n\r\n\r\n"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nin vec2 pos;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n};\r\n\r\nstruct RandomResult\r\n{\r\n    uvec4 state;\r\n    float value;\r\n};\r\n\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int max_rays;\r\nuniform Sphere spheres[100];\r\n\r\n\r\nuint TausStep(uint z, int S1, int S2, int S3, uint M)\r\n{\r\n    uint b = (((z << S1) ^ z) >> S2);\r\n    return (((z & M) << S3) ^ b);    \r\n}\r\n\r\nuint LCGStep(uint z, uint A, uint C)\r\n{\r\n    return (A * z + C);    \r\n}\r\n\r\nRandomResult Random(uvec4 state)\r\n{\r\n    state.x = TausStep(state.x, 13, 19, 12, 4294967294U);\r\n    state.y = TausStep(state.y, 2, 25, 4, 4294967288U);\r\n    state.z = TausStep(state.z, 3, 11, 17, 4294967280U);\r\n    state.w = LCGStep(state.w, 1664525U, 1013904223U);\r\n\r\n    RandomResult result;\r\n    result.state = state;\r\n    result.value = 2.3283064365387e-10 * float(state.x ^ state.y ^ state.z ^ state.w);\r\n\r\n    return result;\r\n}\r\n\r\nvec3 ray_pointAtParameter(Ray ray, float t){\r\n    vec3 result = ray.origin + t * ray.direction;\r\n    return result;\r\n}\r\n\r\n\r\nbool sphereIntersection(const Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 oc = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(oc, ray.direction);\r\n    float c = dot(oc,oc) - s.radius*s.radius;\r\n    float discriminant = b*b -  a * c;\r\n    if(discriminant > 0.0){\r\n        float temp = (-b - sqrt(b*b-a*c)) / a;\r\n        if(temp < t_max && temp > t_min){\r\n            rec.t = temp;\r\n            rec.pos = ray.origin + rec.t * ray.direction;\r\n            rec.normal = (rec.pos - s.center) / s.radius;\r\n            return true;\r\n        }\r\n        temp = (-b - sqrt(b*b-a*c)) / a;\r\n        if(temp < t_max && temp > t_min){\r\n           rec.t = temp;\r\n           rec.pos = ray.origin + rec.t * ray.direction;\r\n           rec.normal = (rec.pos - s.center) / s.radius;\r\n           return true;\r\n        }\r\n    }\r\n    return false;\r\n}\r\n\r\n\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    HitRecord temp_rec;\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    for(int i = 0; i < sphere_count; i++){\r\n        if(sphereIntersection(spheres[i], ray, t_min, closest_so_far, temp_rec)){\r\n            hit_anything = true;\r\n            closest_so_far = temp_rec.t;\r\n            rec = temp_rec;\r\n        }\r\n    }\r\n    return hit_anything;\r\n}\r\n\r\nvec3 randomInUnitSphere(inout RandomResult rand){\r\n    vec3 p;\r\n    do{\r\n        rand = Random(rand.state);\r\n        float a = rand.value;\r\n        rand = Random(rand.state);\r\n        float b = rand.value;\r\n        rand = Random(rand.state);\r\n        float c = rand.value;\r\n        p = 2.0 * vec3(a,b,c) - vec3(1,1,1);    \r\n    }while(dot(p,p) >= 1.0);\r\n    return p;\r\n}\r\n\r\nvec3 color(inout Ray ray, inout RandomResult random_result){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    float frac = 1.0;\r\n\r\n    for(int ray_bounce=0; ray_bounce < max_rays; ray_bounce++){\r\n        if(intersectAll(ray, 0.0, FLT_MAX, rec )){\r\n            vec3 target = rec.pos + rec.normal + randomInUnitSphere(random_result);\r\n            ray.origin = rec.pos;\r\n            ray.direction = target - rec.pos;\r\n            frac *= 0.5;\r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * vec3(0.5,0.7,1.0);\r\n             break;\r\n        }\r\n    }\r\n    return frac * final_color;\r\n}\r\n\r\n\r\n\r\nvoid main()\r\n{        \r\n    Ray ray;\r\n    uint a = uint(pos.x * 40908352.0);\r\n    uint b = uint(pos.y * 64360934.0);\r\n    RandomResult r = Random(uvec4(a, b,a + b, a ^ b));\r\n    vec3 col = vec3(0);\r\n    vec3 lower_left_corner =  vec3(-2.0,-1.0,-1.0);\r\n    vec3 horizontal = vec3(4.0,0.0,0.0);\r\n    vec3 vertical = vec3(0.0,2.0,0.0);\r\n    for(int i = 0; i < sample_count; i++){\r\n        r = Random(r.state);\r\n        float u = pos.x  + (r.value-0.5) / width ;\r\n        r = Random(r.state);\r\n        float v = pos.y + (r.value-0.5) / height;\r\n        ray.origin = vec3(0);\r\n        ray.direction = lower_left_corner + u*horizontal + v*vertical;\r\n        col += color(ray, r);\r\n    }\r\n    col /= float(sample_count);\r\n    col = vec3(sqrt(col[0]),sqrt(col[1]),sqrt(col[2]));\r\n \r\n    fragColor = vec4(col,1.0);\r\n}\r\n\r\n\r\n"
 
 /***/ }),
-/* 17 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = "#version 300 es\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\n\r\nout vec2 pos;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nvoid main()\r\n{\r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = a_vertex.xy * pos_fix + pos_fix;\r\n    \r\n    gl_Position = vec4(a_vertex,1.0f);\r\n}   "

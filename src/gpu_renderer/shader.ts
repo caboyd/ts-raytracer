@@ -84,7 +84,7 @@ export class Shader {
         this.gl.uniform1iv(id, value);
     }
 
-    public setIntVByName(name: string, value: number[]) {
+    public setIntVByName(name: string, value: number[] | Float32Array) {
         this.gl.uniform1iv(this.getUniformLocation(name), value);
     }
 
@@ -96,7 +96,7 @@ export class Shader {
         this.gl.uniform1f(this.getUniformLocation(name), value);
     }
 
-    public setMat4(id: number | WebGLUniformLocation, matrix: mat4 | number[]) {
+    public setMat4(id: number | WebGLUniformLocation, matrix: mat4 | number[] | Float32Array) {
         this.gl.uniformMatrix4fv(id, false, matrix);
     }
 
@@ -126,12 +126,10 @@ export class Shader {
             this.setFloat(uniform, value);
         } else if (value === "boolean") {
             this.setBool(uniform, value);
-        } else if (value instanceof vec3) {
-            this.setVec3(uniform, value);
-        } else if (value instanceof vec4) {
-            this.setVec4(uniform, value);
-        } else if (value instanceof mat4) {
-            this.setMat4(uniform, value);
+        } else if (value instanceof Float32Array) {
+            if (value.length == 3) this.setVec3(uniform, value);
+            if (value.length == 4) this.setVec4(uniform, value);
+            if (value.length == 16) this.setMat4(uniform, value);
         }
     }
 

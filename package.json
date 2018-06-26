@@ -20,7 +20,7 @@
     "parser": "typescript"
   },
   "dependencies": {
-    "mersenne-twister": "^1.1.0"
+    "fast-random": "^2.0.4"
   },
   "devDependencies": {
     "@types/gl-matrix": "^2.4.0",

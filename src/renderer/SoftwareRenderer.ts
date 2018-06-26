@@ -5,10 +5,12 @@ import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
 import {Camera} from "./Camera";
 
-const MersenneTwister = require('mersenne-twister');
+const random = require('fast-random');
+
+const seed = 12345;
+const gen = random(seed);
 
 
-let gen = new MersenneTwister(1);
 
 export class SoftwareRenderer {
     canvas: HTMLCanvasElement;
@@ -19,11 +21,10 @@ export class SoftwareRenderer {
     temp = vec3.create();
     temp2 = vec3.create();
     sphere_pos = vec3.fromValues(0, 0, -1);
+    temp_rec = new HitRecord();
 
-    max_ray_depth = 16;
+    max_ray_bounce = 4;
     num_samples = 32;
-    ray_depth = 0;
-    hit_records:HitRecord[] = Array.from({length:this.max_ray_depth}, u => new HitRecord());
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -35,7 +36,6 @@ export class SoftwareRenderer {
         let width = this.canvas.width;
         let height = this.canvas.height;
 
-        let temp = vec3.create();
         let color = vec3.create();
         let sum_color = vec3.create();
 
@@ -44,9 +44,9 @@ export class SoftwareRenderer {
         list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100);
         let world: Hitable = new HitableList(list, 2);
         let cam = new Camera();
-
+        let ray = new Ray();
+        let u,v;
         //Self Sample
-
         // for (let s = 0; s < num_samples; s++) {
         //     for (let y = 0; y < height; y++) {
         //         for (let x = 0; x < width; x++) {
@@ -64,15 +64,14 @@ export class SoftwareRenderer {
         //
         //     this.ctx.putImageData(this.image_data, 0, 0);
         // }
-
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 vec3.set(sum_color, 0, 0, 0);
                 for (let s = 0; s < this.num_samples; s++) {
-                    let u = (x + gen.random()) / width;
-                    let v = 1 - (y + gen.random()) / height;
-                    let ray = cam.getRay(u, v);
-                    ray.pointAtParameter(temp, 2.0);
+                    u = (x + gen.nextFloat() - 0.5) / width;
+                    v = 1 - (y + gen.nextFloat() - 0.5) / height;
+                    cam.getRay(ray, u, v);
+                    //ray.pointAtParameter(temp, 2.0);
                     this.color(color, ray, world);
                     vec3.add(sum_color, sum_color, color);
                 }
@@ -86,35 +85,32 @@ export class SoftwareRenderer {
 
     private randomInUnitSphere(out: vec3): vec3 {
         do {
-            vec3.set(out, 2 * gen.random() - 1, 2 * gen.random() - 1, 2 * gen.random() - 1);
+            vec3.set(out, 2 *gen.nextFloat() - 1, 2 * gen.nextFloat() - 1, 2 * gen.nextFloat() - 1);
         } while (vec3.dot(out, out) >= 1.0);
         return out;
     }
 
     private color(out: vec3, ray: Ray, world: Hitable): vec3 {
-        if (world.hit(ray, 0.0, Number.MAX_VALUE, this.hit_records[this.ray_depth])) {
-            vec3.add(out, this.hit_records[this.ray_depth].pos, this.randomInUnitSphere(out));
-            vec3.add(out, out,this.hit_records[this.ray_depth].normal);
+        let frac = 1.0;
 
-            if(this.ray_depth < this.max_ray_depth-1){
-                this.ray_depth++;
-                this.color(out, new Ray(this.hit_records[this.ray_depth-1].pos, vec3.sub(this.temp,out, this.hit_records[this.ray_depth-1].pos)), world);
-                vec3.scale(out, out, 0.5);
-                this.ray_depth--;
+        for(let ray_bounce = 0; ray_bounce < this.max_ray_bounce; ray_bounce++) {
+            if (world.hit(ray, 0.0, Number.MAX_VALUE, this.temp_rec)) {
+                vec3.add(this.temp, this.temp_rec.pos, this.randomInUnitSphere(this.temp));
+                vec3.add(this.temp, this.temp, this.temp_rec.normal);
+               
+                vec3.copy(ray.origin, this.temp_rec.pos);
+                vec3.sub(ray.direction, this.temp, this.temp_rec.pos);
+                frac *= 0.5;
+            } else {
+                vec3.copy(this.temp, ray.direction);
+                vec3.normalize(this.temp, this.temp);
+                let t = 0.5 * (this.temp[1] + 1.0);
+                vec3.set(out, (1.0 - t) + t * 0.5, (1.0 - t) + t * 0.7, (1.0 - t) + t * 1.0);
+                break;
             }
-            return out;
-        } else {
-            let unit_direction = out;
-            vec3.copy(unit_direction, ray.direction);
-            vec3.normalize(unit_direction, unit_direction);
-            let t = 0.5 * (unit_direction[1] + 1.0);
-            vec3.set(this.temp, 1, 1, 1);
-            vec3.set(this.temp2, 0.5, 0.7, 1.0);
-            vec3.scale(this.temp, this.temp, 1.0 - t);
-            vec3.scale(this.temp2, this.temp2, t);
-            vec3.add(out, this.temp, this.temp2);
-            return out;
         }
+        vec3.scale(out,out,frac);
+        return out;
     }
 
     private colorLERP(out_color: vec3, color1: vec3, color2: vec3, t: number): void {
