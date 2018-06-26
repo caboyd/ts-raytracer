@@ -18,7 +18,7 @@ vec3 ray_pointAtParameter(Ray ray, float t){
     return result;
 }
 
-float hitSphere(const vec3 center, float radius, Ray ray){
+float sphereIntersection(const vec3 center, float radius, Ray ray){
     vec3 oc = ray.origin - center;
     float a = dot(ray.direction, ray.direction);
     float b = 2.0 * dot(oc, ray.direction);
@@ -32,7 +32,7 @@ float hitSphere(const vec3 center, float radius, Ray ray){
 }
 
 vec3 color(Ray ray){
-    float t = hitSphere(vec3(0,0,-1), 0.5, ray);
+    float t = sphereIntersection(vec3(0,0,-1), 0.5, ray);
     if(t > 0.0){
         vec3 N = normalize(ray_pointAtParameter(ray, t) - vec3(0,0,-1));
         return 0.5*vec3(N.x+1.0, N.y+1.0, N.z+1.0);

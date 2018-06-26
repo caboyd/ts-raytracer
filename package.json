@@ -19,7 +19,9 @@
     "printWidth": 120,
     "parser": "typescript"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mersenne-twister": "^1.1.0"
+  },
   "devDependencies": {
     "@types/gl-matrix": "^2.4.0",
     "@types/node": "^10.3.2",
