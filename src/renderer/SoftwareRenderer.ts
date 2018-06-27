@@ -8,7 +8,7 @@ import {Dielectric, Lambertian, Metal} from "./Material";
 
 const random = require('fast-random');
 
-const seed = 12345;
+const seed = 1;
 const gen = random(seed);
 export  default gen;
 
@@ -22,8 +22,8 @@ export class SoftwareRenderer {
     temp = vec3.create();
     temp_rec = new HitRecord();
 
-    max_ray_bounce = 50;
-    num_samples = 2000;
+    max_ray_bounce = 10;
+    num_samples = 64;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -41,7 +41,6 @@ export class SoftwareRenderer {
         let list = Array<Hitable>(5);
         list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.1,0.2,0.5)));
         list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100, new Lambertian(vec3.fromValues(0.8,0.8,0.0)));
-
         list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.6,0.2), 0.3));
         list[3] = new Sphere(vec3.fromValues(-1, 0, -1), 0.5, new Dielectric(1.5));
         list[4] = new Sphere(vec3.fromValues(-1, 0, -1), -0.45, new Dielectric(1.5));

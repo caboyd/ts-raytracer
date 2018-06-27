@@ -204,7 +204,7 @@ const HitableList_1 = __webpack_require__(16);
 const Camera_1 = __webpack_require__(17);
 const Material_1 = __webpack_require__(18);
 const random = __webpack_require__(19);
-const seed = 12345;
+const seed = 1;
 const gen = random(seed);
 exports.default = gen;
 class SoftwareRenderer {
@@ -212,8 +212,8 @@ class SoftwareRenderer {
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
         this.temp = gl_matrix_1.vec3.create();
         this.temp_rec = new Hitable_1.HitRecord();
-        this.max_ray_bounce = 50;
-        this.num_samples = 2000;
+        this.max_ray_bounce = 10;
+        this.num_samples = 64;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
@@ -7937,8 +7937,8 @@ class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
         this.shader.setIntByName("sphere_count", 5);
-        this.shader.setIntByName("sample_count", 2000);
-        this.shader.setIntByName("max_ray_bounce", 50);
+        this.shader.setIntByName("sample_count", 3000);
+        this.shader.setIntByName("max_ray_bounce", 40);
         // this.addSpheres(uniforms);
         uniforms.set("ambient_light", gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0));
         this.setSphereUniform(uniforms, 0, gl_matrix_1.vec3.fromValues(0, 0, -1.0), 0.5, new Material_1.Material(Material_1.MatType.Diffuse, gl_matrix_1.vec3.fromValues(0.1, 0.2, 0.5)));
