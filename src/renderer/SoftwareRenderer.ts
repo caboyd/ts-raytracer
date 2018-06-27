@@ -4,12 +4,13 @@ import {Hitable, HitRecord} from "./Hitable";
 import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
 import {Camera} from "./Camera";
+import {Lambertian, Metal} from "./Material";
 
 const random = require('fast-random');
 
 const seed = 12345;
 const gen = random(seed);
-
+export  default gen;
 
 
 export class SoftwareRenderer {
@@ -23,8 +24,8 @@ export class SoftwareRenderer {
     sphere_pos = vec3.fromValues(0, 0, -1);
     temp_rec = new HitRecord();
 
-    max_ray_bounce = 4;
-    num_samples = 32;
+    max_ray_bounce = 8;
+    num_samples = 128;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -39,13 +40,17 @@ export class SoftwareRenderer {
         let color = vec3.create();
         let sum_color = vec3.create();
 
-        let list = Array<Hitable>(2);
-        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5);
-        list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100);
-        let world: Hitable = new HitableList(list, 2);
+        let list = Array<Hitable>(4);
+        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.8,0.3,0.3)));
+        list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100, new Lambertian(vec3.fromValues(0.8,0.8,0.0)));
+
+        list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.6,0.2)));
+        list[3] = new Sphere(vec3.fromValues(-1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.8,0.8)));
+        
+        let world: Hitable = new HitableList(list, 4);
         let cam = new Camera();
         let ray = new Ray();
-        let u,v;
+        
         //Self Sample
         // for (let s = 0; s < num_samples; s++) {
         //     for (let y = 0; y < height; y++) {
@@ -64,12 +69,13 @@ export class SoftwareRenderer {
         //
         //     this.ctx.putImageData(this.image_data, 0, 0);
         // }
+        
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 vec3.set(sum_color, 0, 0, 0);
                 for (let s = 0; s < this.num_samples; s++) {
-                    u = (x + gen.nextFloat() - 0.5) / width;
-                    v = 1 - (y + gen.nextFloat() - 0.5) / height;
+                    let u = (x + gen.nextFloat() - 0.5) / width;
+                    let v = 1 - (y + gen.nextFloat() - 0.5) / height;
                     cam.getRay(ray, u, v);
                     //ray.pointAtParameter(temp, 2.0);
                     this.color(color, ray, world);
@@ -83,24 +89,17 @@ export class SoftwareRenderer {
         this.ctx.putImageData(this.image_data, 0, 0);
     }
 
-    private randomInUnitSphere(out: vec3): vec3 {
-        do {
-            vec3.set(out, 2 *gen.nextFloat() - 1, 2 * gen.nextFloat() - 1, 2 * gen.nextFloat() - 1);
-        } while (vec3.dot(out, out) >= 1.0);
-        return out;
-    }
-
     private color(out: vec3, ray: Ray, world: Hitable): vec3 {
-        let frac = 1.0;
+        let frac = vec3.fromValues(1,1,1);
+        let attenuation = vec3.create();
 
         for(let ray_bounce = 0; ray_bounce < this.max_ray_bounce; ray_bounce++) {
-            if (world.hit(ray, 0.0, Number.MAX_VALUE, this.temp_rec)) {
-                vec3.add(this.temp, this.temp_rec.pos, this.randomInUnitSphere(this.temp));
-                vec3.add(this.temp, this.temp, this.temp_rec.normal);
-               
-                vec3.copy(ray.origin, this.temp_rec.pos);
-                vec3.sub(ray.direction, this.temp, this.temp_rec.pos);
-                frac *= 0.5;
+            if (world.hit(ray, 0.001, Number.MAX_VALUE, this.temp_rec)) {
+                if(this.temp_rec.material.scatter(ray,this.temp_rec,attenuation,ray)){
+                    vec3.mul(frac,frac,attenuation);
+                }else{
+                    vec3.set(frac,0,0,0);
+                }
             } else {
                 vec3.copy(this.temp, ray.direction);
                 vec3.normalize(this.temp, this.temp);
@@ -109,7 +108,7 @@ export class SoftwareRenderer {
                 break;
             }
         }
-        vec3.scale(out,out,frac);
+        vec3.mul(out,out,frac);
         return out;
     }
 

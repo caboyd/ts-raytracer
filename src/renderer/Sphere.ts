@@ -1,11 +1,12 @@
 import {Hitable, HitRecord} from "./Hitable";
 import {vec3} from "gl-matrix";
 import {Ray} from "./Ray";
+import {Material} from "./Material";
 
 export class Sphere extends Hitable {
     private temp: vec3 = vec3.create();
 
-    constructor(public center: vec3, public radius: number) {
+    constructor(public center: vec3, public radius: number, public material:Material) {
         super();
     }
 
@@ -23,7 +24,8 @@ export class Sphere extends Hitable {
 
                 vec3.sub(rec.normal, rec.pos, this.center);
                 vec3.scale(rec.normal, rec.normal, 1 / this.radius);
-
+                
+                rec.material = this.material;
                 return true;
             }
             temp = (-b + Math.sqrt(b * b - a * c)) / a;
@@ -34,6 +36,7 @@ export class Sphere extends Hitable {
                 vec3.sub(rec.normal, rec.pos, this.center);
                 vec3.scale(rec.normal, rec.normal, 1 / this.radius);
 
+                rec.material = this.material;
                 return true;
             }
         }

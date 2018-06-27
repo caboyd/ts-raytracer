@@ -1,12 +1,19 @@
 import {vec3} from "gl-matrix";
 import {Ray} from "./Ray";
+import {Material} from "./Material";
 
 export class HitRecord {
-    constructor(public t: number = 0, public pos: vec3 = vec3.create(), public normal: vec3 = vec3.create()) {}
+    public material:Material;
+    
+    constructor(public t: number = 0, public pos: vec3 = vec3.create(), public normal: vec3 = vec3.create()) {
+        this.material = null;
+    }
+    
     clear():void{
         this.t = 0;
         vec3.set(this.pos,0,0,0);
         vec3.set(this.normal,0,0,0);
+        this.material = null;
 }
 }
 

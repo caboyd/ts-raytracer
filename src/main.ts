@@ -20,11 +20,11 @@ function drawScene() {
 function drawWebgl(){
     let now = performance.now();
     webgl_renderer.draw();
-    document.getElementById("webgl-text").textContent = " " + (performance.now() - now) + " ms";
+    document.getElementById("webgl-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
 }
 
 function drawCanvas(){
     let now = performance.now();
     software_renderer.draw();
-    document.getElementById("canvas-text").textContent = " " + (performance.now() - now) + " ms";
+    document.getElementById("canvas-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
 }
