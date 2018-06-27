@@ -7937,8 +7937,8 @@ class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
         this.shader.setIntByName("sphere_count", 5);
-        this.shader.setIntByName("sample_count", 3000);
-        this.shader.setIntByName("max_ray_bounce", 40);
+        this.shader.setIntByName("sample_count", 2000);
+        this.shader.setIntByName("max_ray_bounce", 20);
         // this.addSpheres(uniforms);
         uniforms.set("ambient_light", gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0));
         this.setSphereUniform(uniforms, 0, gl_matrix_1.vec3.fromValues(0, 0, -1.0), 0.5, new Material_1.Material(Material_1.MatType.Diffuse, gl_matrix_1.vec3.fromValues(0.1, 0.2, 0.5)));

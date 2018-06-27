@@ -54,8 +54,8 @@ export class WebglRenderer {
         uniforms.set("height", this.gl.drawingBufferHeight);
 
         this.shader.setIntByName("sphere_count", 5);
-        this.shader.setIntByName("sample_count", 3000);
-        this.shader.setIntByName("max_ray_bounce", 40);
+        this.shader.setIntByName("sample_count", 2000);
+        this.shader.setIntByName("max_ray_bounce", 20);
         // this.addSpheres(uniforms);
         
         uniforms.set("ambient_light", vec3.fromValues(0.5,0.7,1.0));
