@@ -3,14 +3,15 @@ import {WebglRenderer} from "./gpu_renderer/WebglRenderer";
 
 let software_renderer: SoftwareRenderer;
 let webgl_renderer: WebglRenderer;
-let is_mobile:boolean = false;
-export default is_mobile;
+export var is_mobile:boolean = false;
 
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    is_mobile = true;
-}
 
 (function loadWebGL() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        is_mobile = true;
+    }
+
+    
     let canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
     let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     software_renderer = new SoftwareRenderer(canvas);

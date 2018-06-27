@@ -172,12 +172,11 @@ const SoftwareRenderer_1 = __webpack_require__(4);
 const WebglRenderer_1 = __webpack_require__(20);
 let software_renderer;
 let webgl_renderer;
-let is_mobile = false;
-exports.default = is_mobile;
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    is_mobile = true;
-}
+exports.is_mobile = false;
 (function loadWebGL() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        exports.is_mobile = true;
+    }
     let canvas_webgl2 = document.getElementById("canvas-webgl2");
     let canvas = document.getElementById("canvas");
     software_renderer = new SoftwareRenderer_1.SoftwareRenderer(canvas);
@@ -252,8 +251,8 @@ class SoftwareRenderer {
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
         this.temp = gl_matrix_1.vec3.create();
         this.temp_rec = new Hitable_1.HitRecord();
-        this.max_ray_bounce = main_1.default ? 8 : 16;
-        this.num_samples = main_1.default ? 12 : 64;
+        this.max_ray_bounce = main_1.is_mobile ? 8 : 16;
+        this.num_samples = main_1.is_mobile ? 12 : 64;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
@@ -324,7 +323,7 @@ class SoftwareRenderer {
                 gl_matrix_1.vec3.copy(this.temp, ray.direction);
                 gl_matrix_1.vec3.normalize(this.temp, this.temp);
                 let t = 0.5 * (this.temp[1] + 1.0);
-                gl_matrix_1.vec3.set(out, (1.0 - t) + t * this.ambient_light[0], (1.0 - t) + t * this.ambient_light[1], (1.0 - t) + t * this.ambient_light[2]);
+                gl_matrix_1.vec3.set(out, 1.0 - t + t * this.ambient_light[0], 1.0 - t + t * this.ambient_light[1], 1.0 - t + t * this.ambient_light[2]);
                 break;
             }
         }
@@ -7944,8 +7943,8 @@ class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
         this.shader.setIntByName("sphere_count", 5);
-        this.shader.setIntByName("sample_count", main_1.default ? 200 : 2000);
-        this.shader.setIntByName("max_ray_bounce", main_1.default ? 8 : 20);
+        this.shader.setIntByName("sample_count", main_1.is_mobile ? 200 : 2000);
+        this.shader.setIntByName("max_ray_bounce", main_1.is_mobile ? 8 : 20);
         // this.addSpheres(uniforms);
         uniforms.set("ambient_light", gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0));
         this.setSphereUniform(uniforms, 0, gl_matrix_1.vec3.fromValues(0, 0, -1.0), 0.5, new Material_1.Material(Material_1.MatType.Diffuse, gl_matrix_1.vec3.fromValues(0.1, 0.2, 0.5)));

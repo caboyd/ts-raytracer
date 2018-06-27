@@ -1,7 +1,7 @@
 import {Shader} from "./shader";
 import {vec3} from "gl-matrix";
 import {Material, MatType} from "./Material";
-import is_mobile from "../main";
+import {is_mobile} from "../main";
 
 export class WebglRenderer {
     gl: WebGL2RenderingContext;
@@ -58,18 +58,46 @@ export class WebglRenderer {
         this.shader.setIntByName("sample_count", is_mobile ? 200 : 2000);
         this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 20);
         // this.addSpheres(uniforms);
-        
-        uniforms.set("ambient_light", vec3.fromValues(0.5,0.7,1.0));
-        this.setSphereUniform(uniforms, 0, vec3.fromValues(0,0,-1.0), 0.5, new Material(MatType.Diffuse, vec3.fromValues(0.1,0.2,0.5)));
-        this.setSphereUniform(uniforms, 1, vec3.fromValues(0, -100.5, -1), 100, new Material(MatType.Diffuse, vec3.fromValues(0.8,0.8,0.0)));
 
-        this.setSphereUniform(uniforms, 2, vec3.fromValues(1,0,-1.0), 0.5, new Material(MatType.Reflect, vec3.fromValues(0.8,0.6,0.2), 0.3));
-        this.setSphereUniform(uniforms, 3, vec3.fromValues(-1, 0, -1), 0.5, new Material(MatType.Refract, vec3.create(), 1.5));
-        this.setSphereUniform(uniforms, 4, vec3.fromValues(-1, 0, -1), -0.45, new Material(MatType.Refract, vec3.create(), 1.5));
-        
+        uniforms.set("ambient_light", vec3.fromValues(0.5, 0.7, 1.0));
+        this.setSphereUniform(
+            uniforms,
+            0,
+            vec3.fromValues(0, 0, -1.0),
+            0.5,
+            new Material(MatType.Diffuse, vec3.fromValues(0.1, 0.2, 0.5))
+        );
+        this.setSphereUniform(
+            uniforms,
+            1,
+            vec3.fromValues(0, -100.5, -1),
+            100,
+            new Material(MatType.Diffuse, vec3.fromValues(0.8, 0.8, 0.0))
+        );
+
+        this.setSphereUniform(
+            uniforms,
+            2,
+            vec3.fromValues(1, 0, -1.0),
+            0.5,
+            new Material(MatType.Reflect, vec3.fromValues(0.8, 0.6, 0.2), 0.3)
+        );
+        this.setSphereUniform(
+            uniforms,
+            3,
+            vec3.fromValues(-1, 0, -1),
+            0.5,
+            new Material(MatType.Refract, vec3.create(), 1.5)
+        );
+        this.setSphereUniform(
+            uniforms,
+            4,
+            vec3.fromValues(-1, 0, -1),
+            -0.45,
+            new Material(MatType.Refract, vec3.create(), 1.5)
+        );
+
         this.shader.setUniforms(uniforms);
-
-
     }
 
     private addSpheres(uniforms: Map<string, any>): void {
@@ -83,7 +111,13 @@ export class WebglRenderer {
         this.shader.setIntByName("sphere_count", 30);
     }
 
-    private setSphereUniform(uniforms:Map<string, any>, index:number, center:vec3, radius:number, mat:Material):void{
+    private setSphereUniform(
+        uniforms: Map<string, any>,
+        index: number,
+        center: vec3,
+        radius: number,
+        mat: Material
+    ): void {
         uniforms.set(`spheres[${index}].center`, center);
         uniforms.set(`spheres[${index}].radius`, radius);
         uniforms.set(`spheres[${index}].mat.fuzz`, mat.fuzz);
@@ -92,9 +126,8 @@ export class WebglRenderer {
         this.shader.setIntByName(`spheres[${index}].mat.type`, mat.type);
         uniforms.set(`spheres[${index}].mat.diffuse`, mat.diffuse);
         uniforms.set(`spheres[${index}].mat.reflect`, mat.reflect);
-
     }
-    
+
     private initBuffers() {
         let gl = this.gl;
         this.vertex_buffer = gl.createBuffer();

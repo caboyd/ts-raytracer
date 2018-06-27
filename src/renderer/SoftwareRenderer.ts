@@ -5,21 +5,20 @@ import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
 import {Camera} from "./Camera";
 import {Dielectric, Lambertian, Metal} from "./Material";
-import is_mobile from "../main";
+import {is_mobile} from "../main";
 
-const random = require('fast-random');
+const random = require("fast-random");
 
 const seed = 1;
 const gen = random(seed);
-export  default gen;
-
+export default gen;
 
 export class SoftwareRenderer {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     image_data: ImageData;
-   
-    ambient_light = vec3.fromValues(0.5,0.7,1.0);
+
+    ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
     temp = vec3.create();
     temp_rec = new HitRecord();
 
@@ -40,16 +39,16 @@ export class SoftwareRenderer {
         let sum_color = vec3.create();
 
         let list = Array<Hitable>(5);
-        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.1,0.2,0.5)));
-        list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100, new Lambertian(vec3.fromValues(0.8,0.8,0.0)));
-        list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.6,0.2), 0.3));
+        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.1, 0.2, 0.5)));
+        list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100, new Lambertian(vec3.fromValues(0.8, 0.8, 0.0)));
+        list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8, 0.6, 0.2), 0.3));
         list[3] = new Sphere(vec3.fromValues(-1, 0, -1), 0.5, new Dielectric(1.5));
         list[4] = new Sphere(vec3.fromValues(-1, 0, -1), -0.45, new Dielectric(1.5));
-        
+
         let world: Hitable = new HitableList(list);
         let cam = new Camera();
         let ray = new Ray();
-        
+
         //Self Sample
         // for (let s = 0; s < num_samples; s++) {
         //     for (let y = 0; y < height; y++) {
@@ -68,7 +67,7 @@ export class SoftwareRenderer {
         //
         //     this.ctx.putImageData(this.image_data, 0, 0);
         // }
-        
+
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
                 vec3.set(sum_color, 0, 0, 0);
@@ -89,25 +88,30 @@ export class SoftwareRenderer {
     }
 
     private color(out: vec3, ray: Ray, world: Hitable): vec3 {
-        let frac = vec3.fromValues(1,1,1);
+        let frac = vec3.fromValues(1, 1, 1);
         let attenuation = vec3.create();
 
-        for(let ray_bounce = 0; ray_bounce <= this.max_ray_bounce; ray_bounce++) {
+        for (let ray_bounce = 0; ray_bounce <= this.max_ray_bounce; ray_bounce++) {
             if (world.hit(ray, 0.001, Number.MAX_VALUE, this.temp_rec)) {
-                if(this.temp_rec.material.scatter(ray,ray,this.temp_rec,attenuation)){
-                    vec3.mul(frac,frac,attenuation);
-                }else{
-                    vec3.set(frac,0,0,0);
+                if (this.temp_rec.material.scatter(ray, ray, this.temp_rec, attenuation)) {
+                    vec3.mul(frac, frac, attenuation);
+                } else {
+                    vec3.set(frac, 0, 0, 0);
                 }
             } else {
                 vec3.copy(this.temp, ray.direction);
                 vec3.normalize(this.temp, this.temp);
                 let t = 0.5 * (this.temp[1] + 1.0);
-                vec3.set(out, (1.0 - t) + t * this.ambient_light[0], (1.0 - t) + t * this.ambient_light[1], (1.0 - t) + t * this.ambient_light[2]);
+                vec3.set(
+                    out,
+                    1.0 - t + t * this.ambient_light[0],
+                    1.0 - t + t * this.ambient_light[1],
+                    1.0 - t + t * this.ambient_light[2]
+                );
                 break;
             }
         }
-        vec3.mul(out,out,frac);
+        vec3.mul(out, out, frac);
         return out;
     }
 
