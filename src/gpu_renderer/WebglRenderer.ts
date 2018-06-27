@@ -1,5 +1,6 @@
 import {Shader} from "./shader";
 import {vec3} from "gl-matrix";
+import {Material, MatType} from "./Material";
 
 export class WebglRenderer {
     gl: WebGL2RenderingContext;
@@ -52,17 +53,22 @@ export class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
 
-        this.shader.setIntByName("sphere_count", 2);
+        this.shader.setIntByName("sphere_count", 5);
+        this.shader.setIntByName("sample_count", 2000);
+        this.shader.setIntByName("max_ray_bounce", 50);
         // this.addSpheres(uniforms);
-        uniforms.set("spheres[0].center", vec3.fromValues(0, 0, -1.0));
-        uniforms.set("spheres[0].radius", 0.5);
-        uniforms.set("spheres[1].center", vec3.fromValues(0, -100.5, -1));
-        uniforms.set("spheres[1].radius", 100);
+        
+        uniforms.set("ambient_light", vec3.fromValues(0.5,0.7,1.0));
+        this.setSphereUniform(uniforms, 0, vec3.fromValues(0,0,-1.0), 0.5, new Material(MatType.Diffuse, vec3.fromValues(0.1,0.2,0.5)));
+        this.setSphereUniform(uniforms, 1, vec3.fromValues(0, -100.5, -1), 100, new Material(MatType.Diffuse, vec3.fromValues(0.8,0.8,0.0)));
 
+        this.setSphereUniform(uniforms, 2, vec3.fromValues(1,0,-1.0), 0.5, new Material(MatType.Reflect, vec3.fromValues(0.8,0.6,0.2), 0.3));
+        this.setSphereUniform(uniforms, 3, vec3.fromValues(-1, 0, -1), 0.5, new Material(MatType.Refract, vec3.create(), 1.5));
+        this.setSphereUniform(uniforms, 4, vec3.fromValues(-1, 0, -1), -0.45, new Material(MatType.Refract, vec3.create(), 1.5));
+        
         this.shader.setUniforms(uniforms);
 
-        this.shader.setIntByName("sample_count", 5000);
-        this.shader.setIntByName("max_rays", 4);
+
     }
 
     private addSpheres(uniforms: Map<string, any>): void {
@@ -76,6 +82,18 @@ export class WebglRenderer {
         this.shader.setIntByName("sphere_count", 30);
     }
 
+    private setSphereUniform(uniforms:Map<string, any>, index:number, center:vec3, radius:number, mat:Material):void{
+        uniforms.set(`spheres[${index}].center`, center);
+        uniforms.set(`spheres[${index}].radius`, radius);
+        uniforms.set(`spheres[${index}].mat.fuzz`, mat.fuzz);
+        uniforms.set(`spheres[${index}].mat.refraction_index`, mat.refraction_index);
+
+        this.shader.setIntByName(`spheres[${index}].mat.type`, mat.type);
+        uniforms.set(`spheres[${index}].mat.diffuse`, mat.diffuse);
+        uniforms.set(`spheres[${index}].mat.reflect`, mat.reflect);
+
+    }
+    
     private initBuffers() {
         let gl = this.gl;
         this.vertex_buffer = gl.createBuffer();

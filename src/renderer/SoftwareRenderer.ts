@@ -4,7 +4,7 @@ import {Hitable, HitRecord} from "./Hitable";
 import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
 import {Camera} from "./Camera";
-import {Lambertian, Metal} from "./Material";
+import {Dielectric, Lambertian, Metal} from "./Material";
 
 const random = require('fast-random');
 
@@ -17,15 +17,13 @@ export class SoftwareRenderer {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     image_data: ImageData;
-
    
+    ambient_light = vec3.fromValues(0.5,0.7,1.0);
     temp = vec3.create();
-    temp2 = vec3.create();
-    sphere_pos = vec3.fromValues(0, 0, -1);
     temp_rec = new HitRecord();
 
-    max_ray_bounce = 8;
-    num_samples = 128;
+    max_ray_bounce = 50;
+    num_samples = 2000;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -40,14 +38,15 @@ export class SoftwareRenderer {
         let color = vec3.create();
         let sum_color = vec3.create();
 
-        let list = Array<Hitable>(4);
-        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.8,0.3,0.3)));
+        let list = Array<Hitable>(5);
+        list[0] = new Sphere(vec3.fromValues(0, 0, -1), 0.5, new Lambertian(vec3.fromValues(0.1,0.2,0.5)));
         list[1] = new Sphere(vec3.fromValues(0, -100.5, -1), 100, new Lambertian(vec3.fromValues(0.8,0.8,0.0)));
 
-        list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.6,0.2)));
-        list[3] = new Sphere(vec3.fromValues(-1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.8,0.8)));
+        list[2] = new Sphere(vec3.fromValues(1, 0, -1), 0.5, new Metal(vec3.fromValues(0.8,0.6,0.2), 0.3));
+        list[3] = new Sphere(vec3.fromValues(-1, 0, -1), 0.5, new Dielectric(1.5));
+        list[4] = new Sphere(vec3.fromValues(-1, 0, -1), -0.45, new Dielectric(1.5));
         
-        let world: Hitable = new HitableList(list, 4);
+        let world: Hitable = new HitableList(list);
         let cam = new Camera();
         let ray = new Ray();
         
@@ -93,9 +92,9 @@ export class SoftwareRenderer {
         let frac = vec3.fromValues(1,1,1);
         let attenuation = vec3.create();
 
-        for(let ray_bounce = 0; ray_bounce < this.max_ray_bounce; ray_bounce++) {
+        for(let ray_bounce = 0; ray_bounce <= this.max_ray_bounce; ray_bounce++) {
             if (world.hit(ray, 0.001, Number.MAX_VALUE, this.temp_rec)) {
-                if(this.temp_rec.material.scatter(ray,this.temp_rec,attenuation,ray)){
+                if(this.temp_rec.material.scatter(ray,ray,this.temp_rec,attenuation)){
                     vec3.mul(frac,frac,attenuation);
                 }else{
                     vec3.set(frac,0,0,0);
@@ -104,7 +103,7 @@ export class SoftwareRenderer {
                 vec3.copy(this.temp, ray.direction);
                 vec3.normalize(this.temp, this.temp);
                 let t = 0.5 * (this.temp[1] + 1.0);
-                vec3.set(out, (1.0 - t) + t * 0.5, (1.0 - t) + t * 0.7, (1.0 - t) + t * 1.0);
+                vec3.set(out, (1.0 - t) + t * this.ambient_light[0], (1.0 - t) + t * this.ambient_light[1], (1.0 - t) + t * this.ambient_light[2]);
                 break;
             }
         }

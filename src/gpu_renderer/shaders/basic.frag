@@ -15,15 +15,30 @@ struct Ray{
     vec3 direction;
 };
 
+const int Diffuse = 0;
+const int Reflect = 1;
+const int Refract = 2;
+
+struct Material{
+    int type;
+    vec3 diffuse;
+    vec3 reflect;
+    vec3 refract;
+    float fuzz;
+    float refraction_index;
+};
+
 struct HitRecord{
     float t;
     vec3 pos;
     vec3 normal;
+    Material mat;
 };
 
 struct Sphere{
     vec3 center;
     float radius;
+    Material mat;
 };
 
 struct RandomResult
@@ -32,9 +47,10 @@ struct RandomResult
     float value;
 };
 
+uniform vec3 ambient_light;
 uniform int sphere_count;
 uniform int sample_count;
-uniform int max_rays;
+uniform int max_ray_bounce;
 uniform Sphere spheres[100];
 
 
@@ -68,27 +84,39 @@ vec3 ray_pointAtParameter(Ray ray, float t){
     return result;
 }
 
+float schlick(float cosine, float ref_idx){
+    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);
+    r0 = r0*r0;
+    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);
+}
+
+
 
 bool sphereIntersection(const Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){
-    vec3 oc = ray.origin - s.center;
+    bool hit = false;
+    vec3 to_sphere = ray.origin - s.center;
     float a = dot(ray.direction, ray.direction);
-    float b = dot(oc, ray.direction);
-    float c = dot(oc,oc) - s.radius*s.radius;
-    float discriminant = b*b -  a * c;
+    float b = dot(to_sphere, ray.direction);
+    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;
+    float discriminant = b * b -  a * c;
+    
     if(discriminant > 0.0){
-        float temp = (-b - sqrt(b*b-a*c)) / a;
+        float temp = (-b - sqrt(discriminant)) / a;
         if(temp < t_max && temp > t_min){
+            hit = true;
+        }
+        if(!hit){
+            temp = (-b + sqrt(discriminant)) / a;
+            if(temp < t_max && temp > t_min){
+               hit = true;
+            }
+        }
+        if(hit){
             rec.t = temp;
             rec.pos = ray.origin + rec.t * ray.direction;
             rec.normal = (rec.pos - s.center) / s.radius;
+            rec.mat = s.mat;
             return true;
-        }
-        temp = (-b - sqrt(b*b-a*c)) / a;
-        if(temp < t_max && temp > t_min){
-           rec.t = temp;
-           rec.pos = ray.origin + rec.t * ray.direction;
-           rec.normal = (rec.pos - s.center) / s.radius;
-           return true;
         }
     }
     return false;
@@ -96,16 +124,14 @@ bool sphereIntersection(const Sphere s, Ray ray, float t_min, float t_max, inout
 
 
 bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
-    HitRecord temp_rec;
     bool hit_anything = false;
     float closest_so_far = t_max;
     
     //Spheres Loop
     for(int i = 0; i < sphere_count; i++){
-        if(sphereIntersection(spheres[i], ray, t_min, closest_so_far, temp_rec)){
+        if(sphereIntersection(spheres[i], ray, t_min, closest_so_far, rec)){
             hit_anything = true;
-            closest_so_far = temp_rec.t;
-            rec = temp_rec;
+            closest_so_far = rec.t;
         }
     }
     return hit_anything;
@@ -127,23 +153,64 @@ vec3 randomInUnitSphere(inout RandomResult rand){
 
 vec3 color(inout Ray ray, inout RandomResult random_result){
     HitRecord rec;
+    Ray orig_ray = ray;
     vec3 final_color = vec3(0.0);
-    float frac = 1.0;
+    vec3 color = vec3(1.0);
 
-    for(int ray_bounce=0; ray_bounce < max_rays; ray_bounce++){
-        if(intersectAll(ray, 0.0, FLT_MAX, rec )){
-            vec3 target = rec.pos + rec.normal + randomInUnitSphere(random_result);
+
+    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){
+        if(intersectAll(ray, 0.001, FLT_MAX, rec )){
             ray.origin = rec.pos;
-            ray.direction = target - rec.pos;
-            frac *= 0.5;
+            vec3 reflected = reflect(normalize(ray.direction), rec.normal);
+                   
+            if(rec.mat.type == Diffuse){
+                vec3 target = rec.pos + rec.normal + randomInUnitSphere(random_result);
+                ray.direction = target - rec.pos;
+                color  *=rec.mat.diffuse;
+            }else if(rec.mat.type == Reflect){     
+                ray.direction = reflected + rec.mat.fuzz*randomInUnitSphere(random_result);
+                if(dot(ray.direction, rec.normal) > 0.0)
+                    color *= rec.mat.reflect;
+                else
+                    color = vec3(0);
+            }else if(rec.mat.type == Refract){
+                vec3 outward_normal;
+                float ni_over_nt;
+                float reflect_prob;
+                float cosine;
+               
+               if(dot(ray.direction, rec.normal) > 0.0){
+                   outward_normal = -rec.normal;
+                   ni_over_nt = rec.mat.refraction_index;
+                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);
+               }else{
+                   outward_normal = rec.normal;
+                   ni_over_nt = 1.0 / rec.mat.refraction_index;
+                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);
+               }
+               vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);
+               if(length(refracted) > 0.0){
+                   reflect_prob = schlick(cosine, rec.mat.refraction_index);
+               }else{
+                   ray.direction = reflected;
+                   reflect_prob = 1.0;
+               }
+               random_result = Random(random_result.state);
+               if(random_result.value > reflect_prob){
+                   ray.direction = refracted;
+               }else
+                   ray.direction = reflected;
+               
+            }
         }else{
              vec3 unit_direction = normalize(ray.direction);
              float t = 0.5 * (unit_direction.y + 1.0);
-             final_color =  (1.0 - t) * vec3(1.0) +   t * vec3(0.5,0.7,1.0);
+             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light;
              break;
         }
     }
-    return frac * final_color;
+  
+    return color*final_color;
 }
 
 

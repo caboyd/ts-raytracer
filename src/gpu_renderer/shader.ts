@@ -47,14 +47,16 @@ export class Shader {
         this.use();
 
         for (let [name, value] of uniforms) {
-            this.uniforms.set(name, this.gl.getUniformLocation(this.ID, name));
             if (value) this.setAny(name, value);
         }
     }
 
     public getUniformLocation(name: string): WebGLUniformLocation {
         let a = this.uniforms.get(name);
-        if (a === undefined) a = this.gl.getUniformLocation(this.ID, name);
+        if (a === undefined) {
+            a = this.gl.getUniformLocation(this.ID, name);
+            this.uniforms.set(name, this.ID);
+        }
         return a;
     }
 

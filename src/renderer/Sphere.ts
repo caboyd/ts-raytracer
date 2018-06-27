@@ -17,7 +17,7 @@ export class Sphere extends Hitable {
         let c = vec3.dot(to_sphere, to_sphere) - this.radius * this.radius;
         let discriminant = b * b - a * c;
         if (discriminant > 0) {
-            let temp = (-b - Math.sqrt(b * b - a * c)) / a;
+            let temp = (-b - Math.sqrt(discriminant)) / a;
             if (temp < t_max && temp > t_min) {
                 rec.t = temp;
                 ray.pointAtParameter(rec.pos, rec.t);
@@ -28,7 +28,7 @@ export class Sphere extends Hitable {
                 rec.material = this.material;
                 return true;
             }
-            temp = (-b + Math.sqrt(b * b - a * c)) / a;
+            temp = (-b + Math.sqrt(discriminant)) / a;
             if (temp < t_max && temp > t_min) {
                 rec.t = temp;
                 ray.pointAtParameter(rec.pos, rec.t);
@@ -40,5 +40,6 @@ export class Sphere extends Hitable {
                 return true;
             }
         }
+        return false;
     }
 }

@@ -28,3 +28,4 @@ function drawCanvas(){
     software_renderer.draw();
     document.getElementById("canvas-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
 }
+

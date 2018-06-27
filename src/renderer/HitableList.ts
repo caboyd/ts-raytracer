@@ -6,10 +6,9 @@ export class HitableList extends Hitable {
     public list_size: number;
     private temp_rec: HitRecord;
 
-    constructor(list: Hitable[] = [], size: number = 0) {
+    constructor(list: Hitable[] = []) {
         super();
         this.list = list;
-        this.list_size = size;
         this.temp_rec = new HitRecord();
     }
 
