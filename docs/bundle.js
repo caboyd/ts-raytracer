@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -130,13 +130,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(9);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "glMatrix", function() { return __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2", function() { return __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2d", function() { return __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__; });
@@ -168,6 +168,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const SoftwareRenderer_1 = __webpack_require__(4);
+const WebglRenderer_1 = __webpack_require__(20);
+let software_renderer;
+let webgl_renderer;
+let is_mobile = false;
+exports.default = is_mobile;
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    is_mobile = true;
+}
+(function loadWebGL() {
+    let canvas_webgl2 = document.getElementById("canvas-webgl2");
+    let canvas = document.getElementById("canvas");
+    software_renderer = new SoftwareRenderer_1.SoftwareRenderer(canvas);
+    webgl_renderer = new WebglRenderer_1.WebglRenderer(canvas_webgl2);
+    drawScene();
+})();
+function drawScene() {
+    drawWebgl();
+    setTimeout(drawCanvas, 1);
+}
+function drawWebgl() {
+    let now = performance.now();
+    webgl_renderer.draw();
+    document.getElementById("webgl-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
+}
+function drawCanvas() {
+    let now = performance.now();
+    software_renderer.draw();
+    document.getElementById("canvas-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
+}
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(1);
 class HitRecord {
     constructor(t = 0, pos = gl_matrix_1.vec3.create(), normal = gl_matrix_1.vec3.create()) {
@@ -190,7 +229,7 @@ exports.Hitable = Hitable;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,11 +237,12 @@ exports.Hitable = Hitable;
 Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(1);
 const Ray_1 = __webpack_require__(14);
-const Hitable_1 = __webpack_require__(2);
+const Hitable_1 = __webpack_require__(3);
 const Sphere_1 = __webpack_require__(15);
 const HitableList_1 = __webpack_require__(16);
 const Camera_1 = __webpack_require__(17);
 const Material_1 = __webpack_require__(18);
+const main_1 = __webpack_require__(2);
 const random = __webpack_require__(19);
 const seed = 1;
 const gen = random(seed);
@@ -212,8 +252,8 @@ class SoftwareRenderer {
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
         this.temp = gl_matrix_1.vec3.create();
         this.temp_rec = new Hitable_1.HitRecord();
-        this.max_ray_bounce = 10;
-        this.num_samples = 64;
+        this.max_ray_bounce = main_1.default ? 8 : 16;
+        this.num_samples = main_1.default ? 12 : 64;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
         this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
@@ -335,7 +375,7 @@ exports.SoftwareRenderer = SoftwareRenderer;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1123,7 +1163,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2888,7 +2928,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2909,9 +2949,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["fromEuler"] = fromEuler;
 /* harmony export (immutable) */ __webpack_exports__["str"] = str;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(9);
 
 
 
@@ -3559,7 +3599,7 @@ const setAxes = (function() {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4390,7 +4430,7 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5043,40 +5083,6 @@ const forEach = (function() {
 })();
 /* harmony export (immutable) */ __webpack_exports__["forEach"] = forEach;
 
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const SoftwareRenderer_1 = __webpack_require__(3);
-const WebglRenderer_1 = __webpack_require__(20);
-let software_renderer;
-let webgl_renderer;
-(function loadWebGL() {
-    let canvas_webgl2 = document.getElementById("canvas-webgl2");
-    let canvas = document.getElementById("canvas");
-    software_renderer = new SoftwareRenderer_1.SoftwareRenderer(canvas);
-    webgl_renderer = new WebglRenderer_1.WebglRenderer(canvas_webgl2);
-    drawScene();
-})();
-function drawScene() {
-    drawWebgl();
-    setTimeout(drawCanvas, 1);
-}
-function drawWebgl() {
-    let now = performance.now();
-    webgl_renderer.draw();
-    document.getElementById("webgl-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
-}
-function drawCanvas() {
-    let now = performance.now();
-    software_renderer.draw();
-    document.getElementById("canvas-text").textContent = " " + (performance.now() - now).toFixed(2) + " ms";
-}
 
 
 /***/ }),
@@ -6049,8 +6055,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
 /* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(6);
 
 
 
@@ -7620,7 +7626,7 @@ exports.Ray = Ray;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Hitable_1 = __webpack_require__(2);
+const Hitable_1 = __webpack_require__(3);
 const gl_matrix_1 = __webpack_require__(1);
 class Sphere extends Hitable_1.Hitable {
     constructor(center, radius, material) {
@@ -7669,7 +7675,7 @@ exports.Sphere = Sphere;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const Hitable_1 = __webpack_require__(2);
+const Hitable_1 = __webpack_require__(3);
 class HitableList extends Hitable_1.Hitable {
     constructor(list = []) {
         super();
@@ -7733,7 +7739,7 @@ exports.Camera = Camera;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(1);
-const SoftwareRenderer_1 = __webpack_require__(3);
+const SoftwareRenderer_1 = __webpack_require__(4);
 class Material {
 }
 exports.Material = Material;
@@ -7899,6 +7905,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const shader_1 = __webpack_require__(21);
 const gl_matrix_1 = __webpack_require__(1);
 const Material_1 = __webpack_require__(22);
+const main_1 = __webpack_require__(2);
 class WebglRenderer {
     constructor(canvas) {
         this.initGL(canvas);
@@ -7937,8 +7944,8 @@ class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
         this.shader.setIntByName("sphere_count", 5);
-        this.shader.setIntByName("sample_count", 2000);
-        this.shader.setIntByName("max_ray_bounce", 20);
+        this.shader.setIntByName("sample_count", main_1.default ? 200 : 2000);
+        this.shader.setIntByName("max_ray_bounce", main_1.default ? 8 : 20);
         // this.addSpheres(uniforms);
         uniforms.set("ambient_light", gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0));
         this.setSphereUniform(uniforms, 0, gl_matrix_1.vec3.fromValues(0, 0, -1.0), 0.5, new Material_1.Material(Material_1.MatType.Diffuse, gl_matrix_1.vec3.fromValues(0.1, 0.2, 0.5)));
