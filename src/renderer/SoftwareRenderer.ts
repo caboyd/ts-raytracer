@@ -9,7 +9,7 @@ import {is_mobile} from "../main";
 
 const random = require("fast-random");
 
-const seed = 11;
+const seed = 1;
 const gen = random(seed);
 export default gen;
 

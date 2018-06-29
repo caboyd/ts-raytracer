@@ -19,11 +19,11 @@ export class Lambertian extends Material{
     }
     
     public scatter( scattered_out:Ray, ray:Ray, rec:HitRecord, attenuation:vec3):boolean{
-        vec3.add(this.temp, rec.pos, randomInUnitSphere(this.temp));
-        vec3.add(this.temp, this.temp, rec.normal);
+       // vec3.add(this.temp, rec.pos, );
+        vec3.add(this.temp, randomInUnitSphere(this.temp), rec.normal);
 
         vec3.copy(scattered_out.origin, rec.pos);
-        vec3.sub(scattered_out.direction, this.temp, rec.pos);
+        vec3.copy(scattered_out.direction, this.temp);
         
         vec3.copy(attenuation,this.albedo);
         return true;

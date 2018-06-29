@@ -26,7 +26,7 @@ export class WebglRenderer {
         this.initRenderTexture();
         this.initShader();
         
-        let aperture = 0.02;
+        let aperture = 0.012;
         let eye = vec3.fromValues(10,1.9,2.5);
         let target = vec3.fromValues(4,0.5,1);
         let up = vec3.fromValues(0,1,0);
@@ -40,6 +40,7 @@ export class WebglRenderer {
     public draw(): void {
         let gl = this.gl;
         
+        //RENDER TO TEXTURE
         if(this.current_texture == 0)
             gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer0);
         else
@@ -50,9 +51,12 @@ export class WebglRenderer {
         
         this.shader.use();
         this.shader.setIntByName("sample_count", this.sample_count);
-        let a = gen.nextFloat();
-        this.shader.setFloatByName("rand_seed0", gen.nextFloat() *999999);
-        this.shader.setFloatByName("rand_seed1", gen.nextFloat() *999999);
+        this.shader.setFloatByName("rand_seed0", gen.nextFloat() );
+        this.shader.setFloatByName("rand_seed1", gen.nextFloat() );
+        
+        //Wiggle for anti-aliasing
+        this.wiggleCamera();
+        
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
         if(this.current_texture == 0)
@@ -64,6 +68,7 @@ export class WebglRenderer {
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
 
+        //RENDER TO SCREEN
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -82,10 +87,9 @@ export class WebglRenderer {
         gl.bindVertexArray(null);
     
         this.sample_count++;
-        if(this.current_texture == 0){
-            this.current_texture = 1;
-        }else
-            this.current_texture = 0;
+        
+        this.current_texture++;
+        if(this.current_texture > 1)this.current_texture = 0;
     }
 
     private initGL(canvas: HTMLCanvasElement) {
@@ -116,8 +120,7 @@ export class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
 
-        this.shader.setIntByName("samples", is_mobile ? 1 : 8);
-        this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 16);
+        this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 12);
         // this.addSpheres(uniforms);
 
         uniforms.set("ambient_light", vec3.fromValues(0.5, 0.7, 1.0));
@@ -212,6 +215,7 @@ export class WebglRenderer {
         sphere_array.push(0,1,0,1);
         mat_array.push(0,0,0);
         mat_array2.push(MatType.Refract, 1.5);
+        
         sphere_array.push(0,1,0,-0.95);
         mat_array.push(0,0,0);
         mat_array2.push(MatType.Refract, 1.5);
@@ -224,21 +228,32 @@ export class WebglRenderer {
         mat_array.push(0.7*255,0.6*255,0.5*255);
         mat_array2.push(MatType.Reflect, 0);
 
-        for(let a = -11; a < 11;a++){
-            for(let b = -11; b <11; b++){
+        
+        let k = is_mobile ? 5: 11;
+        
+        for(let a = -k; a < k;a++){
+            for(let b = -k; b <k; b++){
                 let choose_mat = gen.nextFloat();
                 let center = vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9*gen.nextFloat());
                 if(vec3.distance(center,vec3.fromValues(4,0.2,0)) > 0.9){
-                    if(choose_mat < 0.7){
+                    if(choose_mat < 0.50){
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(gen.nextFloat()*255,gen.nextFloat()*255,gen.nextFloat()*255);
                         mat_array2.push(MatType.Diffuse, 0);
-                    }else if( choose_mat < 0.9){
+                    }else if( choose_mat < 0.75){
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255);
                         mat_array2.push(MatType.Reflect, 0.5*gen.nextFloat());
+                    }else if ( choose_mat < 0.95){
+                        sphere_array.push(center[0],center[1],center[2],0.2);
+                        mat_array.push(0,0,0);
+                        mat_array2.push(MatType.Refract, 1.5);
                     }else{
                         sphere_array.push(center[0],center[1],center[2],0.2);
+                        mat_array.push(0,0,0);
+                        mat_array2.push(MatType.Refract, 1.5);
+
+                        sphere_array.push(center[0],center[1],center[2],-0.18);
                         mat_array.push(0,0,0);
                         mat_array2.push(MatType.Refract, 1.5);
                     }
@@ -289,7 +304,14 @@ export class WebglRenderer {
         this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
         this.shader.setVec3ByName("screen.position", cam.position);
         this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.gl.drawingBufferWidth);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.gl.drawingBufferHeight);
         
+    }
+    
+    private wiggleCamera():void{
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.gl.drawingBufferWidth);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.gl.drawingBufferHeight);
     }
     
     private initBuffers() {

@@ -1,15 +1,16 @@
 #version 300 es
-precision mediump float;
+precision highp float;
 
 #define FLT_MAX 3.402823466e+38
 
 in vec2 pos;
+in vec3 eye;
+in vec3 ray_direction;
 
 out vec4 fragColor;
 
 uniform float width;
 uniform float height;
-
 
 struct Ray{
     vec3 origin;
@@ -27,15 +28,6 @@ struct Material{
     float refraction_index;
 };
 
-struct Screen{
-    vec3 position;
-    vec3 lower_left_corner;
-    vec3 horizontal;
-    vec3 vertical;
-    float lens_radius;
-};
-
-
 struct HitRecord{
     float t;
     vec3 pos;
@@ -49,11 +41,17 @@ struct Sphere{
     Material mat;
 };
 
-struct RandomResult
-{
-    uvec4 state;
-    float value;
+struct Screen{
+    vec3 position;
+    vec3 lower_left_corner;
+    vec3 horizontal;
+    vec3 vertical;
+    float lens_radius;
+    float x_wiggle;
+    float y_wiggle;
 };
+
+uniform Screen screen;
 
 uniform vec3 ambient_light;
 uniform int sphere_count;
@@ -61,7 +59,6 @@ uniform int sample_count;
 uniform int samples;
 uniform int max_ray_bounce;
 //uniform Sphere spheres[150];
-uniform Screen screen;
 
 uniform float rand_seed0;
 uniform float rand_seed1;
@@ -70,30 +67,48 @@ uniform sampler2D sphere_texture;
 uniform sampler2D mat_texture; 
 uniform sampler2D mat_texture_extra; 
 
-uint TausStep(uint z, int S1, int S2, int S3, uint M)
-{
-    uint b = (((z << S1) ^ z) >> S2);
-    return (((z & M) << S3) ^ b);    
+float random(vec3 scale, float seed){
+    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);
 }
 
-uint LCGStep(uint z, uint A, uint C)
-{
-    return (A * z + C);    
+vec3 uniformlyRandomDirection(float seed) {
+   float u = random(vec3(12.9898, 78.233, 151.7182), seed);
+   float v = random(vec3(63.7264, 10.873, 623.6736), seed);
+   float z = 1.0 - 2.0 * u;
+   float r = sqrt(1.0 - z * z);
+   float angle = 6.283185307179586 * v;
+   return vec3(r * cos(angle), r * sin(angle), z);
 }
 
-RandomResult Random(uvec4 state)
-{
-    state.x = TausStep(state.x, 13, 19, 12, 4294967294U);
-    state.y = TausStep(state.y, 2, 25, 4, 4294967288U);
-    state.z = TausStep(state.z, 3, 11, 17, 4294967280U);
-    state.w = LCGStep(state.w, 1664525U, 1013904223U);
+vec3 uniformlyRandomVector(float seed){
+    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));
+}
 
-    RandomResult result;
-    result.state = state;
-    result.value = 2.3283064365387e-10 * float(state.x ^ state.y ^ state.z ^ state.w);
-
+vec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){
+    float r = sqrt(random(scale.xyz,seed));
+    float t = sqrt(random(scale.xyz,seed2)) * 6.283185307179586;
+    vec2 result;
+    result.x = r * cos(t);
+    result.y = r * sin(t);
     return result;
 }
+
+
+vec3 cosineWeightedDirection(float seed, vec3 normal){
+    float u =random(vec3(12.9898, 78.233, 151.7182), seed);
+    float v = random(vec3(63.7264, 10.873, 623.6736), seed);
+    float r = sqrt(u);
+    float angle = 6.283185307179586 * v;
+    vec3 sdir, tdir;
+    if (abs(normal.x) < 0.5)
+        sdir = cross(normal, vec3(1,0,0));
+    else 
+        sdir = cross(normal, vec3(0,1,0));
+    
+    tdir = cross(normal, sdir);
+    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;
+}
+
 
 vec3 ray_pointAtParameter(Ray ray, float t){
     vec3 result = ray.origin + t * ray.direction;
@@ -148,60 +163,28 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
         vec4 s = texture(sphere_texture, vec2(fi,0.0));
         sphere.center = s.xyz;
         sphere.radius = s.w;  
-        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
-            index_of_hit = float(i) / float(sphere_count);
-            hit_anything = true;
-            closest_so_far = rec.t;
-        }
-    }
-    if(hit_anything){
+       
         vec4 color = texture(mat_texture, vec2(index_of_hit,0.0));
         rec.mat.color.rgb = color.rgb;
         
         vec4 mat = texture(mat_texture_extra, vec2(index_of_hit,0.0));
         int mat_type = int(mat.x);
         rec.mat.type = mat_type;
-        switch(mat_type){
-        case Diffuse:
-            break;
-        case Reflect:
-            rec.mat.fuzz = mat.y;
-            break;
-        case Refract:
-            rec.mat.refraction_index = mat.y;
-            break;
+        rec.mat.fuzz = mat.y;
+        rec.mat.refraction_index = mat.y;
+                
+        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
+            index_of_hit = float(i) / float(sphere_count);
+            hit_anything = true;
+            closest_so_far = rec.t;
         }
     }
+
     return hit_anything;
 }
 
-vec3 randomInUnitSphere(inout RandomResult rand){
-    vec3 p;
-    do{
-        rand = Random(rand.state);
-        float a = rand.value;
-        rand = Random(rand.state);
-        float b = rand.value;
-        rand = Random(rand.state);
-        float c = rand.value;
-        p = 2.0 * vec3(a,b,c) - vec3(1,1,1);    
-    }while(dot(p,p) >= 1.0);
-    return p;
-}
 
-vec3 randomInUnitDisk(inout RandomResult rand){
-    vec3 p;
-    do{
-        rand = Random(rand.state);
-        float a = rand.value;
-        rand = Random(rand.state);
-        float b = rand.value;
-        p = 2.0 * vec3(a,b,0) - vec3(1,1,0);    
-    }while(dot(p,p) >= 1.0);
-    return p;
-}
-
-vec3 color(inout Ray ray, inout RandomResult random_result){
+vec3 color(inout Ray ray){
     HitRecord rec;
     Ray orig_ray = ray;
     vec3 final_color = vec3(0.0);
@@ -209,48 +192,49 @@ vec3 color(inout Ray ray, inout RandomResult random_result){
 
 
     for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){
+        float rf = float(ray_bounce);
         if(intersectAll(ray, 0.001, FLT_MAX, rec )){
             ray.origin = rec.pos;
             vec3 reflected = reflect(normalize(ray.direction), rec.normal);
-                   
+            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf * rand_seed0);                          
             if(rec.mat.type == Diffuse){
-                vec3 target = rec.pos + rec.normal + randomInUnitSphere(random_result);
-                ray.direction = target - rec.pos;
+                ray.direction = rec.normal + rand;
                 color  *=rec.mat.color;
             }else if(rec.mat.type == Reflect){     
-                ray.direction = reflected + rec.mat.fuzz*randomInUnitSphere(random_result);
+                ray.direction = reflected + (rec.mat.fuzz) * rand;
+    
                 if(dot(ray.direction, rec.normal) > 0.0)
                     color *= rec.mat.color;
                 else
                     color = vec3(0);
+
             }else if(rec.mat.type == Refract){
                 vec3 outward_normal;
                 float ni_over_nt;
                 float reflect_prob;
                 float cosine;
                
-               if(dot(ray.direction, rec.normal) > 0.0){
+                if(dot(ray.direction, rec.normal) > 0.0){
                    outward_normal = -rec.normal;
                    ni_over_nt = rec.mat.refraction_index;
                    cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);
-               }else{
+                }else{
                    outward_normal = rec.normal;
                    ni_over_nt = 1.0 / rec.mat.refraction_index;
                    cosine = -dot(ray.direction, rec.normal) / length(ray.direction);
-               }
-               vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);
-               if(length(refracted) > 0.0){
+                }
+                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);
+                if(length(refracted) > 0.0){
                    reflect_prob = schlick(cosine, rec.mat.refraction_index);
-               }else{
+                }else{
                    ray.direction = reflected;
                    reflect_prob = 1.0;
-               }
-               random_result = Random(random_result.state);
-               if(random_result.value > reflect_prob){
+                }
+                float r = random(refracted, rand_seed0 + length(gl_FragCoord.xyz));
+                if(r > reflect_prob){
                    ray.direction = refracted;
-               }else
+                }else
                    ray.direction = reflected;
-               
             }
         }else{
              vec3 unit_direction = normalize(ray.direction);
@@ -263,51 +247,34 @@ vec3 color(inout Ray ray, inout RandomResult random_result){
     return color*final_color;
 }
 
-float rand2(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
 
 
 void main()
 {        
     Ray ray;
-    uint a = uint(rand2(pos) * rand_seed0);
-    uint b = uint(rand2(pos) * rand_seed0);
-    RandomResult rand = Random(uvec4(a, b,rand_seed0, rand_seed1));
-    
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
-    vec3 new_color = vec3(0);
-    prev_color.r = prev_color.r * prev_color.r;
-    prev_color.g = prev_color.g * prev_color.g;
-    prev_color.b = prev_color.b * prev_color.b;
+//    prev_color.r = prev_color.r * prev_color.r;
+//    prev_color.g = prev_color.g * prev_color.g;
+//    prev_color.b = prev_color.b * prev_color.b;
     
+    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));
+    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;
 
-    for(int i = 0; i < samples; i++){
-        rand = Random(rand.state);
-        float u = pos.x + (rand.value - 0.5) /width   ;
-        rand = Random(rand.state);
-        float v = pos.y +(rand.value - 0.5) /height;
-        
-        vec3 rd = screen.lens_radius * randomInUnitDisk(rand);
-        vec3 offset = screen.horizontal * rd.x + screen.vertical * rd.y;
-        
-        ray.origin = screen.position + offset;
-        ray.direction = screen.lower_left_corner +
-            u * screen.horizontal + 
-            v * screen.vertical - 
-            screen.position - 
-            offset;
-         
-        new_color += color(ray, rand) ;
-    }
-    new_color /= float(samples);
+    ray.origin =  eye  + offset;
+    ray.direction = ray_direction - offset ;
+     
+    vec3 new_color = color(ray);
+
     int c = sample_count+1;
-    if (c > 8 ) c = 8;
-    vec3 final_color = mix(prev_color,new_color, 1.0 / float(c));
-    
-    final_color = vec3(sqrt(final_color[0]),sqrt(final_color[1]),sqrt(final_color[2]));
  
+     //new_color = vec3(sqrt(new_color[0]),sqrt(new_color[1]),sqrt(new_color[2]));
+     
+    vec3 final_color = mix(prev_color,new_color, 1.0 / float(c));
+
+
+
     fragColor = vec4(final_color,1.0);
+
 }
 
 
