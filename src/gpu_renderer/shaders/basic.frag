@@ -86,7 +86,7 @@ vec3 uniformlyRandomVector(float seed){
 
 vec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){
     float r = sqrt(random(scale.xyz,seed));
-    float t = sqrt(random(scale.xyz,seed2)) * 6.283185307179586;
+    float t = (random(scale.xyz,seed2))* 6.283185307179586;
     vec2 result;
     result.x = r * cos(t);
     result.y = r * sin(t);
@@ -249,28 +249,20 @@ vec3 color(inout Ray ray){
 
 void main()
 {        
-    Ray ray;
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
-//    prev_color.r = prev_color.r * prev_color.r;
-//    prev_color.g = prev_color.g * prev_color.g;
-//    prev_color.b = prev_color.b * prev_color.b;
     
     vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));
     vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;
 
+    Ray ray;
     ray.origin =  eye  + offset;
     ray.direction = ray_direction - offset ;
      
     vec3 new_color = color(ray);
 
-    int c = sample_count+1;
- 
-     //new_color = vec3(sqrt(new_color[0]),sqrt(new_color[1]),sqrt(new_color[2]));
-     
-    vec3 final_color = mix(prev_color,new_color, 1.0 / float(c));
-
-
-
+    float blend =  1.0 / float(sample_count+1);
+    
+    vec3 final_color = mix(prev_color,new_color,blend);
     fragColor = vec4(final_color,1.0);
 
 }

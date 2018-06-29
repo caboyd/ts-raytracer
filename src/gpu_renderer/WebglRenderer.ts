@@ -26,7 +26,7 @@ export class WebglRenderer {
         this.initRenderTexture();
         this.initShader();
         
-        let aperture = 0.012;
+        let aperture = 0.015;
         let eye = vec3.fromValues(10,1.9,2.5);
         let target = vec3.fromValues(4,0.5,1);
         let up = vec3.fromValues(0,1,0);
