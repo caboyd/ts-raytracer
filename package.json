@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "watch": "webpack --progress --colors --watch",
-    "build": " webpack --progress --colors",
+    "build": "webpack --progress --colors",
     "dev": "webpack-dev-server --content-base ./ --colors --hot --inline"
   },
   "author": "Chris Boyd",

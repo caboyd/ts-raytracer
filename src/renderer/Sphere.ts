@@ -21,9 +21,10 @@ export class Sphere extends Hitable {
             if (temp < t_max && temp > t_min) {
                 rec.t = temp;
                 ray.pointAtParameter(rec.pos, rec.t);
-
-                vec3.sub(rec.normal, rec.pos, this.center);
-                vec3.scale(rec.normal, rec.normal, 1 / this.radius);
+                
+                rec.normal[0] = (rec.pos[0] - this.center[0]) / this.radius;
+                rec.normal[1] = (rec.pos[1] - this.center[1]) / this.radius;
+                rec.normal[2] = (rec.pos[2] - this.center[2]) / this.radius;
                 
                 rec.material = this.material;
                 return true;
@@ -33,9 +34,10 @@ export class Sphere extends Hitable {
                 rec.t = temp;
                 ray.pointAtParameter(rec.pos, rec.t);
 
-                vec3.sub(rec.normal, rec.pos, this.center);
-                vec3.scale(rec.normal, rec.normal, 1 / this.radius);
-
+                rec.normal[0] = (rec.pos[0] - this.center[0]) / this.radius;
+                rec.normal[1] = (rec.pos[1] - this.center[1]) / this.radius;
+                rec.normal[2] = (rec.pos[2] - this.center[2]) / this.radius;
+                
                 rec.material = this.material;
                 return true;
             }

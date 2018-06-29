@@ -3,13 +3,13 @@ import {Ray} from "./Ray";
 import {Hitable, HitRecord} from "./Hitable";
 import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
-import {Camera} from "./Camera";
+import {Camera} from "../Camera";
 import {Dielectric, Lambertian, Metal} from "./Material";
 import {is_mobile} from "../main";
 
 const random = require("fast-random");
 
-const seed = 1;
+const seed = 11;
 const gen = random(seed);
 export default gen;
 
@@ -23,7 +23,7 @@ export class SoftwareRenderer {
     temp_rec = new HitRecord();
 
     max_ray_bounce = is_mobile ? 8 : 16;
-    num_samples = is_mobile ? 12 : 64;
+    num_samples = is_mobile ? 12 : 16;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -46,7 +46,15 @@ export class SoftwareRenderer {
         list[4] = new Sphere(vec3.fromValues(-1, 0, -1), -0.45, new Dielectric(1.5));
 
         let world: Hitable = new HitableList(list);
-        let cam = new Camera();
+
+
+        let aperture = 0.02;
+        let eye = vec3.fromValues(3,3,2);
+        let target = vec3.fromValues(0,0,-1);
+        let up = vec3.fromValues(0,1,0);
+        let dist_to_focus = vec3.distance(eye, target);
+        
+        let cam = new Camera(eye,target,up, 20, width/height,aperture,dist_to_focus);
         let ray = new Ray();
 
         //Self Sample

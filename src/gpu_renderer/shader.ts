@@ -55,7 +55,7 @@ export class Shader {
         let a = this.uniforms.get(name);
         if (a === undefined) {
             a = this.gl.getUniformLocation(this.ID, name);
-            this.uniforms.set(name, this.ID);
+            this.uniforms.set(name, a);
         }
         return a;
     }

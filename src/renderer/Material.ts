@@ -118,33 +118,29 @@ function randomInUnitSphere(out: vec3): vec3 {
 }
 
 function reflect(out:vec3, v:vec3, n:vec3):vec3{
-    let dot = vec3.dot(v,n);
-    vec3.scale(out,n,2*dot);
-    vec3.sub(out, v, out );
+    let dot = vec3.dot(n,v);
+    
+    out[0] = v[0] - (n[0] * 2 *dot);
+    out[1] = v[1] - (n[1] * 2 *dot);
+    out[2] = v[2] - (n[2] * 2 *dot);
     return out;
 }
 
 function refract(refracted_out:vec3, v:vec3, n:vec3, ni_over_nt:number, ):boolean{
     let dt = vec3.dot(v,n);
-    let temp = vec3.create();
     
     let discriminant = 1.0 - ni_over_nt * ni_over_nt * (1.0 - dt * dt);
     if(discriminant > 0.0){
         //Book formula - v must be normalized
         //refracted = ni_over_nt * ( v - n*dt) - n * sqrt(discriminant);
-
-        vec3.scale(temp,n, dt);
-        vec3.sub(refracted_out,v,temp);
-        vec3.scale(refracted_out,refracted_out, ni_over_nt);
-
-        temp = vec3.scale(temp,n,Math.sqrt(discriminant));
-        vec3.sub(refracted_out,refracted_out,temp);
-
+        let sq = Math.sqrt(discriminant);
+        
+        refracted_out[0] = ni_over_nt * (v[0] - n[0] * dt) - n[0] * sq;
+        refracted_out[1] = ni_over_nt * (v[1] - n[1] * dt) - n[1] * sq;
+        refracted_out[2] = ni_over_nt * (v[2] - n[2] * dt) - n[2] * sq;
+        
         //OpenGL formula - v,n must be normalized
         //refracted = ni_over_nt * v - (ni_over_nt * dt + sqrt(discriminant)) * n;
-        //  temp = vec3.scale(temp,n, ni_over_nt * dt + Math.sqrt(discriminant));
-        //  vec3.scale(refracted_out,v, ni_over_nt);
-        //  vec3.sub(refracted_out,refracted_out, temp);
         
         return true;
     }else
