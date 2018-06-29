@@ -14,7 +14,7 @@ let count = 0;
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         is_mobile = true;
-        min_frame_time = 33;
+        min_frame_time = 50;
     }
 
     

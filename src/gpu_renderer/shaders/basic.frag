@@ -201,7 +201,7 @@ vec3 color(inout Ray ray){
                 ray.direction = rec.normal + rand;
                 color  *=rec.mat.color;
             }else if(rec.mat.type == Reflect){     
-                ray.direction = reflected + (rec.mat.fuzz) * rand;
+                ray.direction = reflected + rec.mat.fuzz * rand;
     
                 if(dot(ray.direction, rec.normal) > 0.0)
                     color *= rec.mat.color;
