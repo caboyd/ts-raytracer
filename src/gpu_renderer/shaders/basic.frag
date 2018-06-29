@@ -162,24 +162,22 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
         Sphere sphere;
         vec4 s = texture(sphere_texture, vec2(fi,0.0));
         sphere.center = s.xyz;
-        sphere.radius = s.w;  
-       
-        vec4 color = texture(mat_texture, vec2(index_of_hit,0.0));
-        rec.mat.color.rgb = color.rgb;
-        
-        vec4 mat = texture(mat_texture_extra, vec2(index_of_hit,0.0));
-        int mat_type = int(mat.x);
-        rec.mat.type = mat_type;
-        rec.mat.fuzz = mat.y;
-        rec.mat.refraction_index = mat.y;
-                
+        sphere.radius = s.w;     
         if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
             index_of_hit = float(i) / float(sphere_count);
             hit_anything = true;
             closest_so_far = rec.t;
         }
     }
-
+    if(hit_anything){
+        rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.0)).rgb;    
+        vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.0)).xy;
+        int mat_type = int(mat.x);
+        rec.mat.type = mat_type;
+        rec.mat.fuzz = mat.y;
+        rec.mat.refraction_index = mat.y;
+    }
+        
     return hit_anything;
 }
 
