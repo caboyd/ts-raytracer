@@ -273,7 +273,7 @@ void main()
     Ray ray;
     uint a = uint(rand2(pos) * rand_seed0);
     uint b = uint(rand2(pos) * rand_seed0);
-    RandomResult rand = Random(uvec4(a, b,rand_seed0 + a*b, rand_seed1 + a + b));
+    RandomResult rand = Random(uvec4(a, b,rand_seed0, rand_seed1));
     
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
     vec3 new_color = vec3(0);
