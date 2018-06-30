@@ -3,6 +3,7 @@ precision highp float;
 
 #define FLT_MAX 3.402823466e+38
 
+
 in vec2 pos;
 in vec3 eye;
 in vec3 ray_direction;
@@ -164,7 +165,7 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
         sphere.center = s.xyz;
         sphere.radius = s.w;     
         if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
-            index_of_hit = float(i) / float(sphere_count);
+            index_of_hit = fi;
             hit_anything = true;
             closest_so_far = rec.t;
         }

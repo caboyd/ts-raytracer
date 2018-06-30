@@ -221,7 +221,6 @@ export class WebglRenderer {
             mat_array.push(0,0,0);
             mat_array2.push(MatType.Refract, 1.5,0,0);
         }
-
         
         sphere_array.push(-4, 1,0,1);
         mat_array.push(0.4*255,0.2*255,0.1*255);
@@ -232,8 +231,8 @@ export class WebglRenderer {
         mat_array2.push(MatType.Reflect, 0,0,0);
 
         
-        let k = is_mobile ? 5: 11;
-        
+        let k = is_mobile ? 6: 11;
+
         for(let a = -k; a < k;a++){
             for(let b = -k; b <k; b++){
                 let choose_mat = gen.nextFloat();
@@ -260,14 +259,26 @@ export class WebglRenderer {
                             mat_array.push(0,0,0);
                             mat_array2.push(MatType.Refract, 1.5,0,0);
                         }
-               
+
                     }
 
                 }
             }
         }
+
+        
         
         let width = sphere_array.length/4;
+        
+        if(width%4 != 0){
+            for(let i = width%4; i < 4; i++){
+                sphere_array.push(0,0,0,0);
+                mat_array.push(0,0,0);
+                mat_array2.push(MatType.Diffuse, 0,0,0);
+            }
+            width = sphere_array.length/4;
+        }
+        
         let height = 1;
 
         gl.activeTexture(gl.TEXTURE1);
@@ -275,8 +286,8 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);const alignment = 1;
-        gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width,height, 0, gl.RGBA, gl.FLOAT, new Float32Array(sphere_array));
         this.shader.setIntByName("sphere_texture", 1);
 
@@ -296,7 +307,7 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+        gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width,height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
         this.shader.setIntByName("mat_texture_extra", 3);
         
