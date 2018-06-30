@@ -5352,11 +5352,9 @@ class WebglRenderer {
         sphere_array.push(0, 1, 0, 1);
         mat_array.push(0, 255, 0, 0);
         mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
-        if (!main_1.is_mobile) {
-            sphere_array.push(0, 1, 0, -0.95);
-            mat_array.push(0, 0, 0, 0);
-            mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
-        }
+        sphere_array.push(0, 1, 0, -0.95);
+        mat_array.push(0, 0, 0, 0);
+        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
         sphere_array.push(-4, 1, 0, 1);
         mat_array.push(0.4 * 255, 0.2 * 255, 0.1 * 255, 0);
         mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
@@ -5388,11 +5386,9 @@ class WebglRenderer {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(0, 0, 0, 0);
                         mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
-                        if (!main_1.is_mobile) {
-                            sphere_array.push(center[0], center[1], center[2], -0.18);
-                            mat_array.push(0, 0, 0, 0);
-                            mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
-                        }
+                        sphere_array.push(center[0], center[1], center[2], -0.18);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
                     }
                 }
             }

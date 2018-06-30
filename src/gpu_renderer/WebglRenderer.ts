@@ -216,11 +216,11 @@ export class WebglRenderer {
         mat_array.push(0,255,0,0);
         mat_array2.push(MatType.Refract, 1.5,0,0);
         
-        if(!is_mobile){
-            sphere_array.push(0,1,0,-0.95);
-            mat_array.push(0,0,0,0);
-            mat_array2.push(MatType.Refract, 1.5,0,0);
-        }
+        
+        sphere_array.push(0,1,0,-0.95);
+        mat_array.push(0,0,0,0);
+        mat_array2.push(MatType.Refract, 1.5,0,0);
+        
         
         sphere_array.push(-4, 1, 0, 1);
         mat_array.push(0.4*255, 0.2*255, 0.1*255, 0);
@@ -254,11 +254,11 @@ export class WebglRenderer {
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(0,0,0,0);
                         mat_array2.push(MatType.Refract, 1.5,0,0);
-                        if(!is_mobile){
-                            sphere_array.push(center[0],center[1],center[2],-0.18);
-                            mat_array.push(0,0,0,0);
-                            mat_array2.push(MatType.Refract, 1.5,0,0);
-                        }
+                      
+                        sphere_array.push(center[0],center[1],center[2],-0.18);
+                        mat_array.push(0,0,0,0);
+                        mat_array2.push(MatType.Refract, 1.5,0,0);
+                        
 
                     }
 
