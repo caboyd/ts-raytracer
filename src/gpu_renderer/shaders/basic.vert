@@ -35,8 +35,8 @@ void main()
     eye = screen.position;
 
     ray_direction = screen.lower_left_corner +
-        screen.x_wiggle*1.5 + pos.x * screen.horizontal + 
-        screen.y_wiggle*1.5 + pos.y * screen.vertical - 
+        screen.x_wiggle*1.0 + pos.x * screen.horizontal + 
+        screen.y_wiggle*1.0 + pos.y * screen.vertical - 
         eye;
         
     gl_Position = vec4(a_vertex,1.0f);

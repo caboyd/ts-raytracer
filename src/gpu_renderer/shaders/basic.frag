@@ -64,6 +64,7 @@ uniform int max_ray_bounce;
 uniform float rand_seed0;
 uniform float rand_seed1;
 uniform sampler2D last_frame;
+uniform float sphere_texture_size;
 uniform sampler2D sphere_texture;
 uniform sampler2D mat_texture; 
 uniform sampler2D mat_texture_extra; 
@@ -157,13 +158,16 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
     float closest_so_far = t_max;
     
     //Spheres Loop
+    Sphere sphere;
     float index_of_hit = 0.0;
+    vec4 color;
     for(int i = 0; i < sphere_count; i++){
-        float fi = float(i) / float(sphere_count);
-        Sphere sphere;
+        float fi = (float(i)) / float(sphere_texture_size);
         vec4 s = texture(sphere_texture, vec2(fi,0.0));
         sphere.center = s.xyz;
         sphere.radius = s.w;     
+  
+        if(sphere.radius == 0.0) continue; 
         if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
             index_of_hit = fi;
             hit_anything = true;
@@ -171,10 +175,9 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
         }
     }
     if(hit_anything){
-        rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.0)).rgb;    
+        rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.0)).rgb; 
         vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.0)).xy;
-        int mat_type = int(mat.x);
-        rec.mat.type = mat_type;
+        rec.mat.type = int(mat.x);
         rec.mat.fuzz = mat.y;
         rec.mat.refraction_index = mat.y;
     }
@@ -186,7 +189,7 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
 vec3 color(inout Ray ray){
     HitRecord rec;
     Ray orig_ray = ray;
-    vec3 final_color = vec3(0.0);
+    vec3 final_color = vec3(1.0);
     vec3 color = vec3(1.0);
 
 
