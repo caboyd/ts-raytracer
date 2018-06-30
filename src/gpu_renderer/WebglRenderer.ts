@@ -210,26 +210,26 @@ export class WebglRenderer {
         
         sphere_array.push(0,-1000,0,1000);
         mat_array.push(0.5 *255, 0.5 *255, 0.5 * 255);
-        mat_array2.push(MatType.Diffuse, 0);
+        mat_array2.push(MatType.Diffuse, 0,0,0);
 
         sphere_array.push(0,1,0,1);
         mat_array.push(0,0,0);
-        mat_array2.push(MatType.Refract, 1.5);
+        mat_array2.push(MatType.Refract, 1.5,0,0);
         
         if(!is_mobile){
             sphere_array.push(0,1,0,-0.95);
             mat_array.push(0,0,0);
-            mat_array2.push(MatType.Refract, 1.5);
+            mat_array2.push(MatType.Refract, 1.5,0,0);
         }
 
         
         sphere_array.push(-4, 1,0,1);
         mat_array.push(0.4*255,0.2*255,0.1*255);
-        mat_array2.push(MatType.Diffuse, 0);
+        mat_array2.push(MatType.Diffuse, 0,0,0);
         
         sphere_array.push(4,1,0,1);
         mat_array.push(0.7*255,0.6*255,0.5*255);
-        mat_array2.push(MatType.Reflect, 0);
+        mat_array2.push(MatType.Reflect, 0,0,0);
 
         
         let k = is_mobile ? 5: 11;
@@ -242,23 +242,23 @@ export class WebglRenderer {
                     if(choose_mat < 0.50){
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(gen.nextFloat()*255,gen.nextFloat()*255,gen.nextFloat()*255);
-                        mat_array2.push(MatType.Diffuse, 0);
+                        mat_array2.push(MatType.Diffuse, 0,0,0);
                     }else if( choose_mat < 0.75){
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255);
-                        mat_array2.push(MatType.Reflect, 0.5*gen.nextFloat());
+                        mat_array2.push(MatType.Reflect, 0.5*gen.nextFloat(),0,0);
                     }else if ( choose_mat < 0.95){
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(0,0,0);
-                        mat_array2.push(MatType.Refract, 1.5);
+                        mat_array2.push(MatType.Refract, 1.5,0,0);
                     }else{
                         sphere_array.push(center[0],center[1],center[2],0.2);
                         mat_array.push(0,0,0);
-                        mat_array2.push(MatType.Refract, 1.5);
+                        mat_array2.push(MatType.Refract, 1.5,0,0);
                         if(!is_mobile){
                             sphere_array.push(center[0],center[1],center[2],-0.18);
                             mat_array.push(0,0,0);
-                            mat_array2.push(MatType.Refract, 1.5);
+                            mat_array2.push(MatType.Refract, 1.5,0,0);
                         }
                
                     }
@@ -297,7 +297,7 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
         gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RG32F, width,height, 0, gl.RG, gl.FLOAT, new Float32Array(mat_array2));
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width,height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
         this.shader.setIntByName("mat_texture_extra", 3);
         
         this.shader.setIntByName("sphere_count", width);

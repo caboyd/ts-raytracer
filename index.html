@@ -43,28 +43,23 @@
 		}
 
 		#container{
-			position: absolute;
-			left: 50%;
-			top: 50%;
+			position: relative;
 			display:flex;
-
-			flex-direction: row;
-			transform: translate(-50%, -50%);
+			padding-top: 10vh;
+		
 		}
 		#container > div{
 			display:flex;
-			
 			flex-direction: column;
+			margin:auto;
 		}
-		#container>div>canvas{
-			align-self: center;
-		}
+
 	</style>
 </head>
 <body>
 <div id="container">
 	<div>
-		<span>Webgl2 Canvas</span><span id="webgl-text"></span>
+		<span>Webgl2 Canvas Ray Tracer</span>  <span>Render Passes: <span id="webgl-text"></span></span>
 		<canvas id="canvas-webgl2" width="800" height="600"></canvas>
 	</div>
 	

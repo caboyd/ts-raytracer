@@ -172,14 +172,16 @@ const WebglRenderer_1 = __webpack_require__(11);
 let software_renderer;
 let webgl_renderer;
 exports.is_mobile = false;
-let min_frame_time = 15;
+let min_frame_time = 50;
 let last_time = 0;
 let draw = 0;
 let count = 0;
+let passes = 10000;
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         exports.is_mobile = true;
-        min_frame_time = 50;
+        min_frame_time = 250;
+        passes = 100;
     }
     let canvas_webgl2 = document.getElementById("canvas-webgl2");
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
@@ -192,7 +194,7 @@ let count = 0;
 function drawScene() {
     let now = Date.now();
     if (now - last_time > min_frame_time) {
-        if (count <= 500) {
+        if (count <= 10000) {
             requestAnimationFrame(drawWebgl);
             last_time = now;
             count++;
@@ -5346,21 +5348,21 @@ class WebglRenderer {
         let mat_array2 = [];
         sphere_array.push(0, -1000, 0, 1000);
         mat_array.push(0.5 * 255, 0.5 * 255, 0.5 * 255);
-        mat_array2.push(Material_1.MatType.Diffuse, 0);
+        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
         sphere_array.push(0, 1, 0, 1);
         mat_array.push(0, 0, 0);
-        mat_array2.push(Material_1.MatType.Refract, 1.5);
+        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
         if (!main_1.is_mobile) {
             sphere_array.push(0, 1, 0, -0.95);
             mat_array.push(0, 0, 0);
-            mat_array2.push(Material_1.MatType.Refract, 1.5);
+            mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
         }
         sphere_array.push(-4, 1, 0, 1);
         mat_array.push(0.4 * 255, 0.2 * 255, 0.1 * 255);
-        mat_array2.push(Material_1.MatType.Diffuse, 0);
+        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
         sphere_array.push(4, 1, 0, 1);
         mat_array.push(0.7 * 255, 0.6 * 255, 0.5 * 255);
-        mat_array2.push(Material_1.MatType.Reflect, 0);
+        mat_array2.push(Material_1.MatType.Reflect, 0, 0, 0);
         let k = main_1.is_mobile ? 5 : 11;
         for (let a = -k; a < k; a++) {
             for (let b = -k; b < k; b++) {
@@ -5370,26 +5372,26 @@ class WebglRenderer {
                     if (choose_mat < 0.50) {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(SoftwareRenderer_1.default.nextFloat() * 255, SoftwareRenderer_1.default.nextFloat() * 255, SoftwareRenderer_1.default.nextFloat() * 255);
-                        mat_array2.push(Material_1.MatType.Diffuse, 0);
+                        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
                     }
                     else if (choose_mat < 0.75) {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(0.5 * (1 + SoftwareRenderer_1.default.nextFloat()) * 255, 0.5 * (1 + SoftwareRenderer_1.default.nextFloat()) * 255, 0.5 * (1 + SoftwareRenderer_1.default.nextFloat()) * 255);
-                        mat_array2.push(Material_1.MatType.Reflect, 0.5 * SoftwareRenderer_1.default.nextFloat());
+                        mat_array2.push(Material_1.MatType.Reflect, 0.5 * SoftwareRenderer_1.default.nextFloat(), 0, 0);
                     }
                     else if (choose_mat < 0.95) {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(0, 0, 0);
-                        mat_array2.push(Material_1.MatType.Refract, 1.5);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
                     }
                     else {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(0, 0, 0);
-                        mat_array2.push(Material_1.MatType.Refract, 1.5);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
                         if (!main_1.is_mobile) {
                             sphere_array.push(center[0], center[1], center[2], -0.18);
                             mat_array.push(0, 0, 0);
-                            mat_array2.push(Material_1.MatType.Refract, 1.5);
+                            mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
                         }
                     }
                 }
@@ -5423,7 +5425,7 @@ class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
         gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RG32F, width, height, 0, gl.RG, gl.FLOAT, new Float32Array(mat_array2));
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width, height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
         this.shader.setIntByName("mat_texture_extra", 3);
         this.shader.setIntByName("sphere_count", width);
     }
