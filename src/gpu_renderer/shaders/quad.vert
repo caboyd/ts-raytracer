@@ -9,6 +9,6 @@ out vec2 tex_coord;
 void main()
 {
 	gl_Position =  vec4(a_vertex,1);
-	tex_coord = (a_vertex.xy + vec2(1.0,1.0)) / 2.0;
+	tex_coord = (a_vertex.xy + vec2(1.0,1.0)) / (2.0);
 }
 

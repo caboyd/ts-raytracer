@@ -3,7 +3,11 @@ import {vec3} from "gl-matrix";
 import {MatType} from "./Material";
 import {is_mobile} from "../main";
 import {Camera} from "../Camera";
-import gen from "../renderer/SoftwareRenderer";
+
+const random = require("fast-random");
+
+const seed = 49;
+const gen = random(seed);
 
 export class WebglRenderer {
     gl: WebGL2RenderingContext;
@@ -20,13 +24,17 @@ export class WebglRenderer {
     
     current_texture = 0;
     sample_count = 0;
+    
+    render_width = 0;
+    render_height = 0;
+    super_sampling = 1;
 
     constructor(canvas: HTMLCanvasElement) {
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
         
-        let aperture = 0.015;
+        let aperture = 0.012;
         let eye = vec3.fromValues(10,1.9,2.5);
         let target = vec3.fromValues(4,0.5,1);
         let up = vec3.fromValues(0,1,0);
@@ -46,7 +54,7 @@ export class WebglRenderer {
         else
             gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer1);
         
-        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        gl.viewport(0, 0, this.render_width, this.render_height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         
         this.shader.use();
@@ -120,16 +128,21 @@ export class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
 
-        this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 12);
+        this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 24);
         // this.addSpheres(uniforms);
 
         uniforms.set("ambient_light", vec3.fromValues(0.5, 0.7, 1.0));
-
+     
         this.shader.setUniforms(uniforms);
+        
+        this.quad_shader.use();
+  
     }
     
     private initRenderTexture():void{
         let gl = this.gl;
+        this.render_width = this.gl.drawingBufferWidth * (this.super_sampling);
+        this.render_height = this.gl.drawingBufferHeight * (this.super_sampling);
         
         //Set up a frame buffer 
         this.frame_buffer0 = gl.createFramebuffer();
@@ -146,14 +159,14 @@ export class WebglRenderer {
 
         // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA, gl.drawingBufferWidth,
-            gl.drawingBufferHeight,0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB10_A2,this.render_width,
+            this.render_height,0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
         //Set "renderedTexture" as our color attachment #0
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture0, 0);
@@ -161,7 +174,6 @@ export class WebglRenderer {
         //Completed
         if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
             throw "frame buffer error";
-
         
         //Set up a frame buffer 
         this.frame_buffer1 = gl.createFramebuffer();
@@ -175,14 +187,14 @@ export class WebglRenderer {
 
         // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA, gl.drawingBufferWidth,
-            gl.drawingBufferHeight,0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB10_A2,this.render_width,
+            this.render_height,0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
         //Set "renderedTexture" as our color attachment #0
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture1, 0);
@@ -214,12 +226,11 @@ export class WebglRenderer {
 
         sphere_array.push(0,1,0,1);
         mat_array.push(0,255,0,0);
-        mat_array2.push(MatType.Refract, 1.5,0,0);
-        
+        mat_array2.push(MatType.Refract, 1.2,0,0);
         
         sphere_array.push(0,1,0,-0.95);
         mat_array.push(0,0,0,0);
-        mat_array2.push(MatType.Refract, 1.5,0,0);
+        mat_array2.push(MatType.Refract, 1.2,0,0);
         
         
         sphere_array.push(-4, 1, 0, 1);
@@ -322,14 +333,14 @@ export class WebglRenderer {
         this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
         this.shader.setVec3ByName("screen.position", cam.position);
         this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.gl.drawingBufferWidth);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.gl.drawingBufferHeight);
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.render_height);
         
     }
     
     private wiggleCamera():void{
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.gl.drawingBufferWidth);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.gl.drawingBufferHeight);
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.render_height);
     }
     
     private initBuffers() {

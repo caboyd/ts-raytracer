@@ -6,16 +6,16 @@ let webgl_renderer: WebglRenderer;
 export var is_mobile:boolean = false;
 
 
-let min_frame_time = 50;
+let min_frame_time = 110;
 let last_time = 0;
 let draw = 0;
 let count = 0;
-let passes = 10000;
+let passes = 500;
 
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         is_mobile = true;
-        min_frame_time = 250;
+        min_frame_time = 500;
         passes = 100;
     }
     
@@ -33,7 +33,7 @@ function drawScene() {
     let now = Date.now();
     
     if(now - last_time  > min_frame_time){
-        if(count <= 10000){
+        if(count <= passes){
             requestAnimationFrame(drawWebgl);
             last_time = now; 
             count++;
