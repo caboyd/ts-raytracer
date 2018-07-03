@@ -28,17 +28,17 @@ export class WebglRenderer {
     private render_height = 0;
 
     private super_sampling = 0;
-    private max_ray_bounce = is_mobile ? 12 : 24;
+    private max_ray_bounce = is_mobile ? 8 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
-    
-    private float_tex_ext;
+
+    private float_tex_ext: boolean;
 
     constructor(canvas: HTMLCanvasElement) {
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
 
-        let aperture = 0.01;
+        let aperture = 0.0;
         let eye = vec3.fromValues(10, 1.9, 2.5);
         let target = vec3.fromValues(4, 0.5, 1);
         let up = vec3.fromValues(0, 1, 0);
@@ -49,7 +49,7 @@ export class WebglRenderer {
             eye,
             target,
             up,
-            45,
+            30,
             this.gl.drawingBufferWidth / this.gl.drawingBufferHeight,
             aperture,
             dist_to_focus
@@ -82,16 +82,16 @@ export class WebglRenderer {
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
 
-        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        if(!!this.float_tex_ext)
+        if (!!this.float_tex_ext)
             gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
-        else
-            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, 0, 0, this.render_width, this.render_height, 0);
+        else gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
+
         //RENDER TO SCREEN
-        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
-        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
+        if (!!this.float_tex_ext)
+            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
+        else gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
@@ -100,7 +100,7 @@ export class WebglRenderer {
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
         this.quad_shader.setIntByName("u_texture", 0);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
@@ -164,11 +164,9 @@ export class WebglRenderer {
 
         //Float texture support
         this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
-        this.float_tex_ext = true;
+        
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
-
-        // "Bind" the newly created texture : all future texture functions will modify this texture
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
 
         // prettier-ignore
@@ -176,8 +174,12 @@ export class WebglRenderer {
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
                 this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
-                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+            if(!is_mobile)
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                    this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+            else
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
+                    this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -190,7 +192,7 @@ export class WebglRenderer {
 
         //Completed
         const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-        console.log(`can ${status === gl.FRAMEBUFFER_COMPLETE ? "" : "NOT "}render to R32`);
+        console.log(`can ${status === gl.FRAMEBUFFER_COMPLETE ? "" : "NOT "}render to RGBA32F`);
 
         if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE) throw "frame buffer error";
 
@@ -203,8 +205,12 @@ export class WebglRenderer {
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
                 this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
+            if(!is_mobile)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
                 this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+            else
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
+                    this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -214,19 +220,26 @@ export class WebglRenderer {
 
         //Texture that is rendered to screen
         this.quad_render_texture = gl.createTexture();
-        // "Bind" the newly created texture : all future texture functions will modify this texture
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
 
-        // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
-            this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        if(!is_mobile)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        if (this.super_sampling > 1) {
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        } else {
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        }
 
         gl.bindTexture(gl.TEXTURE_2D, null);
     }

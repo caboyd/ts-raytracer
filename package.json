@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "build": "webpack --progress --colors",
-    "dev": "webpack-dev-server --content-base ./ --colors --hot --inline"
+    "dev": "webpack-dev-server --content-base ./ --colors --hot --inline",
+    "dev2": "webpack-dev-server --content-base ./ --colors --hot --inline --host 0.0.0.0"
   },
   "author": "Chris Boyd",
   "license": "MIT",
