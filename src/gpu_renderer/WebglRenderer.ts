@@ -31,7 +31,7 @@ export class WebglRenderer {
     private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
     
-    private float_tex_ext = 0;
+    private float_tex_ext;
 
     constructor(canvas: HTMLCanvasElement) {
         this.initGL(canvas);
@@ -91,7 +91,7 @@ export class WebglRenderer {
         //RENDER TO SCREEN
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
-        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB, 0, 0, this.render_width, this.render_height, 0);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
@@ -164,7 +164,7 @@ export class WebglRenderer {
 
         //Float texture support
         this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
-
+        this.float_tex_ext = true;
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
 

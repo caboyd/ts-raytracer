@@ -5243,7 +5243,6 @@ class WebglRenderer {
         this.super_sampling = 0;
         this.max_ray_bounce = main_1.is_mobile ? 12 : 24;
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
-        this.float_tex_ext = 0;
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
@@ -5284,7 +5283,7 @@ class WebglRenderer {
         //RENDER TO SCREEN
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
-        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB, 0, 0, this.render_width, this.render_height, 0);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -5338,6 +5337,7 @@ class WebglRenderer {
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
         //Float texture support
         this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
+        this.float_tex_ext = true;
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
         // "Bind" the newly created texture : all future texture functions will modify this texture
