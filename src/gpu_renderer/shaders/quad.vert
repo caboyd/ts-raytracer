@@ -1,5 +1,5 @@
 #version 300 es
-
+precision mediump float;
 // Input vertex data, different for all executions of this shader.
 layout(location = 0) in vec3 a_vertex;
 

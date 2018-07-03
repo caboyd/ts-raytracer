@@ -10,73 +10,85 @@ const seed = 49;
 const gen = random(seed);
 
 export class WebglRenderer {
-    gl: WebGL2RenderingContext;
-    shader: Shader;
-    private quad_shader:Shader;
-    
-    VAO: WebGLVertexArrayObject;
-    vertex_buffer: WebGLBuffer;
-    frame_buffer0: WebGLFramebuffer;
-    frame_buffer1: WebGLFramebuffer;
-    
-    texture0: WebGLTexture;
-    texture1:WebGLTexture;
-    
-    current_texture = 0;
-    sample_count = 0;
-    
-    render_width = 0;
-    render_height = 0;
-    super_sampling = 1;
+    private gl: WebGL2RenderingContext;
+    private shader: Shader;
+    private quad_shader: Shader;
+
+    private VAO: WebGLVertexArrayObject;
+    private vertex_buffer: WebGLBuffer;
+    private frame_buffer: WebGLFramebuffer;
+
+    private float_texture: WebGLTexture;
+    private float_texture_copy: WebGLTexture;
+    private quad_render_texture: WebGLTexture;
+
+    private sample_count = 0;
+
+    private render_width = 0;
+    private render_height = 0;
+
+    private super_sampling = 0;
+    private max_ray_bounce = is_mobile ? 12 : 24;
+    private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
     constructor(canvas: HTMLCanvasElement) {
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
-        
-        let aperture = 0.012;
-        let eye = vec3.fromValues(10,1.9,2.5);
-        let target = vec3.fromValues(4,0.5,1);
-        let up = vec3.fromValues(0,1,0);
-        let dist_to_focus = vec3.distance(eye,target);
-        
+
+        let aperture = 0.01;
+        let eye = vec3.fromValues(10, 1.9, 2.5);
+        let target = vec3.fromValues(4, 0.5, 1);
+        let up = vec3.fromValues(0, 1, 0);
+        let dist_to_focus = vec3.distance(eye, target);
+
         this.bigSphereScene();
-        this.setCamera(eye,target,up, 30, this.gl.drawingBufferWidth/this.gl.drawingBufferHeight, aperture,dist_to_focus);
+        this.setCamera(
+            eye,
+            target,
+            up,
+            45,
+            this.gl.drawingBufferWidth / this.gl.drawingBufferHeight,
+            aperture,
+            dist_to_focus
+        );
         this.initBuffers();
     }
 
     public draw(): void {
         let gl = this.gl;
-        
+
         //RENDER TO TEXTURE
-        if(this.current_texture == 0)
-            gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer0);
-        else
-            gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer1);
-        
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
+
         gl.viewport(0, 0, this.render_width, this.render_height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        
+
         this.shader.use();
         this.shader.setIntByName("sample_count", this.sample_count);
-        this.shader.setFloatByName("rand_seed0", gen.nextFloat() );
-        this.shader.setFloatByName("rand_seed1", gen.nextFloat() );
-        
+        this.shader.setFloatByName("rand_seed0", gen.nextFloat());
+        this.shader.setFloatByName("rand_seed1", gen.nextFloat());
+
         //Wiggle for anti-aliasing
         this.wiggleCamera();
-        
+
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
-        if(this.current_texture == 0)
-            gl.bindTexture(gl.TEXTURE_2D, this.texture1);
-        else
-            gl.bindTexture(gl.TEXTURE_2D, this.texture0);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
         this.shader.setIntByName("last_frame", 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
 
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
+
         //RENDER TO SCREEN
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB, 0, 0, this.render_width, this.render_height, 0);
+
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -84,20 +96,14 @@ export class WebglRenderer {
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
-        if(this.current_texture == 0)
-            gl.bindTexture(gl.TEXTURE_2D, this.texture0);
-        else
-            gl.bindTexture(gl.TEXTURE_2D, this.texture1);
-        this.quad_shader.setIntByName("texture1", 0);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        this.quad_shader.setIntByName("u_texture", 0);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
-    
+
         this.sample_count++;
-        
-        this.current_texture++;
-        if(this.current_texture > 1)this.current_texture = 0;
     }
 
     private initGL(canvas: HTMLCanvasElement) {
@@ -116,11 +122,15 @@ export class WebglRenderer {
 
     private initShader() {
         let gl = this.gl;
-        
+
         const frag: string = require("gpu_renderer/shaders/basic.frag");
         const vert: string = require("gpu_renderer/shaders/basic.vert");
         this.shader = new Shader(this.gl, vert, frag);
-        this.quad_shader = new Shader(gl, require("gpu_renderer/shaders/quad.vert"), require("gpu_renderer/shaders/quad.frag"));
+        this.quad_shader = new Shader(
+            gl,
+            require("gpu_renderer/shaders/quad.vert"),
+            require("gpu_renderer/shaders/quad.frag")
+        );
 
         this.shader.setAttributes(["a_vertex"]);
 
@@ -128,39 +138,42 @@ export class WebglRenderer {
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
 
-        this.shader.setIntByName("max_ray_bounce", is_mobile ? 8 : 24);
+        this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
         // this.addSpheres(uniforms);
 
-        uniforms.set("ambient_light", vec3.fromValues(0.5, 0.7, 1.0));
-     
+        uniforms.set("ambient_light", this.ambient_light);
+
         this.shader.setUniforms(uniforms);
-        
-        this.quad_shader.use();
-  
     }
-    
-    private initRenderTexture():void{
+
+    private initRenderTexture(): void {
         let gl = this.gl;
-        this.render_width = this.gl.drawingBufferWidth * (this.super_sampling);
-        this.render_height = this.gl.drawingBufferHeight * (this.super_sampling);
-        
-        //Set up a frame buffer 
-        this.frame_buffer0 = gl.createFramebuffer();
+        if (this.super_sampling === 0) this.super_sampling = 1;
+        this.render_width = this.gl.drawingBufferWidth * this.super_sampling;
+        this.render_height = this.gl.drawingBufferHeight * this.super_sampling;
+
+        //Set up a frame buffer
+        this.frame_buffer = gl.createFramebuffer();
 
         // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer0);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
 
-        // The texture we're going to render to
-        this.texture0 = gl.createTexture();
-  
+        //Float texture support
+        const ext = gl.getExtension("EXT_color_buffer_float");
+
+        // The float texture we're going to render to
+        this.float_texture = gl.createTexture();
 
         // "Bind" the newly created texture : all future texture functions will modify this texture
-        gl.bindTexture(gl.TEXTURE_2D, this.texture0);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
 
-        // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB10_A2,this.render_width,
-            this.render_height,0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        if (!!ext)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.FLOAT, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -169,26 +182,25 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
         //Set "renderedTexture" as our color attachment #0
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture0, 0);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.float_texture, 0);
 
         //Completed
-        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
-            throw "frame buffer error";
-        
-        //Set up a frame buffer 
-        this.frame_buffer1 = gl.createFramebuffer();
+        const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+        console.log(`can ${status === gl.FRAMEBUFFER_COMPLETE ? "" : "NOT "}render to R32`);
 
-        // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer1);
+        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE) throw "frame buffer error";
 
-        this.texture1 = gl.createTexture();
-        // "Bind" the newly created texture : all future texture functions will modify this texture
-        gl.bindTexture(gl.TEXTURE_2D, this.texture1);
+        //Texture that is passed to shader to get color of previous render frame
+        this.float_texture_copy = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
 
-        // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB10_A2,this.render_width,
-            this.render_height,0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        if (!!ext)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.FLOAT, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -196,13 +208,23 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
-        //Set "renderedTexture" as our color attachment #0
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture1, 0);
+        //Texture that is rendered to screen
+        this.quad_render_texture = gl.createTexture();
+        // "Bind" the newly created texture : all future texture functions will modify this texture
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
 
-        //Completed
-        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
-            throw "frame buffer error";
-        
+        // Give an empty image to OpenGL ( the last "0" )
+        // prettier-ignore
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+            this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+        gl.bindTexture(gl.TEXTURE_2D, null);
     }
 
     private bigSphereScene(): void {
@@ -215,81 +237,80 @@ export class WebglRenderer {
         //R32F
         let mat_tex2 = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, sphere_tex);
-        
+
         let sphere_array = [];
         let mat_array = [];
         let mat_array2 = [];
-        
-        sphere_array.push(0,-1000,0,1000);
-        mat_array.push(0.5 *255, 0.5 *255, 0.5 * 255,255);
-        mat_array2.push(MatType.Diffuse, 0,0,0);
 
-        sphere_array.push(0,1,0,1);
-        mat_array.push(0,255,0,0);
-        mat_array2.push(MatType.Refract, 1.2,0,0);
-        
-        sphere_array.push(0,1,0,-0.95);
-        mat_array.push(0,0,0,0);
-        mat_array2.push(MatType.Refract, 1.2,0,0);
-        
-        
+        sphere_array.push(0, -1000, 0, 1000);
+        mat_array.push(0.5 * 255, 0.5 * 255, 0.5 * 255, 255);
+        mat_array2.push(MatType.Diffuse, 0, 0, 0);
+
+        sphere_array.push(0, 1, 0, 1);
+        mat_array.push(0, 255, 0, 0);
+        mat_array2.push(MatType.Refract, 1.2, 0, 0);
+
+        sphere_array.push(0, 1, 0, -0.95);
+        mat_array.push(0, 0, 0, 0);
+        mat_array2.push(MatType.Refract, 1.2, 0, 0);
+
         sphere_array.push(-4, 1, 0, 1);
-        mat_array.push(0.4*255, 0.2*255, 0.1*255, 0);
-        mat_array2.push(MatType.Diffuse, 0,0,0);
-        
-        sphere_array.push(4,1,0,1);
-        mat_array.push(0.7*255,0.6*255,0.5*255,0);
-        mat_array2.push(MatType.Reflect, 0,0,0);
+        mat_array.push(0.4 * 255, 0.2 * 255, 0.1 * 255, 0);
+        mat_array2.push(MatType.Diffuse, 0, 0, 0);
 
-        
-        let k = is_mobile ? 6: 11;
+        sphere_array.push(4, 1, 0, 1);
+        mat_array.push(0.7 * 255, 0.6 * 255, 0.5 * 255, 0);
+        mat_array2.push(MatType.Reflect, 0, 0, 0);
 
-        for(let a = -k; a < k;a++){
-            for(let b = -k; b <k; b++){
+        let k = is_mobile ? 6 : 11;
+
+        for (let a = -k; a < k; a++) {
+            for (let b = -k; b < k; b++) {
                 let choose_mat = gen.nextFloat();
-                let center = vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9*gen.nextFloat());
-                if(vec3.distance(center,vec3.fromValues(4,0.2,0)) > 0.9){
-                    if(choose_mat < 0.50){
-                        sphere_array.push(center[0],center[1],center[2],0.2);
-                        mat_array.push(gen.nextFloat()*255,gen.nextFloat()*255,gen.nextFloat()*255,0);
-                        mat_array2.push(MatType.Diffuse, 0,0,0);
-                    }else if( choose_mat < 0.75){
-                        sphere_array.push(center[0],center[1],center[2],0.2);
-                        mat_array.push(0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255,0.5*(1+gen.nextFloat())*255,0);
-                        mat_array2.push(MatType.Reflect, 0.5*gen.nextFloat(),0,0);
-                    }else if ( choose_mat < 0.95){
-                        sphere_array.push(center[0],center[1],center[2],0.2);
-                        mat_array.push(0,0,0,0);
-                        mat_array2.push(MatType.Refract, 1.5,0,0);
-                    }else{
-                        sphere_array.push(center[0],center[1],center[2],0.2);
-                        mat_array.push(0,0,0,0);
-                        mat_array2.push(MatType.Refract, 1.5,0,0);
-                      
-                        sphere_array.push(center[0],center[1],center[2],-0.18);
-                        mat_array.push(0,0,0,0);
-                        mat_array2.push(MatType.Refract, 1.5,0,0);
-                        
+                let center = vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9 * gen.nextFloat());
+                if (vec3.distance(center, vec3.fromValues(4, 0.2, 0)) > 0.9) {
+                    if (choose_mat < 0.5) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(gen.nextFloat() * 255, gen.nextFloat() * 255, gen.nextFloat() * 255, 0);
+                        mat_array2.push(MatType.Diffuse, 0, 0, 0);
+                    } else if (choose_mat < 0.75) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(
+                            0.5 * (1 + gen.nextFloat()) * 255,
+                            0.5 * (1 + gen.nextFloat()) * 255,
+                            0.5 * (1 + gen.nextFloat()) * 255,
+                            0
+                        );
+                        mat_array2.push(MatType.Reflect, 0.5 * gen.nextFloat(), 0, 0);
+                    } else if (choose_mat < 0.95) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(MatType.Refract, 1.5, 0, 0);
+                    } else {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(MatType.Refract, 1.5, 0, 0);
 
+                        sphere_array.push(center[0], center[1], center[2], -0.18);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(MatType.Refract, 1.5, 0, 0);
                     }
-
                 }
             }
         }
 
-        
-        let width = sphere_array.length/4;
+        let width = sphere_array.length / 4;
         let num_spheres = width;
-        
+
         //We must round up the texture to the nearest multiple of 2 or it will not read properly
-        width = Math.pow(2, Math.ceil(Math.log(width)/Math.log(2)));
-        
-        for(let i = num_spheres; i <= width; i++){
+        width = Math.pow(2, Math.ceil(Math.log(width) / Math.log(2)));
+
+        for (let i = num_spheres; i <= width; i++) {
             sphere_array.push(0, 0, 0, 0);
-            mat_array.push(0,0,0, 0);
-            mat_array2.push(0, 0,0,0);
+            mat_array.push(0, 0, 0, 0);
+            mat_array2.push(0, 0, 0, 0);
         }
-        
+
         let height = 1;
 
         gl.activeTexture(gl.TEXTURE1);
@@ -299,7 +320,17 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width,height, 0, gl.RGBA, gl.FLOAT, new Float32Array(sphere_array));
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA32F,
+            width,
+            height,
+            0,
+            gl.RGBA,
+            gl.FLOAT,
+            new Float32Array(sphere_array)
+        );
         this.shader.setIntByName("sphere_texture", 1);
 
         gl.activeTexture(gl.TEXTURE2);
@@ -308,41 +339,58 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, width,height, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(mat_array));
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA8,
+            width,
+            height,
+            0,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            new Uint8Array(mat_array)
+        );
         this.shader.setIntByName("mat_texture", 2);
-        
+
         gl.activeTexture(gl.TEXTURE3);
         gl.bindTexture(gl.TEXTURE_2D, mat_tex2);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width,height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width, height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
         this.shader.setIntByName("mat_texture_extra", 3);
-        
+
         this.shader.setIntByName("sphere_count", num_spheres);
         this.shader.setFloatByName("sphere_texture_size", width);
     }
 
-    private setCamera(eye:vec3, target:vec3, up:vec3, vFov:number, aspect:number, aperture:number, focus_dist:number):void{
-        let cam = new Camera(eye,target,up,vFov,aspect, aperture,focus_dist);
-        
+    private setCamera(
+        eye: vec3,
+        target: vec3,
+        up: vec3,
+        vFov: number,
+        aspect: number,
+        aperture: number,
+        focus_dist: number
+    ): void {
+        let cam = new Camera(eye, target, up, vFov, aspect, aperture, focus_dist);
+
         this.shader.use();
         this.shader.setVec3ByName("screen.lower_left_corner", cam.lower_left_corner);
         this.shader.setVec3ByName("screen.horizontal", cam.screen_horizontal);
         this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
         this.shader.setVec3ByName("screen.position", cam.position);
         this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.render_width);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.render_height);
-        
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }
-    
-    private wiggleCamera():void{
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat()/this.render_width);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat()/this.render_height);
+
+    private wiggleCamera(): void {
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }
-    
+
     private initBuffers() {
         let gl = this.gl;
         this.vertex_buffer = gl.createBuffer();
@@ -352,10 +400,10 @@ export class WebglRenderer {
         let vertices = [
             -1.0, -1.0, 0.0,
             1.0, -1.0, 0.0,
-            -1.0,  1.0, 0.0,
-            -1.0,  1.0, 0.0,
+            -1.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0,
             1.0, -1.0, 0.0,
-            1.0,  1.0, 0.0
+            1.0, 1.0, 0.0
         ];
 
         gl.bindVertexArray(this.VAO);
@@ -369,5 +417,3 @@ export class WebglRenderer {
         gl.bindVertexArray(null);
     }
 }
-
-

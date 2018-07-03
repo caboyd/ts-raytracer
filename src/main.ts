@@ -6,17 +6,17 @@ let webgl_renderer: WebglRenderer;
 export var is_mobile:boolean = false;
 
 
-let min_frame_time = 110;
+let min_frame_time = 100;
 let last_time = 0;
 let draw = 0;
 let count = 0;
-let passes = 500;
+let passes = 1000;
 
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         is_mobile = true;
-        min_frame_time = 500;
-        passes = 100;
+        min_frame_time = 400;
+        passes = 500;
     }
     
     let canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
@@ -38,7 +38,6 @@ function drawScene() {
             last_time = now; 
             count++;
         }
-       
     }
     else
         setTimeout( drawScene, min_frame_time - (now - last_time))

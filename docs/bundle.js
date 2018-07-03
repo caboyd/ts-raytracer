@@ -172,16 +172,16 @@ const WebglRenderer_1 = __webpack_require__(12);
 let software_renderer;
 let webgl_renderer;
 exports.is_mobile = false;
-let min_frame_time = 110;
+let min_frame_time = 100;
 let last_time = 0;
 let draw = 0;
 let count = 0;
-let passes = 500;
+let passes = 1000;
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         exports.is_mobile = true;
-        min_frame_time = 500;
-        passes = 100;
+        min_frame_time = 400;
+        passes = 500;
     }
     let canvas_webgl2 = document.getElementById("canvas-webgl2");
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
@@ -5237,30 +5237,28 @@ const seed = 49;
 const gen = random(seed);
 class WebglRenderer {
     constructor(canvas) {
-        this.current_texture = 0;
         this.sample_count = 0;
         this.render_width = 0;
         this.render_height = 0;
-        this.super_sampling = 1;
+        this.super_sampling = 0;
+        this.max_ray_bounce = main_1.is_mobile ? 12 : 24;
+        this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
-        let aperture = 0.012;
+        let aperture = 0.01;
         let eye = gl_matrix_1.vec3.fromValues(10, 1.9, 2.5);
         let target = gl_matrix_1.vec3.fromValues(4, 0.5, 1);
         let up = gl_matrix_1.vec3.fromValues(0, 1, 0);
         let dist_to_focus = gl_matrix_1.vec3.distance(eye, target);
         this.bigSphereScene();
-        this.setCamera(eye, target, up, 30, this.gl.drawingBufferWidth / this.gl.drawingBufferHeight, aperture, dist_to_focus);
+        this.setCamera(eye, target, up, 45, this.gl.drawingBufferWidth / this.gl.drawingBufferHeight, aperture, dist_to_focus);
         this.initBuffers();
     }
     draw() {
         let gl = this.gl;
         //RENDER TO TEXTURE
-        if (this.current_texture == 0)
-            gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer0);
-        else
-            gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer1);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
         gl.viewport(0, 0, this.render_width, this.render_height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         this.shader.use();
@@ -5271,33 +5269,30 @@ class WebglRenderer {
         this.wiggleCamera();
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
-        if (this.current_texture == 0)
-            gl.bindTexture(gl.TEXTURE_2D, this.texture1);
-        else
-            gl.bindTexture(gl.TEXTURE_2D, this.texture0);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
         this.shader.setIntByName("last_frame", 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
         //RENDER TO SCREEN
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB, 0, 0, this.render_width, this.render_height, 0);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
         gl.activeTexture(gl.TEXTURE0);
-        if (this.current_texture == 0)
-            gl.bindTexture(gl.TEXTURE_2D, this.texture0);
-        else
-            gl.bindTexture(gl.TEXTURE_2D, this.texture1);
-        this.quad_shader.setIntByName("texture1", 0);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        this.quad_shader.setIntByName("u_texture", 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
         this.sample_count++;
-        this.current_texture++;
-        if (this.current_texture > 1)
-            this.current_texture = 0;
     }
     initGL(canvas) {
         try {
@@ -5322,55 +5317,67 @@ class WebglRenderer {
         let uniforms = new Map();
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
-        this.shader.setIntByName("max_ray_bounce", main_1.is_mobile ? 8 : 24);
+        this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
         // this.addSpheres(uniforms);
-        uniforms.set("ambient_light", gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0));
+        uniforms.set("ambient_light", this.ambient_light);
         this.shader.setUniforms(uniforms);
-        this.quad_shader.use();
     }
     initRenderTexture() {
         let gl = this.gl;
-        this.render_width = this.gl.drawingBufferWidth * (this.super_sampling);
-        this.render_height = this.gl.drawingBufferHeight * (this.super_sampling);
-        //Set up a frame buffer 
-        this.frame_buffer0 = gl.createFramebuffer();
+        if (this.super_sampling === 0)
+            this.super_sampling = 1;
+        this.render_width = this.gl.drawingBufferWidth * this.super_sampling;
+        this.render_height = this.gl.drawingBufferHeight * this.super_sampling;
+        //Set up a frame buffer
+        this.frame_buffer = gl.createFramebuffer();
         // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer0);
-        // The texture we're going to render to
-        this.texture0 = gl.createTexture();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
+        //Float texture support
+        const ext = gl.getExtension("EXT_color_buffer_float");
+        // The float texture we're going to render to
+        this.float_texture = gl.createTexture();
         // "Bind" the newly created texture : all future texture functions will modify this texture
-        gl.bindTexture(gl.TEXTURE_2D, this.texture0);
-        // Give an empty image to OpenGL ( the last "0" )
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
         // prettier-ignore
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        if (!!ext)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width, this.render_height, 0, gl.RGBA, gl.FLOAT, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         //Set "renderedTexture" as our color attachment #0
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture0, 0);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.float_texture, 0);
         //Completed
+        const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+        console.log(`can ${status === gl.FRAMEBUFFER_COMPLETE ? "" : "NOT "}render to R32`);
         if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
             throw "frame buffer error";
-        //Set up a frame buffer 
-        this.frame_buffer1 = gl.createFramebuffer();
-        // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer1);
-        this.texture1 = gl.createTexture();
+        //Texture that is passed to shader to get color of previous render frame
+        this.float_texture_copy = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
+        // prettier-ignore
+        if (!!ext)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width, this.render_height, 0, gl.RGBA, gl.FLOAT, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        //Texture that is rendered to screen
+        this.quad_render_texture = gl.createTexture();
         // "Bind" the newly created texture : all future texture functions will modify this texture
-        gl.bindTexture(gl.TEXTURE_2D, this.texture1);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
         // Give an empty image to OpenGL ( the last "0" )
         // prettier-ignore
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        //Set "renderedTexture" as our color attachment #0
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture1, 0);
-        //Completed
-        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE)
-            throw "frame buffer error";
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.bindTexture(gl.TEXTURE_2D, null);
     }
     bigSphereScene() {
         this.shader.use();
@@ -5406,7 +5413,7 @@ class WebglRenderer {
                 let choose_mat = gen.nextFloat();
                 let center = gl_matrix_1.vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9 * gen.nextFloat());
                 if (gl_matrix_1.vec3.distance(center, gl_matrix_1.vec3.fromValues(4, 0.2, 0)) > 0.9) {
-                    if (choose_mat < 0.50) {
+                    if (choose_mat < 0.5) {
                         sphere_array.push(center[0], center[1], center[2], 0.2);
                         mat_array.push(gen.nextFloat() * 255, gen.nextFloat() * 255, gen.nextFloat() * 255, 0);
                         mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
@@ -8421,25 +8428,25 @@ function schlick(cosine, ref_idx) {
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision highp float;\r\n\r\n#define FLT_MAX 3.402823466e+38\r\n\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n    Material mat;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / float(sphere_texture_size);\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.005, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color*final_color;\r\n}\r\n\r\nvoid main()\r\n{        \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n    \r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n     \r\n    vec3 new_color = color(ray);\r\n    \r\n    float blend =  1.0 / float(sample_count+1);\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n    \r\n    fragColor = vec4(final_color,1.0);\r\n\r\n}\r\n\r\n\r\n"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nout vec4 fragColor;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n    Material mat;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / float(sphere_texture_size);\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.005, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color*final_color;\r\n}\r\n\r\nvoid main()\r\n{      \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n    \r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n\r\n    vec3 new_color = color(ray);\r\n\r\n    float blend =  1.0 / float(sample_count+1);\r\n    //if(blend < 0.0025) blend = 0.0025;\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n\r\n    fragColor = vec4(final_color,1.0);         \r\n              \r\n\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\nout vec2 pos;\r\nout vec3 eye;\r\nout vec3 ray_direction;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform float width;\r\nuniform float height;\r\n\r\nfloat random2(vec3 scale, float seed){\r\n    return fract(sin(dot(a_vertex + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvoid main()\r\n{\r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = a_vertex.xy * pos_fix + pos_fix;\r\n     \r\n    eye = screen.position;\r\n\r\n    ray_direction = screen.lower_left_corner +\r\n        screen.x_wiggle*1.0 + pos.x * screen.horizontal + \r\n        screen.y_wiggle*1.0 + pos.y * screen.vertical - \r\n        eye;\r\n        \r\n    gl_Position = vec4(a_vertex,1.0f);\r\n}   "
+module.exports = "#version 300 es\r\nprecision mediump float;\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\nout vec2 pos;\r\nout vec3 eye;\r\nout vec3 ray_direction;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform float width;\r\nuniform float height;\r\n\r\nfloat random2(vec3 scale, float seed){\r\n    return fract(sin(dot(a_vertex + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvoid main()\r\n{\r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = a_vertex.xy * pos_fix + pos_fix;\r\n     \r\n    eye = screen.position;\r\n\r\n    ray_direction = screen.lower_left_corner +\r\n        screen.x_wiggle*1.0 + pos.x * screen.horizontal + \r\n        screen.y_wiggle*1.0 + pos.y * screen.vertical - \r\n        eye;\r\n        \r\n    gl_Position = vec4(a_vertex,1.0f);\r\n}   "
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n\r\n// Input vertex data, different for all executions of this shader.\r\nlayout(location = 0) in vec3 a_vertex;\r\n\r\n// Output data ; will be interpolated for each fragment.\r\nout vec2 tex_coord;\r\n\r\nvoid main()\r\n{\r\n\tgl_Position =  vec4(a_vertex,1);\r\n\ttex_coord = (a_vertex.xy + vec2(1.0,1.0)) / (2.0);\r\n}\r\n\r\n"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n// Input vertex data, different for all executions of this shader.\r\nlayout(location = 0) in vec3 a_vertex;\r\n\r\n// Output data ; will be interpolated for each fragment.\r\nout vec2 tex_coord;\r\n\r\nvoid main()\r\n{\r\n\tgl_Position =  vec4(a_vertex,1);\r\n\ttex_coord = (a_vertex.xy + vec2(1.0,1.0)) / (2.0);\r\n}\r\n\r\n"
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision mediump  float;\r\n// Ouput data\r\nlayout(location = 0) out vec4 color;\r\n\r\nuniform sampler2D texture1;\r\n\r\nin vec2 tex_coord;\r\n\r\nvoid main()\r\n{\r\n\tvec3 c = texture(texture1, tex_coord).rgb;\r\n\t//color = vec4(c,1.0);\r\n\tcolor = vec4(sqrt(c.r), sqrt(c.g), sqrt(c.b), 1.0);\r\n\t//color = vec4(pow(c.r, 1.0/3.0), pow(c.g, 1.0/3.0), pow(c.b, 1.0/3.0), 1.0);\r\n}"
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n// Ouput data\r\nlayout(location = 0) out vec4 color;\r\n\r\nuniform sampler2D u_texture;\r\n\r\nin vec2 tex_coord;\r\n\r\n// Converts a color from linear light gamma to sRGB gamma\r\nvec4 fromLinear(vec4 linearRGB)\r\n{\r\n    bvec4 cutoff = lessThan(linearRGB, vec4(0.0031308));\r\n    vec4 higher = vec4(1.055)*pow(linearRGB, vec4(1.0/2.4)) - vec4(0.055);\r\n    vec4 lower = linearRGB * vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\n// Converts a color from sRGB gamma to linear light gamma\r\nvec4 toLinear(vec4 sRGB)\r\n{\r\n    bvec4 cutoff = lessThan(sRGB, vec4(0.04045));\r\n    vec4 higher = pow((sRGB + vec4(0.055))/vec4(1.055), vec4(2.4));\r\n    vec4 lower = sRGB/vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\nvoid main()\r\n{\r\n\tvec3 c = texture(u_texture, tex_coord).rgb;\r\n\tcolor = fromLinear(vec4(c,1.0));\r\n//    if (tex_coord.x < 0.25)\r\n//        color = vec4(pow(color.r, 1./2.2),pow(color.g, 1./2.2),pow(color.b, 1./2.2),1.0);   // 2.2 Gamma\r\n//    else if (tex_coord.x < 0.5)\r\n//        color = fromLinear(color);        // sRGB \r\n//    else if (tex_coord.x < 0.75)\r\n//        color = (sqrt(color));    // sqrt approximation         \r\n//    else\r\n//        color = color;                // unadjusted\r\n}"
 
 /***/ })
 /******/ ]);

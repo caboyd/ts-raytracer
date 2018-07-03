@@ -1,8 +1,6 @@
 #version 300 es
-precision highp float;
-
+precision mediump float;
 #define FLT_MAX 3.402823466e+38
-
 
 in vec2 pos;
 in vec3 eye;
@@ -243,7 +241,7 @@ vec3 color(inout Ray ray){
 }
 
 void main()
-{        
+{      
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
     
     //Random depth of field blur based on lens radius
@@ -253,15 +251,17 @@ void main()
     Ray ray;
     ray.origin =  eye + offset;
     ray.direction = ray_direction - offset ;
-     
+
     vec3 new_color = color(ray);
-    
+
     float blend =  1.0 / float(sample_count+1);
+    //if(blend < 0.0025) blend = 0.0025;
 
     //Blend new color with color of last frame
     vec3 final_color = mix(prev_color,new_color,blend);
-    
-    fragColor = vec4(final_color,1.0);
+
+    fragColor = vec4(final_color,1.0);         
+              
 
 }
 
