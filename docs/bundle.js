@@ -5243,6 +5243,7 @@ class WebglRenderer {
         this.super_sampling = 0;
         this.max_ray_bounce = main_1.is_mobile ? 12 : 24;
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
+        this.float_tex_ext = 0;
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
@@ -5276,7 +5277,10 @@ class WebglRenderer {
         gl.bindVertexArray(null);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
+        if (!!this.float_tex_ext)
+            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
+        else
+            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, 0, 0, this.render_width, this.render_height, 0);
         //RENDER TO SCREEN
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
@@ -5333,13 +5337,13 @@ class WebglRenderer {
         // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
         //Float texture support
-        const ext = gl.getExtension("EXT_color_buffer_float");
+        this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
         // "Bind" the newly created texture : all future texture functions will modify this texture
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
         // prettier-ignore
-        if (!!ext)
+        if (!!this.float_tex_ext)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width, this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
@@ -5358,7 +5362,7 @@ class WebglRenderer {
         this.float_texture_copy = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
         // prettier-ignore
-        if (!!ext)
+        if (!!this.float_tex_ext)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width, this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);

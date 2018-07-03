@@ -30,6 +30,8 @@ export class WebglRenderer {
     private super_sampling = 0;
     private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
+    
+    private float_tex_ext = 0;
 
     constructor(canvas: HTMLCanvasElement) {
         this.initGL(canvas);
@@ -82,8 +84,10 @@ export class WebglRenderer {
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
-
+        if(!!this.float_tex_ext)
+            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
+        else
+            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, 0, 0, this.render_width, this.render_height, 0);
         //RENDER TO SCREEN
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
@@ -159,7 +163,7 @@ export class WebglRenderer {
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
 
         //Float texture support
-        const ext = gl.getExtension("EXT_color_buffer_float");
+        this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
 
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
@@ -168,7 +172,7 @@ export class WebglRenderer {
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
 
         // prettier-ignore
-        if (!!ext)
+        if (!!this.float_tex_ext)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
                 this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
@@ -195,7 +199,7 @@ export class WebglRenderer {
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
 
         // prettier-ignore
-        if (!!ext)
+        if (!!this.float_tex_ext)
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width,
                 this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
