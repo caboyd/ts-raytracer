@@ -18,9 +18,11 @@ export class WebglRenderer {
     private vertex_buffer: WebGLBuffer;
     private frame_buffer: WebGLFramebuffer;
 
+    private quad_render_framebuffer: WebGLFramebuffer;
+    private quad_render_texture: WebGLTexture;
+
     private float_texture: WebGLTexture;
     private float_texture_copy: WebGLTexture;
-    private quad_render_texture: WebGLTexture;
 
     private sample_count = 0;
 
@@ -28,17 +30,20 @@ export class WebglRenderer {
     private render_height = 0;
 
     private super_sampling = 0;
-    private max_ray_bounce = is_mobile ? 8 : 24;
+    private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
     private float_tex_ext: boolean;
 
     constructor(canvas: HTMLCanvasElement) {
+        //if(is_mobile) this.super_sampling = 0;
+        if (this.super_sampling === 0) this.super_sampling = 1;
+
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
 
-        let aperture = 0.0;
+        let aperture = 0.01;
         let eye = vec3.fromValues(10, 1.9, 2.5);
         let target = vec3.fromValues(4, 0.5, 1);
         let up = vec3.fromValues(0, 1, 0);
@@ -64,7 +69,6 @@ export class WebglRenderer {
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffer);
 
         gl.viewport(0, 0, this.render_width, this.render_height);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         this.shader.use();
         this.shader.setIntByName("sample_count", this.sample_count);
@@ -75,37 +79,36 @@ export class WebglRenderer {
         this.wiggleCamera();
 
         gl.bindVertexArray(this.VAO);
-        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        this.shader.setIntByName("last_frame", 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-        gl.bindVertexArray(null);
 
-        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        if (!!this.float_tex_ext)
+        if (this.float_tex_ext)
             gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
         else gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
+        
+        gl.bindFramebuffer(gl.READ_FRAMEBUFFER, this.frame_buffer);
+        gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, this.quad_render_framebuffer);
 
-        //RENDER TO SCREEN
-        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
-        if (!!this.float_tex_ext)
-            gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
-        else gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
+        gl.blitFramebuffer(
+            0,
+            0,
+            this.render_width,
+            this.render_height,
+            0,
+            0,
+            this.render_width,
+            this.render_height,
+            gl.COLOR_BUFFER_BIT,
+            gl.LINEAR
+        );
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
-        this.quad_shader.setIntByName("u_texture", 0);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-        gl.bindVertexArray(null);
 
         this.sample_count++;
     }
@@ -119,6 +122,7 @@ export class WebglRenderer {
         if (!this.gl) {
             alert("WebGL2 is not available on your browser.");
         }
+        this.gl.disable(this.gl.SAMPLE_COVERAGE);
 
         this.gl.clearColor(0.2, 0.3, 0.3, 1.0);
         this.gl.disable(this.gl.DEPTH_TEST);
@@ -144,15 +148,20 @@ export class WebglRenderer {
 
         this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
         // this.addSpheres(uniforms);
+        this.shader.setIntByName("last_frame", 0);
 
         uniforms.set("ambient_light", this.ambient_light);
 
         this.shader.setUniforms(uniforms);
+
+        this.quad_shader.use();
+        this.quad_shader.setIntByName("u_texture", 0);
+        gl.activeTexture(gl.TEXTURE0);
     }
 
     private initRenderTexture(): void {
         let gl = this.gl;
-        if (this.super_sampling === 0) this.super_sampling = 1;
+
         this.render_width = this.gl.drawingBufferWidth * this.super_sampling;
         this.render_height = this.gl.drawingBufferHeight * this.super_sampling;
 
@@ -164,7 +173,7 @@ export class WebglRenderer {
 
         //Float texture support
         this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
-        
+
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
@@ -206,8 +215,8 @@ export class WebglRenderer {
                 this.render_height, 0, gl.RGBA, gl.FLOAT, null);
         else
             if(!is_mobile)
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
-                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                    this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
             else
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
                     this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
@@ -217,6 +226,11 @@ export class WebglRenderer {
 
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+        this.quad_render_framebuffer = gl.createFramebuffer();
+
+        // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.quad_render_framebuffer);
 
         //Texture that is rendered to screen
         this.quad_render_texture = gl.createTexture();
@@ -233,13 +247,17 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-        if (this.super_sampling > 1) {
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        } else {
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        }
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+        //Set "renderedTexture" as our color attachment #0
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.quad_render_texture, 0);
+
+        //Completed
+        const a = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+        console.log(`${a === gl.FRAMEBUFFER_COMPLETE ? "good" : "bad  "} quad buffer`);
+
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
         gl.bindTexture(gl.TEXTURE_2D, null);
     }
@@ -251,7 +269,7 @@ export class WebglRenderer {
         let sphere_tex = gl.createTexture();
         //RGBA8I
         let mat_tex = gl.createTexture();
-        //R32F
+        //RGBA32F
         let mat_tex2 = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, sphere_tex);
 
@@ -279,10 +297,11 @@ export class WebglRenderer {
         mat_array.push(0.7 * 255, 0.6 * 255, 0.5 * 255, 0);
         mat_array2.push(MatType.Reflect, 0, 0, 0);
 
-        let k = is_mobile ? 6 : 11;
+        let j = is_mobile ? -2 : -11;
+        let k = is_mobile ? 7 : 11;
 
-        for (let a = -k; a < k; a++) {
-            for (let b = -k; b < k; b++) {
+        for (let a = j; a < k; a++) {
+            for (let b = j; b < k; b++) {
                 let choose_mat = gen.nextFloat();
                 let center = vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9 * gen.nextFloat());
                 if (vec3.distance(center, vec3.fromValues(4, 0.2, 0)) > 0.9) {
@@ -424,6 +443,7 @@ export class WebglRenderer {
         ];
 
         gl.bindVertexArray(this.VAO);
+        gl.activeTexture(gl.TEXTURE0);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);

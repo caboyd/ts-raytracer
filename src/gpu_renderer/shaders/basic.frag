@@ -1,5 +1,5 @@
 #version 300 es
-precision mediump float;
+precision highp float;
 #define FLT_MAX 3.402823466e+38
 
 in vec2 pos;
@@ -183,7 +183,7 @@ vec3 color(inout Ray ray){
     for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){
         float rf = float(ray_bounce);
         
-        if(intersectAll(ray, 0.005, FLT_MAX, rec )){
+        if(intersectAll(ray, 0.01, FLT_MAX, rec )){
             ray.origin = rec.pos;
             vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    
             
