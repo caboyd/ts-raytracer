@@ -1,6 +1,6 @@
 {
   "name": "ts-raytracer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Typescript Webgl2 Raytracer",
   "main": "index.html",
   "scripts": {

@@ -24,6 +24,9 @@ let passes = 10000;
     webgl_renderer = new WebglRenderer(canvas_webgl2);
     last_time = Date.now();
   
+    let desc = document.getElementById("desc");
+    desc.innerText =  "" + canvas_webgl2.width + "x" + canvas_webgl2.height + " " + webgl_renderer.super_sampling + "x Super Sampling"; 
+    
     drawScene();
   //  drawCanvas();
 })();

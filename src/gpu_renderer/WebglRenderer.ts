@@ -32,7 +32,7 @@ export class WebglRenderer {
     private render_width = 0;
     private render_height = 0;
 
-    private super_sampling = is_mobile ? 2 : 3;
+    public super_sampling = is_mobile ? 2 : 3;
     private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
