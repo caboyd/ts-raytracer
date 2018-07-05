@@ -6,16 +6,16 @@ let webgl_renderer: WebglRenderer;
 export var is_mobile:boolean = false;
 
 
-let min_frame_time = 120;
+let min_frame_time = 33;
 let last_time = 0;
-let draw = 0;
-let count = 0;
+let render_passes = 0;
+let temp_count = 0;
 let passes = 10000;
 
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         is_mobile = true;
-        min_frame_time = 500;
+        min_frame_time = 66;
     }
     
     let canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
@@ -32,10 +32,9 @@ function drawScene() {
     let now = Date.now();
     
     if(now - last_time  > min_frame_time){
-        if(count <= passes){
+        if(render_passes < passes){
             requestAnimationFrame(drawWebgl);
             last_time = now; 
-            count++;
         }
     }
     else
@@ -44,10 +43,12 @@ function drawScene() {
 }
 
 function drawWebgl(){
-    let now = Date.now();
     webgl_renderer.draw();
-    document.getElementById("webgl-text").textContent = "" + draw++;
-
+    temp_count++;
+    if(temp_count > webgl_renderer.num_quadrants){
+        temp_count = 0;
+        document.getElementById("webgl-text").textContent = "" + ++render_passes;
+    }
     drawScene();
 }
 

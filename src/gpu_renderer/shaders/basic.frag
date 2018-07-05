@@ -6,7 +6,8 @@ in vec2 pos;
 in vec3 eye;
 in vec3 ray_direction;
 
-out vec4 fragColor;
+layout(location=0) out vec4 fragColor;
+layout(location=1) out vec4 fragColor2;
 
 uniform float width;
 uniform float height;
@@ -66,6 +67,8 @@ uniform float sphere_texture_size;
 uniform sampler2D sphere_texture;
 uniform sampler2D mat_texture; 
 uniform sampler2D mat_texture_extra; 
+
+
 
 float random(vec3 scale, float seed){
     return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);
@@ -243,7 +246,7 @@ vec3 color(inout Ray ray){
 void main()
 {      
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
-    
+
     //Random depth of field blur based on lens radius
     vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));
     vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;
@@ -261,8 +264,8 @@ void main()
     vec3 final_color = mix(prev_color,new_color,blend);
 
     fragColor = vec4(final_color,1.0);         
-              
-
+    fragColor2 = fragColor;
+    
 }
 
 

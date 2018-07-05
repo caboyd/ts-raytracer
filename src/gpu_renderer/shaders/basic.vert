@@ -24,15 +24,26 @@ uniform float rand_seed1;
 uniform float width;
 uniform float height;
 
+uniform int num_quadrants;
+uniform int current_quadrant;
+uniform int quadrants_per_row;
+
 float random2(vec3 scale, float seed){
     return fract(sin(dot(a_vertex + seed, scale)) * 43758.5453 + seed);
 }
 
 void main()
 {
+    //match the quad to the quadrant we are rendering
+    float scale = 1. / float(quadrants_per_row);
+    vec3 new_vertex = a_vertex * vec3(scale) + vec3(float(1) - vec3(scale)) ;
+    
+    new_vertex.x -=  float(current_quadrant%quadrants_per_row) * scale * 2.;
+    new_vertex.y -=  floor(float(current_quadrant) / float(quadrants_per_row)) * scale * 2.;
+    
     //fix position from -1 to 1 to 0 to 1
-    pos = a_vertex.xy * pos_fix + pos_fix;
-     
+    pos = new_vertex.xy * pos_fix + pos_fix;
+    
     eye = screen.position;
 
     ray_direction = screen.lower_left_corner +
@@ -40,5 +51,5 @@ void main()
         screen.y_wiggle*1.0 + pos.y * screen.vertical - 
         eye;
         
-    gl_Position = vec4(a_vertex,1.0f);
+    gl_Position = vec4(new_vertex,1.0);
 }   

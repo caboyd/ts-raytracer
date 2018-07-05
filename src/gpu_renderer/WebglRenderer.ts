@@ -18,18 +18,21 @@ export class WebglRenderer {
     private vertex_buffer: WebGLBuffer;
     private frame_buffer: WebGLFramebuffer;
 
-    private quad_render_framebuffer: WebGLFramebuffer;
     private quad_render_texture: WebGLTexture;
 
     private float_texture: WebGLTexture;
     private float_texture_copy: WebGLTexture;
 
     private sample_count = 0;
-
+    private default_quadrants_row = is_mobile ? 4 : 2;
+    private default_quadrants_col = is_mobile ? 4 : 2;
+    public num_quadrants;
+    private current_quadrant;
+    
     private render_width = 0;
     private render_height = 0;
 
-    private super_sampling = 0;
+    private super_sampling = is_mobile ? 2 : 3;
     private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
@@ -38,6 +41,8 @@ export class WebglRenderer {
     constructor(canvas: HTMLCanvasElement) {
         //if(is_mobile) this.super_sampling = 0;
         if (this.super_sampling === 0) this.super_sampling = 1;
+        this.num_quadrants = this.super_sampling * this.super_sampling * this.default_quadrants_row * this.default_quadrants_col;
+        this.current_quadrant = 0;
 
         this.initGL(canvas);
         this.initRenderTexture();
@@ -74,34 +79,24 @@ export class WebglRenderer {
         this.shader.setIntByName("sample_count", this.sample_count);
         this.shader.setFloatByName("rand_seed0", gen.nextFloat());
         this.shader.setFloatByName("rand_seed1", gen.nextFloat());
+        this.shader.setIntByName("current_quadrant", this.current_quadrant);
+        
 
+        
         //Wiggle for anti-aliasing
         this.wiggleCamera();
 
         gl.bindVertexArray(this.VAO);
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture_copy);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
+        
+        //Draw to float texture and quad render texture
+        gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
 
         if (this.float_tex_ext)
             gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 0, 0, this.render_width, this.render_height, 0);
         else gl.copyTexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 0, 0, this.render_width, this.render_height, 0);
         
-        gl.bindFramebuffer(gl.READ_FRAMEBUFFER, this.frame_buffer);
-        gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, this.quad_render_framebuffer);
-
-        gl.blitFramebuffer(
-            0,
-            0,
-            this.render_width,
-            this.render_height,
-            0,
-            0,
-            this.render_width,
-            this.render_height,
-            gl.COLOR_BUFFER_BIT,
-            gl.LINEAR
-        );
-
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
@@ -110,7 +105,11 @@ export class WebglRenderer {
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        this.sample_count++;
+        this.current_quadrant++;
+        if(this.current_quadrant >= this.num_quadrants){
+            this.current_quadrant = 0;
+            this.sample_count++;
+        }
     }
 
     private initGL(canvas: HTMLCanvasElement) {
@@ -147,16 +146,18 @@ export class WebglRenderer {
         uniforms.set("height", this.gl.drawingBufferHeight);
 
         this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
+        this.shader.setIntByName("num_quadrants", this.num_quadrants);
+        this.shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row);
         // this.addSpheres(uniforms);
         this.shader.setIntByName("last_frame", 0);
 
         uniforms.set("ambient_light", this.ambient_light);
 
         this.shader.setUniforms(uniforms);
+        gl.bindVertexArray(this.VAO);
 
         this.quad_shader.use();
         this.quad_shader.setIntByName("u_texture", 0);
-        gl.activeTexture(gl.TEXTURE0);
     }
 
     private initRenderTexture(): void {
@@ -176,6 +177,8 @@ export class WebglRenderer {
 
         // The float texture we're going to render to
         this.float_texture = gl.createTexture();
+        
+
         gl.bindTexture(gl.TEXTURE_2D, this.float_texture);
 
         // prettier-ignore
@@ -196,14 +199,34 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
-        //Set "renderedTexture" as our color attachment #0
+        //Set "float_texture" as our color attachment #0
         gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.float_texture, 0);
 
-        //Completed
-        const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-        console.log(`can ${status === gl.FRAMEBUFFER_COMPLETE ? "" : "NOT "}render to RGBA32F`);
+        //Texture that is rendered to screen
+        this.quad_render_texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
 
-        if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) != gl.FRAMEBUFFER_COMPLETE) throw "frame buffer error";
+        // prettier-ignore
+        if(!is_mobile)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
+        else
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
+                this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+        //Set "quad_render_texture" as our color attachment #1
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT1, gl.TEXTURE_2D, this.quad_render_texture, 0);
+
+        //Completed
+        const a = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+        console.log(`${a === gl.FRAMEBUFFER_COMPLETE ? "good" : "bad  "} frame buffer`);
+        
 
         //Texture that is passed to shader to get color of previous render frame
         this.float_texture_copy = gl.createTexture();
@@ -227,39 +250,7 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 
-        this.quad_render_framebuffer = gl.createFramebuffer();
-
-        // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.quad_render_framebuffer);
-
-        //Texture that is rendered to screen
-        this.quad_render_texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
-
-        // prettier-ignore
-        if(!is_mobile)
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB10_A2, this.render_width,
-                this.render_height, 0, gl.RGBA, gl.UNSIGNED_INT_2_10_10_10_REV, null);
-        else
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width,
-                this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-
-        //Set "renderedTexture" as our color attachment #0
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.quad_render_texture, 0);
-
-        //Completed
-        const a = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-        console.log(`${a === gl.FRAMEBUFFER_COMPLETE ? "good" : "bad  "} quad buffer`);
-
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-        gl.bindTexture(gl.TEXTURE_2D, null);
+ 
     }
 
     private bigSphereScene(): void {
