@@ -1,2 +1,8548 @@
-!function(t){var n={};function r(e){if(n[e])return n[e].exports;var a=n[e]={i:e,l:!1,exports:{}};return t[e].call(a.exports,a,a.exports,r),a.l=!0,a.exports}r.m=t,r.c=n,r.d=function(t,n,e){r.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:e})},r.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},r.t=function(t,n){if(1&n&&(t=r(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var e=Object.create(null);if(r.r(e),Object.defineProperty(e,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var a in t)r.d(e,a,function(n){return t[n]}.bind(null,a));return e},r.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(n,"a",n),n},r.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},r.p="",r(r.s=2)}([function(t,n,r){"use strict";r.r(n);var e={};r.r(e),r.d(e,"EPSILON",function(){return d}),r.d(e,"ARRAY_TYPE",function(){return m}),r.d(e,"RANDOM",function(){return _}),r.d(e,"setMatrixArrayType",function(){return M}),r.d(e,"toRadian",function(){return v}),r.d(e,"equals",function(){return b});var a={};r.r(a),r.d(a,"create",function(){return x}),r.d(a,"clone",function(){return g}),r.d(a,"copy",function(){return T}),r.d(a,"identity",function(){return E}),r.d(a,"fromValues",function(){return R}),r.d(a,"set",function(){return y}),r.d(a,"transpose",function(){return w}),r.d(a,"invert",function(){return A}),r.d(a,"adjoint",function(){return D}),r.d(a,"determinant",function(){return q}),r.d(a,"multiply",function(){return U}),r.d(a,"rotate",function(){return F}),r.d(a,"scale",function(){return P}),r.d(a,"fromRotation",function(){return B}),r.d(a,"fromScaling",function(){return I}),r.d(a,"str",function(){return S}),r.d(a,"frob",function(){return L}),r.d(a,"LDU",function(){return X}),r.d(a,"add",function(){return N}),r.d(a,"subtract",function(){return G}),r.d(a,"exactEquals",function(){return V}),r.d(a,"equals",function(){return O}),r.d(a,"multiplyScalar",function(){return z}),r.d(a,"multiplyScalarAndAdd",function(){return C}),r.d(a,"mul",function(){return j}),r.d(a,"sub",function(){return H});var i={};r.r(i),r.d(i,"create",function(){return W}),r.d(i,"clone",function(){return Y}),r.d(i,"copy",function(){return k}),r.d(i,"identity",function(){return Q}),r.d(i,"fromValues",function(){return Z}),r.d(i,"set",function(){return K}),r.d(i,"invert",function(){return $}),r.d(i,"determinant",function(){return J}),r.d(i,"multiply",function(){return tt}),r.d(i,"rotate",function(){return nt}),r.d(i,"scale",function(){return rt}),r.d(i,"translate",function(){return et}),r.d(i,"fromRotation",function(){return at}),r.d(i,"fromScaling",function(){return it}),r.d(i,"fromTranslation",function(){return ot}),r.d(i,"str",function(){return ut}),r.d(i,"frob",function(){return ct}),r.d(i,"add",function(){return st}),r.d(i,"subtract",function(){return ft}),r.d(i,"multiplyScalar",function(){return lt}),r.d(i,"multiplyScalarAndAdd",function(){return ht}),r.d(i,"exactEquals",function(){return dt}),r.d(i,"equals",function(){return mt}),r.d(i,"mul",function(){return _t}),r.d(i,"sub",function(){return Mt});var o={};r.r(o),r.d(o,"create",function(){return pt}),r.d(o,"fromMat4",function(){return vt}),r.d(o,"clone",function(){return bt}),r.d(o,"copy",function(){return xt}),r.d(o,"fromValues",function(){return gt}),r.d(o,"set",function(){return Tt}),r.d(o,"identity",function(){return Et}),r.d(o,"transpose",function(){return Rt}),r.d(o,"invert",function(){return yt}),r.d(o,"adjoint",function(){return wt}),r.d(o,"determinant",function(){return At}),r.d(o,"multiply",function(){return Dt}),r.d(o,"translate",function(){return qt}),r.d(o,"rotate",function(){return Ut}),r.d(o,"scale",function(){return Ft}),r.d(o,"fromTranslation",function(){return Pt}),r.d(o,"fromRotation",function(){return Bt}),r.d(o,"fromScaling",function(){return It}),r.d(o,"fromMat2d",function(){return St}),r.d(o,"fromQuat",function(){return Lt}),r.d(o,"normalFromMat4",function(){return Xt}),r.d(o,"projection",function(){return Nt}),r.d(o,"str",function(){return Gt}),r.d(o,"frob",function(){return Vt}),r.d(o,"add",function(){return Ot}),r.d(o,"subtract",function(){return zt}),r.d(o,"multiplyScalar",function(){return Ct}),r.d(o,"multiplyScalarAndAdd",function(){return jt}),r.d(o,"exactEquals",function(){return Ht}),r.d(o,"equals",function(){return Wt}),r.d(o,"mul",function(){return Yt}),r.d(o,"sub",function(){return kt});var u={};r.r(u),r.d(u,"create",function(){return Qt}),r.d(u,"clone",function(){return Zt}),r.d(u,"copy",function(){return Kt}),r.d(u,"fromValues",function(){return $t}),r.d(u,"set",function(){return Jt}),r.d(u,"identity",function(){return tn}),r.d(u,"transpose",function(){return nn}),r.d(u,"invert",function(){return rn}),r.d(u,"adjoint",function(){return en}),r.d(u,"determinant",function(){return an}),r.d(u,"multiply",function(){return on}),r.d(u,"translate",function(){return un}),r.d(u,"scale",function(){return cn}),r.d(u,"rotate",function(){return sn}),r.d(u,"rotateX",function(){return fn}),r.d(u,"rotateY",function(){return ln}),r.d(u,"rotateZ",function(){return hn}),r.d(u,"fromTranslation",function(){return dn}),r.d(u,"fromScaling",function(){return mn}),r.d(u,"fromRotation",function(){return _n}),r.d(u,"fromXRotation",function(){return Mn}),r.d(u,"fromYRotation",function(){return pn}),r.d(u,"fromZRotation",function(){return vn}),r.d(u,"fromRotationTranslation",function(){return bn}),r.d(u,"fromQuat2",function(){return xn}),r.d(u,"getTranslation",function(){return gn}),r.d(u,"getScaling",function(){return Tn}),r.d(u,"getRotation",function(){return En}),r.d(u,"fromRotationTranslationScale",function(){return Rn}),r.d(u,"fromRotationTranslationScaleOrigin",function(){return yn}),r.d(u,"fromQuat",function(){return wn}),r.d(u,"frustum",function(){return An}),r.d(u,"perspective",function(){return Dn}),r.d(u,"perspectiveFromFieldOfView",function(){return qn}),r.d(u,"ortho",function(){return Un}),r.d(u,"lookAt",function(){return Fn}),r.d(u,"targetTo",function(){return Pn}),r.d(u,"str",function(){return Bn}),r.d(u,"frob",function(){return In}),r.d(u,"add",function(){return Sn}),r.d(u,"subtract",function(){return Ln}),r.d(u,"multiplyScalar",function(){return Xn}),r.d(u,"multiplyScalarAndAdd",function(){return Nn}),r.d(u,"exactEquals",function(){return Gn}),r.d(u,"equals",function(){return Vn}),r.d(u,"mul",function(){return On}),r.d(u,"sub",function(){return zn});var c={};r.r(c),r.d(c,"create",function(){return Cn}),r.d(c,"clone",function(){return jn}),r.d(c,"length",function(){return Hn}),r.d(c,"fromValues",function(){return Wn}),r.d(c,"copy",function(){return Yn}),r.d(c,"set",function(){return kn}),r.d(c,"add",function(){return Qn}),r.d(c,"subtract",function(){return Zn}),r.d(c,"multiply",function(){return Kn}),r.d(c,"divide",function(){return $n}),r.d(c,"ceil",function(){return Jn}),r.d(c,"floor",function(){return tr}),r.d(c,"min",function(){return nr}),r.d(c,"max",function(){return rr}),r.d(c,"round",function(){return er}),r.d(c,"scale",function(){return ar}),r.d(c,"scaleAndAdd",function(){return ir}),r.d(c,"distance",function(){return or}),r.d(c,"squaredDistance",function(){return ur}),r.d(c,"squaredLength",function(){return cr}),r.d(c,"negate",function(){return sr}),r.d(c,"inverse",function(){return fr}),r.d(c,"normalize",function(){return lr}),r.d(c,"dot",function(){return hr}),r.d(c,"cross",function(){return dr}),r.d(c,"lerp",function(){return mr}),r.d(c,"hermite",function(){return _r}),r.d(c,"bezier",function(){return Mr}),r.d(c,"random",function(){return pr}),r.d(c,"transformMat4",function(){return vr}),r.d(c,"transformMat3",function(){return br}),r.d(c,"transformQuat",function(){return xr}),r.d(c,"rotateX",function(){return gr}),r.d(c,"rotateY",function(){return Tr}),r.d(c,"rotateZ",function(){return Er}),r.d(c,"angle",function(){return Rr}),r.d(c,"str",function(){return yr}),r.d(c,"exactEquals",function(){return wr}),r.d(c,"equals",function(){return Ar}),r.d(c,"sub",function(){return Dr}),r.d(c,"mul",function(){return qr}),r.d(c,"div",function(){return Ur}),r.d(c,"dist",function(){return Fr}),r.d(c,"sqrDist",function(){return Pr}),r.d(c,"len",function(){return Br}),r.d(c,"sqrLen",function(){return Ir}),r.d(c,"forEach",function(){return Sr});var s={};r.r(s),r.d(s,"create",function(){return Lr}),r.d(s,"clone",function(){return Xr}),r.d(s,"fromValues",function(){return Nr}),r.d(s,"copy",function(){return Gr}),r.d(s,"set",function(){return Vr}),r.d(s,"add",function(){return Or}),r.d(s,"subtract",function(){return zr}),r.d(s,"multiply",function(){return Cr}),r.d(s,"divide",function(){return jr}),r.d(s,"ceil",function(){return Hr}),r.d(s,"floor",function(){return Wr}),r.d(s,"min",function(){return Yr}),r.d(s,"max",function(){return kr}),r.d(s,"round",function(){return Qr}),r.d(s,"scale",function(){return Zr}),r.d(s,"scaleAndAdd",function(){return Kr}),r.d(s,"distance",function(){return $r}),r.d(s,"squaredDistance",function(){return Jr}),r.d(s,"length",function(){return te}),r.d(s,"squaredLength",function(){return ne}),r.d(s,"negate",function(){return re}),r.d(s,"inverse",function(){return ee}),r.d(s,"normalize",function(){return ae}),r.d(s,"dot",function(){return ie}),r.d(s,"lerp",function(){return oe}),r.d(s,"random",function(){return ue}),r.d(s,"transformMat4",function(){return ce}),r.d(s,"transformQuat",function(){return se}),r.d(s,"str",function(){return fe}),r.d(s,"exactEquals",function(){return le}),r.d(s,"equals",function(){return he}),r.d(s,"sub",function(){return de}),r.d(s,"mul",function(){return me}),r.d(s,"div",function(){return _e}),r.d(s,"dist",function(){return Me}),r.d(s,"sqrDist",function(){return pe}),r.d(s,"len",function(){return ve}),r.d(s,"sqrLen",function(){return be}),r.d(s,"forEach",function(){return xe});var f={};r.r(f),r.d(f,"create",function(){return ge}),r.d(f,"identity",function(){return Te}),r.d(f,"setAxisAngle",function(){return Ee}),r.d(f,"getAxisAngle",function(){return Re}),r.d(f,"multiply",function(){return ye}),r.d(f,"rotateX",function(){return we}),r.d(f,"rotateY",function(){return Ae}),r.d(f,"rotateZ",function(){return De}),r.d(f,"calculateW",function(){return qe}),r.d(f,"slerp",function(){return Ue}),r.d(f,"invert",function(){return Fe}),r.d(f,"conjugate",function(){return Pe}),r.d(f,"fromMat3",function(){return Be}),r.d(f,"fromEuler",function(){return Ie}),r.d(f,"str",function(){return Se}),r.d(f,"clone",function(){return Le}),r.d(f,"fromValues",function(){return Xe}),r.d(f,"copy",function(){return Ne}),r.d(f,"set",function(){return Ge}),r.d(f,"add",function(){return Ve}),r.d(f,"mul",function(){return Oe}),r.d(f,"scale",function(){return ze}),r.d(f,"dot",function(){return Ce}),r.d(f,"lerp",function(){return je}),r.d(f,"length",function(){return He}),r.d(f,"len",function(){return We}),r.d(f,"squaredLength",function(){return Ye}),r.d(f,"sqrLen",function(){return ke}),r.d(f,"normalize",function(){return Qe}),r.d(f,"exactEquals",function(){return Ze}),r.d(f,"equals",function(){return Ke}),r.d(f,"rotationTo",function(){return $e}),r.d(f,"sqlerp",function(){return Je}),r.d(f,"setAxes",function(){return ta});var l={};r.r(l),r.d(l,"create",function(){return na}),r.d(l,"clone",function(){return ra}),r.d(l,"fromValues",function(){return ea}),r.d(l,"fromRotationTranslationValues",function(){return aa}),r.d(l,"fromRotationTranslation",function(){return ia}),r.d(l,"fromTranslation",function(){return oa}),r.d(l,"fromRotation",function(){return ua}),r.d(l,"fromMat4",function(){return ca}),r.d(l,"copy",function(){return sa}),r.d(l,"identity",function(){return fa}),r.d(l,"set",function(){return la}),r.d(l,"getReal",function(){return ha}),r.d(l,"getDual",function(){return da}),r.d(l,"setReal",function(){return ma}),r.d(l,"setDual",function(){return _a}),r.d(l,"getTranslation",function(){return Ma}),r.d(l,"translate",function(){return pa}),r.d(l,"rotateX",function(){return va}),r.d(l,"rotateY",function(){return ba}),r.d(l,"rotateZ",function(){return xa}),r.d(l,"rotateByQuatAppend",function(){return ga}),r.d(l,"rotateByQuatPrepend",function(){return Ta}),r.d(l,"rotateAroundAxis",function(){return Ea}),r.d(l,"add",function(){return Ra}),r.d(l,"multiply",function(){return ya}),r.d(l,"mul",function(){return wa}),r.d(l,"scale",function(){return Aa}),r.d(l,"dot",function(){return Da}),r.d(l,"lerp",function(){return qa}),r.d(l,"invert",function(){return Ua}),r.d(l,"conjugate",function(){return Fa}),r.d(l,"length",function(){return Pa}),r.d(l,"len",function(){return Ba}),r.d(l,"squaredLength",function(){return Ia}),r.d(l,"sqrLen",function(){return Sa}),r.d(l,"normalize",function(){return La}),r.d(l,"str",function(){return Xa}),r.d(l,"exactEquals",function(){return Na}),r.d(l,"equals",function(){return Ga});var h={};r.r(h),r.d(h,"create",function(){return Va}),r.d(h,"clone",function(){return Oa}),r.d(h,"fromValues",function(){return za}),r.d(h,"copy",function(){return Ca}),r.d(h,"set",function(){return ja}),r.d(h,"add",function(){return Ha}),r.d(h,"subtract",function(){return Wa}),r.d(h,"multiply",function(){return Ya}),r.d(h,"divide",function(){return ka}),r.d(h,"ceil",function(){return Qa}),r.d(h,"floor",function(){return Za}),r.d(h,"min",function(){return Ka}),r.d(h,"max",function(){return $a}),r.d(h,"round",function(){return Ja}),r.d(h,"scale",function(){return ti}),r.d(h,"scaleAndAdd",function(){return ni}),r.d(h,"distance",function(){return ri}),r.d(h,"squaredDistance",function(){return ei}),r.d(h,"length",function(){return ai}),r.d(h,"squaredLength",function(){return ii}),r.d(h,"negate",function(){return oi}),r.d(h,"inverse",function(){return ui}),r.d(h,"normalize",function(){return ci}),r.d(h,"dot",function(){return si}),r.d(h,"cross",function(){return fi}),r.d(h,"lerp",function(){return li}),r.d(h,"random",function(){return hi}),r.d(h,"transformMat2",function(){return di}),r.d(h,"transformMat2d",function(){return mi}),r.d(h,"transformMat3",function(){return _i}),r.d(h,"transformMat4",function(){return Mi}),r.d(h,"rotate",function(){return pi}),r.d(h,"angle",function(){return vi}),r.d(h,"str",function(){return bi}),r.d(h,"exactEquals",function(){return xi}),r.d(h,"equals",function(){return gi}),r.d(h,"len",function(){return Ti}),r.d(h,"sub",function(){return Ei}),r.d(h,"mul",function(){return Ri}),r.d(h,"div",function(){return yi}),r.d(h,"dist",function(){return wi}),r.d(h,"sqrDist",function(){return Ai}),r.d(h,"sqrLen",function(){return Di}),r.d(h,"forEach",function(){return qi});const d=1e-6;let m="undefined"!=typeof Float32Array?Float32Array:Array;const _=Math.random;function M(t){m=t}const p=Math.PI/180;function v(t){return t*p}function b(t,n){return Math.abs(t-n)<=d*Math.max(1,Math.abs(t),Math.abs(n))}function x(){let t=new m(4);return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t}function g(t){let n=new m(4);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n}function T(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t}function E(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t}function R(t,n,r,e){let a=new m(4);return a[0]=t,a[1]=n,a[2]=r,a[3]=e,a}function y(t,n,r,e,a){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t}function w(t,n){if(t===n){let r=n[1];t[1]=n[2],t[2]=r}else t[0]=n[0],t[1]=n[2],t[2]=n[1],t[3]=n[3];return t}function A(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=r*i-a*e;return o?(o=1/o,t[0]=i*o,t[1]=-e*o,t[2]=-a*o,t[3]=r*o,t):null}function D(t,n){let r=n[0];return t[0]=n[3],t[1]=-n[1],t[2]=-n[2],t[3]=r,t}function q(t){return t[0]*t[3]-t[2]*t[1]}function U(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=r[0],c=r[1],s=r[2],f=r[3];return t[0]=e*u+i*c,t[1]=a*u+o*c,t[2]=e*s+i*f,t[3]=a*s+o*f,t}function F(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=Math.sin(r),c=Math.cos(r);return t[0]=e*c+i*u,t[1]=a*c+o*u,t[2]=e*-u+i*c,t[3]=a*-u+o*c,t}function P(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=r[0],c=r[1];return t[0]=e*u,t[1]=a*u,t[2]=i*c,t[3]=o*c,t}function B(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=e,t[1]=r,t[2]=-r,t[3]=e,t}function I(t,n){return t[0]=n[0],t[1]=0,t[2]=0,t[3]=n[1],t}function S(t){return"mat2("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+")"}function L(t){return Math.sqrt(Math.pow(t[0],2)+Math.pow(t[1],2)+Math.pow(t[2],2)+Math.pow(t[3],2))}function X(t,n,r,e){return t[2]=e[2]/e[0],r[0]=e[0],r[1]=e[1],r[3]=e[3]-t[2]*r[1],[t,n,r]}function N(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t}function G(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t[3]=n[3]-r[3],t}function V(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]}function O(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=n[0],u=n[1],c=n[2],s=n[3];return Math.abs(r-o)<=d*Math.max(1,Math.abs(r),Math.abs(o))&&Math.abs(e-u)<=d*Math.max(1,Math.abs(e),Math.abs(u))&&Math.abs(a-c)<=d*Math.max(1,Math.abs(a),Math.abs(c))&&Math.abs(i-s)<=d*Math.max(1,Math.abs(i),Math.abs(s))}function z(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t}function C(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t[3]=n[3]+r[3]*e,t}const j=U,H=G;function W(){let t=new m(6);return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t}function Y(t){let n=new m(6);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n[4]=t[4],n[5]=t[5],n}function k(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[4]=n[4],t[5]=n[5],t}function Q(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t}function Z(t,n,r,e,a,i){let o=new m(6);return o[0]=t,o[1]=n,o[2]=r,o[3]=e,o[4]=a,o[5]=i,o}function K(t,n,r,e,a,i,o){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t[4]=i,t[5]=o,t}function $(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=r*i-e*a;return c?(c=1/c,t[0]=i*c,t[1]=-e*c,t[2]=-a*c,t[3]=r*c,t[4]=(a*u-i*o)*c,t[5]=(e*o-r*u)*c,t):null}function J(t){return t[0]*t[3]-t[1]*t[2]}function tt(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=r[0],f=r[1],l=r[2],h=r[3],d=r[4],m=r[5];return t[0]=e*s+i*f,t[1]=a*s+o*f,t[2]=e*l+i*h,t[3]=a*l+o*h,t[4]=e*d+i*m+u,t[5]=a*d+o*m+c,t}function nt(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=Math.sin(r),f=Math.cos(r);return t[0]=e*f+i*s,t[1]=a*f+o*s,t[2]=e*-s+i*f,t[3]=a*-s+o*f,t[4]=u,t[5]=c,t}function rt(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=r[0],f=r[1];return t[0]=e*s,t[1]=a*s,t[2]=i*f,t[3]=o*f,t[4]=u,t[5]=c,t}function et(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=r[0],f=r[1];return t[0]=e,t[1]=a,t[2]=i,t[3]=o,t[4]=e*s+i*f+u,t[5]=a*s+o*f+c,t}function at(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=e,t[1]=r,t[2]=-r,t[3]=e,t[4]=0,t[5]=0,t}function it(t,n){return t[0]=n[0],t[1]=0,t[2]=0,t[3]=n[1],t[4]=0,t[5]=0,t}function ot(t,n){return t[0]=1,t[1]=0,t[2]=0,t[3]=1,t[4]=n[0],t[5]=n[1],t}function ut(t){return"mat2d("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+")"}function ct(t){return Math.sqrt(Math.pow(t[0],2)+Math.pow(t[1],2)+Math.pow(t[2],2)+Math.pow(t[3],2)+Math.pow(t[4],2)+Math.pow(t[5],2)+1)}function st(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t[4]=n[4]+r[4],t[5]=n[5]+r[5],t}function ft(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t[3]=n[3]-r[3],t[4]=n[4]-r[4],t[5]=n[5]-r[5],t}function lt(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t[4]=n[4]*r,t[5]=n[5]*r,t}function ht(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t[3]=n[3]+r[3]*e,t[4]=n[4]+r[4]*e,t[5]=n[5]+r[5]*e,t}function dt(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]&&t[4]===n[4]&&t[5]===n[5]}function mt(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=t[4],u=t[5],c=n[0],s=n[1],f=n[2],l=n[3],h=n[4],m=n[5];return Math.abs(r-c)<=d*Math.max(1,Math.abs(r),Math.abs(c))&&Math.abs(e-s)<=d*Math.max(1,Math.abs(e),Math.abs(s))&&Math.abs(a-f)<=d*Math.max(1,Math.abs(a),Math.abs(f))&&Math.abs(i-l)<=d*Math.max(1,Math.abs(i),Math.abs(l))&&Math.abs(o-h)<=d*Math.max(1,Math.abs(o),Math.abs(h))&&Math.abs(u-m)<=d*Math.max(1,Math.abs(u),Math.abs(m))}const _t=tt,Mt=ft;function pt(){let t=new m(9);return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=1,t[5]=0,t[6]=0,t[7]=0,t[8]=1,t}function vt(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[4],t[4]=n[5],t[5]=n[6],t[6]=n[8],t[7]=n[9],t[8]=n[10],t}function bt(t){let n=new m(9);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n[4]=t[4],n[5]=t[5],n[6]=t[6],n[7]=t[7],n[8]=t[8],n}function xt(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[4]=n[4],t[5]=n[5],t[6]=n[6],t[7]=n[7],t[8]=n[8],t}function gt(t,n,r,e,a,i,o,u,c){let s=new m(9);return s[0]=t,s[1]=n,s[2]=r,s[3]=e,s[4]=a,s[5]=i,s[6]=o,s[7]=u,s[8]=c,s}function Tt(t,n,r,e,a,i,o,u,c,s){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t[4]=i,t[5]=o,t[6]=u,t[7]=c,t[8]=s,t}function Et(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=1,t[5]=0,t[6]=0,t[7]=0,t[8]=1,t}function Rt(t,n){if(t===n){let r=n[1],e=n[2],a=n[5];t[1]=n[3],t[2]=n[6],t[3]=r,t[5]=n[7],t[6]=e,t[7]=a}else t[0]=n[0],t[1]=n[3],t[2]=n[6],t[3]=n[1],t[4]=n[4],t[5]=n[7],t[6]=n[2],t[7]=n[5],t[8]=n[8];return t}function yt(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=n[6],s=n[7],f=n[8],l=f*o-u*s,h=-f*i+u*c,d=s*i-o*c,m=r*l+e*h+a*d;return m?(m=1/m,t[0]=l*m,t[1]=(-f*e+a*s)*m,t[2]=(u*e-a*o)*m,t[3]=h*m,t[4]=(f*r-a*c)*m,t[5]=(-u*r+a*i)*m,t[6]=d*m,t[7]=(-s*r+e*c)*m,t[8]=(o*r-e*i)*m,t):null}function wt(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=n[6],s=n[7],f=n[8];return t[0]=o*f-u*s,t[1]=a*s-e*f,t[2]=e*u-a*o,t[3]=u*c-i*f,t[4]=r*f-a*c,t[5]=a*i-r*u,t[6]=i*s-o*c,t[7]=e*c-r*s,t[8]=r*o-e*i,t}function At(t){let n=t[0],r=t[1],e=t[2],a=t[3],i=t[4],o=t[5],u=t[6],c=t[7],s=t[8];return n*(s*i-o*c)+r*(-s*a+o*u)+e*(c*a-i*u)}function Dt(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=n[8],h=r[0],d=r[1],m=r[2],_=r[3],M=r[4],p=r[5],v=r[6],b=r[7],x=r[8];return t[0]=h*e+d*o+m*s,t[1]=h*a+d*u+m*f,t[2]=h*i+d*c+m*l,t[3]=_*e+M*o+p*s,t[4]=_*a+M*u+p*f,t[5]=_*i+M*c+p*l,t[6]=v*e+b*o+x*s,t[7]=v*a+b*u+x*f,t[8]=v*i+b*c+x*l,t}function qt(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=n[8],h=r[0],d=r[1];return t[0]=e,t[1]=a,t[2]=i,t[3]=o,t[4]=u,t[5]=c,t[6]=h*e+d*o+s,t[7]=h*a+d*u+f,t[8]=h*i+d*c+l,t}function Ut(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=n[8],h=Math.sin(r),d=Math.cos(r);return t[0]=d*e+h*o,t[1]=d*a+h*u,t[2]=d*i+h*c,t[3]=d*o-h*e,t[4]=d*u-h*a,t[5]=d*c-h*i,t[6]=s,t[7]=f,t[8]=l,t}function Ft(t,n,r){let e=r[0],a=r[1];return t[0]=e*n[0],t[1]=e*n[1],t[2]=e*n[2],t[3]=a*n[3],t[4]=a*n[4],t[5]=a*n[5],t[6]=n[6],t[7]=n[7],t[8]=n[8],t}function Pt(t,n){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=1,t[5]=0,t[6]=n[0],t[7]=n[1],t[8]=1,t}function Bt(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=e,t[1]=r,t[2]=0,t[3]=-r,t[4]=e,t[5]=0,t[6]=0,t[7]=0,t[8]=1,t}function It(t,n){return t[0]=n[0],t[1]=0,t[2]=0,t[3]=0,t[4]=n[1],t[5]=0,t[6]=0,t[7]=0,t[8]=1,t}function St(t,n){return t[0]=n[0],t[1]=n[1],t[2]=0,t[3]=n[2],t[4]=n[3],t[5]=0,t[6]=n[4],t[7]=n[5],t[8]=1,t}function Lt(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=r+r,u=e+e,c=a+a,s=r*o,f=e*o,l=e*u,h=a*o,d=a*u,m=a*c,_=i*o,M=i*u,p=i*c;return t[0]=1-l-m,t[3]=f-p,t[6]=h+M,t[1]=f+p,t[4]=1-s-m,t[7]=d-_,t[2]=h-M,t[5]=d+_,t[8]=1-s-l,t}function Xt(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=n[6],s=n[7],f=n[8],l=n[9],h=n[10],d=n[11],m=n[12],_=n[13],M=n[14],p=n[15],v=r*u-e*o,b=r*c-a*o,x=r*s-i*o,g=e*c-a*u,T=e*s-i*u,E=a*s-i*c,R=f*_-l*m,y=f*M-h*m,w=f*p-d*m,A=l*M-h*_,D=l*p-d*_,q=h*p-d*M,U=v*q-b*D+x*A+g*w-T*y+E*R;return U?(U=1/U,t[0]=(u*q-c*D+s*A)*U,t[1]=(c*w-o*q-s*y)*U,t[2]=(o*D-u*w+s*R)*U,t[3]=(a*D-e*q-i*A)*U,t[4]=(r*q-a*w+i*y)*U,t[5]=(e*w-r*D-i*R)*U,t[6]=(_*E-M*T+p*g)*U,t[7]=(M*x-m*E-p*b)*U,t[8]=(m*T-_*x+p*v)*U,t):null}function Nt(t,n,r){return t[0]=2/n,t[1]=0,t[2]=0,t[3]=0,t[4]=-2/r,t[5]=0,t[6]=-1,t[7]=1,t[8]=1,t}function Gt(t){return"mat3("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+", "+t[6]+", "+t[7]+", "+t[8]+")"}function Vt(t){return Math.sqrt(Math.pow(t[0],2)+Math.pow(t[1],2)+Math.pow(t[2],2)+Math.pow(t[3],2)+Math.pow(t[4],2)+Math.pow(t[5],2)+Math.pow(t[6],2)+Math.pow(t[7],2)+Math.pow(t[8],2))}function Ot(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t[4]=n[4]+r[4],t[5]=n[5]+r[5],t[6]=n[6]+r[6],t[7]=n[7]+r[7],t[8]=n[8]+r[8],t}function zt(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t[3]=n[3]-r[3],t[4]=n[4]-r[4],t[5]=n[5]-r[5],t[6]=n[6]-r[6],t[7]=n[7]-r[7],t[8]=n[8]-r[8],t}function Ct(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t[4]=n[4]*r,t[5]=n[5]*r,t[6]=n[6]*r,t[7]=n[7]*r,t[8]=n[8]*r,t}function jt(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t[3]=n[3]+r[3]*e,t[4]=n[4]+r[4]*e,t[5]=n[5]+r[5]*e,t[6]=n[6]+r[6]*e,t[7]=n[7]+r[7]*e,t[8]=n[8]+r[8]*e,t}function Ht(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]&&t[4]===n[4]&&t[5]===n[5]&&t[6]===n[6]&&t[7]===n[7]&&t[8]===n[8]}function Wt(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=t[4],u=t[5],c=t[6],s=t[7],f=t[8],l=n[0],h=n[1],m=n[2],_=n[3],M=n[4],p=n[5],v=n[6],b=n[7],x=n[8];return Math.abs(r-l)<=d*Math.max(1,Math.abs(r),Math.abs(l))&&Math.abs(e-h)<=d*Math.max(1,Math.abs(e),Math.abs(h))&&Math.abs(a-m)<=d*Math.max(1,Math.abs(a),Math.abs(m))&&Math.abs(i-_)<=d*Math.max(1,Math.abs(i),Math.abs(_))&&Math.abs(o-M)<=d*Math.max(1,Math.abs(o),Math.abs(M))&&Math.abs(u-p)<=d*Math.max(1,Math.abs(u),Math.abs(p))&&Math.abs(c-v)<=d*Math.max(1,Math.abs(c),Math.abs(v))&&Math.abs(s-b)<=d*Math.max(1,Math.abs(s),Math.abs(b))&&Math.abs(f-x)<=d*Math.max(1,Math.abs(f),Math.abs(x))}const Yt=Dt,kt=zt;function Qt(){let t=new m(16);return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function Zt(t){let n=new m(16);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n[4]=t[4],n[5]=t[5],n[6]=t[6],n[7]=t[7],n[8]=t[8],n[9]=t[9],n[10]=t[10],n[11]=t[11],n[12]=t[12],n[13]=t[13],n[14]=t[14],n[15]=t[15],n}function Kt(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[4]=n[4],t[5]=n[5],t[6]=n[6],t[7]=n[7],t[8]=n[8],t[9]=n[9],t[10]=n[10],t[11]=n[11],t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15],t}function $t(t,n,r,e,a,i,o,u,c,s,f,l,h,d,_,M){let p=new m(16);return p[0]=t,p[1]=n,p[2]=r,p[3]=e,p[4]=a,p[5]=i,p[6]=o,p[7]=u,p[8]=c,p[9]=s,p[10]=f,p[11]=l,p[12]=h,p[13]=d,p[14]=_,p[15]=M,p}function Jt(t,n,r,e,a,i,o,u,c,s,f,l,h,d,m,_,M){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t[4]=i,t[5]=o,t[6]=u,t[7]=c,t[8]=s,t[9]=f,t[10]=l,t[11]=h,t[12]=d,t[13]=m,t[14]=_,t[15]=M,t}function tn(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function nn(t,n){if(t===n){let r=n[1],e=n[2],a=n[3],i=n[6],o=n[7],u=n[11];t[1]=n[4],t[2]=n[8],t[3]=n[12],t[4]=r,t[6]=n[9],t[7]=n[13],t[8]=e,t[9]=i,t[11]=n[14],t[12]=a,t[13]=o,t[14]=u}else t[0]=n[0],t[1]=n[4],t[2]=n[8],t[3]=n[12],t[4]=n[1],t[5]=n[5],t[6]=n[9],t[7]=n[13],t[8]=n[2],t[9]=n[6],t[10]=n[10],t[11]=n[14],t[12]=n[3],t[13]=n[7],t[14]=n[11],t[15]=n[15];return t}function rn(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=n[6],s=n[7],f=n[8],l=n[9],h=n[10],d=n[11],m=n[12],_=n[13],M=n[14],p=n[15],v=r*u-e*o,b=r*c-a*o,x=r*s-i*o,g=e*c-a*u,T=e*s-i*u,E=a*s-i*c,R=f*_-l*m,y=f*M-h*m,w=f*p-d*m,A=l*M-h*_,D=l*p-d*_,q=h*p-d*M,U=v*q-b*D+x*A+g*w-T*y+E*R;return U?(U=1/U,t[0]=(u*q-c*D+s*A)*U,t[1]=(a*D-e*q-i*A)*U,t[2]=(_*E-M*T+p*g)*U,t[3]=(h*T-l*E-d*g)*U,t[4]=(c*w-o*q-s*y)*U,t[5]=(r*q-a*w+i*y)*U,t[6]=(M*x-m*E-p*b)*U,t[7]=(f*E-h*x+d*b)*U,t[8]=(o*D-u*w+s*R)*U,t[9]=(e*w-r*D-i*R)*U,t[10]=(m*T-_*x+p*v)*U,t[11]=(l*x-f*T-d*v)*U,t[12]=(u*y-o*A-c*R)*U,t[13]=(r*A-e*y+a*R)*U,t[14]=(_*b-m*g-M*v)*U,t[15]=(f*g-l*b+h*v)*U,t):null}function en(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=n[4],u=n[5],c=n[6],s=n[7],f=n[8],l=n[9],h=n[10],d=n[11],m=n[12],_=n[13],M=n[14],p=n[15];return t[0]=u*(h*p-d*M)-l*(c*p-s*M)+_*(c*d-s*h),t[1]=-(e*(h*p-d*M)-l*(a*p-i*M)+_*(a*d-i*h)),t[2]=e*(c*p-s*M)-u*(a*p-i*M)+_*(a*s-i*c),t[3]=-(e*(c*d-s*h)-u*(a*d-i*h)+l*(a*s-i*c)),t[4]=-(o*(h*p-d*M)-f*(c*p-s*M)+m*(c*d-s*h)),t[5]=r*(h*p-d*M)-f*(a*p-i*M)+m*(a*d-i*h),t[6]=-(r*(c*p-s*M)-o*(a*p-i*M)+m*(a*s-i*c)),t[7]=r*(c*d-s*h)-o*(a*d-i*h)+f*(a*s-i*c),t[8]=o*(l*p-d*_)-f*(u*p-s*_)+m*(u*d-s*l),t[9]=-(r*(l*p-d*_)-f*(e*p-i*_)+m*(e*d-i*l)),t[10]=r*(u*p-s*_)-o*(e*p-i*_)+m*(e*s-i*u),t[11]=-(r*(u*d-s*l)-o*(e*d-i*l)+f*(e*s-i*u)),t[12]=-(o*(l*M-h*_)-f*(u*M-c*_)+m*(u*h-c*l)),t[13]=r*(l*M-h*_)-f*(e*M-a*_)+m*(e*h-a*l),t[14]=-(r*(u*M-c*_)-o*(e*M-a*_)+m*(e*c-a*u)),t[15]=r*(u*h-c*l)-o*(e*h-a*l)+f*(e*c-a*u),t}function an(t){let n=t[0],r=t[1],e=t[2],a=t[3],i=t[4],o=t[5],u=t[6],c=t[7],s=t[8],f=t[9],l=t[10],h=t[11],d=t[12],m=t[13],_=t[14],M=t[15];return(n*o-r*i)*(l*M-h*_)-(n*u-e*i)*(f*M-h*m)+(n*c-a*i)*(f*_-l*m)+(r*u-e*o)*(s*M-h*d)-(r*c-a*o)*(s*_-l*d)+(e*c-a*u)*(s*m-f*d)}function on(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=n[8],h=n[9],d=n[10],m=n[11],_=n[12],M=n[13],p=n[14],v=n[15],b=r[0],x=r[1],g=r[2],T=r[3];return t[0]=b*e+x*u+g*l+T*_,t[1]=b*a+x*c+g*h+T*M,t[2]=b*i+x*s+g*d+T*p,t[3]=b*o+x*f+g*m+T*v,b=r[4],x=r[5],g=r[6],T=r[7],t[4]=b*e+x*u+g*l+T*_,t[5]=b*a+x*c+g*h+T*M,t[6]=b*i+x*s+g*d+T*p,t[7]=b*o+x*f+g*m+T*v,b=r[8],x=r[9],g=r[10],T=r[11],t[8]=b*e+x*u+g*l+T*_,t[9]=b*a+x*c+g*h+T*M,t[10]=b*i+x*s+g*d+T*p,t[11]=b*o+x*f+g*m+T*v,b=r[12],x=r[13],g=r[14],T=r[15],t[12]=b*e+x*u+g*l+T*_,t[13]=b*a+x*c+g*h+T*M,t[14]=b*i+x*s+g*d+T*p,t[15]=b*o+x*f+g*m+T*v,t}function un(t,n,r){let e,a,i,o,u,c,s,f,l,h,d,m,_=r[0],M=r[1],p=r[2];return n===t?(t[12]=n[0]*_+n[4]*M+n[8]*p+n[12],t[13]=n[1]*_+n[5]*M+n[9]*p+n[13],t[14]=n[2]*_+n[6]*M+n[10]*p+n[14],t[15]=n[3]*_+n[7]*M+n[11]*p+n[15]):(e=n[0],a=n[1],i=n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=n[8],h=n[9],d=n[10],m=n[11],t[0]=e,t[1]=a,t[2]=i,t[3]=o,t[4]=u,t[5]=c,t[6]=s,t[7]=f,t[8]=l,t[9]=h,t[10]=d,t[11]=m,t[12]=e*_+u*M+l*p+n[12],t[13]=a*_+c*M+h*p+n[13],t[14]=i*_+s*M+d*p+n[14],t[15]=o*_+f*M+m*p+n[15]),t}function cn(t,n,r){let e=r[0],a=r[1],i=r[2];return t[0]=n[0]*e,t[1]=n[1]*e,t[2]=n[2]*e,t[3]=n[3]*e,t[4]=n[4]*a,t[5]=n[5]*a,t[6]=n[6]*a,t[7]=n[7]*a,t[8]=n[8]*i,t[9]=n[9]*i,t[10]=n[10]*i,t[11]=n[11]*i,t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15],t}function sn(t,n,r,e){let a,i,o,u,c,s,f,l,h,m,_,M,p,v,b,x,g,T,E,R,y,w,A,D,q=e[0],U=e[1],F=e[2],P=Math.sqrt(q*q+U*U+F*F);return P<d?null:(q*=P=1/P,U*=P,F*=P,a=Math.sin(r),o=1-(i=Math.cos(r)),u=n[0],c=n[1],s=n[2],f=n[3],l=n[4],h=n[5],m=n[6],_=n[7],M=n[8],p=n[9],v=n[10],b=n[11],x=q*q*o+i,g=U*q*o+F*a,T=F*q*o-U*a,E=q*U*o-F*a,R=U*U*o+i,y=F*U*o+q*a,w=q*F*o+U*a,A=U*F*o-q*a,D=F*F*o+i,t[0]=u*x+l*g+M*T,t[1]=c*x+h*g+p*T,t[2]=s*x+m*g+v*T,t[3]=f*x+_*g+b*T,t[4]=u*E+l*R+M*y,t[5]=c*E+h*R+p*y,t[6]=s*E+m*R+v*y,t[7]=f*E+_*R+b*y,t[8]=u*w+l*A+M*D,t[9]=c*w+h*A+p*D,t[10]=s*w+m*A+v*D,t[11]=f*w+_*A+b*D,n!==t&&(t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15]),t)}function fn(t,n,r){let e=Math.sin(r),a=Math.cos(r),i=n[4],o=n[5],u=n[6],c=n[7],s=n[8],f=n[9],l=n[10],h=n[11];return n!==t&&(t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15]),t[4]=i*a+s*e,t[5]=o*a+f*e,t[6]=u*a+l*e,t[7]=c*a+h*e,t[8]=s*a-i*e,t[9]=f*a-o*e,t[10]=l*a-u*e,t[11]=h*a-c*e,t}function ln(t,n,r){let e=Math.sin(r),a=Math.cos(r),i=n[0],o=n[1],u=n[2],c=n[3],s=n[8],f=n[9],l=n[10],h=n[11];return n!==t&&(t[4]=n[4],t[5]=n[5],t[6]=n[6],t[7]=n[7],t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15]),t[0]=i*a-s*e,t[1]=o*a-f*e,t[2]=u*a-l*e,t[3]=c*a-h*e,t[8]=i*e+s*a,t[9]=o*e+f*a,t[10]=u*e+l*a,t[11]=c*e+h*a,t}function hn(t,n,r){let e=Math.sin(r),a=Math.cos(r),i=n[0],o=n[1],u=n[2],c=n[3],s=n[4],f=n[5],l=n[6],h=n[7];return n!==t&&(t[8]=n[8],t[9]=n[9],t[10]=n[10],t[11]=n[11],t[12]=n[12],t[13]=n[13],t[14]=n[14],t[15]=n[15]),t[0]=i*a+s*e,t[1]=o*a+f*e,t[2]=u*a+l*e,t[3]=c*a+h*e,t[4]=s*a-i*e,t[5]=f*a-o*e,t[6]=l*a-u*e,t[7]=h*a-c*e,t}function dn(t,n){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=n[0],t[13]=n[1],t[14]=n[2],t[15]=1,t}function mn(t,n){return t[0]=n[0],t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=n[1],t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=n[2],t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function _n(t,n,r){let e,a,i,o=r[0],u=r[1],c=r[2],s=Math.sqrt(o*o+u*u+c*c);return s<d?null:(o*=s=1/s,u*=s,c*=s,e=Math.sin(n),i=1-(a=Math.cos(n)),t[0]=o*o*i+a,t[1]=u*o*i+c*e,t[2]=c*o*i-u*e,t[3]=0,t[4]=o*u*i-c*e,t[5]=u*u*i+a,t[6]=c*u*i+o*e,t[7]=0,t[8]=o*c*i+u*e,t[9]=u*c*i-o*e,t[10]=c*c*i+a,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t)}function Mn(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=e,t[6]=r,t[7]=0,t[8]=0,t[9]=-r,t[10]=e,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function pn(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=e,t[1]=0,t[2]=-r,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=r,t[9]=0,t[10]=e,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function vn(t,n){let r=Math.sin(n),e=Math.cos(n);return t[0]=e,t[1]=r,t[2]=0,t[3]=0,t[4]=-r,t[5]=e,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function bn(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=e+e,c=a+a,s=i+i,f=e*u,l=e*c,h=e*s,d=a*c,m=a*s,_=i*s,M=o*u,p=o*c,v=o*s;return t[0]=1-(d+_),t[1]=l+v,t[2]=h-p,t[3]=0,t[4]=l-v,t[5]=1-(f+_),t[6]=m+M,t[7]=0,t[8]=h+p,t[9]=m-M,t[10]=1-(f+d),t[11]=0,t[12]=r[0],t[13]=r[1],t[14]=r[2],t[15]=1,t}function xn(t,n){let r=new m(3),e=-n[0],a=-n[1],i=-n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=e*e+a*a+i*i+o*o;return l>0?(r[0]=2*(u*o+f*e+c*i-s*a)/l,r[1]=2*(c*o+f*a+s*e-u*i)/l,r[2]=2*(s*o+f*i+u*a-c*e)/l):(r[0]=2*(u*o+f*e+c*i-s*a),r[1]=2*(c*o+f*a+s*e-u*i),r[2]=2*(s*o+f*i+u*a-c*e)),bn(t,n,r),t}function gn(t,n){return t[0]=n[12],t[1]=n[13],t[2]=n[14],t}function Tn(t,n){let r=n[0],e=n[1],a=n[2],i=n[4],o=n[5],u=n[6],c=n[8],s=n[9],f=n[10];return t[0]=Math.sqrt(r*r+e*e+a*a),t[1]=Math.sqrt(i*i+o*o+u*u),t[2]=Math.sqrt(c*c+s*s+f*f),t}function En(t,n){let r=n[0]+n[5]+n[10],e=0;return r>0?(e=2*Math.sqrt(r+1),t[3]=.25*e,t[0]=(n[6]-n[9])/e,t[1]=(n[8]-n[2])/e,t[2]=(n[1]-n[4])/e):n[0]>n[5]&&n[0]>n[10]?(e=2*Math.sqrt(1+n[0]-n[5]-n[10]),t[3]=(n[6]-n[9])/e,t[0]=.25*e,t[1]=(n[1]+n[4])/e,t[2]=(n[8]+n[2])/e):n[5]>n[10]?(e=2*Math.sqrt(1+n[5]-n[0]-n[10]),t[3]=(n[8]-n[2])/e,t[0]=(n[1]+n[4])/e,t[1]=.25*e,t[2]=(n[6]+n[9])/e):(e=2*Math.sqrt(1+n[10]-n[0]-n[5]),t[3]=(n[1]-n[4])/e,t[0]=(n[8]+n[2])/e,t[1]=(n[6]+n[9])/e,t[2]=.25*e),t}function Rn(t,n,r,e){let a=n[0],i=n[1],o=n[2],u=n[3],c=a+a,s=i+i,f=o+o,l=a*c,h=a*s,d=a*f,m=i*s,_=i*f,M=o*f,p=u*c,v=u*s,b=u*f,x=e[0],g=e[1],T=e[2];return t[0]=(1-(m+M))*x,t[1]=(h+b)*x,t[2]=(d-v)*x,t[3]=0,t[4]=(h-b)*g,t[5]=(1-(l+M))*g,t[6]=(_+p)*g,t[7]=0,t[8]=(d+v)*T,t[9]=(_-p)*T,t[10]=(1-(l+m))*T,t[11]=0,t[12]=r[0],t[13]=r[1],t[14]=r[2],t[15]=1,t}function yn(t,n,r,e,a){let i=n[0],o=n[1],u=n[2],c=n[3],s=i+i,f=o+o,l=u+u,h=i*s,d=i*f,m=i*l,_=o*f,M=o*l,p=u*l,v=c*s,b=c*f,x=c*l,g=e[0],T=e[1],E=e[2],R=a[0],y=a[1],w=a[2],A=(1-(_+p))*g,D=(d+x)*g,q=(m-b)*g,U=(d-x)*T,F=(1-(h+p))*T,P=(M+v)*T,B=(m+b)*E,I=(M-v)*E,S=(1-(h+_))*E;return t[0]=A,t[1]=D,t[2]=q,t[3]=0,t[4]=U,t[5]=F,t[6]=P,t[7]=0,t[8]=B,t[9]=I,t[10]=S,t[11]=0,t[12]=r[0]+R-(A*R+U*y+B*w),t[13]=r[1]+y-(D*R+F*y+I*w),t[14]=r[2]+w-(q*R+P*y+S*w),t[15]=1,t}function wn(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=r+r,u=e+e,c=a+a,s=r*o,f=e*o,l=e*u,h=a*o,d=a*u,m=a*c,_=i*o,M=i*u,p=i*c;return t[0]=1-l-m,t[1]=f+p,t[2]=h-M,t[3]=0,t[4]=f-p,t[5]=1-s-m,t[6]=d+_,t[7]=0,t[8]=h+M,t[9]=d-_,t[10]=1-s-l,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function An(t,n,r,e,a,i,o){let u=1/(r-n),c=1/(a-e),s=1/(i-o);return t[0]=2*i*u,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=2*i*c,t[6]=0,t[7]=0,t[8]=(r+n)*u,t[9]=(a+e)*c,t[10]=(o+i)*s,t[11]=-1,t[12]=0,t[13]=0,t[14]=o*i*2*s,t[15]=0,t}function Dn(t,n,r,e,a){let i=1/Math.tan(n/2),o=1/(e-a);return t[0]=i/r,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=i,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=(a+e)*o,t[11]=-1,t[12]=0,t[13]=0,t[14]=2*a*e*o,t[15]=0,t}function qn(t,n,r,e){let a=Math.tan(n.upDegrees*Math.PI/180),i=Math.tan(n.downDegrees*Math.PI/180),o=Math.tan(n.leftDegrees*Math.PI/180),u=Math.tan(n.rightDegrees*Math.PI/180),c=2/(o+u),s=2/(a+i);return t[0]=c,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=s,t[6]=0,t[7]=0,t[8]=-(o-u)*c*.5,t[9]=(a-i)*s*.5,t[10]=e/(r-e),t[11]=-1,t[12]=0,t[13]=0,t[14]=e*r/(r-e),t[15]=0,t}function Un(t,n,r,e,a,i,o){let u=1/(n-r),c=1/(e-a),s=1/(i-o);return t[0]=-2*u,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=-2*c,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=2*s,t[11]=0,t[12]=(n+r)*u,t[13]=(a+e)*c,t[14]=(o+i)*s,t[15]=1,t}function Fn(t,n,r,e){let a,i,o,u,c,s,f,l,h,m,_=n[0],M=n[1],p=n[2],v=e[0],b=e[1],x=e[2],g=r[0],T=r[1],E=r[2];return Math.abs(_-g)<d&&Math.abs(M-T)<d&&Math.abs(p-E)<d?tn(t):(f=_-g,l=M-T,h=p-E,a=b*(h*=m=1/Math.sqrt(f*f+l*l+h*h))-x*(l*=m),i=x*(f*=m)-v*h,o=v*l-b*f,(m=Math.sqrt(a*a+i*i+o*o))?(a*=m=1/m,i*=m,o*=m):(a=0,i=0,o=0),u=l*o-h*i,c=h*a-f*o,s=f*i-l*a,(m=Math.sqrt(u*u+c*c+s*s))?(u*=m=1/m,c*=m,s*=m):(u=0,c=0,s=0),t[0]=a,t[1]=u,t[2]=f,t[3]=0,t[4]=i,t[5]=c,t[6]=l,t[7]=0,t[8]=o,t[9]=s,t[10]=h,t[11]=0,t[12]=-(a*_+i*M+o*p),t[13]=-(u*_+c*M+s*p),t[14]=-(f*_+l*M+h*p),t[15]=1,t)}function Pn(t,n,r,e){let a=n[0],i=n[1],o=n[2],u=e[0],c=e[1],s=e[2],f=a-r[0],l=i-r[1],h=o-r[2],d=f*f+l*l+h*h;d>0&&(f*=d=1/Math.sqrt(d),l*=d,h*=d);let m=c*h-s*l,_=s*f-u*h,M=u*l-c*f;return(d=m*m+_*_+M*M)>0&&(m*=d=1/Math.sqrt(d),_*=d,M*=d),t[0]=m,t[1]=_,t[2]=M,t[3]=0,t[4]=l*M-h*_,t[5]=h*m-f*M,t[6]=f*_-l*m,t[7]=0,t[8]=f,t[9]=l,t[10]=h,t[11]=0,t[12]=a,t[13]=i,t[14]=o,t[15]=1,t}function Bn(t){return"mat4("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+", "+t[6]+", "+t[7]+", "+t[8]+", "+t[9]+", "+t[10]+", "+t[11]+", "+t[12]+", "+t[13]+", "+t[14]+", "+t[15]+")"}function In(t){return Math.sqrt(Math.pow(t[0],2)+Math.pow(t[1],2)+Math.pow(t[2],2)+Math.pow(t[3],2)+Math.pow(t[4],2)+Math.pow(t[5],2)+Math.pow(t[6],2)+Math.pow(t[7],2)+Math.pow(t[8],2)+Math.pow(t[9],2)+Math.pow(t[10],2)+Math.pow(t[11],2)+Math.pow(t[12],2)+Math.pow(t[13],2)+Math.pow(t[14],2)+Math.pow(t[15],2))}function Sn(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t[4]=n[4]+r[4],t[5]=n[5]+r[5],t[6]=n[6]+r[6],t[7]=n[7]+r[7],t[8]=n[8]+r[8],t[9]=n[9]+r[9],t[10]=n[10]+r[10],t[11]=n[11]+r[11],t[12]=n[12]+r[12],t[13]=n[13]+r[13],t[14]=n[14]+r[14],t[15]=n[15]+r[15],t}function Ln(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t[3]=n[3]-r[3],t[4]=n[4]-r[4],t[5]=n[5]-r[5],t[6]=n[6]-r[6],t[7]=n[7]-r[7],t[8]=n[8]-r[8],t[9]=n[9]-r[9],t[10]=n[10]-r[10],t[11]=n[11]-r[11],t[12]=n[12]-r[12],t[13]=n[13]-r[13],t[14]=n[14]-r[14],t[15]=n[15]-r[15],t}function Xn(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t[4]=n[4]*r,t[5]=n[5]*r,t[6]=n[6]*r,t[7]=n[7]*r,t[8]=n[8]*r,t[9]=n[9]*r,t[10]=n[10]*r,t[11]=n[11]*r,t[12]=n[12]*r,t[13]=n[13]*r,t[14]=n[14]*r,t[15]=n[15]*r,t}function Nn(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t[3]=n[3]+r[3]*e,t[4]=n[4]+r[4]*e,t[5]=n[5]+r[5]*e,t[6]=n[6]+r[6]*e,t[7]=n[7]+r[7]*e,t[8]=n[8]+r[8]*e,t[9]=n[9]+r[9]*e,t[10]=n[10]+r[10]*e,t[11]=n[11]+r[11]*e,t[12]=n[12]+r[12]*e,t[13]=n[13]+r[13]*e,t[14]=n[14]+r[14]*e,t[15]=n[15]+r[15]*e,t}function Gn(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]&&t[4]===n[4]&&t[5]===n[5]&&t[6]===n[6]&&t[7]===n[7]&&t[8]===n[8]&&t[9]===n[9]&&t[10]===n[10]&&t[11]===n[11]&&t[12]===n[12]&&t[13]===n[13]&&t[14]===n[14]&&t[15]===n[15]}function Vn(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=t[4],u=t[5],c=t[6],s=t[7],f=t[8],l=t[9],h=t[10],m=t[11],_=t[12],M=t[13],p=t[14],v=t[15],b=n[0],x=n[1],g=n[2],T=n[3],E=n[4],R=n[5],y=n[6],w=n[7],A=n[8],D=n[9],q=n[10],U=n[11],F=n[12],P=n[13],B=n[14],I=n[15];return Math.abs(r-b)<=d*Math.max(1,Math.abs(r),Math.abs(b))&&Math.abs(e-x)<=d*Math.max(1,Math.abs(e),Math.abs(x))&&Math.abs(a-g)<=d*Math.max(1,Math.abs(a),Math.abs(g))&&Math.abs(i-T)<=d*Math.max(1,Math.abs(i),Math.abs(T))&&Math.abs(o-E)<=d*Math.max(1,Math.abs(o),Math.abs(E))&&Math.abs(u-R)<=d*Math.max(1,Math.abs(u),Math.abs(R))&&Math.abs(c-y)<=d*Math.max(1,Math.abs(c),Math.abs(y))&&Math.abs(s-w)<=d*Math.max(1,Math.abs(s),Math.abs(w))&&Math.abs(f-A)<=d*Math.max(1,Math.abs(f),Math.abs(A))&&Math.abs(l-D)<=d*Math.max(1,Math.abs(l),Math.abs(D))&&Math.abs(h-q)<=d*Math.max(1,Math.abs(h),Math.abs(q))&&Math.abs(m-U)<=d*Math.max(1,Math.abs(m),Math.abs(U))&&Math.abs(_-F)<=d*Math.max(1,Math.abs(_),Math.abs(F))&&Math.abs(M-P)<=d*Math.max(1,Math.abs(M),Math.abs(P))&&Math.abs(p-B)<=d*Math.max(1,Math.abs(p),Math.abs(B))&&Math.abs(v-I)<=d*Math.max(1,Math.abs(v),Math.abs(I))}const On=on,zn=Ln;function Cn(){let t=new m(3);return t[0]=0,t[1]=0,t[2]=0,t}function jn(t){var n=new m(3);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n}function Hn(t){let n=t[0],r=t[1],e=t[2];return Math.sqrt(n*n+r*r+e*e)}function Wn(t,n,r){let e=new m(3);return e[0]=t,e[1]=n,e[2]=r,e}function Yn(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t}function kn(t,n,r,e){return t[0]=n,t[1]=r,t[2]=e,t}function Qn(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t}function Zn(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t}function Kn(t,n,r){return t[0]=n[0]*r[0],t[1]=n[1]*r[1],t[2]=n[2]*r[2],t}function $n(t,n,r){return t[0]=n[0]/r[0],t[1]=n[1]/r[1],t[2]=n[2]/r[2],t}function Jn(t,n){return t[0]=Math.ceil(n[0]),t[1]=Math.ceil(n[1]),t[2]=Math.ceil(n[2]),t}function tr(t,n){return t[0]=Math.floor(n[0]),t[1]=Math.floor(n[1]),t[2]=Math.floor(n[2]),t}function nr(t,n,r){return t[0]=Math.min(n[0],r[0]),t[1]=Math.min(n[1],r[1]),t[2]=Math.min(n[2],r[2]),t}function rr(t,n,r){return t[0]=Math.max(n[0],r[0]),t[1]=Math.max(n[1],r[1]),t[2]=Math.max(n[2],r[2]),t}function er(t,n){return t[0]=Math.round(n[0]),t[1]=Math.round(n[1]),t[2]=Math.round(n[2]),t}function ar(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t}function ir(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t}function or(t,n){let r=n[0]-t[0],e=n[1]-t[1],a=n[2]-t[2];return Math.sqrt(r*r+e*e+a*a)}function ur(t,n){let r=n[0]-t[0],e=n[1]-t[1],a=n[2]-t[2];return r*r+e*e+a*a}function cr(t){let n=t[0],r=t[1],e=t[2];return n*n+r*r+e*e}function sr(t,n){return t[0]=-n[0],t[1]=-n[1],t[2]=-n[2],t}function fr(t,n){return t[0]=1/n[0],t[1]=1/n[1],t[2]=1/n[2],t}function lr(t,n){let r=n[0],e=n[1],a=n[2],i=r*r+e*e+a*a;return i>0&&(i=1/Math.sqrt(i),t[0]=n[0]*i,t[1]=n[1]*i,t[2]=n[2]*i),t}function hr(t,n){return t[0]*n[0]+t[1]*n[1]+t[2]*n[2]}function dr(t,n,r){let e=n[0],a=n[1],i=n[2],o=r[0],u=r[1],c=r[2];return t[0]=a*c-i*u,t[1]=i*o-e*c,t[2]=e*u-a*o,t}function mr(t,n,r,e){let a=n[0],i=n[1],o=n[2];return t[0]=a+e*(r[0]-a),t[1]=i+e*(r[1]-i),t[2]=o+e*(r[2]-o),t}function _r(t,n,r,e,a,i){let o=i*i,u=o*(2*i-3)+1,c=o*(i-2)+i,s=o*(i-1),f=o*(3-2*i);return t[0]=n[0]*u+r[0]*c+e[0]*s+a[0]*f,t[1]=n[1]*u+r[1]*c+e[1]*s+a[1]*f,t[2]=n[2]*u+r[2]*c+e[2]*s+a[2]*f,t}function Mr(t,n,r,e,a,i){let o=1-i,u=o*o,c=i*i,s=u*o,f=3*i*u,l=3*c*o,h=c*i;return t[0]=n[0]*s+r[0]*f+e[0]*l+a[0]*h,t[1]=n[1]*s+r[1]*f+e[1]*l+a[1]*h,t[2]=n[2]*s+r[2]*f+e[2]*l+a[2]*h,t}function pr(t,n){n=n||1;let r=2*_()*Math.PI,e=2*_()-1,a=Math.sqrt(1-e*e)*n;return t[0]=Math.cos(r)*a,t[1]=Math.sin(r)*a,t[2]=e*n,t}function vr(t,n,r){let e=n[0],a=n[1],i=n[2],o=r[3]*e+r[7]*a+r[11]*i+r[15];return o=o||1,t[0]=(r[0]*e+r[4]*a+r[8]*i+r[12])/o,t[1]=(r[1]*e+r[5]*a+r[9]*i+r[13])/o,t[2]=(r[2]*e+r[6]*a+r[10]*i+r[14])/o,t}function br(t,n,r){let e=n[0],a=n[1],i=n[2];return t[0]=e*r[0]+a*r[3]+i*r[6],t[1]=e*r[1]+a*r[4]+i*r[7],t[2]=e*r[2]+a*r[5]+i*r[8],t}function xr(t,n,r){let e=r[0],a=r[1],i=r[2],o=r[3],u=n[0],c=n[1],s=n[2],f=a*s-i*c,l=i*u-e*s,h=e*c-a*u,d=a*h-i*l,m=i*f-e*h,_=e*l-a*f,M=2*o;return f*=M,l*=M,h*=M,d*=2,m*=2,_*=2,t[0]=u+f+d,t[1]=c+l+m,t[2]=s+h+_,t}function gr(t,n,r,e){let a=[],i=[];return a[0]=n[0]-r[0],a[1]=n[1]-r[1],a[2]=n[2]-r[2],i[0]=a[0],i[1]=a[1]*Math.cos(e)-a[2]*Math.sin(e),i[2]=a[1]*Math.sin(e)+a[2]*Math.cos(e),t[0]=i[0]+r[0],t[1]=i[1]+r[1],t[2]=i[2]+r[2],t}function Tr(t,n,r,e){let a=[],i=[];return a[0]=n[0]-r[0],a[1]=n[1]-r[1],a[2]=n[2]-r[2],i[0]=a[2]*Math.sin(e)+a[0]*Math.cos(e),i[1]=a[1],i[2]=a[2]*Math.cos(e)-a[0]*Math.sin(e),t[0]=i[0]+r[0],t[1]=i[1]+r[1],t[2]=i[2]+r[2],t}function Er(t,n,r,e){let a=[],i=[];return a[0]=n[0]-r[0],a[1]=n[1]-r[1],a[2]=n[2]-r[2],i[0]=a[0]*Math.cos(e)-a[1]*Math.sin(e),i[1]=a[0]*Math.sin(e)+a[1]*Math.cos(e),i[2]=a[2],t[0]=i[0]+r[0],t[1]=i[1]+r[1],t[2]=i[2]+r[2],t}function Rr(t,n){let r=Wn(t[0],t[1],t[2]),e=Wn(n[0],n[1],n[2]);lr(r,r),lr(e,e);let a=hr(r,e);return a>1?0:a<-1?Math.PI:Math.acos(a)}function yr(t){return"vec3("+t[0]+", "+t[1]+", "+t[2]+")"}function wr(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]}function Ar(t,n){let r=t[0],e=t[1],a=t[2],i=n[0],o=n[1],u=n[2];return Math.abs(r-i)<=d*Math.max(1,Math.abs(r),Math.abs(i))&&Math.abs(e-o)<=d*Math.max(1,Math.abs(e),Math.abs(o))&&Math.abs(a-u)<=d*Math.max(1,Math.abs(a),Math.abs(u))}const Dr=Zn,qr=Kn,Ur=$n,Fr=or,Pr=ur,Br=Hn,Ir=cr,Sr=function(){let t=Cn();return function(n,r,e,a,i,o){let u,c;for(r||(r=3),e||(e=0),c=a?Math.min(a*r+e,n.length):n.length,u=e;u<c;u+=r)t[0]=n[u],t[1]=n[u+1],t[2]=n[u+2],i(t,t,o),n[u]=t[0],n[u+1]=t[1],n[u+2]=t[2];return n}}();function Lr(){let t=new m(4);return t[0]=0,t[1]=0,t[2]=0,t[3]=0,t}function Xr(t){let n=new m(4);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n}function Nr(t,n,r,e){let a=new m(4);return a[0]=t,a[1]=n,a[2]=r,a[3]=e,a}function Gr(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t}function Vr(t,n,r,e,a){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t}function Or(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t}function zr(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t[2]=n[2]-r[2],t[3]=n[3]-r[3],t}function Cr(t,n,r){return t[0]=n[0]*r[0],t[1]=n[1]*r[1],t[2]=n[2]*r[2],t[3]=n[3]*r[3],t}function jr(t,n,r){return t[0]=n[0]/r[0],t[1]=n[1]/r[1],t[2]=n[2]/r[2],t[3]=n[3]/r[3],t}function Hr(t,n){return t[0]=Math.ceil(n[0]),t[1]=Math.ceil(n[1]),t[2]=Math.ceil(n[2]),t[3]=Math.ceil(n[3]),t}function Wr(t,n){return t[0]=Math.floor(n[0]),t[1]=Math.floor(n[1]),t[2]=Math.floor(n[2]),t[3]=Math.floor(n[3]),t}function Yr(t,n,r){return t[0]=Math.min(n[0],r[0]),t[1]=Math.min(n[1],r[1]),t[2]=Math.min(n[2],r[2]),t[3]=Math.min(n[3],r[3]),t}function kr(t,n,r){return t[0]=Math.max(n[0],r[0]),t[1]=Math.max(n[1],r[1]),t[2]=Math.max(n[2],r[2]),t[3]=Math.max(n[3],r[3]),t}function Qr(t,n){return t[0]=Math.round(n[0]),t[1]=Math.round(n[1]),t[2]=Math.round(n[2]),t[3]=Math.round(n[3]),t}function Zr(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t}function Kr(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t[2]=n[2]+r[2]*e,t[3]=n[3]+r[3]*e,t}function $r(t,n){let r=n[0]-t[0],e=n[1]-t[1],a=n[2]-t[2],i=n[3]-t[3];return Math.sqrt(r*r+e*e+a*a+i*i)}function Jr(t,n){let r=n[0]-t[0],e=n[1]-t[1],a=n[2]-t[2],i=n[3]-t[3];return r*r+e*e+a*a+i*i}function te(t){let n=t[0],r=t[1],e=t[2],a=t[3];return Math.sqrt(n*n+r*r+e*e+a*a)}function ne(t){let n=t[0],r=t[1],e=t[2],a=t[3];return n*n+r*r+e*e+a*a}function re(t,n){return t[0]=-n[0],t[1]=-n[1],t[2]=-n[2],t[3]=-n[3],t}function ee(t,n){return t[0]=1/n[0],t[1]=1/n[1],t[2]=1/n[2],t[3]=1/n[3],t}function ae(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=r*r+e*e+a*a+i*i;return o>0&&(o=1/Math.sqrt(o),t[0]=r*o,t[1]=e*o,t[2]=a*o,t[3]=i*o),t}function ie(t,n){return t[0]*n[0]+t[1]*n[1]+t[2]*n[2]+t[3]*n[3]}function oe(t,n,r,e){let a=n[0],i=n[1],o=n[2],u=n[3];return t[0]=a+e*(r[0]-a),t[1]=i+e*(r[1]-i),t[2]=o+e*(r[2]-o),t[3]=u+e*(r[3]-u),t}function ue(t,n){var r,e,a,i,o,u;n=n||1;do{o=(r=2*_()-1)*r+(e=2*_()-1)*e}while(o>=1);do{u=(a=2*_()-1)*a+(i=2*_()-1)*i}while(u>=1);var c=Math.sqrt((1-o)/u);return t[0]=Zr*r,t[1]=Zr*e,t[2]=Zr*a*c,t[3]=Zr*i*c,t}function ce(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3];return t[0]=r[0]*e+r[4]*a+r[8]*i+r[12]*o,t[1]=r[1]*e+r[5]*a+r[9]*i+r[13]*o,t[2]=r[2]*e+r[6]*a+r[10]*i+r[14]*o,t[3]=r[3]*e+r[7]*a+r[11]*i+r[15]*o,t}function se(t,n,r){let e=n[0],a=n[1],i=n[2],o=r[0],u=r[1],c=r[2],s=r[3],f=s*e+u*i-c*a,l=s*a+c*e-o*i,h=s*i+o*a-u*e,d=-o*e-u*a-c*i;return t[0]=f*s+d*-o+l*-c-h*-u,t[1]=l*s+d*-u+h*-o-f*-c,t[2]=h*s+d*-c+f*-u-l*-o,t[3]=n[3],t}function fe(t){return"vec4("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+")"}function le(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]}function he(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=n[0],u=n[1],c=n[2],s=n[3];return Math.abs(r-o)<=d*Math.max(1,Math.abs(r),Math.abs(o))&&Math.abs(e-u)<=d*Math.max(1,Math.abs(e),Math.abs(u))&&Math.abs(a-c)<=d*Math.max(1,Math.abs(a),Math.abs(c))&&Math.abs(i-s)<=d*Math.max(1,Math.abs(i),Math.abs(s))}const de=zr,me=Cr,_e=jr,Me=$r,pe=Jr,ve=te,be=ne,xe=function(){let t=Lr();return function(n,r,e,a,i,o){let u,c;for(r||(r=4),e||(e=0),c=a?Math.min(a*r+e,n.length):n.length,u=e;u<c;u+=r)t[0]=n[u],t[1]=n[u+1],t[2]=n[u+2],t[3]=n[u+3],i(t,t,o),n[u]=t[0],n[u+1]=t[1],n[u+2]=t[2],n[u+3]=t[3];return n}}();function ge(){let t=new m(4);return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t}function Te(t){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t}function Ee(t,n,r){r*=.5;let e=Math.sin(r);return t[0]=e*n[0],t[1]=e*n[1],t[2]=e*n[2],t[3]=Math.cos(r),t}function Re(t,n){let r=2*Math.acos(n[3]),e=Math.sin(r/2);return 0!=e?(t[0]=n[0]/e,t[1]=n[1]/e,t[2]=n[2]/e):(t[0]=1,t[1]=0,t[2]=0),r}function ye(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=r[0],c=r[1],s=r[2],f=r[3];return t[0]=e*f+o*u+a*s-i*c,t[1]=a*f+o*c+i*u-e*s,t[2]=i*f+o*s+e*c-a*u,t[3]=o*f-e*u-a*c-i*s,t}function we(t,n,r){r*=.5;let e=n[0],a=n[1],i=n[2],o=n[3],u=Math.sin(r),c=Math.cos(r);return t[0]=e*c+o*u,t[1]=a*c+i*u,t[2]=i*c-a*u,t[3]=o*c-e*u,t}function Ae(t,n,r){r*=.5;let e=n[0],a=n[1],i=n[2],o=n[3],u=Math.sin(r),c=Math.cos(r);return t[0]=e*c-i*u,t[1]=a*c+o*u,t[2]=i*c+e*u,t[3]=o*c-a*u,t}function De(t,n,r){r*=.5;let e=n[0],a=n[1],i=n[2],o=n[3],u=Math.sin(r),c=Math.cos(r);return t[0]=e*c+a*u,t[1]=a*c-e*u,t[2]=i*c+o*u,t[3]=o*c-i*u,t}function qe(t,n){let r=n[0],e=n[1],a=n[2];return t[0]=r,t[1]=e,t[2]=a,t[3]=Math.sqrt(Math.abs(1-r*r-e*e-a*a)),t}function Ue(t,n,r,e){let a,i,o,u,c,s=n[0],f=n[1],l=n[2],h=n[3],d=r[0],m=r[1],_=r[2],M=r[3];return(i=s*d+f*m+l*_+h*M)<0&&(i=-i,d=-d,m=-m,_=-_,M=-M),1-i>1e-6?(a=Math.acos(i),o=Math.sin(a),u=Math.sin((1-e)*a)/o,c=Math.sin(e*a)/o):(u=1-e,c=e),t[0]=u*s+c*d,t[1]=u*f+c*m,t[2]=u*l+c*_,t[3]=u*h+c*M,t}function Fe(t,n){let r=n[0],e=n[1],a=n[2],i=n[3],o=r*r+e*e+a*a+i*i,u=o?1/o:0;return t[0]=-r*u,t[1]=-e*u,t[2]=-a*u,t[3]=i*u,t}function Pe(t,n){return t[0]=-n[0],t[1]=-n[1],t[2]=-n[2],t[3]=n[3],t}function Be(t,n){let r,e=n[0]+n[4]+n[8];if(e>0)r=Math.sqrt(e+1),t[3]=.5*r,r=.5/r,t[0]=(n[5]-n[7])*r,t[1]=(n[6]-n[2])*r,t[2]=(n[1]-n[3])*r;else{let e=0;n[4]>n[0]&&(e=1),n[8]>n[3*e+e]&&(e=2);let a=(e+1)%3,i=(e+2)%3;r=Math.sqrt(n[3*e+e]-n[3*a+a]-n[3*i+i]+1),t[e]=.5*r,r=.5/r,t[3]=(n[3*a+i]-n[3*i+a])*r,t[a]=(n[3*a+e]+n[3*e+a])*r,t[i]=(n[3*i+e]+n[3*e+i])*r}return t}function Ie(t,n,r,e){let a=.5*Math.PI/180;n*=a,r*=a,e*=a;let i=Math.sin(n),o=Math.cos(n),u=Math.sin(r),c=Math.cos(r),s=Math.sin(e),f=Math.cos(e);return t[0]=i*c*f-o*u*s,t[1]=o*u*f+i*c*s,t[2]=o*c*s-i*u*f,t[3]=o*c*f+i*u*s,t}function Se(t){return"quat("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+")"}const Le=Xr,Xe=Nr,Ne=Gr,Ge=Vr,Ve=Or,Oe=ye,ze=Zr,Ce=ie,je=oe,He=te,We=He,Ye=ne,ke=Ye,Qe=ae,Ze=le,Ke=he,$e=function(){let t=Cn(),n=Wn(1,0,0),r=Wn(0,1,0);return function(e,a,i){let o=hr(a,i);return o<-.999999?(dr(t,n,a),Br(t)<1e-6&&dr(t,r,a),lr(t,t),Ee(e,t,Math.PI),e):o>.999999?(e[0]=0,e[1]=0,e[2]=0,e[3]=1,e):(dr(t,a,i),e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=1+o,Qe(e,e))}}(),Je=function(){let t=ge(),n=ge();return function(r,e,a,i,o,u){return Ue(t,e,o,u),Ue(n,a,i,u),Ue(r,t,n,2*u*(1-u)),r}}(),ta=function(){let t=pt();return function(n,r,e,a){return t[0]=e[0],t[3]=e[1],t[6]=e[2],t[1]=a[0],t[4]=a[1],t[7]=a[2],t[2]=-r[0],t[5]=-r[1],t[8]=-r[2],Qe(n,Be(n,t))}}();function na(){let t=new m(8);return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t[6]=0,t[7]=0,t}function ra(t){let n=new m(8);return n[0]=t[0],n[1]=t[1],n[2]=t[2],n[3]=t[3],n[4]=t[4],n[5]=t[5],n[6]=t[6],n[7]=t[7],n}function ea(t,n,r,e,a,i,o,u){let c=new m(8);return c[0]=t,c[1]=n,c[2]=r,c[3]=e,c[4]=a,c[5]=i,c[6]=o,c[7]=u,c}function aa(t,n,r,e,a,i,o){let u=new m(8);u[0]=t,u[1]=n,u[2]=r,u[3]=e;let c=.5*a,s=.5*i,f=.5*o;return u[4]=c*e+s*r-f*n,u[5]=s*e+f*t-c*r,u[6]=f*e+c*n-s*t,u[7]=-c*t-s*n-f*r,u}function ia(t,n,r){let e=.5*r[0],a=.5*r[1],i=.5*r[2],o=n[0],u=n[1],c=n[2],s=n[3];return t[0]=o,t[1]=u,t[2]=c,t[3]=s,t[4]=e*s+a*c-i*u,t[5]=a*s+i*o-e*c,t[6]=i*s+e*u-a*o,t[7]=-e*o-a*u-i*c,t}function oa(t,n){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t[4]=.5*n[0],t[5]=.5*n[1],t[6]=.5*n[2],t[7]=0,t}function ua(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[4]=0,t[5]=0,t[6]=0,t[7]=0,t}function ca(t,n){let r=ge();En(r,n);let e=new m(3);return gn(e,n),ia(t,r,e),t}function sa(t,n){return t[0]=n[0],t[1]=n[1],t[2]=n[2],t[3]=n[3],t[4]=n[4],t[5]=n[5],t[6]=n[6],t[7]=n[7],t}function fa(t){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t[6]=0,t[7]=0,t}function la(t,n,r,e,a,i,o,u,c){return t[0]=n,t[1]=r,t[2]=e,t[3]=a,t[4]=i,t[5]=o,t[6]=u,t[7]=c,t}const ha=Ne;function da(t,n){return t[0]=n[4],t[1]=n[5],t[2]=n[6],t[3]=n[7],t}const ma=Ne;function _a(t,n){return t[4]=n[0],t[5]=n[1],t[6]=n[2],t[7]=n[3],t}function Ma(t,n){let r=n[4],e=n[5],a=n[6],i=n[7],o=-n[0],u=-n[1],c=-n[2],s=n[3];return t[0]=2*(r*s+i*o+e*c-a*u),t[1]=2*(e*s+i*u+a*o-r*c),t[2]=2*(a*s+i*c+r*u-e*o),t}function pa(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=.5*r[0],c=.5*r[1],s=.5*r[2],f=n[4],l=n[5],h=n[6],d=n[7];return t[0]=e,t[1]=a,t[2]=i,t[3]=o,t[4]=o*u+a*s-i*c+f,t[5]=o*c+i*u-e*s+l,t[6]=o*s+e*c-a*u+h,t[7]=-e*u-a*c-i*s+d,t}function va(t,n,r){let e=-n[0],a=-n[1],i=-n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=u*o+f*e+c*i-s*a,h=c*o+f*a+s*e-u*i,d=s*o+f*i+u*a-c*e,m=f*o-u*e-c*a-s*i;return we(t,n,r),e=t[0],a=t[1],i=t[2],o=t[3],t[4]=l*o+m*e+h*i-d*a,t[5]=h*o+m*a+d*e-l*i,t[6]=d*o+m*i+l*a-h*e,t[7]=m*o-l*e-h*a-d*i,t}function ba(t,n,r){let e=-n[0],a=-n[1],i=-n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=u*o+f*e+c*i-s*a,h=c*o+f*a+s*e-u*i,d=s*o+f*i+u*a-c*e,m=f*o-u*e-c*a-s*i;return Ae(t,n,r),e=t[0],a=t[1],i=t[2],o=t[3],t[4]=l*o+m*e+h*i-d*a,t[5]=h*o+m*a+d*e-l*i,t[6]=d*o+m*i+l*a-h*e,t[7]=m*o-l*e-h*a-d*i,t}function xa(t,n,r){let e=-n[0],a=-n[1],i=-n[2],o=n[3],u=n[4],c=n[5],s=n[6],f=n[7],l=u*o+f*e+c*i-s*a,h=c*o+f*a+s*e-u*i,d=s*o+f*i+u*a-c*e,m=f*o-u*e-c*a-s*i;return De(t,n,r),e=t[0],a=t[1],i=t[2],o=t[3],t[4]=l*o+m*e+h*i-d*a,t[5]=h*o+m*a+d*e-l*i,t[6]=d*o+m*i+l*a-h*e,t[7]=m*o-l*e-h*a-d*i,t}function ga(t,n,r){let e=r[0],a=r[1],i=r[2],o=r[3],u=n[0],c=n[1],s=n[2],f=n[3];return t[0]=u*o+f*e+c*i-s*a,t[1]=c*o+f*a+s*e-u*i,t[2]=s*o+f*i+u*a-c*e,t[3]=f*o-u*e-c*a-s*i,u=n[4],c=n[5],s=n[6],f=n[7],t[4]=u*o+f*e+c*i-s*a,t[5]=c*o+f*a+s*e-u*i,t[6]=s*o+f*i+u*a-c*e,t[7]=f*o-u*e-c*a-s*i,t}function Ta(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=r[0],c=r[1],s=r[2],f=r[3];return t[0]=e*f+o*u+a*s-i*c,t[1]=a*f+o*c+i*u-e*s,t[2]=i*f+o*s+e*c-a*u,t[3]=o*f-e*u-a*c-i*s,u=r[4],c=r[5],s=r[6],f=r[7],t[4]=e*f+o*u+a*s-i*c,t[5]=a*f+o*c+i*u-e*s,t[6]=i*f+o*s+e*c-a*u,t[7]=o*f-e*u-a*c-i*s,t}function Ea(t,n,r,e){if(Math.abs(e)<d)return sa(t,n);let a=Math.sqrt(r[0]*r[0]+r[1]*r[1]+r[2]*r[2]);e*=.5;let i=Math.sin(e),o=i*r[0]/a,u=i*r[1]/a,c=i*r[2]/a,s=Math.cos(e),f=n[0],l=n[1],h=n[2],m=n[3];t[0]=f*s+m*o+l*c-h*u,t[1]=l*s+m*u+h*o-f*c,t[2]=h*s+m*c+f*u-l*o,t[3]=m*s-f*o-l*u-h*c;let _=n[4],M=n[5],p=n[6],v=n[7];return t[4]=_*s+v*o+M*c-p*u,t[5]=M*s+v*u+p*o-_*c,t[6]=p*s+v*c+_*u-M*o,t[7]=v*s-_*o-M*u-p*c,t}function Ra(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t[2]=n[2]+r[2],t[3]=n[3]+r[3],t[4]=n[4]+r[4],t[5]=n[5]+r[5],t[6]=n[6]+r[6],t[7]=n[7]+r[7],t}function ya(t,n,r){let e=n[0],a=n[1],i=n[2],o=n[3],u=r[4],c=r[5],s=r[6],f=r[7],l=n[4],h=n[5],d=n[6],m=n[7],_=r[0],M=r[1],p=r[2],v=r[3];return t[0]=e*v+o*_+a*p-i*M,t[1]=a*v+o*M+i*_-e*p,t[2]=i*v+o*p+e*M-a*_,t[3]=o*v-e*_-a*M-i*p,t[4]=e*f+o*u+a*s-i*c+l*v+m*_+h*p-d*M,t[5]=a*f+o*c+i*u-e*s+h*v+m*M+d*_-l*p,t[6]=i*f+o*s+e*c-a*u+d*v+m*p+l*M-h*_,t[7]=o*f-e*u-a*c-i*s+m*v-l*_-h*M-d*p,t}const wa=ya;function Aa(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t[2]=n[2]*r,t[3]=n[3]*r,t[4]=n[4]*r,t[5]=n[5]*r,t[6]=n[6]*r,t[7]=n[7]*r,t}const Da=Ce;function qa(t,n,r,e){let a=1-e;return Da(n,r)<0&&(e=-e),t[0]=n[0]*a+r[0]*e,t[1]=n[1]*a+r[1]*e,t[2]=n[2]*a+r[2]*e,t[3]=n[3]*a+r[3]*e,t[4]=n[4]*a+r[4]*e,t[5]=n[5]*a+r[5]*e,t[6]=n[6]*a+r[6]*e,t[7]=n[7]*a+r[7]*e,t}function Ua(t,n){let r=Ia(n);return t[0]=-n[0]/r,t[1]=-n[1]/r,t[2]=-n[2]/r,t[3]=n[3]/r,t[4]=-n[4]/r,t[5]=-n[5]/r,t[6]=-n[6]/r,t[7]=n[7]/r,t}function Fa(t,n){return t[0]=-n[0],t[1]=-n[1],t[2]=-n[2],t[3]=n[3],t[4]=-n[4],t[5]=-n[5],t[6]=-n[6],t[7]=n[7],t}const Pa=He,Ba=Pa,Ia=Ye,Sa=Ia;function La(t,n){let r=Ia(n);return r>0&&(r=Math.sqrt(r),t[0]=n[0]/r,t[1]=n[1]/r,t[2]=n[2]/r,t[3]=n[3]/r,t[4]=n[4]/r,t[5]=n[5]/r,t[6]=n[6]/r,t[7]=n[7]/r),t}function Xa(t){return"quat2("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+", "+t[6]+", "+t[7]+")"}function Na(t,n){return t[0]===n[0]&&t[1]===n[1]&&t[2]===n[2]&&t[3]===n[3]&&t[4]===n[4]&&t[5]===n[5]&&t[6]===n[6]&&t[7]===n[7]}function Ga(t,n){let r=t[0],e=t[1],a=t[2],i=t[3],o=t[4],u=t[5],c=t[6],s=t[7],f=n[0],l=n[1],h=n[2],m=n[3],_=n[4],M=n[5],p=n[6],v=n[7];return Math.abs(r-f)<=d*Math.max(1,Math.abs(r),Math.abs(f))&&Math.abs(e-l)<=d*Math.max(1,Math.abs(e),Math.abs(l))&&Math.abs(a-h)<=d*Math.max(1,Math.abs(a),Math.abs(h))&&Math.abs(i-m)<=d*Math.max(1,Math.abs(i),Math.abs(m))&&Math.abs(o-_)<=d*Math.max(1,Math.abs(o),Math.abs(_))&&Math.abs(u-M)<=d*Math.max(1,Math.abs(u),Math.abs(M))&&Math.abs(c-p)<=d*Math.max(1,Math.abs(c),Math.abs(p))&&Math.abs(s-v)<=d*Math.max(1,Math.abs(s),Math.abs(v))}function Va(){let t=new m(2);return t[0]=0,t[1]=0,t}function Oa(t){let n=new m(2);return n[0]=t[0],n[1]=t[1],n}function za(t,n){let r=new m(2);return r[0]=t,r[1]=n,r}function Ca(t,n){return t[0]=n[0],t[1]=n[1],t}function ja(t,n,r){return t[0]=n,t[1]=r,t}function Ha(t,n,r){return t[0]=n[0]+r[0],t[1]=n[1]+r[1],t}function Wa(t,n,r){return t[0]=n[0]-r[0],t[1]=n[1]-r[1],t}function Ya(t,n,r){return t[0]=n[0]*r[0],t[1]=n[1]*r[1],t}function ka(t,n,r){return t[0]=n[0]/r[0],t[1]=n[1]/r[1],t}function Qa(t,n){return t[0]=Math.ceil(n[0]),t[1]=Math.ceil(n[1]),t}function Za(t,n){return t[0]=Math.floor(n[0]),t[1]=Math.floor(n[1]),t}function Ka(t,n,r){return t[0]=Math.min(n[0],r[0]),t[1]=Math.min(n[1],r[1]),t}function $a(t,n,r){return t[0]=Math.max(n[0],r[0]),t[1]=Math.max(n[1],r[1]),t}function Ja(t,n){return t[0]=Math.round(n[0]),t[1]=Math.round(n[1]),t}function ti(t,n,r){return t[0]=n[0]*r,t[1]=n[1]*r,t}function ni(t,n,r,e){return t[0]=n[0]+r[0]*e,t[1]=n[1]+r[1]*e,t}function ri(t,n){var r=n[0]-t[0],e=n[1]-t[1];return Math.sqrt(r*r+e*e)}function ei(t,n){var r=n[0]-t[0],e=n[1]-t[1];return r*r+e*e}function ai(t){var n=t[0],r=t[1];return Math.sqrt(n*n+r*r)}function ii(t){var n=t[0],r=t[1];return n*n+r*r}function oi(t,n){return t[0]=-n[0],t[1]=-n[1],t}function ui(t,n){return t[0]=1/n[0],t[1]=1/n[1],t}function ci(t,n){var r=n[0],e=n[1],a=r*r+e*e;return a>0&&(a=1/Math.sqrt(a),t[0]=n[0]*a,t[1]=n[1]*a),t}function si(t,n){return t[0]*n[0]+t[1]*n[1]}function fi(t,n,r){var e=n[0]*r[1]-n[1]*r[0];return t[0]=t[1]=0,t[2]=e,t}function li(t,n,r,e){var a=n[0],i=n[1];return t[0]=a+e*(r[0]-a),t[1]=i+e*(r[1]-i),t}function hi(t,n){n=n||1;var r=2*_()*Math.PI;return t[0]=Math.cos(r)*n,t[1]=Math.sin(r)*n,t}function di(t,n,r){var e=n[0],a=n[1];return t[0]=r[0]*e+r[2]*a,t[1]=r[1]*e+r[3]*a,t}function mi(t,n,r){var e=n[0],a=n[1];return t[0]=r[0]*e+r[2]*a+r[4],t[1]=r[1]*e+r[3]*a+r[5],t}function _i(t,n,r){var e=n[0],a=n[1];return t[0]=r[0]*e+r[3]*a+r[6],t[1]=r[1]*e+r[4]*a+r[7],t}function Mi(t,n,r){let e=n[0],a=n[1];return t[0]=r[0]*e+r[4]*a+r[12],t[1]=r[1]*e+r[5]*a+r[13],t}function pi(t,n,r,e){let a=n[0]-r[0],i=n[1]-r[1],o=Math.sin(e),u=Math.cos(e);return t[0]=a*u-i*o+r[0],t[1]=a*o+i*u+r[1],t}function vi(t,n){let r=t[0],e=t[1],a=n[0],i=n[1],o=r*r+e*e;o>0&&(o=1/Math.sqrt(o));let u=a*a+i*i;u>0&&(u=1/Math.sqrt(u));let c=(r*a+e*i)*o*u;return c>1?0:c<-1?Math.PI:Math.acos(c)}function bi(t){return"vec2("+t[0]+", "+t[1]+")"}function xi(t,n){return t[0]===n[0]&&t[1]===n[1]}function gi(t,n){let r=t[0],e=t[1],a=n[0],i=n[1];return Math.abs(r-a)<=d*Math.max(1,Math.abs(r),Math.abs(a))&&Math.abs(e-i)<=d*Math.max(1,Math.abs(e),Math.abs(i))}const Ti=ai,Ei=Wa,Ri=Ya,yi=ka,wi=ri,Ai=ei,Di=ii,qi=function(){let t=Va();return function(n,r,e,a,i,o){let u,c;for(r||(r=2),e||(e=0),c=a?Math.min(a*r+e,n.length):n.length,u=e;u<c;u+=r)t[0]=n[u],t[1]=n[u+1],i(t,t,o),n[u]=t[0],n[u+1]=t[1];return n}}();r.d(n,"glMatrix",function(){return e}),r.d(n,"mat2",function(){return a}),r.d(n,"mat2d",function(){return i}),r.d(n,"mat3",function(){return o}),r.d(n,"mat4",function(){return u}),r.d(n,"quat",function(){return f}),r.d(n,"quat2",function(){return l}),r.d(n,"vec2",function(){return h}),r.d(n,"vec3",function(){return c}),r.d(n,"vec4",function(){return s})},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(0);n.HitRecord=class{constructor(t=0,n=e.vec3.create(),r=e.vec3.create()){this.t=t,this.pos=n,this.normal=r,this.material=null}clear(){this.t=0,e.vec3.set(this.pos,0,0,0),e.vec3.set(this.normal,0,0,0),this.material=null}};n.Hitable=class{}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(16);let a;n.is_mobile=!1;let i=33,o=0,u=0,c=0,s=1e4;function f(){let t=Date.now();t-o>i?u<s&&(requestAnimationFrame(l),o=t):setTimeout(f,i-(t-o))}function l(){a.draw(),++c>a.num_quadrants&&(c=0,document.getElementById("webgl-text").textContent=""+ ++u),f()}!function(){/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)&&(n.is_mobile=!0,i=66);let t=document.getElementById("canvas-webgl2");a=new e.WebglRenderer(t),o=Date.now(),document.getElementById("desc").innerText=t.width+"x"+t.height+" "+a.super_sampling+"x Super Sampling",f()}()},function(t,n){t.exports=function(t){function n(n){(t=(0|n)%2147483647)<=0&&(t+=2147483646)}function r(){return t=48271*t%2147483647}return n(t),{seed:n,nextInt:r,nextFloat:function(){return(r()-1)/2147483646}}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(0),a=r(13),i=r(1),o=r(12),u=r(11),c=r(5),s=r(10),f=r(2),l=r(3)(1);n.default=l;n.SoftwareRenderer=class{constructor(t){this.ambient_light=e.vec3.fromValues(.5,.7,1),this.temp=e.vec3.create(),this.temp_rec=new i.HitRecord,this.max_ray_bounce=f.is_mobile?8:16,this.num_samples=f.is_mobile?12:16,this.canvas=t,this.ctx=this.canvas.getContext("2d"),this.image_data=this.ctx.createImageData(this.canvas.width,this.canvas.height)}draw(){let t=this.canvas.width,n=this.canvas.height,r=e.vec3.create(),i=e.vec3.create(),f=Array(5);f[0]=new o.Sphere(e.vec3.fromValues(0,0,-1),.5,new s.Lambertian(e.vec3.fromValues(.1,.2,.5))),f[1]=new o.Sphere(e.vec3.fromValues(0,-100.5,-1),100,new s.Lambertian(e.vec3.fromValues(.8,.8,0))),f[2]=new o.Sphere(e.vec3.fromValues(1,0,-1),.5,new s.Metal(e.vec3.fromValues(.8,.6,.2),.3)),f[3]=new o.Sphere(e.vec3.fromValues(-1,0,-1),.5,new s.Dielectric(1.5)),f[4]=new o.Sphere(e.vec3.fromValues(-1,0,-1),-.45,new s.Dielectric(1.5));let h=new u.HitableList(f),d=e.vec3.fromValues(3,3,2),m=e.vec3.fromValues(0,0,-1),_=e.vec3.fromValues(0,1,0),M=e.vec3.distance(d,m),p=new c.Camera(d,m,_,20,t/n,.02,M),v=new a.Ray;for(let a=0;a<n;a++)for(let o=0;o<t;o++){e.vec3.set(i,0,0,0);for(let u=0;u<this.num_samples;u++){let u=(o+l.nextFloat()-.5)/t,c=1-(a+l.nextFloat()-.5)/n;p.getRay(v,u,c),this.color(r,v,h),e.vec3.add(i,i,r)}e.vec3.scale(i,i,1/this.num_samples),e.vec3.set(i,Math.sqrt(i[0]),Math.sqrt(i[1]),Math.sqrt(i[2])),this.setPixelv3f(this.image_data,o,a,i)}this.ctx.putImageData(this.image_data,0,0)}color(t,n,r){let a=e.vec3.fromValues(1,1,1),i=e.vec3.create();for(let o=0;o<=this.max_ray_bounce;o++){if(!r.hit(n,.001,Number.MAX_VALUE,this.temp_rec)){e.vec3.copy(this.temp,n.direction),e.vec3.normalize(this.temp,this.temp);let r=.5*(this.temp[1]+1);e.vec3.set(t,1-r+r*this.ambient_light[0],1-r+r*this.ambient_light[1],1-r+r*this.ambient_light[2]);break}this.temp_rec.material.scatter(n,n,this.temp_rec,i)?e.vec3.mul(a,a,i):e.vec3.set(a,0,0,0)}return e.vec3.mul(t,t,a),t}colorLERP(t,n,r,e){t[0]=n[0]*(1-e)+r[0]*e,t[1]=n[1]*(1-e)+r[1]*e,t[2]=n[2]*(1-e)+r[2]*e}setPixelv3f(t,n,r,e,a=1){let i=4*(n+r*t.width);t.data[i+0]=255.99*e[0],t.data[i+1]=255.99*e[1],t.data[i+2]=255.99*e[2],t.data[i+3]=255.99*a}getPixelv3f(t,n,r,e){let a=4*(n+r*t.width);e[0]=t.data[a+0]/255,e[1]=t.data[a+1]/255,e[2]=t.data[a+2]/255}setPixelf(t,n,r,e,a,i,o=1){let u=4*(n+r*t.width);t.data[u+0]=255.99*e,t.data[u+1]=255.99*a,t.data[u+2]=255.99*i,t.data[u+3]=255.99*o}setPixel(t,n,r,e,a,i,o=255){let u=4*(n+r*t.width);t.data[u+0]=e,t.data[u+1]=a,t.data[u+2]=i,t.data[u+3]=o}setPixelv3(t,n,r,e,a=255){let i=4*(n+r*t.width);t.data[i+0]=e[0],t.data[i+1]=e[1],t.data[i+2]=e[2],t.data[i+3]=a}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(0),a=r(4);n.Camera=class{constructor(t,n,r,a,i,o,u){this.lower_left_corner=e.vec3.create(),this.screen_horizontal=e.vec3.create(),this.screen_vertical=e.vec3.create(),this.position=e.vec3.create(),this.temp=e.vec3.create(),this.temp2=e.vec3.create(),this.lens_radius=o/2;let c=a*Math.PI/180,s=Math.tan(c/2),f=i*s;e.vec3.copy(this.position,t);let l=e.vec3.sub(e.vec3.create(),t,n);e.vec3.normalize(l,l);let h=e.vec3.cross(e.vec3.create(),r,l);e.vec3.normalize(h,h);let d=e.vec3.cross(e.vec3.create(),l,h);this.lower_left_corner[0]=this.position[0]-u*f*h[0]-u*s*d[0]-u*l[0],this.lower_left_corner[1]=this.position[1]-u*f*h[1]-u*s*d[1]-u*l[1],this.lower_left_corner[2]=this.position[2]-u*f*h[2]-u*s*d[2]-u*l[2],this.screen_horizontal=e.vec3.scale(e.vec3.create(),h,2*f*u),this.screen_vertical=e.vec3.scale(e.vec3.create(),d,2*s*u)}getRay(t,n,r){let i=this.temp2,o=this.temp;return e.vec3.scale(i,function(t){do{e.vec3.set(t,2*a.default.nextFloat()-1,2*a.default.nextFloat()-1,0)}while(e.vec3.dot(t,t)>=1);return t}(i),this.lens_radius),o[0]=this.screen_horizontal[0]*i[0]+this.screen_vertical[0]*i[1],o[1]=this.screen_horizontal[1]*i[0]+this.screen_vertical[1]*i[1],o[2]=this.screen_horizontal[2]*i[0]+this.screen_vertical[2]*i[1],e.vec3.add(t.origin,this.position,o),t.direction[0]=this.lower_left_corner[0]+n*this.screen_horizontal[0]+r*this.screen_vertical[0]-this.position[0]-o[0],t.direction[1]=this.lower_left_corner[1]+n*this.screen_horizontal[1]+r*this.screen_vertical[1]-this.position[1]-o[1],t.direction[2]=this.lower_left_corner[2]+n*this.screen_horizontal[2]+r*this.screen_vertical[2]-this.position[2]-o[2],t}}},function(t,n){t.exports="#version 300 es\r\nprecision mediump float;\r\n// Ouput data\r\nlayout(location = 0) out vec4 color;\r\n\r\nuniform sampler2D u_texture;\r\n\r\nin vec2 tex_coord;\r\n\r\n// Converts a color from linear light gamma to sRGB gamma\r\nvec4 fromLinear(vec4 linearRGB)\r\n{\r\n    bvec4 cutoff = lessThan(linearRGB, vec4(0.0031308));\r\n    vec4 higher = vec4(1.055)*pow(linearRGB, vec4(1.0/2.4)) - vec4(0.055);\r\n    vec4 lower = linearRGB * vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\n// Converts a color from sRGB gamma to linear light gamma\r\nvec4 toLinear(vec4 sRGB)\r\n{\r\n    bvec4 cutoff = lessThan(sRGB, vec4(0.04045));\r\n    vec4 higher = pow((sRGB + vec4(0.055))/vec4(1.055), vec4(2.4));\r\n    vec4 lower = sRGB/vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\nvoid main()\r\n{\r\n\tvec3 c = texture(u_texture, tex_coord).rgb;\r\n\tcolor = fromLinear(vec4(c,1.0));\r\n//    if (tex_coord.x < 0.25)\r\n//        color = vec4(pow(color.r, 1./2.2),pow(color.g, 1./2.2),pow(color.b, 1./2.2),1.0);   // 2.2 Gamma\r\n//    else if (tex_coord.x < 0.5)\r\n//        color = fromLinear(color);        // sRGB \r\n//    else if (tex_coord.x < 0.75)\r\n//        color = (sqrt(color));    // sqrt approximation         \r\n//    else\r\n//        color = color;                // unadjusted\r\n}"},function(t,n){t.exports="#version 300 es\r\n\r\n// Input vertex data, different for all executions of this shader.\r\nlayout(location = 0) in vec3 a_vertex;\r\n\r\n// Output data ; will be interpolated for each fragment.\r\nout vec2 tex_coord;\r\n\r\nvoid main()\r\n{\r\n\tgl_Position =  vec4(a_vertex,1);\r\n\ttex_coord = (a_vertex.xy + vec2(1.0,1.0)) / (2.0);\r\n}\r\n\r\n"},function(t,n){t.exports="#version 300 es\r\nprecision highp  float;\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\nout vec2 pos;\r\nout vec3 eye;\r\nout vec3 ray_direction;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform float width;\r\nuniform float height;\r\n\r\nuniform int num_quadrants;\r\nuniform int current_quadrant;\r\nuniform int quadrants_per_row;\r\n\r\nfloat random2(vec3 scale, float seed){\r\n    return fract(sin(dot(a_vertex + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvoid main()\r\n{\r\n    //match the quad to the quadrant we are rendering\r\n    float scale = 1. / float(quadrants_per_row);\r\n    vec3 new_vertex = a_vertex * vec3(scale) + vec3(float(1) - vec3(scale)) ;\r\n    \r\n    new_vertex.x -=  float(current_quadrant%quadrants_per_row) * scale * 2.;\r\n    new_vertex.y -=  floor(float(current_quadrant) / float(quadrants_per_row)) * scale * 2.;\r\n    \r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = new_vertex.xy * pos_fix + pos_fix;\r\n    \r\n    eye = screen.position;\r\n\r\n    ray_direction = screen.lower_left_corner +\r\n        screen.x_wiggle*1.0 + pos.x * screen.horizontal + \r\n        screen.y_wiggle*1.0 + pos.y * screen.vertical - \r\n        eye;\r\n        \r\n    gl_Position = vec4(new_vertex,1.0);\r\n}   "},function(t,n){t.exports="#version 300 es\r\nprecision highp float;\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nlayout(location=0) out vec4 fragColor;\r\nlayout(location=1) out vec4 fragColor2;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n    Material mat;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\n\r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / float(sphere_texture_size);\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.01, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color*final_color;\r\n}\r\n\r\nvoid main()\r\n{      \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n\r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n\r\n    vec3 new_color = color(ray);\r\n\r\n    float blend =  1.0 / float(sample_count+1);\r\n    //if(blend < 0.0025) blend = 0.0025;\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n\r\n    fragColor = vec4(final_color,1.0);         \r\n    fragColor2 = fragColor;\r\n    \r\n}\r\n\r\n\r\n"},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(0),a=r(4);class i{}n.Material=i;n.Lambertian=class extends i{constructor(t=e.vec3.create()){super(),this.temp=e.vec3.create(),this.albedo=t}scatter(t,n,r,a){return e.vec3.add(this.temp,o(this.temp),r.normal),e.vec3.copy(t.origin,r.pos),e.vec3.copy(t.direction,this.temp),e.vec3.copy(a,this.albedo),!0}};n.Metal=class extends i{constructor(t=e.vec3.create(),n=0){super(),this.temp=e.vec3.create(),this.albedo=e.vec3.create(),this.albedo=t,this.fuzz=n>1?1:n<0?0:n}scatter(t,n,r,a){return e.vec3.normalize(this.temp,n.direction),e.vec3.copy(t.origin,r.pos),e.vec3.add(t.direction,u(t.direction,this.temp,r.normal),e.vec3.scale(o(this.temp),this.temp,this.fuzz)),e.vec3.copy(a,this.albedo),e.vec3.dot(t.direction,r.normal)>0}};function o(t){do{e.vec3.set(t,2*a.default.nextFloat()-1,2*a.default.nextFloat()-1,2*a.default.nextFloat()-1)}while(e.vec3.dot(t,t)>=1);return t}function u(t,n,r){let a=e.vec3.dot(r,n);return t[0]=n[0]-2*r[0]*a,t[1]=n[1]-2*r[1]*a,t[2]=n[2]-2*r[2]*a,t}n.Dielectric=class extends i{constructor(t){super(),this.temp=e.vec3.create(),this.outward_normal=e.vec3.create(),this.refracted=e.vec3.create(),this.reflected=e.vec3.create(),this.refraction_index=t}scatter(t,n,r,i){let o,c,s;return e.vec3.normalize(this.temp,n.direction),u(this.reflected,this.temp,r.normal),e.vec3.set(i,1,1,1),e.vec3.dot(n.direction,r.normal)>0?(e.vec3.negate(this.outward_normal,r.normal),o=this.refraction_index,c=this.refraction_index*e.vec3.dot(n.direction,r.normal)/e.vec3.length(n.direction)):(e.vec3.copy(this.outward_normal,r.normal),o=1/this.refraction_index,c=-e.vec3.dot(n.direction,r.normal)/e.vec3.length(n.direction)),e.vec3.normalize(this.temp,n.direction),function(t,n,r,a){let i=e.vec3.dot(n,r),o=1-a*a*(1-i*i);if(o>0){let e=Math.sqrt(o);return t[0]=a*(n[0]-r[0]*i)-r[0]*e,t[1]=a*(n[1]-r[1]*i)-r[1]*e,t[2]=a*(n[2]-r[2]*i)-r[2]*e,!0}e.vec3.set(t,0,0,0)}(this.refracted,this.temp,this.outward_normal,o),s=e.vec3.length(this.refracted)>0?function(t,n){let r=(1-n)/(1+n);return(r*=r)+(1-r)*Math.pow(1-t,5)}(c,this.refraction_index):1,a.default.nextFloat()<s?e.vec3.copy(t.direction,this.reflected):e.vec3.copy(t.direction,this.refracted),e.vec3.copy(t.origin,r.pos),!0}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(1);n.HitableList=class extends e.Hitable{constructor(t=[]){super(),this.list=t,this.temp_rec=new e.HitRecord}hit(t,n,r,e){let a=!1,i=r;for(let r of this.list)r.hit(t,n,i,e)&&(a=!0,i=e.t);return a}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(1),a=r(0);n.Sphere=class extends e.Hitable{constructor(t,n,r){super(),this.center=t,this.radius=n,this.material=r,this.temp=a.vec3.create()}hit(t,n,r,e){let i=a.vec3.sub(this.temp,t.origin,this.center),o=a.vec3.dot(t.direction,t.direction),u=a.vec3.dot(i,t.direction),c=u*u-o*(a.vec3.dot(i,i)-this.radius*this.radius);if(c>0){let a=(-u-Math.sqrt(c))/o;if(a<r&&a>n)return e.t=a,t.pointAtParameter(e.pos,e.t),e.normal[0]=(e.pos[0]-this.center[0])/this.radius,e.normal[1]=(e.pos[1]-this.center[1])/this.radius,e.normal[2]=(e.pos[2]-this.center[2])/this.radius,e.material=this.material,!0;if((a=(-u+Math.sqrt(c))/o)<r&&a>n)return e.t=a,t.pointAtParameter(e.pos,e.t),e.normal[0]=(e.pos[0]-this.center[0])/this.radius,e.normal[1]=(e.pos[1]-this.center[1])/this.radius,e.normal[2]=(e.pos[2]-this.center[2])/this.radius,e.material=this.material,!0}return!1}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(0);n.Ray=class{constructor(t=e.vec3.create(),n=e.vec3.create()){this.origin=t,this.direction=n}pointAtParameter(t,n){return t[0]=this.origin[0]+n*this.direction[0],t[1]=this.origin[1]+n*this.direction[1],t[2]=this.origin[2]+n*this.direction[2],t}}},function(t,n,r){"use strict";var e;Object.defineProperty(n,"__esModule",{value:!0}),function(t){t[t.Diffuse=0]="Diffuse",t[t.Reflect=1]="Reflect",t[t.Refract=2]="Refract"}(e=n.MatType||(n.MatType={}));n.Material=class{constructor(t,n,r){switch(this.type=t,t){case e.Diffuse:this.diffuse=n;break;case e.Reflect:this.reflect=n,this.fuzz=r;break;case e.Refract:this.refraction_index=r}}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});n.Shader=class{constructor(t,n,r){this.gl=t;let e=this.getShader(t,n,t.VERTEX_SHADER),a=this.getShader(t,r,t.FRAGMENT_SHADER);this.ID=t.createProgram(),t.attachShader(this.ID,e),t.attachShader(this.ID,a),t.linkProgram(this.ID),t.getProgramParameter(this.ID,t.LINK_STATUS)||alert("Could not initialize shaders"),this.uniforms=new Map,this.attributes=new Map}delete(){this.gl.deleteShader(this.ID),delete this.uniforms,delete this.attributes}use(){this.gl.useProgram(this.ID)}setAttributes(t){this.use();for(let n of t)this.attributes.set(n,this.gl.getAttribLocation(this.ID,n))}setUniforms(t){this.use();for(let[n,r]of t)r&&this.setAny(n,r)}getUniformLocation(t){let n=this.uniforms.get(t);return void 0===n&&(n=this.gl.getUniformLocation(this.ID,t),this.uniforms.set(t,n)),n}getAttribLocation(t){let n=this.attributes.get(t);return void 0===n&&(n=this.gl.getAttribLocation(this.ID,t)),n}setBool(t,n){this.gl.uniform1i(t,n?1:0)}setBoolByName(t,n){this.gl.uniform1i(this.getUniformLocation(t),n?1:0)}setInt(t,n){this.gl.uniform1i(t,n)}setIntByName(t,n){this.gl.uniform1i(this.getUniformLocation(t),n)}setIntV(t,n){this.gl.uniform1iv(t,n)}setIntVByName(t,n){this.gl.uniform1iv(this.getUniformLocation(t),n)}setFloat(t,n){this.gl.uniform1f(t,n)}setFloatByName(t,n){this.gl.uniform1f(this.getUniformLocation(t),n)}setMat4(t,n){this.gl.uniformMatrix4fv(t,!1,n)}setMat4ByName(t,n){this.gl.uniformMatrix4fv(this.getUniformLocation(t),!1,n)}setVec3(t,n){this.gl.uniform3fv(t,n)}setVec3ByName(t,n){this.gl.uniform3fv(this.getUniformLocation(t),n)}setVec4(t,n){this.gl.uniform4fv(t,n)}setVec4ByName(t,n){this.gl.uniform4fv(this.getUniformLocation(t),n)}setAny(t,n){let r=this.getUniformLocation(t);"number"==typeof n?this.setFloat(r,n):"boolean"===n?this.setBool(r,n):n instanceof Float32Array&&(3==n.length&&this.setVec3(r,n),4==n.length&&this.setVec4(r,n),16==n.length&&this.setMat4(r,n))}getShader(t,n,r){let e;return e=t.createShader(r),t.shaderSource(e,n),t.compileShader(e),t.getShaderParameter(e,t.COMPILE_STATUS)?e:(alert(t.getShaderInfoLog(e)),null)}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});const e=r(15),a=r(0),i=r(14),o=r(2),u=r(5),c=r(3)(49);n.WebglRenderer=class{constructor(t){this.sample_count=0,this.default_quadrants_row=o.is_mobile?4:2,this.default_quadrants_col=o.is_mobile?4:2,this.render_width=0,this.render_height=0,this.super_sampling=o.is_mobile?2:3,this.max_ray_bounce=o.is_mobile?12:24,this.ambient_light=a.vec3.fromValues(.5,.7,1),0===this.super_sampling&&(this.super_sampling=1),this.num_quadrants=this.super_sampling*this.super_sampling*this.default_quadrants_row*this.default_quadrants_col,this.current_quadrant=0,this.initGL(t),this.initRenderTexture(),this.initShader();let n=a.vec3.fromValues(10,1.9,2.5),r=a.vec3.fromValues(4,.5,1),e=a.vec3.fromValues(0,1,0),i=a.vec3.distance(n,r);this.bigSphereScene(),this.setCamera(n,r,e,30,this.gl.drawingBufferWidth/this.gl.drawingBufferHeight,.01,i),this.initBuffers()}draw(){let t=this.gl;t.bindFramebuffer(t.FRAMEBUFFER,this.frame_buffer),t.viewport(0,0,this.render_width,this.render_height),this.shader.use(),this.shader.setIntByName("sample_count",this.sample_count),this.shader.setFloatByName("rand_seed0",c.nextFloat()),this.shader.setFloatByName("rand_seed1",c.nextFloat()),this.shader.setIntByName("current_quadrant",this.current_quadrant),this.wiggleCamera(),t.bindVertexArray(this.VAO),t.bindTexture(t.TEXTURE_2D,this.float_texture_copy),t.drawArrays(t.TRIANGLES,0,6),t.drawBuffers([t.COLOR_ATTACHMENT0,t.COLOR_ATTACHMENT1]),this.float_tex_ext?t.copyTexImage2D(t.TEXTURE_2D,0,t.RGBA32F,0,0,this.render_width,this.render_height,0):t.copyTexImage2D(t.TEXTURE_2D,0,t.RGBA,0,0,this.render_width,this.render_height,0),t.bindFramebuffer(t.FRAMEBUFFER,null),t.viewport(0,0,t.drawingBufferWidth,t.drawingBufferHeight),this.quad_shader.use(),t.bindVertexArray(this.VAO),t.bindTexture(t.TEXTURE_2D,this.quad_render_texture),t.drawArrays(t.TRIANGLES,0,6),this.current_quadrant++,this.current_quadrant>=this.num_quadrants&&(this.current_quadrant=0,this.sample_count++)}initGL(t){try{this.gl=t.getContext("webgl2")}catch(t){throw"GL init error:\n"+t}this.gl||alert("WebGL2 is not available on your browser."),this.gl.disable(this.gl.SAMPLE_COVERAGE),this.gl.clearColor(.2,.3,.3,1),this.gl.disable(this.gl.DEPTH_TEST)}initShader(){let t=this.gl;const n=r(9),a=r(8);this.shader=new e.Shader(this.gl,a,n),this.quad_shader=new e.Shader(t,r(7),r(6)),this.shader.setAttributes(["a_vertex"]);let i=new Map;i.set("width",this.gl.drawingBufferWidth),i.set("height",this.gl.drawingBufferHeight),this.shader.setIntByName("max_ray_bounce",this.max_ray_bounce),this.shader.setIntByName("num_quadrants",this.num_quadrants),this.shader.setIntByName("quadrants_per_row",this.super_sampling*this.default_quadrants_row),this.shader.setIntByName("last_frame",0),i.set("ambient_light",this.ambient_light),this.shader.setUniforms(i),t.bindVertexArray(this.VAO),this.quad_shader.use(),this.quad_shader.setIntByName("u_texture",0)}initRenderTexture(){let t=this.gl;this.render_width=this.gl.drawingBufferWidth*this.super_sampling,this.render_height=this.gl.drawingBufferHeight*this.super_sampling,this.frame_buffer=t.createFramebuffer(),t.bindFramebuffer(t.FRAMEBUFFER,this.frame_buffer),this.float_tex_ext=t.getExtension("EXT_color_buffer_float"),this.float_texture=t.createTexture(),t.bindTexture(t.TEXTURE_2D,this.float_texture),this.float_tex_ext?t.texImage2D(t.TEXTURE_2D,0,t.RGBA32F,this.render_width,this.render_height,0,t.RGBA,t.FLOAT,null):o.is_mobile?t.texImage2D(t.TEXTURE_2D,0,t.RGBA,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_BYTE,null):t.texImage2D(t.TEXTURE_2D,0,t.RGB10_A2,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_INT_2_10_10_10_REV,null),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.NEAREST),t.framebufferTexture2D(t.FRAMEBUFFER,t.COLOR_ATTACHMENT0,t.TEXTURE_2D,this.float_texture,0),this.quad_render_texture=t.createTexture(),t.bindTexture(t.TEXTURE_2D,this.quad_render_texture),o.is_mobile?t.texImage2D(t.TEXTURE_2D,0,t.RGBA,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_BYTE,null):t.texImage2D(t.TEXTURE_2D,0,t.RGB10_A2,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_INT_2_10_10_10_REV,null),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.LINEAR),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.LINEAR),t.framebufferTexture2D(t.FRAMEBUFFER,t.COLOR_ATTACHMENT1,t.TEXTURE_2D,this.quad_render_texture,0);const n=t.checkFramebufferStatus(t.FRAMEBUFFER);console.log(`${n===t.FRAMEBUFFER_COMPLETE?"good":"bad  "} frame buffer`),this.float_texture_copy=t.createTexture(),t.bindTexture(t.TEXTURE_2D,this.float_texture_copy),this.float_tex_ext?t.texImage2D(t.TEXTURE_2D,0,t.RGBA32F,this.render_width,this.render_height,0,t.RGBA,t.FLOAT,null):o.is_mobile?t.texImage2D(t.TEXTURE_2D,0,t.RGBA,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_BYTE,null):t.texImage2D(t.TEXTURE_2D,0,t.RGB10_A2,this.render_width,this.render_height,0,t.RGBA,t.UNSIGNED_INT_2_10_10_10_REV,null),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.NEAREST)}bigSphereScene(){this.shader.use();let t=this.gl,n=t.createTexture(),r=t.createTexture(),e=t.createTexture();t.bindTexture(t.TEXTURE_2D,n);let u=[],s=[],f=[];u.push(0,-1e3,0,1e3),s.push(127.5,127.5,127.5,255),f.push(i.MatType.Diffuse,0,0,0),u.push(0,1,0,1),s.push(0,255,0,0),f.push(i.MatType.Refract,1.2,0,0),u.push(0,1,0,-.95),s.push(0,0,0,0),f.push(i.MatType.Refract,1.2,0,0),u.push(-4,1,0,1),s.push(102,51,25.5,0),f.push(i.MatType.Diffuse,0,0,0),u.push(4,1,0,1),s.push(178.5,153,127.5,0),f.push(i.MatType.Reflect,0,0,0);let l=o.is_mobile?-2:-11,h=o.is_mobile?7:11;for(let t=l;t<h;t++)for(let n=l;n<h;n++){let r=c.nextFloat(),e=a.vec3.fromValues(t+.9*c.nextFloat(),.2,n+.9*c.nextFloat());a.vec3.distance(e,a.vec3.fromValues(4,.2,0))>.9&&(r<.5?(u.push(e[0],e[1],e[2],.2),s.push(255*c.nextFloat(),255*c.nextFloat(),255*c.nextFloat(),0),f.push(i.MatType.Diffuse,0,0,0)):r<.75?(u.push(e[0],e[1],e[2],.2),s.push(.5*(1+c.nextFloat())*255,.5*(1+c.nextFloat())*255,.5*(1+c.nextFloat())*255,0),f.push(i.MatType.Reflect,.5*c.nextFloat(),0,0)):r<.95?(u.push(e[0],e[1],e[2],.2),s.push(0,0,0,0),f.push(i.MatType.Refract,1.5,0,0)):(u.push(e[0],e[1],e[2],.2),s.push(0,0,0,0),f.push(i.MatType.Refract,1.5,0,0),u.push(e[0],e[1],e[2],-.18),s.push(0,0,0,0),f.push(i.MatType.Refract,1.5,0,0)))}let d=u.length/4,m=d;d=Math.pow(2,Math.ceil(Math.log(d)/Math.log(2)));for(let t=m;t<=d;t++)u.push(0,0,0,0),s.push(0,0,0,0),f.push(0,0,0,0);t.activeTexture(t.TEXTURE1),t.bindTexture(t.TEXTURE_2D,n),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texImage2D(t.TEXTURE_2D,0,t.RGBA32F,d,1,0,t.RGBA,t.FLOAT,new Float32Array(u)),this.shader.setIntByName("sphere_texture",1),t.activeTexture(t.TEXTURE2),t.bindTexture(t.TEXTURE_2D,r),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texImage2D(t.TEXTURE_2D,0,t.RGBA8,d,1,0,t.RGBA,t.UNSIGNED_BYTE,new Uint8Array(s)),this.shader.setIntByName("mat_texture",2),t.activeTexture(t.TEXTURE3),t.bindTexture(t.TEXTURE_2D,e),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,t.NEAREST),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),t.texImage2D(t.TEXTURE_2D,0,t.RGBA32F,d,1,0,t.RGBA,t.FLOAT,new Float32Array(f)),this.shader.setIntByName("mat_texture_extra",3),this.shader.setIntByName("sphere_count",m),this.shader.setFloatByName("sphere_texture_size",d)}setCamera(t,n,r,e,a,i,o){let s=new u.Camera(t,n,r,e,a,i,o);this.shader.use(),this.shader.setVec3ByName("screen.lower_left_corner",s.lower_left_corner),this.shader.setVec3ByName("screen.horizontal",s.screen_horizontal),this.shader.setVec3ByName("screen.vertical",s.screen_vertical),this.shader.setVec3ByName("screen.position",s.position),this.shader.setFloatByName("screen.lens_radius",s.lens_radius),this.shader.setFloatByName("screen.x_wiggle",c.nextFloat()/this.render_width),this.shader.setFloatByName("screen.y_wiggle",c.nextFloat()/this.render_height)}wiggleCamera(){this.shader.setFloatByName("screen.x_wiggle",c.nextFloat()/this.render_width),this.shader.setFloatByName("screen.y_wiggle",c.nextFloat()/this.render_height)}initBuffers(){let t=this.gl;this.vertex_buffer=t.createBuffer(),this.VAO=t.createVertexArray(),t.bindVertexArray(this.VAO),t.activeTexture(t.TEXTURE0),t.bindBuffer(t.ARRAY_BUFFER,this.vertex_buffer),t.bufferData(t.ARRAY_BUFFER,new Float32Array([-1,-1,0,1,-1,0,-1,1,0,-1,1,0,1,-1,0,1,1,0]),t.STATIC_DRAW),t.enableVertexAttribArray(this.shader.getAttribLocation("a_vertex")),t.vertexAttribPointer(this.shader.getAttribLocation("a_vertex"),3,t.FLOAT,!1,0,0),t.bindBuffer(t.ARRAY_BUFFER,null),t.bindVertexArray(null)}}}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/main.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/fast-random/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/fast-random/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function random(seed) {
+	function _seed(s) {
+		if ((seed = (s|0) % 2147483647) <= 0) {
+			seed += 2147483646;
+		}
+	}
+
+	function _nextInt() {
+		return seed = seed * 48271 % 2147483647;
+	}
+
+	function _nextFloat() {
+		return (_nextInt() - 1) / 2147483646;
+	}
+
+	_seed(seed);
+
+	return {
+		seed: _seed,
+		nextInt: _nextInt,
+		nextFloat: _nextFloat
+	};
+}
+
+module.exports = random;
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix.js":
+/*!*************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix.js ***!
+  \*************************************************/
+/*! exports provided: glMatrix, mat2, mat2d, mat3, mat4, quat, quat2, vec2, vec3, vec4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _gl_matrix_common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gl-matrix/common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "glMatrix", function() { return _gl_matrix_common_js__WEBPACK_IMPORTED_MODULE_0__; });
+/* harmony import */ var _gl_matrix_mat2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gl-matrix/mat2.js */ "./node_modules/gl-matrix/src/gl-matrix/mat2.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2", function() { return _gl_matrix_mat2_js__WEBPACK_IMPORTED_MODULE_1__; });
+/* harmony import */ var _gl_matrix_mat2d_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gl-matrix/mat2d.js */ "./node_modules/gl-matrix/src/gl-matrix/mat2d.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2d", function() { return _gl_matrix_mat2d_js__WEBPACK_IMPORTED_MODULE_2__; });
+/* harmony import */ var _gl_matrix_mat3_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gl-matrix/mat3.js */ "./node_modules/gl-matrix/src/gl-matrix/mat3.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat3", function() { return _gl_matrix_mat3_js__WEBPACK_IMPORTED_MODULE_3__; });
+/* harmony import */ var _gl_matrix_mat4_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./gl-matrix/mat4.js */ "./node_modules/gl-matrix/src/gl-matrix/mat4.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat4", function() { return _gl_matrix_mat4_js__WEBPACK_IMPORTED_MODULE_4__; });
+/* harmony import */ var _gl_matrix_quat_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./gl-matrix/quat.js */ "./node_modules/gl-matrix/src/gl-matrix/quat.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "quat", function() { return _gl_matrix_quat_js__WEBPACK_IMPORTED_MODULE_5__; });
+/* harmony import */ var _gl_matrix_quat2_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./gl-matrix/quat2.js */ "./node_modules/gl-matrix/src/gl-matrix/quat2.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "quat2", function() { return _gl_matrix_quat2_js__WEBPACK_IMPORTED_MODULE_6__; });
+/* harmony import */ var _gl_matrix_vec2_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./gl-matrix/vec2.js */ "./node_modules/gl-matrix/src/gl-matrix/vec2.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec2", function() { return _gl_matrix_vec2_js__WEBPACK_IMPORTED_MODULE_7__; });
+/* harmony import */ var _gl_matrix_vec3_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./gl-matrix/vec3.js */ "./node_modules/gl-matrix/src/gl-matrix/vec3.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec3", function() { return _gl_matrix_vec3_js__WEBPACK_IMPORTED_MODULE_8__; });
+/* harmony import */ var _gl_matrix_vec4_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./gl-matrix/vec4.js */ "./node_modules/gl-matrix/src/gl-matrix/vec4.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec4", function() { return _gl_matrix_vec4_js__WEBPACK_IMPORTED_MODULE_9__; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/common.js":
+/*!********************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/common.js ***!
+  \********************************************************/
+/*! exports provided: EPSILON, ARRAY_TYPE, RANDOM, setMatrixArrayType, toRadian, equals */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EPSILON", function() { return EPSILON; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARRAY_TYPE", function() { return ARRAY_TYPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RANDOM", function() { return RANDOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMatrixArrayType", function() { return setMatrixArrayType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toRadian", function() { return toRadian; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/**
+ * Common utilities
+ * @module glMatrix
+ */
+
+// Configuration Constants
+const EPSILON = 0.000001;
+let ARRAY_TYPE = (typeof Float32Array !== 'undefined') ? Float32Array : Array;
+const RANDOM = Math.random;
+
+/**
+ * Sets the type of array used when creating new vectors and matrices
+ *
+ * @param {Type} type Array type, such as Float32Array or Array
+ */
+function setMatrixArrayType(type) {
+  ARRAY_TYPE = type;
+}
+
+const degree = Math.PI / 180;
+
+/**
+ * Convert Degree To Radian
+ *
+ * @param {Number} a Angle in Degrees
+ */
+function toRadian(a) {
+  return a * degree;
+}
+
+/**
+ * Tests whether or not the arguments have approximately the same value, within an absolute
+ * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
+ * than or equal to 1.0, and a relative tolerance is used for larger values)
+ *
+ * @param {Number} a The first number to test.
+ * @param {Number} b The second number to test.
+ * @returns {Boolean} True if the numbers are approximately equal, false otherwise.
+ */
+function equals(a, b) {
+  return Math.abs(a - b) <= EPSILON*Math.max(1.0, Math.abs(a), Math.abs(b));
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/mat2.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/mat2.js ***!
+  \******************************************************/
+/*! exports provided: create, clone, copy, identity, fromValues, set, transpose, invert, adjoint, determinant, multiply, rotate, scale, fromRotation, fromScaling, str, frob, LDU, add, subtract, exactEquals, equals, multiplyScalar, multiplyScalarAndAdd, mul, sub */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transpose", function() { return transpose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adjoint", function() { return adjoint; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "determinant", function() { return determinant; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotation", function() { return fromRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromScaling", function() { return fromScaling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frob", function() { return frob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LDU", function() { return LDU; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalar", function() { return multiplyScalar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalarAndAdd", function() { return multiplyScalarAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 2x2 Matrix
+ * @module mat2
+ */
+
+/**
+ * Creates a new identity mat2
+ *
+ * @returns {mat2} a new 2x2 matrix
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+
+/**
+ * Creates a new mat2 initialized with values from an existing matrix
+ *
+ * @param {mat2} a matrix to clone
+ * @returns {mat2} a new 2x2 matrix
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Copy the values from one mat2 to another
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Set a mat2 to the identity matrix
+ *
+ * @param {mat2} out the receiving matrix
+ * @returns {mat2} out
+ */
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+
+/**
+ * Create a new mat2 with the given values
+ *
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m10 Component in column 1, row 0 position (index 2)
+ * @param {Number} m11 Component in column 1, row 1 position (index 3)
+ * @returns {mat2} out A new 2x2 matrix
+ */
+function fromValues(m00, m01, m10, m11) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m10;
+  out[3] = m11;
+  return out;
+}
+
+/**
+ * Set the components of a mat2 to the given values
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m10 Component in column 1, row 0 position (index 2)
+ * @param {Number} m11 Component in column 1, row 1 position (index 3)
+ * @returns {mat2} out
+ */
+function set(out, m00, m01, m10, m11) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m10;
+  out[3] = m11;
+  return out;
+}
+
+/**
+ * Transpose the values of a mat2
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} out
+ */
+function transpose(out, a) {
+  // If we are transposing ourselves we can skip a few steps but have to cache
+  // some values
+  if (out === a) {
+    let a1 = a[1];
+    out[1] = a[2];
+    out[2] = a1;
+  } else {
+    out[0] = a[0];
+    out[1] = a[2];
+    out[2] = a[1];
+    out[3] = a[3];
+  }
+
+  return out;
+}
+
+/**
+ * Inverts a mat2
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} out
+ */
+function invert(out, a) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+
+  // Calculate the determinant
+  let det = a0 * a3 - a2 * a1;
+
+  if (!det) {
+    return null;
+  }
+  det = 1.0 / det;
+
+  out[0] =  a3 * det;
+  out[1] = -a1 * det;
+  out[2] = -a2 * det;
+  out[3] =  a0 * det;
+
+  return out;
+}
+
+/**
+ * Calculates the adjugate of a mat2
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the source matrix
+ * @returns {mat2} out
+ */
+function adjoint(out, a) {
+  // Caching this value is nessecary if out == a
+  let a0 = a[0];
+  out[0] =  a[3];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] =  a0;
+
+  return out;
+}
+
+/**
+ * Calculates the determinant of a mat2
+ *
+ * @param {mat2} a the source matrix
+ * @returns {Number} determinant of a
+ */
+function determinant(a) {
+  return a[0] * a[3] - a[2] * a[1];
+}
+
+/**
+ * Multiplies two mat2's
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the first operand
+ * @param {mat2} b the second operand
+ * @returns {mat2} out
+ */
+function multiply(out, a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  out[0] = a0 * b0 + a2 * b1;
+  out[1] = a1 * b0 + a3 * b1;
+  out[2] = a0 * b2 + a2 * b3;
+  out[3] = a1 * b2 + a3 * b3;
+  return out;
+}
+
+/**
+ * Rotates a mat2 by the given angle
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat2} out
+ */
+function rotate(out, a, rad) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  out[0] = a0 *  c + a2 * s;
+  out[1] = a1 *  c + a3 * s;
+  out[2] = a0 * -s + a2 * c;
+  out[3] = a1 * -s + a3 * c;
+  return out;
+}
+
+/**
+ * Scales the mat2 by the dimensions in the given vec2
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the matrix to rotate
+ * @param {vec2} v the vec2 to scale the matrix by
+ * @returns {mat2} out
+ **/
+function scale(out, a, v) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let v0 = v[0], v1 = v[1];
+  out[0] = a0 * v0;
+  out[1] = a1 * v0;
+  out[2] = a2 * v1;
+  out[3] = a3 * v1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a given angle
+ * This is equivalent to (but much faster than):
+ *
+ *     mat2.identity(dest);
+ *     mat2.rotate(dest, dest, rad);
+ *
+ * @param {mat2} out mat2 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat2} out
+ */
+function fromRotation(out, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  out[0] = c;
+  out[1] = s;
+  out[2] = -s;
+  out[3] = c;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector scaling
+ * This is equivalent to (but much faster than):
+ *
+ *     mat2.identity(dest);
+ *     mat2.scale(dest, dest, vec);
+ *
+ * @param {mat2} out mat2 receiving operation result
+ * @param {vec2} v Scaling vector
+ * @returns {mat2} out
+ */
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = v[1];
+  return out;
+}
+
+/**
+ * Returns a string representation of a mat2
+ *
+ * @param {mat2} a matrix to represent as a string
+ * @returns {String} string representation of the matrix
+ */
+function str(a) {
+  return 'mat2(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ')';
+}
+
+/**
+ * Returns Frobenius norm of a mat2
+ *
+ * @param {mat2} a the matrix to calculate Frobenius norm of
+ * @returns {Number} Frobenius norm
+ */
+function frob(a) {
+  return(Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2)))
+}
+
+/**
+ * Returns L, D and U matrices (Lower triangular, Diagonal and Upper triangular) by factorizing the input matrix
+ * @param {mat2} L the lower triangular matrix
+ * @param {mat2} D the diagonal matrix
+ * @param {mat2} U the upper triangular matrix
+ * @param {mat2} a the input matrix to factorize
+ */
+
+function LDU(L, D, U, a) {
+  L[2] = a[2]/a[0];
+  U[0] = a[0];
+  U[1] = a[1];
+  U[3] = a[3] - L[2] * U[1];
+  return [L, D, U];
+}
+
+/**
+ * Adds two mat2's
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the first operand
+ * @param {mat2} b the second operand
+ * @returns {mat2} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  return out;
+}
+
+/**
+ * Subtracts matrix b from matrix a
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the first operand
+ * @param {mat2} b the second operand
+ * @returns {mat2} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  return out;
+}
+
+/**
+ * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {mat2} a The first matrix.
+ * @param {mat2} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+}
+
+/**
+ * Returns whether or not the matrices have approximately the same elements in the same position.
+ *
+ * @param {mat2} a The first matrix.
+ * @param {mat2} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
+}
+
+/**
+ * Multiply each element of the matrix by a scalar.
+ *
+ * @param {mat2} out the receiving matrix
+ * @param {mat2} a the matrix to scale
+ * @param {Number} b amount to scale the matrix's elements by
+ * @returns {mat2} out
+ */
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  return out;
+}
+
+/**
+ * Adds two mat2's after multiplying each element of the second operand by a scalar value.
+ *
+ * @param {mat2} out the receiving vector
+ * @param {mat2} a the first operand
+ * @param {mat2} b the second operand
+ * @param {Number} scale the amount to scale b's elements by before adding
+ * @returns {mat2} out
+ */
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  out[3] = a[3] + (b[3] * scale);
+  return out;
+}
+
+/**
+ * Alias for {@link mat2.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link mat2.subtract}
+ * @function
+ */
+const sub = subtract;
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/mat2d.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/mat2d.js ***!
+  \*******************************************************/
+/*! exports provided: create, clone, copy, identity, fromValues, set, invert, determinant, multiply, rotate, scale, translate, fromRotation, fromScaling, fromTranslation, str, frob, add, subtract, multiplyScalar, multiplyScalarAndAdd, exactEquals, equals, mul, sub */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "determinant", function() { return determinant; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translate", function() { return translate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotation", function() { return fromRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromScaling", function() { return fromScaling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromTranslation", function() { return fromTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frob", function() { return frob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalar", function() { return multiplyScalar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalarAndAdd", function() { return multiplyScalarAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 2x3 Matrix
+ * @module mat2d
+ *
+ * @description
+ * A mat2d contains six elements defined as:
+ * <pre>
+ * [a, c, tx,
+ *  b, d, ty]
+ * </pre>
+ * This is a short form for the 3x3 matrix:
+ * <pre>
+ * [a, c, tx,
+ *  b, d, ty,
+ *  0, 0, 1]
+ * </pre>
+ * The last row is ignored so the array is shorter and operations are faster.
+ */
+
+/**
+ * Creates a new identity mat2d
+ *
+ * @returns {mat2d} a new 2x3 matrix
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](6);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = 0;
+  out[5] = 0;
+  return out;
+}
+
+/**
+ * Creates a new mat2d initialized with values from an existing matrix
+ *
+ * @param {mat2d} a matrix to clone
+ * @returns {mat2d} a new 2x3 matrix
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](6);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  return out;
+}
+
+/**
+ * Copy the values from one mat2d to another
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the source matrix
+ * @returns {mat2d} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  return out;
+}
+
+/**
+ * Set a mat2d to the identity matrix
+ *
+ * @param {mat2d} out the receiving matrix
+ * @returns {mat2d} out
+ */
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = 0;
+  out[5] = 0;
+  return out;
+}
+
+/**
+ * Create a new mat2d with the given values
+ *
+ * @param {Number} a Component A (index 0)
+ * @param {Number} b Component B (index 1)
+ * @param {Number} c Component C (index 2)
+ * @param {Number} d Component D (index 3)
+ * @param {Number} tx Component TX (index 4)
+ * @param {Number} ty Component TY (index 5)
+ * @returns {mat2d} A new mat2d
+ */
+function fromValues(a, b, c, d, tx, ty) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](6);
+  out[0] = a;
+  out[1] = b;
+  out[2] = c;
+  out[3] = d;
+  out[4] = tx;
+  out[5] = ty;
+  return out;
+}
+
+/**
+ * Set the components of a mat2d to the given values
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {Number} a Component A (index 0)
+ * @param {Number} b Component B (index 1)
+ * @param {Number} c Component C (index 2)
+ * @param {Number} d Component D (index 3)
+ * @param {Number} tx Component TX (index 4)
+ * @param {Number} ty Component TY (index 5)
+ * @returns {mat2d} out
+ */
+function set(out, a, b, c, d, tx, ty) {
+  out[0] = a;
+  out[1] = b;
+  out[2] = c;
+  out[3] = d;
+  out[4] = tx;
+  out[5] = ty;
+  return out;
+}
+
+/**
+ * Inverts a mat2d
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the source matrix
+ * @returns {mat2d} out
+ */
+function invert(out, a) {
+  let aa = a[0], ab = a[1], ac = a[2], ad = a[3];
+  let atx = a[4], aty = a[5];
+
+  let det = aa * ad - ab * ac;
+  if(!det){
+    return null;
+  }
+  det = 1.0 / det;
+
+  out[0] = ad * det;
+  out[1] = -ab * det;
+  out[2] = -ac * det;
+  out[3] = aa * det;
+  out[4] = (ac * aty - ad * atx) * det;
+  out[5] = (ab * atx - aa * aty) * det;
+  return out;
+}
+
+/**
+ * Calculates the determinant of a mat2d
+ *
+ * @param {mat2d} a the source matrix
+ * @returns {Number} determinant of a
+ */
+function determinant(a) {
+  return a[0] * a[3] - a[1] * a[2];
+}
+
+/**
+ * Multiplies two mat2d's
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the first operand
+ * @param {mat2d} b the second operand
+ * @returns {mat2d} out
+ */
+function multiply(out, a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5];
+  out[0] = a0 * b0 + a2 * b1;
+  out[1] = a1 * b0 + a3 * b1;
+  out[2] = a0 * b2 + a2 * b3;
+  out[3] = a1 * b2 + a3 * b3;
+  out[4] = a0 * b4 + a2 * b5 + a4;
+  out[5] = a1 * b4 + a3 * b5 + a5;
+  return out;
+}
+
+/**
+ * Rotates a mat2d by the given angle
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat2d} out
+ */
+function rotate(out, a, rad) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  out[0] = a0 *  c + a2 * s;
+  out[1] = a1 *  c + a3 * s;
+  out[2] = a0 * -s + a2 * c;
+  out[3] = a1 * -s + a3 * c;
+  out[4] = a4;
+  out[5] = a5;
+  return out;
+}
+
+/**
+ * Scales the mat2d by the dimensions in the given vec2
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the matrix to translate
+ * @param {vec2} v the vec2 to scale the matrix by
+ * @returns {mat2d} out
+ **/
+function scale(out, a, v) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
+  let v0 = v[0], v1 = v[1];
+  out[0] = a0 * v0;
+  out[1] = a1 * v0;
+  out[2] = a2 * v1;
+  out[3] = a3 * v1;
+  out[4] = a4;
+  out[5] = a5;
+  return out;
+}
+
+/**
+ * Translates the mat2d by the dimensions in the given vec2
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the matrix to translate
+ * @param {vec2} v the vec2 to translate the matrix by
+ * @returns {mat2d} out
+ **/
+function translate(out, a, v) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
+  let v0 = v[0], v1 = v[1];
+  out[0] = a0;
+  out[1] = a1;
+  out[2] = a2;
+  out[3] = a3;
+  out[4] = a0 * v0 + a2 * v1 + a4;
+  out[5] = a1 * v0 + a3 * v1 + a5;
+  return out;
+}
+
+/**
+ * Creates a matrix from a given angle
+ * This is equivalent to (but much faster than):
+ *
+ *     mat2d.identity(dest);
+ *     mat2d.rotate(dest, dest, rad);
+ *
+ * @param {mat2d} out mat2d receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat2d} out
+ */
+function fromRotation(out, rad) {
+  let s = Math.sin(rad), c = Math.cos(rad);
+  out[0] = c;
+  out[1] = s;
+  out[2] = -s;
+  out[3] = c;
+  out[4] = 0;
+  out[5] = 0;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector scaling
+ * This is equivalent to (but much faster than):
+ *
+ *     mat2d.identity(dest);
+ *     mat2d.scale(dest, dest, vec);
+ *
+ * @param {mat2d} out mat2d receiving operation result
+ * @param {vec2} v Scaling vector
+ * @returns {mat2d} out
+ */
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = v[1];
+  out[4] = 0;
+  out[5] = 0;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat2d.identity(dest);
+ *     mat2d.translate(dest, dest, vec);
+ *
+ * @param {mat2d} out mat2d receiving operation result
+ * @param {vec2} v Translation vector
+ * @returns {mat2d} out
+ */
+function fromTranslation(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = v[0];
+  out[5] = v[1];
+  return out;
+}
+
+/**
+ * Returns a string representation of a mat2d
+ *
+ * @param {mat2d} a matrix to represent as a string
+ * @returns {String} string representation of the matrix
+ */
+function str(a) {
+  return 'mat2d(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' +
+          a[3] + ', ' + a[4] + ', ' + a[5] + ')';
+}
+
+/**
+ * Returns Frobenius norm of a mat2d
+ *
+ * @param {mat2d} a the matrix to calculate Frobenius norm of
+ * @returns {Number} Frobenius norm
+ */
+function frob(a) {
+  return(Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2) + Math.pow(a[4], 2) + Math.pow(a[5], 2) + 1))
+}
+
+/**
+ * Adds two mat2d's
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the first operand
+ * @param {mat2d} b the second operand
+ * @returns {mat2d} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  return out;
+}
+
+/**
+ * Subtracts matrix b from matrix a
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the first operand
+ * @param {mat2d} b the second operand
+ * @returns {mat2d} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  return out;
+}
+
+/**
+ * Multiply each element of the matrix by a scalar.
+ *
+ * @param {mat2d} out the receiving matrix
+ * @param {mat2d} a the matrix to scale
+ * @param {Number} b amount to scale the matrix's elements by
+ * @returns {mat2d} out
+ */
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  return out;
+}
+
+/**
+ * Adds two mat2d's after multiplying each element of the second operand by a scalar value.
+ *
+ * @param {mat2d} out the receiving vector
+ * @param {mat2d} a the first operand
+ * @param {mat2d} b the second operand
+ * @param {Number} scale the amount to scale b's elements by before adding
+ * @returns {mat2d} out
+ */
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  out[3] = a[3] + (b[3] * scale);
+  out[4] = a[4] + (b[4] * scale);
+  out[5] = a[5] + (b[5] * scale);
+  return out;
+}
+
+/**
+ * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {mat2d} a The first matrix.
+ * @param {mat2d} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5];
+}
+
+/**
+ * Returns whether or not the matrices have approximately the same elements in the same position.
+ *
+ * @param {mat2d} a The first matrix.
+ * @param {mat2d} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)));
+}
+
+/**
+ * Alias for {@link mat2d.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link mat2d.subtract}
+ * @function
+ */
+const sub = subtract;
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/mat3.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/mat3.js ***!
+  \******************************************************/
+/*! exports provided: create, fromMat4, clone, copy, fromValues, set, identity, transpose, invert, adjoint, determinant, multiply, translate, rotate, scale, fromTranslation, fromRotation, fromScaling, fromMat2d, fromQuat, normalFromMat4, projection, str, frob, add, subtract, multiplyScalar, multiplyScalarAndAdd, exactEquals, equals, mul, sub */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromMat4", function() { return fromMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transpose", function() { return transpose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adjoint", function() { return adjoint; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "determinant", function() { return determinant; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translate", function() { return translate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromTranslation", function() { return fromTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotation", function() { return fromRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromScaling", function() { return fromScaling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromMat2d", function() { return fromMat2d; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromQuat", function() { return fromQuat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalFromMat4", function() { return normalFromMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "projection", function() { return projection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frob", function() { return frob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalar", function() { return multiplyScalar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalarAndAdd", function() { return multiplyScalarAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 3x3 Matrix
+ * @module mat3
+ */
+
+/**
+ * Creates a new identity mat3
+ *
+ * @returns {mat3} a new 3x3 matrix
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](9);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 1;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 1;
+  return out;
+}
+
+/**
+ * Copies the upper-left 3x3 values into the given mat3.
+ *
+ * @param {mat3} out the receiving 3x3 matrix
+ * @param {mat4} a   the source 4x4 matrix
+ * @returns {mat3} out
+ */
+function fromMat4(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[4];
+  out[4] = a[5];
+  out[5] = a[6];
+  out[6] = a[8];
+  out[7] = a[9];
+  out[8] = a[10];
+  return out;
+}
+
+/**
+ * Creates a new mat3 initialized with values from an existing matrix
+ *
+ * @param {mat3} a matrix to clone
+ * @returns {mat3} a new 3x3 matrix
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](9);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  return out;
+}
+
+/**
+ * Copy the values from one mat3 to another
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the source matrix
+ * @returns {mat3} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  return out;
+}
+
+/**
+ * Create a new mat3 with the given values
+ *
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m10 Component in column 1, row 0 position (index 3)
+ * @param {Number} m11 Component in column 1, row 1 position (index 4)
+ * @param {Number} m12 Component in column 1, row 2 position (index 5)
+ * @param {Number} m20 Component in column 2, row 0 position (index 6)
+ * @param {Number} m21 Component in column 2, row 1 position (index 7)
+ * @param {Number} m22 Component in column 2, row 2 position (index 8)
+ * @returns {mat3} A new mat3
+ */
+function fromValues(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](9);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m10;
+  out[4] = m11;
+  out[5] = m12;
+  out[6] = m20;
+  out[7] = m21;
+  out[8] = m22;
+  return out;
+}
+
+/**
+ * Set the components of a mat3 to the given values
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m10 Component in column 1, row 0 position (index 3)
+ * @param {Number} m11 Component in column 1, row 1 position (index 4)
+ * @param {Number} m12 Component in column 1, row 2 position (index 5)
+ * @param {Number} m20 Component in column 2, row 0 position (index 6)
+ * @param {Number} m21 Component in column 2, row 1 position (index 7)
+ * @param {Number} m22 Component in column 2, row 2 position (index 8)
+ * @returns {mat3} out
+ */
+function set(out, m00, m01, m02, m10, m11, m12, m20, m21, m22) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m10;
+  out[4] = m11;
+  out[5] = m12;
+  out[6] = m20;
+  out[7] = m21;
+  out[8] = m22;
+  return out;
+}
+
+/**
+ * Set a mat3 to the identity matrix
+ *
+ * @param {mat3} out the receiving matrix
+ * @returns {mat3} out
+ */
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 1;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 1;
+  return out;
+}
+
+/**
+ * Transpose the values of a mat3
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the source matrix
+ * @returns {mat3} out
+ */
+function transpose(out, a) {
+  // If we are transposing ourselves we can skip a few steps but have to cache some values
+  if (out === a) {
+    let a01 = a[1], a02 = a[2], a12 = a[5];
+    out[1] = a[3];
+    out[2] = a[6];
+    out[3] = a01;
+    out[5] = a[7];
+    out[6] = a02;
+    out[7] = a12;
+  } else {
+    out[0] = a[0];
+    out[1] = a[3];
+    out[2] = a[6];
+    out[3] = a[1];
+    out[4] = a[4];
+    out[5] = a[7];
+    out[6] = a[2];
+    out[7] = a[5];
+    out[8] = a[8];
+  }
+
+  return out;
+}
+
+/**
+ * Inverts a mat3
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the source matrix
+ * @returns {mat3} out
+ */
+function invert(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+
+  let b01 = a22 * a11 - a12 * a21;
+  let b11 = -a22 * a10 + a12 * a20;
+  let b21 = a21 * a10 - a11 * a20;
+
+  // Calculate the determinant
+  let det = a00 * b01 + a01 * b11 + a02 * b21;
+
+  if (!det) {
+    return null;
+  }
+  det = 1.0 / det;
+
+  out[0] = b01 * det;
+  out[1] = (-a22 * a01 + a02 * a21) * det;
+  out[2] = (a12 * a01 - a02 * a11) * det;
+  out[3] = b11 * det;
+  out[4] = (a22 * a00 - a02 * a20) * det;
+  out[5] = (-a12 * a00 + a02 * a10) * det;
+  out[6] = b21 * det;
+  out[7] = (-a21 * a00 + a01 * a20) * det;
+  out[8] = (a11 * a00 - a01 * a10) * det;
+  return out;
+}
+
+/**
+ * Calculates the adjugate of a mat3
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the source matrix
+ * @returns {mat3} out
+ */
+function adjoint(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+
+  out[0] = (a11 * a22 - a12 * a21);
+  out[1] = (a02 * a21 - a01 * a22);
+  out[2] = (a01 * a12 - a02 * a11);
+  out[3] = (a12 * a20 - a10 * a22);
+  out[4] = (a00 * a22 - a02 * a20);
+  out[5] = (a02 * a10 - a00 * a12);
+  out[6] = (a10 * a21 - a11 * a20);
+  out[7] = (a01 * a20 - a00 * a21);
+  out[8] = (a00 * a11 - a01 * a10);
+  return out;
+}
+
+/**
+ * Calculates the determinant of a mat3
+ *
+ * @param {mat3} a the source matrix
+ * @returns {Number} determinant of a
+ */
+function determinant(a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+
+  return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
+}
+
+/**
+ * Multiplies two mat3's
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the first operand
+ * @param {mat3} b the second operand
+ * @returns {mat3} out
+ */
+function multiply(out, a, b) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+
+  let b00 = b[0], b01 = b[1], b02 = b[2];
+  let b10 = b[3], b11 = b[4], b12 = b[5];
+  let b20 = b[6], b21 = b[7], b22 = b[8];
+
+  out[0] = b00 * a00 + b01 * a10 + b02 * a20;
+  out[1] = b00 * a01 + b01 * a11 + b02 * a21;
+  out[2] = b00 * a02 + b01 * a12 + b02 * a22;
+
+  out[3] = b10 * a00 + b11 * a10 + b12 * a20;
+  out[4] = b10 * a01 + b11 * a11 + b12 * a21;
+  out[5] = b10 * a02 + b11 * a12 + b12 * a22;
+
+  out[6] = b20 * a00 + b21 * a10 + b22 * a20;
+  out[7] = b20 * a01 + b21 * a11 + b22 * a21;
+  out[8] = b20 * a02 + b21 * a12 + b22 * a22;
+  return out;
+}
+
+/**
+ * Translate a mat3 by the given vector
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the matrix to translate
+ * @param {vec2} v vector to translate by
+ * @returns {mat3} out
+ */
+function translate(out, a, v) {
+  let a00 = a[0], a01 = a[1], a02 = a[2],
+    a10 = a[3], a11 = a[4], a12 = a[5],
+    a20 = a[6], a21 = a[7], a22 = a[8],
+    x = v[0], y = v[1];
+
+  out[0] = a00;
+  out[1] = a01;
+  out[2] = a02;
+
+  out[3] = a10;
+  out[4] = a11;
+  out[5] = a12;
+
+  out[6] = x * a00 + y * a10 + a20;
+  out[7] = x * a01 + y * a11 + a21;
+  out[8] = x * a02 + y * a12 + a22;
+  return out;
+}
+
+/**
+ * Rotates a mat3 by the given angle
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat3} out
+ */
+function rotate(out, a, rad) {
+  let a00 = a[0], a01 = a[1], a02 = a[2],
+    a10 = a[3], a11 = a[4], a12 = a[5],
+    a20 = a[6], a21 = a[7], a22 = a[8],
+
+    s = Math.sin(rad),
+    c = Math.cos(rad);
+
+  out[0] = c * a00 + s * a10;
+  out[1] = c * a01 + s * a11;
+  out[2] = c * a02 + s * a12;
+
+  out[3] = c * a10 - s * a00;
+  out[4] = c * a11 - s * a01;
+  out[5] = c * a12 - s * a02;
+
+  out[6] = a20;
+  out[7] = a21;
+  out[8] = a22;
+  return out;
+};
+
+/**
+ * Scales the mat3 by the dimensions in the given vec2
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the matrix to rotate
+ * @param {vec2} v the vec2 to scale the matrix by
+ * @returns {mat3} out
+ **/
+function scale(out, a, v) {
+  let x = v[0], y = v[1];
+
+  out[0] = x * a[0];
+  out[1] = x * a[1];
+  out[2] = x * a[2];
+
+  out[3] = y * a[3];
+  out[4] = y * a[4];
+  out[5] = y * a[5];
+
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat3.identity(dest);
+ *     mat3.translate(dest, dest, vec);
+ *
+ * @param {mat3} out mat3 receiving operation result
+ * @param {vec2} v Translation vector
+ * @returns {mat3} out
+ */
+function fromTranslation(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 1;
+  out[5] = 0;
+  out[6] = v[0];
+  out[7] = v[1];
+  out[8] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a given angle
+ * This is equivalent to (but much faster than):
+ *
+ *     mat3.identity(dest);
+ *     mat3.rotate(dest, dest, rad);
+ *
+ * @param {mat3} out mat3 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat3} out
+ */
+function fromRotation(out, rad) {
+  let s = Math.sin(rad), c = Math.cos(rad);
+
+  out[0] = c;
+  out[1] = s;
+  out[2] = 0;
+
+  out[3] = -s;
+  out[4] = c;
+  out[5] = 0;
+
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector scaling
+ * This is equivalent to (but much faster than):
+ *
+ *     mat3.identity(dest);
+ *     mat3.scale(dest, dest, vec);
+ *
+ * @param {mat3} out mat3 receiving operation result
+ * @param {vec2} v Scaling vector
+ * @returns {mat3} out
+ */
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+
+  out[3] = 0;
+  out[4] = v[1];
+  out[5] = 0;
+
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 1;
+  return out;
+}
+
+/**
+ * Copies the values from a mat2d into a mat3
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat2d} a the matrix to copy
+ * @returns {mat3} out
+ **/
+function fromMat2d(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = 0;
+
+  out[3] = a[2];
+  out[4] = a[3];
+  out[5] = 0;
+
+  out[6] = a[4];
+  out[7] = a[5];
+  out[8] = 1;
+  return out;
+}
+
+/**
+* Calculates a 3x3 matrix from the given quaternion
+*
+* @param {mat3} out mat3 receiving operation result
+* @param {quat} q Quaternion to create matrix from
+*
+* @returns {mat3} out
+*/
+function fromQuat(out, q) {
+  let x = q[0], y = q[1], z = q[2], w = q[3];
+  let x2 = x + x;
+  let y2 = y + y;
+  let z2 = z + z;
+
+  let xx = x * x2;
+  let yx = y * x2;
+  let yy = y * y2;
+  let zx = z * x2;
+  let zy = z * y2;
+  let zz = z * z2;
+  let wx = w * x2;
+  let wy = w * y2;
+  let wz = w * z2;
+
+  out[0] = 1 - yy - zz;
+  out[3] = yx - wz;
+  out[6] = zx + wy;
+
+  out[1] = yx + wz;
+  out[4] = 1 - xx - zz;
+  out[7] = zy - wx;
+
+  out[2] = zx - wy;
+  out[5] = zy + wx;
+  out[8] = 1 - xx - yy;
+
+  return out;
+}
+
+/**
+* Calculates a 3x3 normal matrix (transpose inverse) from the 4x4 matrix
+*
+* @param {mat3} out mat3 receiving operation result
+* @param {mat4} a Mat4 to derive the normal matrix from
+*
+* @returns {mat3} out
+*/
+function normalFromMat4(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+
+  // Calculate the determinant
+  let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+
+  if (!det) {
+    return null;
+  }
+  det = 1.0 / det;
+
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+
+  out[3] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[4] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[5] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+
+  out[6] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[7] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[8] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+
+  return out;
+}
+
+/**
+ * Generates a 2D projection matrix with the given bounds
+ *
+ * @param {mat3} out mat3 frustum matrix will be written into
+ * @param {number} width Width of your gl context
+ * @param {number} height Height of gl context
+ * @returns {mat3} out
+ */
+function projection(out, width, height) {
+    out[0] = 2 / width;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[4] = -2 / height;
+    out[5] = 0;
+    out[6] = -1;
+    out[7] = 1;
+    out[8] = 1;
+    return out;
+}
+
+/**
+ * Returns a string representation of a mat3
+ *
+ * @param {mat3} a matrix to represent as a string
+ * @returns {String} string representation of the matrix
+ */
+function str(a) {
+  return 'mat3(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' +
+          a[3] + ', ' + a[4] + ', ' + a[5] + ', ' +
+          a[6] + ', ' + a[7] + ', ' + a[8] + ')';
+}
+
+/**
+ * Returns Frobenius norm of a mat3
+ *
+ * @param {mat3} a the matrix to calculate Frobenius norm of
+ * @returns {Number} Frobenius norm
+ */
+function frob(a) {
+  return(Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2) + Math.pow(a[4], 2) + Math.pow(a[5], 2) + Math.pow(a[6], 2) + Math.pow(a[7], 2) + Math.pow(a[8], 2)))
+}
+
+/**
+ * Adds two mat3's
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the first operand
+ * @param {mat3} b the second operand
+ * @returns {mat3} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  return out;
+}
+
+/**
+ * Subtracts matrix b from matrix a
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the first operand
+ * @param {mat3} b the second operand
+ * @returns {mat3} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  return out;
+}
+
+
+
+/**
+ * Multiply each element of the matrix by a scalar.
+ *
+ * @param {mat3} out the receiving matrix
+ * @param {mat3} a the matrix to scale
+ * @param {Number} b amount to scale the matrix's elements by
+ * @returns {mat3} out
+ */
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  return out;
+}
+
+/**
+ * Adds two mat3's after multiplying each element of the second operand by a scalar value.
+ *
+ * @param {mat3} out the receiving vector
+ * @param {mat3} a the first operand
+ * @param {mat3} b the second operand
+ * @param {Number} scale the amount to scale b's elements by before adding
+ * @returns {mat3} out
+ */
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  out[3] = a[3] + (b[3] * scale);
+  out[4] = a[4] + (b[4] * scale);
+  out[5] = a[5] + (b[5] * scale);
+  out[6] = a[6] + (b[6] * scale);
+  out[7] = a[7] + (b[7] * scale);
+  out[8] = a[8] + (b[8] * scale);
+  return out;
+}
+
+/**
+ * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {mat3} a The first matrix.
+ * @param {mat3} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] &&
+         a[3] === b[3] && a[4] === b[4] && a[5] === b[5] &&
+         a[6] === b[6] && a[7] === b[7] && a[8] === b[8];
+}
+
+/**
+ * Returns whether or not the matrices have approximately the same elements in the same position.
+ *
+ * @param {mat3} a The first matrix.
+ * @param {mat3} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7], a8 = a[8];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7], b8 = b[8];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+          Math.abs(a6 - b6) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+          Math.abs(a7 - b7) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
+          Math.abs(a8 - b8) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a8), Math.abs(b8)));
+}
+
+/**
+ * Alias for {@link mat3.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link mat3.subtract}
+ * @function
+ */
+const sub = subtract;
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/mat4.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/mat4.js ***!
+  \******************************************************/
+/*! exports provided: create, clone, copy, fromValues, set, identity, transpose, invert, adjoint, determinant, multiply, translate, scale, rotate, rotateX, rotateY, rotateZ, fromTranslation, fromScaling, fromRotation, fromXRotation, fromYRotation, fromZRotation, fromRotationTranslation, fromQuat2, getTranslation, getScaling, getRotation, fromRotationTranslationScale, fromRotationTranslationScaleOrigin, fromQuat, frustum, perspective, perspectiveFromFieldOfView, ortho, lookAt, targetTo, str, frob, add, subtract, multiplyScalar, multiplyScalarAndAdd, exactEquals, equals, mul, sub */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transpose", function() { return transpose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "adjoint", function() { return adjoint; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "determinant", function() { return determinant; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translate", function() { return translate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateX", function() { return rotateX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateY", function() { return rotateY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateZ", function() { return rotateZ; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromTranslation", function() { return fromTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromScaling", function() { return fromScaling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotation", function() { return fromRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromXRotation", function() { return fromXRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromYRotation", function() { return fromYRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromZRotation", function() { return fromZRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotationTranslation", function() { return fromRotationTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromQuat2", function() { return fromQuat2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslation", function() { return getTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getScaling", function() { return getScaling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRotation", function() { return getRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotationTranslationScale", function() { return fromRotationTranslationScale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotationTranslationScaleOrigin", function() { return fromRotationTranslationScaleOrigin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromQuat", function() { return fromQuat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frustum", function() { return frustum; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "perspective", function() { return perspective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "perspectiveFromFieldOfView", function() { return perspectiveFromFieldOfView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ortho", function() { return ortho; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lookAt", function() { return lookAt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "targetTo", function() { return targetTo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frob", function() { return frob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalar", function() { return multiplyScalar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiplyScalarAndAdd", function() { return multiplyScalarAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 4x4 Matrix<br>Format: column-major, when typed out it looks like row-major<br>The matrices are being post multiplied.
+ * @module mat4
+ */
+
+/**
+ * Creates a new identity mat4
+ *
+ * @returns {mat4} a new 4x4 matrix
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](16);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a new mat4 initialized with values from an existing matrix
+ *
+ * @param {mat4} a matrix to clone
+ * @returns {mat4} a new 4x4 matrix
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](16);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+
+/**
+ * Copy the values from one mat4 to another
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the source matrix
+ * @returns {mat4} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+
+/**
+ * Create a new mat4 with the given values
+ *
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m03 Component in column 0, row 3 position (index 3)
+ * @param {Number} m10 Component in column 1, row 0 position (index 4)
+ * @param {Number} m11 Component in column 1, row 1 position (index 5)
+ * @param {Number} m12 Component in column 1, row 2 position (index 6)
+ * @param {Number} m13 Component in column 1, row 3 position (index 7)
+ * @param {Number} m20 Component in column 2, row 0 position (index 8)
+ * @param {Number} m21 Component in column 2, row 1 position (index 9)
+ * @param {Number} m22 Component in column 2, row 2 position (index 10)
+ * @param {Number} m23 Component in column 2, row 3 position (index 11)
+ * @param {Number} m30 Component in column 3, row 0 position (index 12)
+ * @param {Number} m31 Component in column 3, row 1 position (index 13)
+ * @param {Number} m32 Component in column 3, row 2 position (index 14)
+ * @param {Number} m33 Component in column 3, row 3 position (index 15)
+ * @returns {mat4} A new mat4
+ */
+function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](16);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+
+/**
+ * Set the components of a mat4 to the given values
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {Number} m00 Component in column 0, row 0 position (index 0)
+ * @param {Number} m01 Component in column 0, row 1 position (index 1)
+ * @param {Number} m02 Component in column 0, row 2 position (index 2)
+ * @param {Number} m03 Component in column 0, row 3 position (index 3)
+ * @param {Number} m10 Component in column 1, row 0 position (index 4)
+ * @param {Number} m11 Component in column 1, row 1 position (index 5)
+ * @param {Number} m12 Component in column 1, row 2 position (index 6)
+ * @param {Number} m13 Component in column 1, row 3 position (index 7)
+ * @param {Number} m20 Component in column 2, row 0 position (index 8)
+ * @param {Number} m21 Component in column 2, row 1 position (index 9)
+ * @param {Number} m22 Component in column 2, row 2 position (index 10)
+ * @param {Number} m23 Component in column 2, row 3 position (index 11)
+ * @param {Number} m30 Component in column 3, row 0 position (index 12)
+ * @param {Number} m31 Component in column 3, row 1 position (index 13)
+ * @param {Number} m32 Component in column 3, row 2 position (index 14)
+ * @param {Number} m33 Component in column 3, row 3 position (index 15)
+ * @returns {mat4} out
+ */
+function set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+
+
+/**
+ * Set a mat4 to the identity matrix
+ *
+ * @param {mat4} out the receiving matrix
+ * @returns {mat4} out
+ */
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Transpose the values of a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the source matrix
+ * @returns {mat4} out
+ */
+function transpose(out, a) {
+  // If we are transposing ourselves we can skip a few steps but have to cache some values
+  if (out === a) {
+    let a01 = a[1], a02 = a[2], a03 = a[3];
+    let a12 = a[6], a13 = a[7];
+    let a23 = a[11];
+
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a01;
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a02;
+    out[9] = a12;
+    out[11] = a[14];
+    out[12] = a03;
+    out[13] = a13;
+    out[14] = a23;
+  } else {
+    out[0] = a[0];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a[1];
+    out[5] = a[5];
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a[2];
+    out[9] = a[6];
+    out[10] = a[10];
+    out[11] = a[14];
+    out[12] = a[3];
+    out[13] = a[7];
+    out[14] = a[11];
+    out[15] = a[15];
+  }
+
+  return out;
+}
+
+/**
+ * Inverts a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the source matrix
+ * @returns {mat4} out
+ */
+function invert(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+
+  // Calculate the determinant
+  let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+
+  if (!det) {
+    return null;
+  }
+  det = 1.0 / det;
+
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+  out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+  out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+  out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+  out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+  out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+  out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+
+  return out;
+}
+
+/**
+ * Calculates the adjugate of a mat4
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the source matrix
+ * @returns {mat4} out
+ */
+function adjoint(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+
+  out[0]  =  (a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22));
+  out[1]  = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
+  out[2]  =  (a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12));
+  out[3]  = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
+  out[4]  = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
+  out[5]  =  (a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22));
+  out[6]  = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
+  out[7]  =  (a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12));
+  out[8]  =  (a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21));
+  out[9]  = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
+  out[10] =  (a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11));
+  out[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
+  out[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
+  out[13] =  (a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21));
+  out[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
+  out[15] =  (a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11));
+  return out;
+}
+
+/**
+ * Calculates the determinant of a mat4
+ *
+ * @param {mat4} a the source matrix
+ * @returns {Number} determinant of a
+ */
+function determinant(a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+
+  // Calculate the determinant
+  return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+}
+
+/**
+ * Multiplies two mat4s
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the first operand
+ * @param {mat4} b the second operand
+ * @returns {mat4} out
+ */
+function multiply(out, a, b) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+
+  // Cache only the current line of the second matrix
+  let b0  = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  out[0] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+  out[1] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+  out[2] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+  out[3] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+  b0 = b[4]; b1 = b[5]; b2 = b[6]; b3 = b[7];
+  out[4] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+  out[5] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+  out[6] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+  out[7] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+  b0 = b[8]; b1 = b[9]; b2 = b[10]; b3 = b[11];
+  out[8] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+  out[9] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+  out[10] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+  out[11] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+  b0 = b[12]; b1 = b[13]; b2 = b[14]; b3 = b[15];
+  out[12] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+  out[13] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+  out[14] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+  out[15] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+  return out;
+}
+
+/**
+ * Translate a mat4 by the given vector
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to translate
+ * @param {vec3} v vector to translate by
+ * @returns {mat4} out
+ */
+function translate(out, a, v) {
+  let x = v[0], y = v[1], z = v[2];
+  let a00, a01, a02, a03;
+  let a10, a11, a12, a13;
+  let a20, a21, a22, a23;
+
+  if (a === out) {
+    out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+    out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+    out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+    out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+  } else {
+    a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
+    a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
+    a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
+
+    out[0] = a00; out[1] = a01; out[2] = a02; out[3] = a03;
+    out[4] = a10; out[5] = a11; out[6] = a12; out[7] = a13;
+    out[8] = a20; out[9] = a21; out[10] = a22; out[11] = a23;
+
+    out[12] = a00 * x + a10 * y + a20 * z + a[12];
+    out[13] = a01 * x + a11 * y + a21 * z + a[13];
+    out[14] = a02 * x + a12 * y + a22 * z + a[14];
+    out[15] = a03 * x + a13 * y + a23 * z + a[15];
+  }
+
+  return out;
+}
+
+/**
+ * Scales the mat4 by the dimensions in the given vec3 not using vectorization
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to scale
+ * @param {vec3} v the vec3 to scale the matrix by
+ * @returns {mat4} out
+ **/
+function scale(out, a, v) {
+  let x = v[0], y = v[1], z = v[2];
+
+  out[0] = a[0] * x;
+  out[1] = a[1] * x;
+  out[2] = a[2] * x;
+  out[3] = a[3] * x;
+  out[4] = a[4] * y;
+  out[5] = a[5] * y;
+  out[6] = a[6] * y;
+  out[7] = a[7] * y;
+  out[8] = a[8] * z;
+  out[9] = a[9] * z;
+  out[10] = a[10] * z;
+  out[11] = a[11] * z;
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+
+/**
+ * Rotates a mat4 by the given angle around the given axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @param {vec3} axis the axis to rotate around
+ * @returns {mat4} out
+ */
+function rotate(out, a, rad, axis) {
+  let x = axis[0], y = axis[1], z = axis[2];
+  let len = Math.sqrt(x * x + y * y + z * z);
+  let s, c, t;
+  let a00, a01, a02, a03;
+  let a10, a11, a12, a13;
+  let a20, a21, a22, a23;
+  let b00, b01, b02;
+  let b10, b11, b12;
+  let b20, b21, b22;
+
+  if (len < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]) { return null; }
+
+  len = 1 / len;
+  x *= len;
+  y *= len;
+  z *= len;
+
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+
+  a00 = a[0]; a01 = a[1]; a02 = a[2]; a03 = a[3];
+  a10 = a[4]; a11 = a[5]; a12 = a[6]; a13 = a[7];
+  a20 = a[8]; a21 = a[9]; a22 = a[10]; a23 = a[11];
+
+  // Construct the elements of the rotation matrix
+  b00 = x * x * t + c; b01 = y * x * t + z * s; b02 = z * x * t - y * s;
+  b10 = x * y * t - z * s; b11 = y * y * t + c; b12 = z * y * t + x * s;
+  b20 = x * z * t + y * s; b21 = y * z * t - x * s; b22 = z * z * t + c;
+
+  // Perform rotation-specific matrix multiplication
+  out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+  out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+  out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+  out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+  out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+  out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+  out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+  out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+  out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+  out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+  out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+  out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+
+  if (a !== out) { // If the source and destination differ, copy the unchanged last row
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  return out;
+}
+
+/**
+ * Rotates a matrix by the given angle around the X axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function rotateX(out, a, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  let a10 = a[4];
+  let a11 = a[5];
+  let a12 = a[6];
+  let a13 = a[7];
+  let a20 = a[8];
+  let a21 = a[9];
+  let a22 = a[10];
+  let a23 = a[11];
+
+  if (a !== out) { // If the source and destination differ, copy the unchanged rows
+    out[0]  = a[0];
+    out[1]  = a[1];
+    out[2]  = a[2];
+    out[3]  = a[3];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+
+  // Perform axis-specific matrix multiplication
+  out[4] = a10 * c + a20 * s;
+  out[5] = a11 * c + a21 * s;
+  out[6] = a12 * c + a22 * s;
+  out[7] = a13 * c + a23 * s;
+  out[8] = a20 * c - a10 * s;
+  out[9] = a21 * c - a11 * s;
+  out[10] = a22 * c - a12 * s;
+  out[11] = a23 * c - a13 * s;
+  return out;
+}
+
+/**
+ * Rotates a matrix by the given angle around the Y axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function rotateY(out, a, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  let a00 = a[0];
+  let a01 = a[1];
+  let a02 = a[2];
+  let a03 = a[3];
+  let a20 = a[8];
+  let a21 = a[9];
+  let a22 = a[10];
+  let a23 = a[11];
+
+  if (a !== out) { // If the source and destination differ, copy the unchanged rows
+    out[4]  = a[4];
+    out[5]  = a[5];
+    out[6]  = a[6];
+    out[7]  = a[7];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+
+  // Perform axis-specific matrix multiplication
+  out[0] = a00 * c - a20 * s;
+  out[1] = a01 * c - a21 * s;
+  out[2] = a02 * c - a22 * s;
+  out[3] = a03 * c - a23 * s;
+  out[8] = a00 * s + a20 * c;
+  out[9] = a01 * s + a21 * c;
+  out[10] = a02 * s + a22 * c;
+  out[11] = a03 * s + a23 * c;
+  return out;
+}
+
+/**
+ * Rotates a matrix by the given angle around the Z axis
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to rotate
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function rotateZ(out, a, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+  let a00 = a[0];
+  let a01 = a[1];
+  let a02 = a[2];
+  let a03 = a[3];
+  let a10 = a[4];
+  let a11 = a[5];
+  let a12 = a[6];
+  let a13 = a[7];
+
+  if (a !== out) { // If the source and destination differ, copy the unchanged last row
+    out[8]  = a[8];
+    out[9]  = a[9];
+    out[10] = a[10];
+    out[11] = a[11];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+
+  // Perform axis-specific matrix multiplication
+  out[0] = a00 * c + a10 * s;
+  out[1] = a01 * c + a11 * s;
+  out[2] = a02 * c + a12 * s;
+  out[3] = a03 * c + a13 * s;
+  out[4] = a10 * c - a00 * s;
+  out[5] = a11 * c - a01 * s;
+  out[6] = a12 * c - a02 * s;
+  out[7] = a13 * c - a03 * s;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, dest, vec);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {vec3} v Translation vector
+ * @returns {mat4} out
+ */
+function fromTranslation(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a vector scaling
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.scale(dest, dest, vec);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {vec3} v Scaling vector
+ * @returns {mat4} out
+ */
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = v[1];
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = v[2];
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a given angle around a given axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotate(dest, dest, rad, axis);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @param {vec3} axis the axis to rotate around
+ * @returns {mat4} out
+ */
+function fromRotation(out, rad, axis) {
+  let x = axis[0], y = axis[1], z = axis[2];
+  let len = Math.sqrt(x * x + y * y + z * z);
+  let s, c, t;
+
+  if (len < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]) { return null; }
+
+  len = 1 / len;
+  x *= len;
+  y *= len;
+  z *= len;
+
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+
+  // Perform rotation-specific matrix multiplication
+  out[0] = x * x * t + c;
+  out[1] = y * x * t + z * s;
+  out[2] = z * x * t - y * s;
+  out[3] = 0;
+  out[4] = x * y * t - z * s;
+  out[5] = y * y * t + c;
+  out[6] = z * y * t + x * s;
+  out[7] = 0;
+  out[8] = x * z * t + y * s;
+  out[9] = y * z * t - x * s;
+  out[10] = z * z * t + c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from the given angle around the X axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateX(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function fromXRotation(out, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+
+  // Perform axis-specific matrix multiplication
+  out[0]  = 1;
+  out[1]  = 0;
+  out[2]  = 0;
+  out[3]  = 0;
+  out[4] = 0;
+  out[5] = c;
+  out[6] = s;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = -s;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from the given angle around the Y axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateY(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function fromYRotation(out, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+
+  // Perform axis-specific matrix multiplication
+  out[0]  = c;
+  out[1]  = 0;
+  out[2]  = -s;
+  out[3]  = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = s;
+  out[9] = 0;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from the given angle around the Z axis
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.rotateZ(dest, dest, rad);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {Number} rad the angle to rotate the matrix by
+ * @returns {mat4} out
+ */
+function fromZRotation(out, rad) {
+  let s = Math.sin(rad);
+  let c = Math.cos(rad);
+
+  // Perform axis-specific matrix multiplication
+  out[0]  = c;
+  out[1]  = s;
+  out[2]  = 0;
+  out[3]  = 0;
+  out[4] = -s;
+  out[5] = c;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Creates a matrix from a quaternion rotation and vector translation
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {vec3} v Translation vector
+ * @returns {mat4} out
+ */
+function fromRotationTranslation(out, q, v) {
+  // Quaternion math
+  let x = q[0], y = q[1], z = q[2], w = q[3];
+  let x2 = x + x;
+  let y2 = y + y;
+  let z2 = z + z;
+
+  let xx = x * x2;
+  let xy = x * y2;
+  let xz = x * z2;
+  let yy = y * y2;
+  let yz = y * z2;
+  let zz = z * z2;
+  let wx = w * x2;
+  let wy = w * y2;
+  let wz = w * z2;
+
+  out[0] = 1 - (yy + zz);
+  out[1] = xy + wz;
+  out[2] = xz - wy;
+  out[3] = 0;
+  out[4] = xy - wz;
+  out[5] = 1 - (xx + zz);
+  out[6] = yz + wx;
+  out[7] = 0;
+  out[8] = xz + wy;
+  out[9] = yz - wx;
+  out[10] = 1 - (xx + yy);
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+
+  return out;
+}
+
+/**
+ * Creates a new mat4 from a dual quat.
+ *
+ * @param {mat4} out Matrix
+ * @param {quat2} a Dual Quaternion
+ * @returns {mat4} mat4 receiving operation result
+ */
+function fromQuat2(out, a) {
+  let translation = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](3);
+  let bx = -a[0], by = -a[1], bz = -a[2], bw = a[3],
+  ax = a[4], ay = a[5], az = a[6], aw = a[7];
+
+  let magnitude = bx * bx + by * by + bz * bz + bw * bw;
+  //Only scale if it makes sense
+  if (magnitude > 0) {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2 / magnitude;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2 / magnitude;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2 / magnitude;
+  } else {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  }
+  fromRotationTranslation(out, a, translation);
+  return out;
+}
+
+/**
+ * Returns the translation vector component of a transformation
+ *  matrix. If a matrix is built with fromRotationTranslation,
+ *  the returned vector will be the same as the translation vector
+ *  originally supplied.
+ * @param  {vec3} out Vector to receive translation component
+ * @param  {mat4} mat Matrix to be decomposed (input)
+ * @return {vec3} out
+ */
+function getTranslation(out, mat) {
+  out[0] = mat[12];
+  out[1] = mat[13];
+  out[2] = mat[14];
+
+  return out;
+}
+
+/**
+ * Returns the scaling factor component of a transformation
+ *  matrix. If a matrix is built with fromRotationTranslationScale
+ *  with a normalized Quaternion paramter, the returned vector will be
+ *  the same as the scaling vector
+ *  originally supplied.
+ * @param  {vec3} out Vector to receive scaling factor component
+ * @param  {mat4} mat Matrix to be decomposed (input)
+ * @return {vec3} out
+ */
+function getScaling(out, mat) {
+  let m11 = mat[0];
+  let m12 = mat[1];
+  let m13 = mat[2];
+  let m21 = mat[4];
+  let m22 = mat[5];
+  let m23 = mat[6];
+  let m31 = mat[8];
+  let m32 = mat[9];
+  let m33 = mat[10];
+
+  out[0] = Math.sqrt(m11 * m11 + m12 * m12 + m13 * m13);
+  out[1] = Math.sqrt(m21 * m21 + m22 * m22 + m23 * m23);
+  out[2] = Math.sqrt(m31 * m31 + m32 * m32 + m33 * m33);
+
+  return out;
+}
+
+/**
+ * Returns a quaternion representing the rotational component
+ *  of a transformation matrix. If a matrix is built with
+ *  fromRotationTranslation, the returned quaternion will be the
+ *  same as the quaternion originally supplied.
+ * @param {quat} out Quaternion to receive the rotation component
+ * @param {mat4} mat Matrix to be decomposed (input)
+ * @return {quat} out
+ */
+function getRotation(out, mat) {
+  // Algorithm taken from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+  let trace = mat[0] + mat[5] + mat[10];
+  let S = 0;
+
+  if (trace > 0) {
+    S = Math.sqrt(trace + 1.0) * 2;
+    out[3] = 0.25 * S;
+    out[0] = (mat[6] - mat[9]) / S;
+    out[1] = (mat[8] - mat[2]) / S;
+    out[2] = (mat[1] - mat[4]) / S;
+  } else if ((mat[0] > mat[5]) && (mat[0] > mat[10])) {
+    S = Math.sqrt(1.0 + mat[0] - mat[5] - mat[10]) * 2;
+    out[3] = (mat[6] - mat[9]) / S;
+    out[0] = 0.25 * S;
+    out[1] = (mat[1] + mat[4]) / S;
+    out[2] = (mat[8] + mat[2]) / S;
+  } else if (mat[5] > mat[10]) {
+    S = Math.sqrt(1.0 + mat[5] - mat[0] - mat[10]) * 2;
+    out[3] = (mat[8] - mat[2]) / S;
+    out[0] = (mat[1] + mat[4]) / S;
+    out[1] = 0.25 * S;
+    out[2] = (mat[6] + mat[9]) / S;
+  } else {
+    S = Math.sqrt(1.0 + mat[10] - mat[0] - mat[5]) * 2;
+    out[3] = (mat[1] - mat[4]) / S;
+    out[0] = (mat[8] + mat[2]) / S;
+    out[1] = (mat[6] + mat[9]) / S;
+    out[2] = 0.25 * S;
+  }
+
+  return out;
+}
+
+/**
+ * Creates a matrix from a quaternion rotation, vector translation and vector scale
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *     mat4.scale(dest, scale)
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {vec3} v Translation vector
+ * @param {vec3} s Scaling vector
+ * @returns {mat4} out
+ */
+function fromRotationTranslationScale(out, q, v, s) {
+  // Quaternion math
+  let x = q[0], y = q[1], z = q[2], w = q[3];
+  let x2 = x + x;
+  let y2 = y + y;
+  let z2 = z + z;
+
+  let xx = x * x2;
+  let xy = x * y2;
+  let xz = x * z2;
+  let yy = y * y2;
+  let yz = y * z2;
+  let zz = z * z2;
+  let wx = w * x2;
+  let wy = w * y2;
+  let wz = w * z2;
+  let sx = s[0];
+  let sy = s[1];
+  let sz = s[2];
+
+  out[0] = (1 - (yy + zz)) * sx;
+  out[1] = (xy + wz) * sx;
+  out[2] = (xz - wy) * sx;
+  out[3] = 0;
+  out[4] = (xy - wz) * sy;
+  out[5] = (1 - (xx + zz)) * sy;
+  out[6] = (yz + wx) * sy;
+  out[7] = 0;
+  out[8] = (xz + wy) * sz;
+  out[9] = (yz - wx) * sz;
+  out[10] = (1 - (xx + yy)) * sz;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+
+  return out;
+}
+
+/**
+ * Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin
+ * This is equivalent to (but much faster than):
+ *
+ *     mat4.identity(dest);
+ *     mat4.translate(dest, vec);
+ *     mat4.translate(dest, origin);
+ *     let quatMat = mat4.create();
+ *     quat4.toMat4(quat, quatMat);
+ *     mat4.multiply(dest, quatMat);
+ *     mat4.scale(dest, scale)
+ *     mat4.translate(dest, negativeOrigin);
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat4} q Rotation quaternion
+ * @param {vec3} v Translation vector
+ * @param {vec3} s Scaling vector
+ * @param {vec3} o The origin vector around which to scale and rotate
+ * @returns {mat4} out
+ */
+function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
+  // Quaternion math
+  let x = q[0], y = q[1], z = q[2], w = q[3];
+  let x2 = x + x;
+  let y2 = y + y;
+  let z2 = z + z;
+
+  let xx = x * x2;
+  let xy = x * y2;
+  let xz = x * z2;
+  let yy = y * y2;
+  let yz = y * z2;
+  let zz = z * z2;
+  let wx = w * x2;
+  let wy = w * y2;
+  let wz = w * z2;
+
+  let sx = s[0];
+  let sy = s[1];
+  let sz = s[2];
+
+  let ox = o[0];
+  let oy = o[1];
+  let oz = o[2];
+
+  let out0 = (1 - (yy + zz)) * sx;
+  let out1 = (xy + wz) * sx;
+  let out2 = (xz - wy) * sx;
+  let out4 = (xy - wz) * sy;
+  let out5 = (1 - (xx + zz)) * sy;
+  let out6 = (yz + wx) * sy;
+  let out8 = (xz + wy) * sz;
+  let out9 = (yz - wx) * sz;
+  let out10 = (1 - (xx + yy)) * sz;
+
+  out[0] = out0;
+  out[1] = out1;
+  out[2] = out2;
+  out[3] = 0;
+  out[4] = out4;
+  out[5] = out5;
+  out[6] = out6;
+  out[7] = 0;
+  out[8] = out8;
+  out[9] = out9;
+  out[10] = out10;
+  out[11] = 0;
+  out[12] = v[0] + ox - (out0 * ox + out4 * oy + out8 * oz);
+  out[13] = v[1] + oy - (out1 * ox + out5 * oy + out9 * oz);
+  out[14] = v[2] + oz - (out2 * ox + out6 * oy + out10 * oz);
+  out[15] = 1;
+
+  return out;
+}
+
+/**
+ * Calculates a 4x4 matrix from the given quaternion
+ *
+ * @param {mat4} out mat4 receiving operation result
+ * @param {quat} q Quaternion to create matrix from
+ *
+ * @returns {mat4} out
+ */
+function fromQuat(out, q) {
+  let x = q[0], y = q[1], z = q[2], w = q[3];
+  let x2 = x + x;
+  let y2 = y + y;
+  let z2 = z + z;
+
+  let xx = x * x2;
+  let yx = y * x2;
+  let yy = y * y2;
+  let zx = z * x2;
+  let zy = z * y2;
+  let zz = z * z2;
+  let wx = w * x2;
+  let wy = w * y2;
+  let wz = w * z2;
+
+  out[0] = 1 - yy - zz;
+  out[1] = yx + wz;
+  out[2] = zx - wy;
+  out[3] = 0;
+
+  out[4] = yx - wz;
+  out[5] = 1 - xx - zz;
+  out[6] = zy + wx;
+  out[7] = 0;
+
+  out[8] = zx + wy;
+  out[9] = zy - wx;
+  out[10] = 1 - xx - yy;
+  out[11] = 0;
+
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+
+  return out;
+}
+
+/**
+ * Generates a frustum matrix with the given bounds
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Number} left Left bound of the frustum
+ * @param {Number} right Right bound of the frustum
+ * @param {Number} bottom Bottom bound of the frustum
+ * @param {Number} top Top bound of the frustum
+ * @param {Number} near Near bound of the frustum
+ * @param {Number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+function frustum(out, left, right, bottom, top, near, far) {
+  let rl = 1 / (right - left);
+  let tb = 1 / (top - bottom);
+  let nf = 1 / (near - far);
+  out[0] = (near * 2) * rl;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = (near * 2) * tb;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = (right + left) * rl;
+  out[9] = (top + bottom) * tb;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = (far * near * 2) * nf;
+  out[15] = 0;
+  return out;
+}
+
+/**
+ * Generates a perspective projection matrix with the given bounds
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} fovy Vertical field of view in radians
+ * @param {number} aspect Aspect ratio. typically viewport width/height
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+function perspective(out, fovy, aspect, near, far) {
+  let f = 1.0 / Math.tan(fovy / 2);
+  let nf = 1 / (near - far);
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = (2 * far * near) * nf;
+  out[15] = 0;
+  return out;
+}
+
+/**
+ * Generates a perspective projection matrix with the given field of view.
+ * This is primarily useful for generating projection matrices to be used
+ * with the still experiemental WebVR API.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {Object} fov Object containing the following values: upDegrees, downDegrees, leftDegrees, rightDegrees
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+function perspectiveFromFieldOfView(out, fov, near, far) {
+  let upTan = Math.tan(fov.upDegrees * Math.PI/180.0);
+  let downTan = Math.tan(fov.downDegrees * Math.PI/180.0);
+  let leftTan = Math.tan(fov.leftDegrees * Math.PI/180.0);
+  let rightTan = Math.tan(fov.rightDegrees * Math.PI/180.0);
+  let xScale = 2.0 / (leftTan + rightTan);
+  let yScale = 2.0 / (upTan + downTan);
+
+  out[0] = xScale;
+  out[1] = 0.0;
+  out[2] = 0.0;
+  out[3] = 0.0;
+  out[4] = 0.0;
+  out[5] = yScale;
+  out[6] = 0.0;
+  out[7] = 0.0;
+  out[8] = -((leftTan - rightTan) * xScale * 0.5);
+  out[9] = ((upTan - downTan) * yScale * 0.5);
+  out[10] = far / (near - far);
+  out[11] = -1.0;
+  out[12] = 0.0;
+  out[13] = 0.0;
+  out[14] = (far * near) / (near - far);
+  out[15] = 0.0;
+  return out;
+}
+
+/**
+ * Generates a orthogonal projection matrix with the given bounds
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {number} left Left bound of the frustum
+ * @param {number} right Right bound of the frustum
+ * @param {number} bottom Bottom bound of the frustum
+ * @param {number} top Top bound of the frustum
+ * @param {number} near Near bound of the frustum
+ * @param {number} far Far bound of the frustum
+ * @returns {mat4} out
+ */
+function ortho(out, left, right, bottom, top, near, far) {
+  let lr = 1 / (left - right);
+  let bt = 1 / (bottom - top);
+  let nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 2 * nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = (far + near) * nf;
+  out[15] = 1;
+  return out;
+}
+
+/**
+ * Generates a look-at matrix with the given eye position, focal point, and up axis.
+ * If you want a matrix that actually makes an object look at another object, you should use targetTo instead.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {vec3} eye Position of the viewer
+ * @param {vec3} center Point the viewer is looking at
+ * @param {vec3} up vec3 pointing up
+ * @returns {mat4} out
+ */
+function lookAt(out, eye, center, up) {
+  let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
+  let eyex = eye[0];
+  let eyey = eye[1];
+  let eyez = eye[2];
+  let upx = up[0];
+  let upy = up[1];
+  let upz = up[2];
+  let centerx = center[0];
+  let centery = center[1];
+  let centerz = center[2];
+
+  if (Math.abs(eyex - centerx) < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] &&
+      Math.abs(eyey - centery) < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] &&
+      Math.abs(eyez - centerz) < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]) {
+    return identity(out);
+  }
+
+  z0 = eyex - centerx;
+  z1 = eyey - centery;
+  z2 = eyez - centerz;
+
+  len = 1 / Math.sqrt(z0 * z0 + z1 * z1 + z2 * z2);
+  z0 *= len;
+  z1 *= len;
+  z2 *= len;
+
+  x0 = upy * z2 - upz * z1;
+  x1 = upz * z0 - upx * z2;
+  x2 = upx * z1 - upy * z0;
+  len = Math.sqrt(x0 * x0 + x1 * x1 + x2 * x2);
+  if (!len) {
+    x0 = 0;
+    x1 = 0;
+    x2 = 0;
+  } else {
+    len = 1 / len;
+    x0 *= len;
+    x1 *= len;
+    x2 *= len;
+  }
+
+  y0 = z1 * x2 - z2 * x1;
+  y1 = z2 * x0 - z0 * x2;
+  y2 = z0 * x1 - z1 * x0;
+
+  len = Math.sqrt(y0 * y0 + y1 * y1 + y2 * y2);
+  if (!len) {
+    y0 = 0;
+    y1 = 0;
+    y2 = 0;
+  } else {
+    len = 1 / len;
+    y0 *= len;
+    y1 *= len;
+    y2 *= len;
+  }
+
+  out[0] = x0;
+  out[1] = y0;
+  out[2] = z0;
+  out[3] = 0;
+  out[4] = x1;
+  out[5] = y1;
+  out[6] = z1;
+  out[7] = 0;
+  out[8] = x2;
+  out[9] = y2;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+  out[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+  out[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+  out[15] = 1;
+
+  return out;
+}
+
+/**
+ * Generates a matrix that makes something look at something else.
+ *
+ * @param {mat4} out mat4 frustum matrix will be written into
+ * @param {vec3} eye Position of the viewer
+ * @param {vec3} center Point the viewer is looking at
+ * @param {vec3} up vec3 pointing up
+ * @returns {mat4} out
+ */
+function targetTo(out, eye, target, up) {
+  let eyex = eye[0],
+      eyey = eye[1],
+      eyez = eye[2],
+      upx = up[0],
+      upy = up[1],
+      upz = up[2];
+
+  let z0 = eyex - target[0],
+      z1 = eyey - target[1],
+      z2 = eyez - target[2];
+
+  let len = z0*z0 + z1*z1 + z2*z2;
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+    z0 *= len;
+    z1 *= len;
+    z2 *= len;
+  }
+
+  let x0 = upy * z2 - upz * z1,
+      x1 = upz * z0 - upx * z2,
+      x2 = upx * z1 - upy * z0;
+
+  len = x0*x0 + x1*x1 + x2*x2;
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+    x0 *= len;
+    x1 *= len;
+    x2 *= len;
+  }
+
+  out[0] = x0;
+  out[1] = x1;
+  out[2] = x2;
+  out[3] = 0;
+  out[4] = z1 * x2 - z2 * x1;
+  out[5] = z2 * x0 - z0 * x2;
+  out[6] = z0 * x1 - z1 * x0;
+  out[7] = 0;
+  out[8] = z0;
+  out[9] = z1;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = eyex;
+  out[13] = eyey;
+  out[14] = eyez;
+  out[15] = 1;
+  return out;
+};
+
+/**
+ * Returns a string representation of a mat4
+ *
+ * @param {mat4} a matrix to represent as a string
+ * @returns {String} string representation of the matrix
+ */
+function str(a) {
+  return 'mat4(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ', ' +
+          a[4] + ', ' + a[5] + ', ' + a[6] + ', ' + a[7] + ', ' +
+          a[8] + ', ' + a[9] + ', ' + a[10] + ', ' + a[11] + ', ' +
+          a[12] + ', ' + a[13] + ', ' + a[14] + ', ' + a[15] + ')';
+}
+
+/**
+ * Returns Frobenius norm of a mat4
+ *
+ * @param {mat4} a the matrix to calculate Frobenius norm of
+ * @returns {Number} Frobenius norm
+ */
+function frob(a) {
+  return(Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2) + Math.pow(a[4], 2) + Math.pow(a[5], 2) + Math.pow(a[6], 2) + Math.pow(a[7], 2) + Math.pow(a[8], 2) + Math.pow(a[9], 2) + Math.pow(a[10], 2) + Math.pow(a[11], 2) + Math.pow(a[12], 2) + Math.pow(a[13], 2) + Math.pow(a[14], 2) + Math.pow(a[15], 2) ))
+}
+
+/**
+ * Adds two mat4's
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the first operand
+ * @param {mat4} b the second operand
+ * @returns {mat4} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  out[9] = a[9] + b[9];
+  out[10] = a[10] + b[10];
+  out[11] = a[11] + b[11];
+  out[12] = a[12] + b[12];
+  out[13] = a[13] + b[13];
+  out[14] = a[14] + b[14];
+  out[15] = a[15] + b[15];
+  return out;
+}
+
+/**
+ * Subtracts matrix b from matrix a
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the first operand
+ * @param {mat4} b the second operand
+ * @returns {mat4} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  out[9] = a[9] - b[9];
+  out[10] = a[10] - b[10];
+  out[11] = a[11] - b[11];
+  out[12] = a[12] - b[12];
+  out[13] = a[13] - b[13];
+  out[14] = a[14] - b[14];
+  out[15] = a[15] - b[15];
+  return out;
+}
+
+/**
+ * Multiply each element of the matrix by a scalar.
+ *
+ * @param {mat4} out the receiving matrix
+ * @param {mat4} a the matrix to scale
+ * @param {Number} b amount to scale the matrix's elements by
+ * @returns {mat4} out
+ */
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  out[9] = a[9] * b;
+  out[10] = a[10] * b;
+  out[11] = a[11] * b;
+  out[12] = a[12] * b;
+  out[13] = a[13] * b;
+  out[14] = a[14] * b;
+  out[15] = a[15] * b;
+  return out;
+}
+
+/**
+ * Adds two mat4's after multiplying each element of the second operand by a scalar value.
+ *
+ * @param {mat4} out the receiving vector
+ * @param {mat4} a the first operand
+ * @param {mat4} b the second operand
+ * @param {Number} scale the amount to scale b's elements by before adding
+ * @returns {mat4} out
+ */
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  out[3] = a[3] + (b[3] * scale);
+  out[4] = a[4] + (b[4] * scale);
+  out[5] = a[5] + (b[5] * scale);
+  out[6] = a[6] + (b[6] * scale);
+  out[7] = a[7] + (b[7] * scale);
+  out[8] = a[8] + (b[8] * scale);
+  out[9] = a[9] + (b[9] * scale);
+  out[10] = a[10] + (b[10] * scale);
+  out[11] = a[11] + (b[11] * scale);
+  out[12] = a[12] + (b[12] * scale);
+  out[13] = a[13] + (b[13] * scale);
+  out[14] = a[14] + (b[14] * scale);
+  out[15] = a[15] + (b[15] * scale);
+  return out;
+}
+
+/**
+ * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {mat4} a The first matrix.
+ * @param {mat4} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] &&
+         a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] &&
+         a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] &&
+         a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
+}
+
+/**
+ * Returns whether or not the matrices have approximately the same elements in the same position.
+ *
+ * @param {mat4} a The first matrix.
+ * @param {mat4} b The second matrix.
+ * @returns {Boolean} True if the matrices are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0  = a[0],  a1  = a[1],  a2  = a[2],  a3  = a[3];
+  let a4  = a[4],  a5  = a[5],  a6  = a[6],  a7  = a[7];
+  let a8  = a[8],  a9  = a[9],  a10 = a[10], a11 = a[11];
+  let a12 = a[12], a13 = a[13], a14 = a[14], a15 = a[15];
+
+  let b0  = b[0],  b1  = b[1],  b2  = b[2],  b3  = b[3];
+  let b4  = b[4],  b5  = b[5],  b6  = b[6],  b7  = b[7];
+  let b8  = b[8],  b9  = b[9],  b10 = b[10], b11 = b[11];
+  let b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
+
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+          Math.abs(a6 - b6) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+          Math.abs(a7 - b7) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
+          Math.abs(a8 - b8) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a8), Math.abs(b8)) &&
+          Math.abs(a9 - b9) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a9), Math.abs(b9)) &&
+          Math.abs(a10 - b10) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a10), Math.abs(b10)) &&
+          Math.abs(a11 - b11) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a11), Math.abs(b11)) &&
+          Math.abs(a12 - b12) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a12), Math.abs(b12)) &&
+          Math.abs(a13 - b13) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a13), Math.abs(b13)) &&
+          Math.abs(a14 - b14) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a14), Math.abs(b14)) &&
+          Math.abs(a15 - b15) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a15), Math.abs(b15)));
+}
+
+/**
+ * Alias for {@link mat4.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link mat4.subtract}
+ * @function
+ */
+const sub = subtract;
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/quat.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/quat.js ***!
+  \******************************************************/
+/*! exports provided: create, identity, setAxisAngle, getAxisAngle, multiply, rotateX, rotateY, rotateZ, calculateW, slerp, invert, conjugate, fromMat3, fromEuler, str, clone, fromValues, copy, set, add, mul, scale, dot, lerp, length, len, squaredLength, sqrLen, normalize, exactEquals, equals, rotationTo, sqlerp, setAxes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAxisAngle", function() { return setAxisAngle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAxisAngle", function() { return getAxisAngle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateX", function() { return rotateX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateY", function() { return rotateY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateZ", function() { return rotateZ; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "calculateW", function() { return calculateW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "slerp", function() { return slerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "conjugate", function() { return conjugate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromMat3", function() { return fromMat3; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromEuler", function() { return fromEuler; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dot", function() { return dot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lerp", function() { return lerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredLength", function() { return squaredLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotationTo", function() { return rotationTo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqlerp", function() { return sqlerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAxes", function() { return setAxes; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+/* harmony import */ var _mat3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mat3.js */ "./node_modules/gl-matrix/src/gl-matrix/mat3.js");
+/* harmony import */ var _vec3_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vec3.js */ "./node_modules/gl-matrix/src/gl-matrix/vec3.js");
+/* harmony import */ var _vec4_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vec4.js */ "./node_modules/gl-matrix/src/gl-matrix/vec4.js");
+
+
+
+
+
+/**
+ * Quaternion
+ * @module quat
+ */
+
+/**
+ * Creates a new identity quat
+ *
+ * @returns {quat} a new quaternion
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+
+/**
+ * Set a quat to the identity quaternion
+ *
+ * @param {quat} out the receiving quaternion
+ * @returns {quat} out
+ */
+function identity(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+
+/**
+ * Sets a quat from the given angle and rotation axis,
+ * then returns it.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {vec3} axis the axis around which to rotate
+ * @param {Number} rad the angle in radians
+ * @returns {quat} out
+ **/
+function setAxisAngle(out, axis, rad) {
+  rad = rad * 0.5;
+  let s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+
+/**
+ * Gets the rotation axis and angle for a given
+ *  quaternion. If a quaternion is created with
+ *  setAxisAngle, this method will return the same
+ *  values as providied in the original parameter list
+ *  OR functionally equivalent values.
+ * Example: The quaternion formed by axis [0, 0, 1] and
+ *  angle -90 is the same as the quaternion formed by
+ *  [0, 0, 1] and 270. This method favors the latter.
+ * @param  {vec3} out_axis  Vector receiving the axis of rotation
+ * @param  {quat} q     Quaternion to be decomposed
+ * @return {Number}     Angle, in radians, of the rotation
+ */
+function getAxisAngle(out_axis, q) {
+  let rad = Math.acos(q[3]) * 2.0;
+  let s = Math.sin(rad / 2.0);
+  if (s != 0.0) {
+    out_axis[0] = q[0] / s;
+    out_axis[1] = q[1] / s;
+    out_axis[2] = q[2] / s;
+  } else {
+    // If s is zero, return any axis (no rotation - axis does not matter)
+    out_axis[0] = 1;
+    out_axis[1] = 0;
+    out_axis[2] = 0;
+  }
+  return rad;
+}
+
+/**
+ * Multiplies two quat's
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @returns {quat} out
+ */
+function multiply(out, a, b) {
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+
+  out[0] = ax * bw + aw * bx + ay * bz - az * by;
+  out[1] = ay * bw + aw * by + az * bx - ax * bz;
+  out[2] = az * bw + aw * bz + ax * by - ay * bx;
+  out[3] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+
+/**
+ * Rotates a quaternion by the given angle about the X axis
+ *
+ * @param {quat} out quat receiving operation result
+ * @param {quat} a quat to rotate
+ * @param {number} rad angle (in radians) to rotate
+ * @returns {quat} out
+ */
+function rotateX(out, a, rad) {
+  rad *= 0.5;
+
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = Math.sin(rad), bw = Math.cos(rad);
+
+  out[0] = ax * bw + aw * bx;
+  out[1] = ay * bw + az * bx;
+  out[2] = az * bw - ay * bx;
+  out[3] = aw * bw - ax * bx;
+  return out;
+}
+
+/**
+ * Rotates a quaternion by the given angle about the Y axis
+ *
+ * @param {quat} out quat receiving operation result
+ * @param {quat} a quat to rotate
+ * @param {number} rad angle (in radians) to rotate
+ * @returns {quat} out
+ */
+function rotateY(out, a, rad) {
+  rad *= 0.5;
+
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let by = Math.sin(rad), bw = Math.cos(rad);
+
+  out[0] = ax * bw - az * by;
+  out[1] = ay * bw + aw * by;
+  out[2] = az * bw + ax * by;
+  out[3] = aw * bw - ay * by;
+  return out;
+}
+
+/**
+ * Rotates a quaternion by the given angle about the Z axis
+ *
+ * @param {quat} out quat receiving operation result
+ * @param {quat} a quat to rotate
+ * @param {number} rad angle (in radians) to rotate
+ * @returns {quat} out
+ */
+function rotateZ(out, a, rad) {
+  rad *= 0.5;
+
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bz = Math.sin(rad), bw = Math.cos(rad);
+
+  out[0] = ax * bw + ay * bz;
+  out[1] = ay * bw - ax * bz;
+  out[2] = az * bw + aw * bz;
+  out[3] = aw * bw - az * bz;
+  return out;
+}
+
+/**
+ * Calculates the W component of a quat from the X, Y, and Z components.
+ * Assumes that quaternion is 1 unit in length.
+ * Any existing W component will be ignored.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a quat to calculate W component of
+ * @returns {quat} out
+ */
+function calculateW(out, a) {
+  let x = a[0], y = a[1], z = a[2];
+
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = Math.sqrt(Math.abs(1.0 - x * x - y * y - z * z));
+  return out;
+}
+
+/**
+ * Performs a spherical linear interpolation between two quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+function slerp(out, a, b, t) {
+  // benchmarks:
+  //    http://jsperf.com/quaternion-slerp-implementations
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+
+  let omega, cosom, sinom, scale0, scale1;
+
+  // calc cosine
+  cosom = ax * bx + ay * by + az * bz + aw * bw;
+  // adjust signs (if necessary)
+  if ( cosom < 0.0 ) {
+    cosom = -cosom;
+    bx = - bx;
+    by = - by;
+    bz = - bz;
+    bw = - bw;
+  }
+  // calculate coefficients
+  if ( (1.0 - cosom) > 0.000001 ) {
+    // standard case (slerp)
+    omega  = Math.acos(cosom);
+    sinom  = Math.sin(omega);
+    scale0 = Math.sin((1.0 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    // "from" and "to" quaternions are very close
+    //  ... so we can do a linear interpolation
+    scale0 = 1.0 - t;
+    scale1 = t;
+  }
+  // calculate final values
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+
+  return out;
+}
+
+/**
+ * Calculates the inverse of a quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a quat to calculate inverse of
+ * @returns {quat} out
+ */
+function invert(out, a) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let dot = a0*a0 + a1*a1 + a2*a2 + a3*a3;
+  let invDot = dot ? 1.0/dot : 0;
+
+  // TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
+
+  out[0] = -a0*invDot;
+  out[1] = -a1*invDot;
+  out[2] = -a2*invDot;
+  out[3] = a3*invDot;
+  return out;
+}
+
+/**
+ * Calculates the conjugate of a quat
+ * If the quaternion is normalized, this function is faster than quat.inverse and produces the same result.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a quat to calculate conjugate of
+ * @returns {quat} out
+ */
+function conjugate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Creates a quaternion from the given 3x3 rotation matrix.
+ *
+ * NOTE: The resultant quaternion is not normalized, so you should be sure
+ * to renormalize the quaternion yourself where necessary.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {mat3} m rotation matrix
+ * @returns {quat} out
+ * @function
+ */
+function fromMat3(out, m) {
+  // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
+  // article "Quaternion Calculus and Fast Animation".
+  let fTrace = m[0] + m[4] + m[8];
+  let fRoot;
+
+  if ( fTrace > 0.0 ) {
+    // |w| > 1/2, may as well choose w > 1/2
+    fRoot = Math.sqrt(fTrace + 1.0);  // 2w
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5/fRoot;  // 1/(4w)
+    out[0] = (m[5]-m[7])*fRoot;
+    out[1] = (m[6]-m[2])*fRoot;
+    out[2] = (m[1]-m[3])*fRoot;
+  } else {
+    // |w| <= 1/2
+    let i = 0;
+    if ( m[4] > m[0] )
+      i = 1;
+    if ( m[8] > m[i*3+i] )
+      i = 2;
+    let j = (i+1)%3;
+    let k = (i+2)%3;
+
+    fRoot = Math.sqrt(m[i*3+i]-m[j*3+j]-m[k*3+k] + 1.0);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j*3+k] - m[k*3+j]) * fRoot;
+    out[j] = (m[j*3+i] + m[i*3+j]) * fRoot;
+    out[k] = (m[k*3+i] + m[i*3+k]) * fRoot;
+  }
+
+  return out;
+}
+
+/**
+ * Creates a quaternion from the given euler angle x, y, z.
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {x} Angle to rotate around X axis in degrees.
+ * @param {y} Angle to rotate around Y axis in degrees.
+ * @param {z} Angle to rotate around Z axis in degrees.
+ * @returns {quat} out
+ * @function
+ */
+function fromEuler(out, x, y, z) {
+    let halfToRad = 0.5 * Math.PI / 180.0;
+    x *= halfToRad;
+    y *= halfToRad;
+    z *= halfToRad;
+
+    let sx = Math.sin(x);
+    let cx = Math.cos(x);
+    let sy = Math.sin(y);
+    let cy = Math.cos(y);
+    let sz = Math.sin(z);
+    let cz = Math.cos(z);
+
+    out[0] = sx * cy * cz - cx * sy * sz;
+    out[1] = cx * sy * cz + sx * cy * sz;
+    out[2] = cx * cy * sz - sx * sy * cz;
+    out[3] = cx * cy * cz + sx * sy * sz;
+
+    return out;
+}
+
+/**
+ * Returns a string representation of a quatenion
+ *
+ * @param {quat} a vector to represent as a string
+ * @returns {String} string representation of the vector
+ */
+function str(a) {
+  return 'quat(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ')';
+}
+
+/**
+ * Creates a new quat initialized with values from an existing quaternion
+ *
+ * @param {quat} a quaternion to clone
+ * @returns {quat} a new quaternion
+ * @function
+ */
+const clone = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["clone"];
+
+/**
+ * Creates a new quat initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @param {Number} w W component
+ * @returns {quat} a new quaternion
+ * @function
+ */
+const fromValues = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["fromValues"];
+
+/**
+ * Copy the values from one quat to another
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the source quaternion
+ * @returns {quat} out
+ * @function
+ */
+const copy = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["copy"];
+
+/**
+ * Set the components of a quat to the given values
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @param {Number} w W component
+ * @returns {quat} out
+ * @function
+ */
+const set = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["set"];
+
+/**
+ * Adds two quat's
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @returns {quat} out
+ * @function
+ */
+const add = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["add"];
+
+/**
+ * Alias for {@link quat.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Scales a quat by a scalar number
+ *
+ * @param {quat} out the receiving vector
+ * @param {quat} a the vector to scale
+ * @param {Number} b amount to scale the vector by
+ * @returns {quat} out
+ * @function
+ */
+const scale = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["scale"];
+
+/**
+ * Calculates the dot product of two quat's
+ *
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @returns {Number} dot product of a and b
+ * @function
+ */
+const dot = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["dot"];
+
+/**
+ * Performs a linear interpolation between two quat's
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ * @function
+ */
+const lerp = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["lerp"];
+
+/**
+ * Calculates the length of a quat
+ *
+ * @param {quat} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+const length = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["length"];
+
+/**
+ * Alias for {@link quat.length}
+ * @function
+ */
+const len = length;
+
+/**
+ * Calculates the squared length of a quat
+ *
+ * @param {quat} a vector to calculate squared length of
+ * @returns {Number} squared length of a
+ * @function
+ */
+const squaredLength = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["squaredLength"];
+
+/**
+ * Alias for {@link quat.squaredLength}
+ * @function
+ */
+const sqrLen = squaredLength;
+
+/**
+ * Normalize a quat
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a quaternion to normalize
+ * @returns {quat} out
+ * @function
+ */
+const normalize = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["normalize"];
+
+/**
+ * Returns whether or not the quaternions have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {quat} a The first quaternion.
+ * @param {quat} b The second quaternion.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+const exactEquals = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["exactEquals"];
+
+/**
+ * Returns whether or not the quaternions have approximately the same elements in the same position.
+ *
+ * @param {quat} a The first vector.
+ * @param {quat} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+const equals = _vec4_js__WEBPACK_IMPORTED_MODULE_3__["equals"];
+
+/**
+ * Sets a quaternion to represent the shortest rotation from one
+ * vector to another.
+ *
+ * Both vectors are assumed to be unit length.
+ *
+ * @param {quat} out the receiving quaternion.
+ * @param {vec3} a the initial vector
+ * @param {vec3} b the destination vector
+ * @returns {quat} out
+ */
+const rotationTo = (function() {
+  let tmpvec3 = _vec3_js__WEBPACK_IMPORTED_MODULE_2__["create"]();
+  let xUnitVec3 = _vec3_js__WEBPACK_IMPORTED_MODULE_2__["fromValues"](1,0,0);
+  let yUnitVec3 = _vec3_js__WEBPACK_IMPORTED_MODULE_2__["fromValues"](0,1,0);
+
+  return function(out, a, b) {
+    let dot = _vec3_js__WEBPACK_IMPORTED_MODULE_2__["dot"](a, b);
+    if (dot < -0.999999) {
+      _vec3_js__WEBPACK_IMPORTED_MODULE_2__["cross"](tmpvec3, xUnitVec3, a);
+      if (_vec3_js__WEBPACK_IMPORTED_MODULE_2__["len"](tmpvec3) < 0.000001)
+        _vec3_js__WEBPACK_IMPORTED_MODULE_2__["cross"](tmpvec3, yUnitVec3, a);
+      _vec3_js__WEBPACK_IMPORTED_MODULE_2__["normalize"](tmpvec3, tmpvec3);
+      setAxisAngle(out, tmpvec3, Math.PI);
+      return out;
+    } else if (dot > 0.999999) {
+      out[0] = 0;
+      out[1] = 0;
+      out[2] = 0;
+      out[3] = 1;
+      return out;
+    } else {
+      _vec3_js__WEBPACK_IMPORTED_MODULE_2__["cross"](tmpvec3, a, b);
+      out[0] = tmpvec3[0];
+      out[1] = tmpvec3[1];
+      out[2] = tmpvec3[2];
+      out[3] = 1 + dot;
+      return normalize(out, out);
+    }
+  };
+})();
+
+/**
+ * Performs a spherical linear interpolation with two control points
+ *
+ * @param {quat} out the receiving quaternion
+ * @param {quat} a the first operand
+ * @param {quat} b the second operand
+ * @param {quat} c the third operand
+ * @param {quat} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat} out
+ */
+const sqlerp = (function () {
+  let temp1 = create();
+  let temp2 = create();
+
+  return function (out, a, b, c, d, t) {
+    slerp(temp1, a, d, t);
+    slerp(temp2, b, c, t);
+    slerp(out, temp1, temp2, 2 * t * (1 - t));
+
+    return out;
+  };
+}());
+
+/**
+ * Sets the specified quaternion with values corresponding to the given
+ * axes. Each axis is a vec3 and is expected to be unit length and
+ * perpendicular to all other specified axes.
+ *
+ * @param {vec3} view  the vector representing the viewing direction
+ * @param {vec3} right the vector representing the local "right" direction
+ * @param {vec3} up    the vector representing the local "up" direction
+ * @returns {quat} out
+ */
+const setAxes = (function() {
+  let matr = _mat3_js__WEBPACK_IMPORTED_MODULE_1__["create"]();
+
+  return function(out, view, right, up) {
+    matr[0] = right[0];
+    matr[3] = right[1];
+    matr[6] = right[2];
+
+    matr[1] = up[0];
+    matr[4] = up[1];
+    matr[7] = up[2];
+
+    matr[2] = -view[0];
+    matr[5] = -view[1];
+    matr[8] = -view[2];
+
+    return normalize(out, fromMat3(out, matr));
+  };
+})();
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/quat2.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/quat2.js ***!
+  \*******************************************************/
+/*! exports provided: create, clone, fromValues, fromRotationTranslationValues, fromRotationTranslation, fromTranslation, fromRotation, fromMat4, copy, identity, set, getReal, getDual, setReal, setDual, getTranslation, translate, rotateX, rotateY, rotateZ, rotateByQuatAppend, rotateByQuatPrepend, rotateAroundAxis, add, multiply, mul, scale, dot, lerp, invert, conjugate, length, len, squaredLength, sqrLen, normalize, str, exactEquals, equals */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotationTranslationValues", function() { return fromRotationTranslationValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotationTranslation", function() { return fromRotationTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromTranslation", function() { return fromTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromRotation", function() { return fromRotation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromMat4", function() { return fromMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "identity", function() { return identity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getReal", function() { return getReal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDual", function() { return getDual; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReal", function() { return setReal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDual", function() { return setDual; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslation", function() { return getTranslation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translate", function() { return translate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateX", function() { return rotateX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateY", function() { return rotateY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateZ", function() { return rotateZ; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateByQuatAppend", function() { return rotateByQuatAppend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateByQuatPrepend", function() { return rotateByQuatPrepend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateAroundAxis", function() { return rotateAroundAxis; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dot", function() { return dot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lerp", function() { return lerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "invert", function() { return invert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "conjugate", function() { return conjugate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredLength", function() { return squaredLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+/* harmony import */ var _quat_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./quat.js */ "./node_modules/gl-matrix/src/gl-matrix/quat.js");
+/* harmony import */ var _mat4_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mat4.js */ "./node_modules/gl-matrix/src/gl-matrix/mat4.js");
+
+
+
+
+/**
+ * Dual Quaternion<br>
+ * Format: [real, dual]<br>
+ * Quaternion format: XYZW<br>
+ * Make sure to have normalized dual quaternions, otherwise the functions may not work as intended.<br>
+ * @module quat2
+ */
+
+
+/**
+ * Creates a new identity dual quat
+ *
+ * @returns {quat2} a new dual quaternion [real -> rotation, dual -> translation]
+ */
+function create() {
+  let dq = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](8);
+  dq[0] = 0;
+  dq[1] = 0;
+  dq[2] = 0;
+  dq[3] = 1;
+  dq[4] = 0;
+  dq[5] = 0;
+  dq[6] = 0;
+  dq[7] = 0;
+  return dq;
+}
+
+/**
+ * Creates a new quat initialized with values from an existing quaternion
+ *
+ * @param {quat2} a dual quaternion to clone
+ * @returns {quat2} new dual quaternion
+ * @function
+ */
+function clone(a) {
+  let dq = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](8);
+  dq[0] = a[0];
+  dq[1] = a[1];
+  dq[2] = a[2];
+  dq[3] = a[3];
+  dq[4] = a[4];
+  dq[5] = a[5];
+  dq[6] = a[6];
+  dq[7] = a[7];
+  return dq;
+}
+
+/**
+ * Creates a new dual quat initialized with the given values
+ *
+ * @param {Number} x1 X component
+ * @param {Number} y1 Y component
+ * @param {Number} z1 Z component
+ * @param {Number} w1 W component
+ * @param {Number} x2 X component
+ * @param {Number} y2 Y component
+ * @param {Number} z2 Z component
+ * @param {Number} w2 W component
+ * @returns {quat2} new dual quaternion
+ * @function
+ */
+function fromValues(x1, y1, z1, w1, x2, y2, z2, w2) {
+  let dq = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  dq[4] = x2;
+  dq[5] = y2;
+  dq[6] = z2;
+  dq[7] = w2;
+  return dq;
+}
+
+/**
+ * Creates a new dual quat from the given values (quat and translation)
+ *
+ * @param {Number} x1 X component
+ * @param {Number} y1 Y component
+ * @param {Number} z1 Z component
+ * @param {Number} w1 W component
+ * @param {Number} x2 X component (translation)
+ * @param {Number} y2 Y component (translation)
+ * @param {Number} z2 Z component (translation)
+ * @returns {quat2} new dual quaternion
+ * @function
+ */
+function fromRotationTranslationValues(x1, y1, z1, w1, x2, y2, z2) {
+  let dq = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  let ax = x2 * 0.5,
+    ay = y2 * 0.5,
+    az = z2 * 0.5;
+  dq[4] = ax * w1 + ay * z1 - az * y1;
+  dq[5] = ay * w1 + az * x1 - ax * z1;
+  dq[6] = az * w1 + ax * y1 - ay * x1;
+  dq[7] = -ax * x1 - ay * y1 - az * z1;
+  return dq;
+}
+
+/**
+ * Creates a dual quat from a quaternion and a translation
+ *
+ * @param {quat2} dual quaternion receiving operation result
+ * @param {quat} q quaternion
+ * @param {vec3} t tranlation vector
+ * @returns {quat2} dual quaternion receiving operation result
+ * @function
+ */
+function fromRotationTranslation(out, q, t) {
+  let ax = t[0] * 0.5,
+    ay = t[1] * 0.5,
+    az = t[2] * 0.5,
+    bx = q[0],
+    by = q[1],
+    bz = q[2],
+    bw = q[3];
+  out[0] = bx;
+  out[1] = by;
+  out[2] = bz;
+  out[3] = bw;
+  out[4] = ax * bw + ay * bz - az * by;
+  out[5] = ay * bw + az * bx - ax * bz;
+  out[6] = az * bw + ax * by - ay * bx;
+  out[7] = -ax * bx - ay * by - az * bz;
+  return out;
+}
+
+/**
+ * Creates a dual quat from a translation
+ *
+ * @param {quat2} dual quaternion receiving operation result
+ * @param {vec3} t translation vector
+ * @returns {quat2} dual quaternion receiving operation result
+ * @function
+ */
+function fromTranslation(out, t) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = t[0] * 0.5;
+  out[5] = t[1] * 0.5;
+  out[6] = t[2] * 0.5;
+  out[7] = 0;
+  return out;
+}
+
+/**
+ * Creates a dual quat from a quaternion
+ *
+ * @param {quat2} dual quaternion receiving operation result
+ * @param {quat} q the quaternion
+ * @returns {quat2} dual quaternion receiving operation result
+ * @function
+ */
+function fromRotation(out, q) {
+  out[0] = q[0];
+  out[1] = q[1];
+  out[2] = q[2];
+  out[3] = q[3];
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+
+/**
+ * Creates a new dual quat from a matrix (4x4)
+ *
+ * @param {quat2} out the dual quaternion
+ * @param {mat4} a the matrix
+ * @returns {quat2} dual quat receiving operation result
+ * @function
+ */
+function fromMat4(out, a) {
+  //TODO Optimize this
+  let outer = _quat_js__WEBPACK_IMPORTED_MODULE_1__["create"]();
+  _mat4_js__WEBPACK_IMPORTED_MODULE_2__["getRotation"](outer, a);
+  let t = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](3);
+  _mat4_js__WEBPACK_IMPORTED_MODULE_2__["getTranslation"](t, a);
+  fromRotationTranslation(out, outer, t);
+  return out;
+}
+
+/**
+ * Copy the values from one dual quat to another
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the source dual quaternion
+ * @returns {quat2} out
+ * @function
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  return out;
+}
+
+/**
+ * Set a dual quat to the identity dual quaternion
+ *
+ * @param {quat2} out the receiving quaternion
+ * @returns {quat2} out
+ */
+function identity(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+
+/**
+ * Set the components of a dual quat to the given values
+ *
+ * @param {quat2} out the receiving quaternion
+ * @param {Number} x1 X component
+ * @param {Number} y1 Y component
+ * @param {Number} z1 Z component
+ * @param {Number} w1 W component
+ * @param {Number} x2 X component
+ * @param {Number} y2 Y component
+ * @param {Number} z2 Z component
+ * @param {Number} w2 W component
+ * @returns {quat2} out
+ * @function
+ */
+function set(out, x1, y1, z1, w1, x2, y2, z2, w2) {
+  out[0] = x1;
+  out[1] = y1;
+  out[2] = z1;
+  out[3] = w1;
+
+  out[4] = x2;
+  out[5] = y2;
+  out[6] = z2;
+  out[7] = w2;
+  return out;
+}
+
+/**
+ * Gets the real part of a dual quat
+ * @param  {quat} out real part
+ * @param  {quat2} a Dual Quaternion
+ * @return {quat} real part
+ */
+const getReal = _quat_js__WEBPACK_IMPORTED_MODULE_1__["copy"];
+
+/**
+ * Gets the dual part of a dual quat
+ * @param  {quat} out dual part
+ * @param  {quat2} a Dual Quaternion
+ * @return {quat} dual part
+ */
+function getDual(out, a) {
+  out[0] = a[4];
+  out[1] = a[5];
+  out[2] = a[6];
+  out[3] = a[7];
+  return out;
+}
+
+/**
+ * Set the real component of a dual quat to the given quaternion
+ *
+ * @param {quat2} out the receiving quaternion
+ * @param {quat} q a quaternion representing the real part
+ * @returns {quat2} out
+ * @function
+ */
+const setReal = _quat_js__WEBPACK_IMPORTED_MODULE_1__["copy"];
+
+/**
+ * Set the dual component of a dual quat to the given quaternion
+ *
+ * @param {quat2} out the receiving quaternion
+ * @param {quat} q a quaternion representing the dual part
+ * @returns {quat2} out
+ * @function
+ */
+function setDual(out, q) {
+  out[4] = q[0];
+  out[5] = q[1];
+  out[6] = q[2];
+  out[7] = q[3];
+  return out;
+}
+
+/**
+ * Gets the translation of a normalized dual quat
+ * @param  {vec3} out translation
+ * @param  {quat2} a Dual Quaternion to be decomposed
+ * @return {vec3} translation
+ */
+function getTranslation(out, a) {
+  let ax = a[4],
+    ay = a[5],
+    az = a[6],
+    aw = a[7],
+    bx = -a[0],
+    by = -a[1],
+    bz = -a[2],
+    bw = a[3];
+  out[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+  out[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+  out[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  return out;
+}
+
+/**
+ * Translates a dual quat by the given vector
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to translate
+ * @param {vec3} v vector to translate by
+ * @returns {quat2} out
+ */
+function translate(out, a, v) {
+  let ax1 = a[0],
+    ay1 = a[1],
+    az1 = a[2],
+    aw1 = a[3],
+    bx1 = v[0] * 0.5,
+    by1 = v[1] * 0.5,
+    bz1 = v[2] * 0.5,
+    ax2 = a[4],
+    ay2 = a[5],
+    az2 = a[6],
+    aw2 = a[7];
+  out[0] = ax1;
+  out[1] = ay1;
+  out[2] = az1;
+  out[3] = aw1;
+  out[4] = aw1 * bx1 + ay1 * bz1 - az1 * by1 + ax2;
+  out[5] = aw1 * by1 + az1 * bx1 - ax1 * bz1 + ay2;
+  out[6] = aw1 * bz1 + ax1 * by1 - ay1 * bx1 + az2;
+  out[7] = -ax1 * bx1 - ay1 * by1 - az1 * bz1 + aw2;
+  return out;
+}
+
+/**
+ * Rotates a dual quat around the X axis
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to rotate
+ * @param {number} rad how far should the rotation be
+ * @returns {quat2} out
+ */
+function rotateX(out, a, rad) {
+  let bx = -a[0],
+    by = -a[1],
+    bz = -a[2],
+    bw = a[3],
+    ax = a[4],
+    ay = a[5],
+    az = a[6],
+    aw = a[7],
+    ax1 = ax * bw + aw * bx + ay * bz - az * by,
+    ay1 = ay * bw + aw * by + az * bx - ax * bz,
+    az1 = az * bw + aw * bz + ax * by - ay * bx,
+    aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  _quat_js__WEBPACK_IMPORTED_MODULE_1__["rotateX"](out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+
+/**
+ * Rotates a dual quat around the Y axis
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to rotate
+ * @param {number} rad how far should the rotation be
+ * @returns {quat2} out
+ */
+function rotateY(out, a, rad) {
+  let bx = -a[0],
+    by = -a[1],
+    bz = -a[2],
+    bw = a[3],
+    ax = a[4],
+    ay = a[5],
+    az = a[6],
+    aw = a[7],
+    ax1 = ax * bw + aw * bx + ay * bz - az * by,
+    ay1 = ay * bw + aw * by + az * bx - ax * bz,
+    az1 = az * bw + aw * bz + ax * by - ay * bx,
+    aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  _quat_js__WEBPACK_IMPORTED_MODULE_1__["rotateY"](out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+
+/**
+ * Rotates a dual quat around the Z axis
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to rotate
+ * @param {number} rad how far should the rotation be
+ * @returns {quat2} out
+ */
+function rotateZ(out, a, rad) {
+  let bx = -a[0],
+    by = -a[1],
+    bz = -a[2],
+    bw = a[3],
+    ax = a[4],
+    ay = a[5],
+    az = a[6],
+    aw = a[7],
+    ax1 = ax * bw + aw * bx + ay * bz - az * by,
+    ay1 = ay * bw + aw * by + az * bx - ax * bz,
+    az1 = az * bw + aw * bz + ax * by - ay * bx,
+    aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  _quat_js__WEBPACK_IMPORTED_MODULE_1__["rotateZ"](out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+
+/**
+ * Rotates a dual quat by a given quaternion (a * q)
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to rotate
+ * @param {quat} q quaternion to rotate by
+ * @returns {quat2} out
+ */
+function rotateByQuatAppend(out, a, q) {
+  let qx = q[0],
+    qy = q[1],
+    qz = q[2],
+    qw = q[3],
+    ax = a[0],
+    ay = a[1],
+    az = a[2],
+    aw = a[3];
+
+  out[0] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[1] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[2] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[3] = aw * qw - ax * qx - ay * qy - az * qz;
+  ax = a[4];
+  ay = a[5];
+  az = a[6];
+  aw = a[7];
+  out[4] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[5] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[6] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[7] = aw * qw - ax * qx - ay * qy - az * qz;
+  return out;
+}
+
+/**
+ * Rotates a dual quat by a given quaternion (q * a)
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat} q quaternion to rotate by
+ * @param {quat2} a the dual quaternion to rotate
+ * @returns {quat2} out
+ */
+function rotateByQuatPrepend(out, q, a) {
+  let qx = q[0],
+    qy = q[1],
+    qz = q[2],
+    qw = q[3],
+    bx = a[0],
+    by = a[1],
+    bz = a[2],
+    bw = a[3];
+
+  out[0] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[1] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[2] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[3] = qw * bw - qx * bx - qy * by - qz * bz;
+  bx = a[4];
+  by = a[5];
+  bz = a[6];
+  bw = a[7];
+  out[4] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[5] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[6] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[7] = qw * bw - qx * bx - qy * by - qz * bz;
+  return out;
+}
+
+/**
+ * Rotates a dual quat around a given axis. Does the normalisation automatically
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the dual quaternion to rotate
+ * @param {vec3} axis the axis to rotate around
+ * @param {Number} rad how far the rotation should be
+ * @returns {quat2} out
+ */
+function rotateAroundAxis(out, a, axis, rad) {
+  //Special case for rad = 0
+  if (Math.abs(rad) < _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]) {
+    return copy(out, a);
+  }
+  let axisLength = Math.sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
+
+  rad = rad * 0.5;
+  let s = Math.sin(rad);
+  let bx = s * axis[0] / axisLength;
+  let by = s * axis[1] / axisLength;
+  let bz = s * axis[2] / axisLength;
+  let bw = Math.cos(rad);
+
+  let ax1 = a[0],
+    ay1 = a[1],
+    az1 = a[2],
+    aw1 = a[3];
+  out[0] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[1] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[2] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[3] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+
+  let ax = a[4],
+    ay = a[5],
+    az = a[6],
+    aw = a[7];
+  out[4] = ax * bw + aw * bx + ay * bz - az * by;
+  out[5] = ay * bw + aw * by + az * bx - ax * bz;
+  out[6] = az * bw + aw * bz + ax * by - ay * bx;
+  out[7] = aw * bw - ax * bx - ay * by - az * bz;
+
+  return out;
+}
+
+/**
+ * Adds two dual quat's
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the first operand
+ * @param {quat2} b the second operand
+ * @returns {quat2} out
+ * @function
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  return out;
+}
+
+/**
+ * Multiplies two dual quat's
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a the first operand
+ * @param {quat2} b the second operand
+ * @returns {quat2} out
+ */
+function multiply(out, a, b) {
+  let ax0 = a[0],
+    ay0 = a[1],
+    az0 = a[2],
+    aw0 = a[3],
+    bx1 = b[4],
+    by1 = b[5],
+    bz1 = b[6],
+    bw1 = b[7],
+    ax1 = a[4],
+    ay1 = a[5],
+    az1 = a[6],
+    aw1 = a[7],
+    bx0 = b[0],
+    by0 = b[1],
+    bz0 = b[2],
+    bw0 = b[3];
+  out[0] = ax0 * bw0 + aw0 * bx0 + ay0 * bz0 - az0 * by0;
+  out[1] = ay0 * bw0 + aw0 * by0 + az0 * bx0 - ax0 * bz0;
+  out[2] = az0 * bw0 + aw0 * bz0 + ax0 * by0 - ay0 * bx0;
+  out[3] = aw0 * bw0 - ax0 * bx0 - ay0 * by0 - az0 * bz0;
+  out[4] = ax0 * bw1 + aw0 * bx1 + ay0 * bz1 - az0 * by1 + ax1 * bw0 + aw1 * bx0 + ay1 * bz0 - az1 * by0;
+  out[5] = ay0 * bw1 + aw0 * by1 + az0 * bx1 - ax0 * bz1 + ay1 * bw0 + aw1 * by0 + az1 * bx0 - ax1 * bz0;
+  out[6] = az0 * bw1 + aw0 * bz1 + ax0 * by1 - ay0 * bx1 + az1 * bw0 + aw1 * bz0 + ax1 * by0 - ay1 * bx0;
+  out[7] = aw0 * bw1 - ax0 * bx1 - ay0 * by1 - az0 * bz1 + aw1 * bw0 - ax1 * bx0 - ay1 * by0 - az1 * bz0;
+  return out;
+}
+
+/**
+ * Alias for {@link quat2.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Scales a dual quat by a scalar number
+ *
+ * @param {quat2} out the receiving dual quat
+ * @param {quat2} a the dual quat to scale
+ * @param {Number} b amount to scale the dual quat by
+ * @returns {quat2} out
+ * @function
+ */
+function scale(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  return out;
+}
+
+/**
+ * Calculates the dot product of two dual quat's (The dot product of the real parts)
+ *
+ * @param {quat2} a the first operand
+ * @param {quat2} b the second operand
+ * @returns {Number} dot product of a and b
+ * @function
+ */
+const dot = _quat_js__WEBPACK_IMPORTED_MODULE_1__["dot"];
+
+/**
+ * Performs a linear interpolation between two dual quats's
+ * NOTE: The resulting dual quaternions won't always be normalized (The error is most noticeable when t = 0.5)
+ *
+ * @param {quat2} out the receiving dual quat
+ * @param {quat2} a the first operand
+ * @param {quat2} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {quat2} out
+ */
+function lerp(out, a, b, t) {
+  let mt = 1 - t;
+  if (dot(a, b) < 0) t = -t;
+
+  out[0] = a[0] * mt + b[0] * t;
+  out[1] = a[1] * mt + b[1] * t;
+  out[2] = a[2] * mt + b[2] * t;
+  out[3] = a[3] * mt + b[3] * t;
+  out[4] = a[4] * mt + b[4] * t;
+  out[5] = a[5] * mt + b[5] * t;
+  out[6] = a[6] * mt + b[6] * t;
+  out[7] = a[7] * mt + b[7] * t;
+
+  return out;
+}
+
+/**
+ * Calculates the inverse of a dual quat. If they are normalized, conjugate is cheaper
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a dual quat to calculate inverse of
+ * @returns {quat2} out
+ */
+function invert(out, a) {
+  let sqlen = squaredLength(a);
+  out[0] = -a[0] / sqlen;
+  out[1] = -a[1] / sqlen;
+  out[2] = -a[2] / sqlen;
+  out[3] = a[3] / sqlen;
+  out[4] = -a[4] / sqlen;
+  out[5] = -a[5] / sqlen;
+  out[6] = -a[6] / sqlen;
+  out[7] = a[7] / sqlen;
+  return out;
+}
+
+/**
+ * Calculates the conjugate of a dual quat
+ * If the dual quaternion is normalized, this function is faster than quat2.inverse and produces the same result.
+ *
+ * @param {quat2} out the receiving quaternion
+ * @param {quat2} a quat to calculate conjugate of
+ * @returns {quat2} out
+ */
+function conjugate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  out[4] = -a[4];
+  out[5] = -a[5];
+  out[6] = -a[6];
+  out[7] = a[7];
+  return out;
+}
+
+/**
+ * Calculates the length of a dual quat
+ *
+ * @param {quat2} a dual quat to calculate length of
+ * @returns {Number} length of a
+ * @function
+ */
+const length = _quat_js__WEBPACK_IMPORTED_MODULE_1__["length"];
+
+/**
+ * Alias for {@link quat2.length}
+ * @function
+ */
+const len = length;
+
+/**
+ * Calculates the squared length of a dual quat
+ *
+ * @param {quat2} a dual quat to calculate squared length of
+ * @returns {Number} squared length of a
+ * @function
+ */
+const squaredLength = _quat_js__WEBPACK_IMPORTED_MODULE_1__["squaredLength"];
+
+/**
+ * Alias for {@link quat2.squaredLength}
+ * @function
+ */
+const sqrLen = squaredLength;
+
+/**
+ * Normalize a dual quat
+ *
+ * @param {quat2} out the receiving dual quaternion
+ * @param {quat2} a dual quaternion to normalize
+ * @returns {quat2} out
+ * @function
+ */
+function normalize(out, a) {
+  let magnitude = squaredLength(a);
+  if (magnitude > 0) {
+    magnitude = Math.sqrt(magnitude);
+    out[0] = a[0] / magnitude;
+    out[1] = a[1] / magnitude;
+    out[2] = a[2] / magnitude;
+    out[3] = a[3] / magnitude;
+    out[4] = a[4] / magnitude;
+    out[5] = a[5] / magnitude;
+    out[6] = a[6] / magnitude;
+    out[7] = a[7] / magnitude;
+  }
+  return out;
+}
+
+/**
+ * Returns a string representation of a dual quatenion
+ *
+ * @param {quat2} a dual quaternion to represent as a string
+ * @returns {String} string representation of the dual quat
+ */
+function str(a) {
+  return 'quat2(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ', ' +
+    a[4] + ', ' + a[5] + ', ' + a[6] + ', ' + a[7] + ')';
+}
+
+/**
+ * Returns whether or not the dual quaternions have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {quat2} a the first dual quaternion.
+ * @param {quat2} b the second dual quaternion.
+ * @returns {Boolean} true if the dual quaternions are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] &&
+    a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7];
+}
+
+/**
+ * Returns whether or not the dual quaternions have approximately the same elements in the same position.
+ *
+ * @param {quat2} a the first dual quat.
+ * @param {quat2} b the second dual quat.
+ * @returns {Boolean} true if the dual quats are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0],
+    a1 = a[1],
+    a2 = a[2],
+    a3 = a[3],
+    a4 = a[4],
+    a5 = a[5],
+    a6 = a[6],
+    a7 = a[7];
+  let b0 = b[0],
+    b1 = b[1],
+    b2 = b[2],
+    b3 = b[3],
+    b4 = b[4],
+    b5 = b[5],
+    b6 = b[6],
+    b7 = b[7];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+    Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+    Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+    Math.abs(a4 - b4) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+    Math.abs(a5 - b5) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+    Math.abs(a6 - b6) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+    Math.abs(a7 - b7) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"] * Math.max(1.0, Math.abs(a7), Math.abs(b7)));
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/vec2.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/vec2.js ***!
+  \******************************************************/
+/*! exports provided: create, clone, fromValues, copy, set, add, subtract, multiply, divide, ceil, floor, min, max, round, scale, scaleAndAdd, distance, squaredDistance, length, squaredLength, negate, inverse, normalize, dot, cross, lerp, random, transformMat2, transformMat2d, transformMat3, transformMat4, rotate, angle, str, exactEquals, equals, len, sub, mul, div, dist, sqrDist, sqrLen, forEach */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "divide", function() { return divide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ceil", function() { return ceil; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "floor", function() { return floor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "min", function() { return min; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "max", function() { return max; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "round", function() { return round; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scaleAndAdd", function() { return scaleAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "distance", function() { return distance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredDistance", function() { return squaredDistance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredLength", function() { return squaredLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "negate", function() { return negate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inverse", function() { return inverse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dot", function() { return dot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cross", function() { return cross; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lerp", function() { return lerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "random", function() { return random; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat2", function() { return transformMat2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat2d", function() { return transformMat2d; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat3", function() { return transformMat3; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat4", function() { return transformMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotate", function() { return rotate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "angle", function() { return angle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "div", function() { return div; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dist", function() { return dist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrDist", function() { return sqrDist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 2 Dimensional Vector
+ * @module vec2
+ */
+
+/**
+ * Creates a new, empty vec2
+ *
+ * @returns {vec2} a new 2D vector
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](2);
+  out[0] = 0;
+  out[1] = 0;
+  return out;
+}
+
+/**
+ * Creates a new vec2 initialized with values from an existing vector
+ *
+ * @param {vec2} a vector to clone
+ * @returns {vec2} a new 2D vector
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](2);
+  out[0] = a[0];
+  out[1] = a[1];
+  return out;
+}
+
+/**
+ * Creates a new vec2 initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @returns {vec2} a new 2D vector
+ */
+function fromValues(x, y) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](2);
+  out[0] = x;
+  out[1] = y;
+  return out;
+}
+
+/**
+ * Copy the values from one vec2 to another
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the source vector
+ * @returns {vec2} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  return out;
+}
+
+/**
+ * Set the components of a vec2 to the given values
+ *
+ * @param {vec2} out the receiving vector
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @returns {vec2} out
+ */
+function set(out, x, y) {
+  out[0] = x;
+  out[1] = y;
+  return out;
+}
+
+/**
+ * Adds two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  return out;
+}
+
+/**
+ * Subtracts vector b from vector a
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  return out;
+}
+
+/**
+ * Multiplies two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function multiply(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  return out;
+}
+
+/**
+ * Divides two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  return out;
+}
+
+/**
+ * Math.ceil the components of a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to ceil
+ * @returns {vec2} out
+ */
+function ceil(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  return out;
+}
+
+/**
+ * Math.floor the components of a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to floor
+ * @returns {vec2} out
+ */
+function floor(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  return out;
+}
+
+/**
+ * Returns the minimum of two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function min(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  return out;
+}
+
+/**
+ * Returns the maximum of two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec2} out
+ */
+function max(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  return out;
+}
+
+/**
+ * Math.round the components of a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to round
+ * @returns {vec2} out
+ */
+function round (out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  return out;
+}
+
+/**
+ * Scales a vec2 by a scalar number
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the vector to scale
+ * @param {Number} b amount to scale the vector by
+ * @returns {vec2} out
+ */
+function scale(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  return out;
+}
+
+/**
+ * Adds two vec2's after scaling the second operand by a scalar value
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @param {Number} scale the amount to scale b by before adding
+ * @returns {vec2} out
+ */
+function scaleAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  return out;
+}
+
+/**
+ * Calculates the euclidian distance between two vec2's
+ *
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {Number} distance between a and b
+ */
+function distance(a, b) {
+  var x = b[0] - a[0],
+    y = b[1] - a[1];
+  return Math.sqrt(x*x + y*y);
+}
+
+/**
+ * Calculates the squared euclidian distance between two vec2's
+ *
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {Number} squared distance between a and b
+ */
+function squaredDistance(a, b) {
+  var x = b[0] - a[0],
+    y = b[1] - a[1];
+  return x*x + y*y;
+}
+
+/**
+ * Calculates the length of a vec2
+ *
+ * @param {vec2} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+function length(a) {
+  var x = a[0],
+    y = a[1];
+  return Math.sqrt(x*x + y*y);
+}
+
+/**
+ * Calculates the squared length of a vec2
+ *
+ * @param {vec2} a vector to calculate squared length of
+ * @returns {Number} squared length of a
+ */
+function squaredLength (a) {
+  var x = a[0],
+    y = a[1];
+  return x*x + y*y;
+}
+
+/**
+ * Negates the components of a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to negate
+ * @returns {vec2} out
+ */
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  return out;
+}
+
+/**
+ * Returns the inverse of the components of a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to invert
+ * @returns {vec2} out
+ */
+function inverse(out, a) {
+  out[0] = 1.0 / a[0];
+  out[1] = 1.0 / a[1];
+  return out;
+}
+
+/**
+ * Normalize a vec2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a vector to normalize
+ * @returns {vec2} out
+ */
+function normalize(out, a) {
+  var x = a[0],
+    y = a[1];
+  var len = x*x + y*y;
+  if (len > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len = 1 / Math.sqrt(len);
+    out[0] = a[0] * len;
+    out[1] = a[1] * len;
+  }
+  return out;
+}
+
+/**
+ * Calculates the dot product of two vec2's
+ *
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {Number} dot product of a and b
+ */
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1];
+}
+
+/**
+ * Computes the cross product of two vec2's
+ * Note that the cross product must by definition produce a 3D vector
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @returns {vec3} out
+ */
+function cross(out, a, b) {
+  var z = a[0] * b[1] - a[1] * b[0];
+  out[0] = out[1] = 0;
+  out[2] = z;
+  return out;
+}
+
+/**
+ * Performs a linear interpolation between two vec2's
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the first operand
+ * @param {vec2} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec2} out
+ */
+function lerp(out, a, b, t) {
+  var ax = a[0],
+    ay = a[1];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  return out;
+}
+
+/**
+ * Generates a random vector with the given scale
+ *
+ * @param {vec2} out the receiving vector
+ * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
+ * @returns {vec2} out
+ */
+function random(out, scale) {
+  scale = scale || 1.0;
+  var r = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2.0 * Math.PI;
+  out[0] = Math.cos(r) * scale;
+  out[1] = Math.sin(r) * scale;
+  return out;
+}
+
+/**
+ * Transforms the vec2 with a mat2
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the vector to transform
+ * @param {mat2} m matrix to transform with
+ * @returns {vec2} out
+ */
+function transformMat2(out, a, m) {
+  var x = a[0],
+    y = a[1];
+  out[0] = m[0] * x + m[2] * y;
+  out[1] = m[1] * x + m[3] * y;
+  return out;
+}
+
+/**
+ * Transforms the vec2 with a mat2d
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the vector to transform
+ * @param {mat2d} m matrix to transform with
+ * @returns {vec2} out
+ */
+function transformMat2d(out, a, m) {
+  var x = a[0],
+    y = a[1];
+  out[0] = m[0] * x + m[2] * y + m[4];
+  out[1] = m[1] * x + m[3] * y + m[5];
+  return out;
+}
+
+/**
+ * Transforms the vec2 with a mat3
+ * 3rd vector component is implicitly '1'
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the vector to transform
+ * @param {mat3} m matrix to transform with
+ * @returns {vec2} out
+ */
+function transformMat3(out, a, m) {
+  var x = a[0],
+    y = a[1];
+  out[0] = m[0] * x + m[3] * y + m[6];
+  out[1] = m[1] * x + m[4] * y + m[7];
+  return out;
+}
+
+/**
+ * Transforms the vec2 with a mat4
+ * 3rd vector component is implicitly '0'
+ * 4th vector component is implicitly '1'
+ *
+ * @param {vec2} out the receiving vector
+ * @param {vec2} a the vector to transform
+ * @param {mat4} m matrix to transform with
+ * @returns {vec2} out
+ */
+function transformMat4(out, a, m) {
+  let x = a[0];
+  let y = a[1];
+  out[0] = m[0] * x + m[4] * y + m[12];
+  out[1] = m[1] * x + m[5] * y + m[13];
+  return out;
+}
+
+/**
+ * Rotate a 2D vector
+ * @param {vec2} out The receiving vec2
+ * @param {vec2} a The vec2 point to rotate
+ * @param {vec2} b The origin of the rotation
+ * @param {Number} c The angle of rotation
+ * @returns {vec2} out
+ */
+function rotate(out, a, b, c) {
+  //Translate point to the origin
+  let p0 = a[0] - b[0],
+  p1 = a[1] - b[1],
+  sinC = Math.sin(c),
+  cosC = Math.cos(c);
+  
+  //perform rotation and translate to correct position
+  out[0] = p0*cosC - p1*sinC + b[0];
+  out[1] = p0*sinC + p1*cosC + b[1];
+
+  return out;
+}
+
+/**
+ * Get the angle between two 2D vectors
+ * @param {vec2} a The first operand
+ * @param {vec2} b The second operand
+ * @returns {Number} The angle in radians
+ */
+function angle(a, b) {
+  let x1 = a[0],
+    y1 = a[1],
+    x2 = b[0],
+    y2 = b[1];
+  
+  let len1 = x1*x1 + y1*y1;
+  if (len1 > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len1 = 1 / Math.sqrt(len1);
+  }
+  
+  let len2 = x2*x2 + y2*y2;
+  if (len2 > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len2 = 1 / Math.sqrt(len2);
+  }
+  
+  let cosine = (x1 * x2 + y1 * y2) * len1 * len2;
+  
+  
+  if(cosine > 1.0) {
+    return 0;
+  }
+  else if(cosine < -1.0) {
+    return Math.PI;
+  } else {
+    return Math.acos(cosine);
+  }
+}
+
+/**
+ * Returns a string representation of a vector
+ *
+ * @param {vec2} a vector to represent as a string
+ * @returns {String} string representation of the vector
+ */
+function str(a) {
+  return 'vec2(' + a[0] + ', ' + a[1] + ')';
+}
+
+/**
+ * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
+ *
+ * @param {vec2} a The first vector.
+ * @param {vec2} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1];
+}
+
+/**
+ * Returns whether or not the vectors have approximately the same elements in the same position.
+ *
+ * @param {vec2} a The first vector.
+ * @param {vec2} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1];
+  let b0 = b[0], b1 = b[1];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)));
+}
+
+/**
+ * Alias for {@link vec2.length}
+ * @function
+ */
+const len = length;
+
+/**
+ * Alias for {@link vec2.subtract}
+ * @function
+ */
+const sub = subtract;
+
+/**
+ * Alias for {@link vec2.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link vec2.divide}
+ * @function
+ */
+const div = divide;
+
+/**
+ * Alias for {@link vec2.distance}
+ * @function
+ */
+const dist = distance;
+
+/**
+ * Alias for {@link vec2.squaredDistance}
+ * @function
+ */
+const sqrDist = squaredDistance;
+
+/**
+ * Alias for {@link vec2.squaredLength}
+ * @function
+ */
+const sqrLen = squaredLength;
+
+/**
+ * Perform some operation over an array of vec2s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec2. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec2s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+const forEach = (function() {
+  let vec = create();
+
+  return function(a, stride, offset, count, fn, arg) {
+    let i, l;
+    if(!stride) {
+      stride = 2;
+    }
+
+    if(!offset) {
+      offset = 0;
+    }
+
+    if(count) {
+      l = Math.min((count * stride) + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for(i = offset; i < l; i += stride) {
+      vec[0] = a[i]; vec[1] = a[i+1];
+      fn(vec, vec, arg);
+      a[i] = vec[0]; a[i+1] = vec[1];
+    }
+
+    return a;
+  };
+})();
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/vec3.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/vec3.js ***!
+  \******************************************************/
+/*! exports provided: create, clone, length, fromValues, copy, set, add, subtract, multiply, divide, ceil, floor, min, max, round, scale, scaleAndAdd, distance, squaredDistance, squaredLength, negate, inverse, normalize, dot, cross, lerp, hermite, bezier, random, transformMat4, transformMat3, transformQuat, rotateX, rotateY, rotateZ, angle, str, exactEquals, equals, sub, mul, div, dist, sqrDist, len, sqrLen, forEach */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "divide", function() { return divide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ceil", function() { return ceil; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "floor", function() { return floor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "min", function() { return min; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "max", function() { return max; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "round", function() { return round; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scaleAndAdd", function() { return scaleAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "distance", function() { return distance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredDistance", function() { return squaredDistance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredLength", function() { return squaredLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "negate", function() { return negate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inverse", function() { return inverse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dot", function() { return dot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cross", function() { return cross; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lerp", function() { return lerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hermite", function() { return hermite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bezier", function() { return bezier; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "random", function() { return random; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat4", function() { return transformMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat3", function() { return transformMat3; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformQuat", function() { return transformQuat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateX", function() { return rotateX; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateY", function() { return rotateY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rotateZ", function() { return rotateZ; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "angle", function() { return angle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "div", function() { return div; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dist", function() { return dist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrDist", function() { return sqrDist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 3 Dimensional Vector
+ * @module vec3
+ */
+
+/**
+ * Creates a new, empty vec3
+ *
+ * @returns {vec3} a new 3D vector
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](3);
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  return out;
+}
+
+/**
+ * Creates a new vec3 initialized with values from an existing vector
+ *
+ * @param {vec3} a vector to clone
+ * @returns {vec3} a new 3D vector
+ */
+function clone(a) {
+  var out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](3);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+
+/**
+ * Calculates the length of a vec3
+ *
+ * @param {vec3} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+function length(a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  return Math.sqrt(x*x + y*y + z*z);
+}
+
+/**
+ * Creates a new vec3 initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @returns {vec3} a new 3D vector
+ */
+function fromValues(x, y, z) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](3);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+
+/**
+ * Copy the values from one vec3 to another
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the source vector
+ * @returns {vec3} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+
+/**
+ * Set the components of a vec3 to the given values
+ *
+ * @param {vec3} out the receiving vector
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @returns {vec3} out
+ */
+function set(out, x, y, z) {
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+
+/**
+ * Adds two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  return out;
+}
+
+/**
+ * Subtracts vector b from vector a
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+
+/**
+ * Multiplies two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function multiply(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  return out;
+}
+
+/**
+ * Divides two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  return out;
+}
+
+/**
+ * Math.ceil the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to ceil
+ * @returns {vec3} out
+ */
+function ceil(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  return out;
+}
+
+/**
+ * Math.floor the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to floor
+ * @returns {vec3} out
+ */
+function floor(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  return out;
+}
+
+/**
+ * Returns the minimum of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function min(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  return out;
+}
+
+/**
+ * Returns the maximum of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function max(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  return out;
+}
+
+/**
+ * Math.round the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to round
+ * @returns {vec3} out
+ */
+function round(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  return out;
+}
+
+/**
+ * Scales a vec3 by a scalar number
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the vector to scale
+ * @param {Number} b amount to scale the vector by
+ * @returns {vec3} out
+ */
+function scale(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  return out;
+}
+
+/**
+ * Adds two vec3's after scaling the second operand by a scalar value
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @param {Number} scale the amount to scale b by before adding
+ * @returns {vec3} out
+ */
+function scaleAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  return out;
+}
+
+/**
+ * Calculates the euclidian distance between two vec3's
+ *
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {Number} distance between a and b
+ */
+function distance(a, b) {
+  let x = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z = b[2] - a[2];
+  return Math.sqrt(x*x + y*y + z*z);
+}
+
+/**
+ * Calculates the squared euclidian distance between two vec3's
+ *
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {Number} squared distance between a and b
+ */
+function squaredDistance(a, b) {
+  let x = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z = b[2] - a[2];
+  return x*x + y*y + z*z;
+}
+
+/**
+ * Calculates the squared length of a vec3
+ *
+ * @param {vec3} a vector to calculate squared length of
+ * @returns {Number} squared length of a
+ */
+function squaredLength(a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  return x*x + y*y + z*z;
+}
+
+/**
+ * Negates the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to negate
+ * @returns {vec3} out
+ */
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  return out;
+}
+
+/**
+ * Returns the inverse of the components of a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to invert
+ * @returns {vec3} out
+ */
+function inverse(out, a) {
+  out[0] = 1.0 / a[0];
+  out[1] = 1.0 / a[1];
+  out[2] = 1.0 / a[2];
+  return out;
+}
+
+/**
+ * Normalize a vec3
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a vector to normalize
+ * @returns {vec3} out
+ */
+function normalize(out, a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  let len = x*x + y*y + z*z;
+  if (len > 0) {
+    //TODO: evaluate use of glm_invsqrt here?
+    len = 1 / Math.sqrt(len);
+    out[0] = a[0] * len;
+    out[1] = a[1] * len;
+    out[2] = a[2] * len;
+  }
+  return out;
+}
+
+/**
+ * Calculates the dot product of two vec3's
+ *
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {Number} dot product of a and b
+ */
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+/**
+ * Computes the cross product of two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function cross(out, a, b) {
+  let ax = a[0], ay = a[1], az = a[2];
+  let bx = b[0], by = b[1], bz = b[2];
+
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+
+/**
+ * Performs a linear interpolation between two vec3's
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+function lerp(out, a, b, t) {
+  let ax = a[0];
+  let ay = a[1];
+  let az = a[2];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  return out;
+}
+
+/**
+ * Performs a hermite interpolation with two control points
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @param {vec3} c the third operand
+ * @param {vec3} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+function hermite(out, a, b, c, d, t) {
+  let factorTimes2 = t * t;
+  let factor1 = factorTimes2 * (2 * t - 3) + 1;
+  let factor2 = factorTimes2 * (t - 2) + t;
+  let factor3 = factorTimes2 * (t - 1);
+  let factor4 = factorTimes2 * (3 - 2 * t);
+
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+
+  return out;
+}
+
+/**
+ * Performs a bezier interpolation with two control points
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @param {vec3} c the third operand
+ * @param {vec3} d the fourth operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec3} out
+ */
+function bezier(out, a, b, c, d, t) {
+  let inverseFactor = 1 - t;
+  let inverseFactorTimesTwo = inverseFactor * inverseFactor;
+  let factorTimes2 = t * t;
+  let factor1 = inverseFactorTimesTwo * inverseFactor;
+  let factor2 = 3 * t * inverseFactorTimesTwo;
+  let factor3 = 3 * factorTimes2 * inverseFactor;
+  let factor4 = factorTimes2 * t;
+
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+
+  return out;
+}
+
+/**
+ * Generates a random vector with the given scale
+ *
+ * @param {vec3} out the receiving vector
+ * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
+ * @returns {vec3} out
+ */
+function random(out, scale) {
+  scale = scale || 1.0;
+
+  let r = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2.0 * Math.PI;
+  let z = (_common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2.0) - 1.0;
+  let zScale = Math.sqrt(1.0-z*z) * scale;
+
+  out[0] = Math.cos(r) * zScale;
+  out[1] = Math.sin(r) * zScale;
+  out[2] = z * scale;
+  return out;
+}
+
+/**
+ * Transforms the vec3 with a mat4.
+ * 4th vector component is implicitly '1'
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the vector to transform
+ * @param {mat4} m matrix to transform with
+ * @returns {vec3} out
+ */
+function transformMat4(out, a, m) {
+  let x = a[0], y = a[1], z = a[2];
+  let w = m[3] * x + m[7] * y + m[11] * z + m[15];
+  w = w || 1.0;
+  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
+  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
+  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+  return out;
+}
+
+/**
+ * Transforms the vec3 with a mat3.
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the vector to transform
+ * @param {mat3} m the 3x3 matrix to transform with
+ * @returns {vec3} out
+ */
+function transformMat3(out, a, m) {
+  let x = a[0], y = a[1], z = a[2];
+  out[0] = x * m[0] + y * m[3] + z * m[6];
+  out[1] = x * m[1] + y * m[4] + z * m[7];
+  out[2] = x * m[2] + y * m[5] + z * m[8];
+  return out;
+}
+
+/**
+ * Transforms the vec3 with a quat
+ * Can also be used for dual quaternions. (Multiply it with the real part)
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the vector to transform
+ * @param {quat} q quaternion to transform with
+ * @returns {vec3} out
+ */
+function transformQuat(out, a, q) {
+    // benchmarks: https://jsperf.com/quaternion-transform-vec3-implementations-fixed
+    let qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+    let x = a[0], y = a[1], z = a[2];
+    // var qvec = [qx, qy, qz];
+    // var uv = vec3.cross([], qvec, a);
+    let uvx = qy * z - qz * y,
+        uvy = qz * x - qx * z,
+        uvz = qx * y - qy * x;
+    // var uuv = vec3.cross([], qvec, uv);
+    let uuvx = qy * uvz - qz * uvy,
+        uuvy = qz * uvx - qx * uvz,
+        uuvz = qx * uvy - qy * uvx;
+    // vec3.scale(uv, uv, 2 * w);
+    let w2 = qw * 2;
+    uvx *= w2;
+    uvy *= w2;
+    uvz *= w2;
+    // vec3.scale(uuv, uuv, 2);
+    uuvx *= 2;
+    uuvy *= 2;
+    uuvz *= 2;
+    // return vec3.add(out, a, vec3.add(out, uv, uuv));
+    out[0] = x + uvx + uuvx;
+    out[1] = y + uvy + uuvy;
+    out[2] = z + uvz + uuvz;
+    return out;
+}
+
+/**
+ * Rotate a 3D vector around the x-axis
+ * @param {vec3} out The receiving vec3
+ * @param {vec3} a The vec3 point to rotate
+ * @param {vec3} b The origin of the rotation
+ * @param {Number} c The angle of rotation
+ * @returns {vec3} out
+ */
+function rotateX(out, a, b, c){
+  let p = [], r=[];
+  //Translate point to the origin
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+
+  //perform rotation
+  r[0] = p[0];
+  r[1] = p[1]*Math.cos(c) - p[2]*Math.sin(c);
+  r[2] = p[1]*Math.sin(c) + p[2]*Math.cos(c);
+
+  //translate to correct position
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+
+  return out;
+}
+
+/**
+ * Rotate a 3D vector around the y-axis
+ * @param {vec3} out The receiving vec3
+ * @param {vec3} a The vec3 point to rotate
+ * @param {vec3} b The origin of the rotation
+ * @param {Number} c The angle of rotation
+ * @returns {vec3} out
+ */
+function rotateY(out, a, b, c){
+  let p = [], r=[];
+  //Translate point to the origin
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+
+  //perform rotation
+  r[0] = p[2]*Math.sin(c) + p[0]*Math.cos(c);
+  r[1] = p[1];
+  r[2] = p[2]*Math.cos(c) - p[0]*Math.sin(c);
+
+  //translate to correct position
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+
+  return out;
+}
+
+/**
+ * Rotate a 3D vector around the z-axis
+ * @param {vec3} out The receiving vec3
+ * @param {vec3} a The vec3 point to rotate
+ * @param {vec3} b The origin of the rotation
+ * @param {Number} c The angle of rotation
+ * @returns {vec3} out
+ */
+function rotateZ(out, a, b, c){
+  let p = [], r=[];
+  //Translate point to the origin
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+
+  //perform rotation
+  r[0] = p[0]*Math.cos(c) - p[1]*Math.sin(c);
+  r[1] = p[0]*Math.sin(c) + p[1]*Math.cos(c);
+  r[2] = p[2];
+
+  //translate to correct position
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+
+  return out;
+}
+
+/**
+ * Get the angle between two 3D vectors
+ * @param {vec3} a The first operand
+ * @param {vec3} b The second operand
+ * @returns {Number} The angle in radians
+ */
+function angle(a, b) {
+  let tempA = fromValues(a[0], a[1], a[2]);
+  let tempB = fromValues(b[0], b[1], b[2]);
+
+  normalize(tempA, tempA);
+  normalize(tempB, tempB);
+
+  let cosine = dot(tempA, tempB);
+
+  if(cosine > 1.0) {
+    return 0;
+  }
+  else if(cosine < -1.0) {
+    return Math.PI;
+  } else {
+    return Math.acos(cosine);
+  }
+}
+
+/**
+ * Returns a string representation of a vector
+ *
+ * @param {vec3} a vector to represent as a string
+ * @returns {String} string representation of the vector
+ */
+function str(a) {
+  return 'vec3(' + a[0] + ', ' + a[1] + ', ' + a[2] + ')';
+}
+
+/**
+ * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {vec3} a The first vector.
+ * @param {vec3} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+}
+
+/**
+ * Returns whether or not the vectors have approximately the same elements in the same position.
+ *
+ * @param {vec3} a The first vector.
+ * @param {vec3} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2];
+  let b0 = b[0], b1 = b[1], b2 = b[2];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)));
+}
+
+/**
+ * Alias for {@link vec3.subtract}
+ * @function
+ */
+const sub = subtract;
+
+/**
+ * Alias for {@link vec3.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link vec3.divide}
+ * @function
+ */
+const div = divide;
+
+/**
+ * Alias for {@link vec3.distance}
+ * @function
+ */
+const dist = distance;
+
+/**
+ * Alias for {@link vec3.squaredDistance}
+ * @function
+ */
+const sqrDist = squaredDistance;
+
+/**
+ * Alias for {@link vec3.length}
+ * @function
+ */
+const len = length;
+
+/**
+ * Alias for {@link vec3.squaredLength}
+ * @function
+ */
+const sqrLen = squaredLength;
+
+/**
+ * Perform some operation over an array of vec3s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec3. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec3s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+const forEach = (function() {
+  let vec = create();
+
+  return function(a, stride, offset, count, fn, arg) {
+    let i, l;
+    if(!stride) {
+      stride = 3;
+    }
+
+    if(!offset) {
+      offset = 0;
+    }
+
+    if(count) {
+      l = Math.min((count * stride) + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for(i = offset; i < l; i += stride) {
+      vec[0] = a[i]; vec[1] = a[i+1]; vec[2] = a[i+2];
+      fn(vec, vec, arg);
+      a[i] = vec[0]; a[i+1] = vec[1]; a[i+2] = vec[2];
+    }
+
+    return a;
+  };
+})();
+
+
+/***/ }),
+
+/***/ "./node_modules/gl-matrix/src/gl-matrix/vec4.js":
+/*!******************************************************!*\
+  !*** ./node_modules/gl-matrix/src/gl-matrix/vec4.js ***!
+  \******************************************************/
+/*! exports provided: create, clone, fromValues, copy, set, add, subtract, multiply, divide, ceil, floor, min, max, round, scale, scaleAndAdd, distance, squaredDistance, length, squaredLength, negate, inverse, normalize, dot, lerp, random, transformMat4, transformQuat, str, exactEquals, equals, sub, mul, div, dist, sqrDist, len, sqrLen, forEach */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create", function() { return create; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clone", function() { return clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromValues", function() { return fromValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "copy", function() { return copy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subtract", function() { return subtract; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "multiply", function() { return multiply; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "divide", function() { return divide; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ceil", function() { return ceil; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "floor", function() { return floor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "min", function() { return min; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "max", function() { return max; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "round", function() { return round; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale", function() { return scale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scaleAndAdd", function() { return scaleAndAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "distance", function() { return distance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredDistance", function() { return squaredDistance; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "squaredLength", function() { return squaredLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "negate", function() { return negate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inverse", function() { return inverse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dot", function() { return dot; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lerp", function() { return lerp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "random", function() { return random; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformMat4", function() { return transformMat4; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformQuat", function() { return transformQuat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "str", function() { return str; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exactEquals", function() { return exactEquals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equals", function() { return equals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "div", function() { return div; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dist", function() { return dist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrDist", function() { return sqrDist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
+/* harmony import */ var _common_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common.js */ "./node_modules/gl-matrix/src/gl-matrix/common.js");
+
+
+/**
+ * 4 Dimensional Vector
+ * @module vec4
+ */
+
+/**
+ * Creates a new, empty vec4
+ *
+ * @returns {vec4} a new 4D vector
+ */
+function create() {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  return out;
+}
+
+/**
+ * Creates a new vec4 initialized with values from an existing vector
+ *
+ * @param {vec4} a vector to clone
+ * @returns {vec4} a new 4D vector
+ */
+function clone(a) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Creates a new vec4 initialized with the given values
+ *
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @param {Number} w W component
+ * @returns {vec4} a new 4D vector
+ */
+function fromValues(x, y, z, w) {
+  let out = new _common_js__WEBPACK_IMPORTED_MODULE_0__["ARRAY_TYPE"](4);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+
+/**
+ * Copy the values from one vec4 to another
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the source vector
+ * @returns {vec4} out
+ */
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Set the components of a vec4 to the given values
+ *
+ * @param {vec4} out the receiving vector
+ * @param {Number} x X component
+ * @param {Number} y Y component
+ * @param {Number} z Z component
+ * @param {Number} w W component
+ * @returns {vec4} out
+ */
+function set(out, x, y, z, w) {
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+
+/**
+ * Adds two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  return out;
+}
+
+/**
+ * Subtracts vector b from vector a
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  return out;
+}
+
+/**
+ * Multiplies two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function multiply(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  out[3] = a[3] * b[3];
+  return out;
+}
+
+/**
+ * Divides two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  out[3] = a[3] / b[3];
+  return out;
+}
+
+/**
+ * Math.ceil the components of a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to ceil
+ * @returns {vec4} out
+ */
+function ceil(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  out[3] = Math.ceil(a[3]);
+  return out;
+}
+
+/**
+ * Math.floor the components of a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to floor
+ * @returns {vec4} out
+ */
+function floor(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  out[3] = Math.floor(a[3]);
+  return out;
+}
+
+/**
+ * Returns the minimum of two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function min(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  out[3] = Math.min(a[3], b[3]);
+  return out;
+}
+
+/**
+ * Returns the maximum of two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {vec4} out
+ */
+function max(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  out[3] = Math.max(a[3], b[3]);
+  return out;
+}
+
+/**
+ * Math.round the components of a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to round
+ * @returns {vec4} out
+ */
+function round(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  out[3] = Math.round(a[3]);
+  return out;
+}
+
+/**
+ * Scales a vec4 by a scalar number
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the vector to scale
+ * @param {Number} b amount to scale the vector by
+ * @returns {vec4} out
+ */
+function scale(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  return out;
+}
+
+/**
+ * Adds two vec4's after scaling the second operand by a scalar value
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @param {Number} scale the amount to scale b by before adding
+ * @returns {vec4} out
+ */
+function scaleAndAdd(out, a, b, scale) {
+  out[0] = a[0] + (b[0] * scale);
+  out[1] = a[1] + (b[1] * scale);
+  out[2] = a[2] + (b[2] * scale);
+  out[3] = a[3] + (b[3] * scale);
+  return out;
+}
+
+/**
+ * Calculates the euclidian distance between two vec4's
+ *
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {Number} distance between a and b
+ */
+function distance(a, b) {
+  let x = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z = b[2] - a[2];
+  let w = b[3] - a[3];
+  return Math.sqrt(x*x + y*y + z*z + w*w);
+}
+
+/**
+ * Calculates the squared euclidian distance between two vec4's
+ *
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {Number} squared distance between a and b
+ */
+function squaredDistance(a, b) {
+  let x = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z = b[2] - a[2];
+  let w = b[3] - a[3];
+  return x*x + y*y + z*z + w*w;
+}
+
+/**
+ * Calculates the length of a vec4
+ *
+ * @param {vec4} a vector to calculate length of
+ * @returns {Number} length of a
+ */
+function length(a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  let w = a[3];
+  return Math.sqrt(x*x + y*y + z*z + w*w);
+}
+
+/**
+ * Calculates the squared length of a vec4
+ *
+ * @param {vec4} a vector to calculate squared length of
+ * @returns {Number} squared length of a
+ */
+function squaredLength(a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  let w = a[3];
+  return x*x + y*y + z*z + w*w;
+}
+
+/**
+ * Negates the components of a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to negate
+ * @returns {vec4} out
+ */
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = -a[3];
+  return out;
+}
+
+/**
+ * Returns the inverse of the components of a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to invert
+ * @returns {vec4} out
+ */
+function inverse(out, a) {
+  out[0] = 1.0 / a[0];
+  out[1] = 1.0 / a[1];
+  out[2] = 1.0 / a[2];
+  out[3] = 1.0 / a[3];
+  return out;
+}
+
+/**
+ * Normalize a vec4
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a vector to normalize
+ * @returns {vec4} out
+ */
+function normalize(out, a) {
+  let x = a[0];
+  let y = a[1];
+  let z = a[2];
+  let w = a[3];
+  let len = x*x + y*y + z*z + w*w;
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+    out[0] = x * len;
+    out[1] = y * len;
+    out[2] = z * len;
+    out[3] = w * len;
+  }
+  return out;
+}
+
+/**
+ * Calculates the dot product of two vec4's
+ *
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @returns {Number} dot product of a and b
+ */
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+
+/**
+ * Performs a linear interpolation between two vec4's
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the first operand
+ * @param {vec4} b the second operand
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
+ * @returns {vec4} out
+ */
+function lerp(out, a, b, t) {
+  let ax = a[0];
+  let ay = a[1];
+  let az = a[2];
+  let aw = a[3];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  out[3] = aw + t * (b[3] - aw);
+  return out;
+}
+
+/**
+ * Generates a random vector with the given scale
+ *
+ * @param {vec4} out the receiving vector
+ * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
+ * @returns {vec4} out
+ */
+function random(out, vectorScale) {
+  vectorScale = vectorScale || 1.0;
+
+  // Marsaglia, George. Choosing a Point from the Surface of a
+  // Sphere. Ann. Math. Statist. 43 (1972), no. 2, 645--646.
+  // http://projecteuclid.org/euclid.aoms/1177692644;
+  var v1, v2, v3, v4;
+  var s1, s2;
+  do {
+    v1 = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2 - 1;
+    v2 = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2 - 1;
+    s1 = v1 * v1 + v2 * v2;
+  } while (s1 >= 1);
+  do {
+    v3 = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2 - 1;
+    v4 = _common_js__WEBPACK_IMPORTED_MODULE_0__["RANDOM"]() * 2 - 1;
+    s2 = v3 * v3 + v4 * v4;
+  } while (s2 >= 1);
+
+  var d = Math.sqrt((1 - s1) / s2);
+  out[0] = scale * v1;
+  out[1] = scale * v2;
+  out[2] = scale * v3 * d;
+  out[3] = scale * v4 * d;
+  return out;
+}
+
+/**
+ * Transforms the vec4 with a mat4.
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the vector to transform
+ * @param {mat4} m matrix to transform with
+ * @returns {vec4} out
+ */
+function transformMat4(out, a, m) {
+  let x = a[0], y = a[1], z = a[2], w = a[3];
+  out[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+  out[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+  out[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+  out[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+  return out;
+}
+
+/**
+ * Transforms the vec4 with a quat
+ *
+ * @param {vec4} out the receiving vector
+ * @param {vec4} a the vector to transform
+ * @param {quat} q quaternion to transform with
+ * @returns {vec4} out
+ */
+function transformQuat(out, a, q) {
+  let x = a[0], y = a[1], z = a[2];
+  let qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+
+  // calculate quat * vec
+  let ix = qw * x + qy * z - qz * y;
+  let iy = qw * y + qz * x - qx * z;
+  let iz = qw * z + qx * y - qy * x;
+  let iw = -qx * x - qy * y - qz * z;
+
+  // calculate result * inverse quat
+  out[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+  out[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+  out[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+  out[3] = a[3];
+  return out;
+}
+
+/**
+ * Returns a string representation of a vector
+ *
+ * @param {vec4} a vector to represent as a string
+ * @returns {String} string representation of the vector
+ */
+function str(a) {
+  return 'vec4(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ')';
+}
+
+/**
+ * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
+ *
+ * @param {vec4} a The first vector.
+ * @param {vec4} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+}
+
+/**
+ * Returns whether or not the vectors have approximately the same elements in the same position.
+ *
+ * @param {vec4} a The first vector.
+ * @param {vec4} b The second vector.
+ * @returns {Boolean} True if the vectors are equal, false otherwise.
+ */
+function equals(a, b) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  return (Math.abs(a0 - b0) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= _common_js__WEBPACK_IMPORTED_MODULE_0__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
+}
+
+/**
+ * Alias for {@link vec4.subtract}
+ * @function
+ */
+const sub = subtract;
+
+/**
+ * Alias for {@link vec4.multiply}
+ * @function
+ */
+const mul = multiply;
+
+/**
+ * Alias for {@link vec4.divide}
+ * @function
+ */
+const div = divide;
+
+/**
+ * Alias for {@link vec4.distance}
+ * @function
+ */
+const dist = distance;
+
+/**
+ * Alias for {@link vec4.squaredDistance}
+ * @function
+ */
+const sqrDist = squaredDistance;
+
+/**
+ * Alias for {@link vec4.length}
+ * @function
+ */
+const len = length;
+
+/**
+ * Alias for {@link vec4.squaredLength}
+ * @function
+ */
+const sqrLen = squaredLength;
+
+/**
+ * Perform some operation over an array of vec4s.
+ *
+ * @param {Array} a the array of vectors to iterate over
+ * @param {Number} stride Number of elements between the start of each vec4. If 0 assumes tightly packed
+ * @param {Number} offset Number of elements to skip at the beginning of the array
+ * @param {Number} count Number of vec4s to iterate over. If 0 iterates over entire array
+ * @param {Function} fn Function to call for each vector in the array
+ * @param {Object} [arg] additional argument to pass to fn
+ * @returns {Array} a
+ * @function
+ */
+const forEach = (function() {
+  let vec = create();
+
+  return function(a, stride, offset, count, fn, arg) {
+    let i, l;
+    if(!stride) {
+      stride = 4;
+    }
+
+    if(!offset) {
+      offset = 0;
+    }
+
+    if(count) {
+      l = Math.min((count * stride) + offset, a.length);
+    } else {
+      l = a.length;
+    }
+
+    for(i = offset; i < l; i += stride) {
+      vec[0] = a[i]; vec[1] = a[i+1]; vec[2] = a[i+2]; vec[3] = a[i+3];
+      fn(vec, vec, arg);
+      a[i] = vec[0]; a[i+1] = vec[1]; a[i+2] = vec[2]; a[i+3] = vec[3];
+    }
+
+    return a;
+  };
+})();
+
+
+/***/ }),
+
+/***/ "./src/Camera.ts":
+/*!***********************!*\
+  !*** ./src/Camera.ts ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+const SoftwareRenderer_1 = __webpack_require__(/*! ./renderer/SoftwareRenderer */ "./src/renderer/SoftwareRenderer.ts");
+class Camera {
+    constructor(eye, target, up, vFov, aspect, aperture, focus_dist) {
+        this.lower_left_corner = gl_matrix_1.vec3.create();
+        this.screen_horizontal = gl_matrix_1.vec3.create();
+        this.screen_vertical = gl_matrix_1.vec3.create();
+        this.position = gl_matrix_1.vec3.create();
+        this.temp = gl_matrix_1.vec3.create();
+        this.temp2 = gl_matrix_1.vec3.create();
+        this.lens_radius = aperture / 2;
+        let theta = (vFov * Math.PI) / 180.0;
+        let half_height = Math.tan(theta / 2);
+        let half_width = aspect * half_height;
+        gl_matrix_1.vec3.copy(this.position, eye);
+        let target_to_eye = gl_matrix_1.vec3.sub(gl_matrix_1.vec3.create(), eye, target);
+        gl_matrix_1.vec3.normalize(target_to_eye, target_to_eye);
+        let right = gl_matrix_1.vec3.cross(gl_matrix_1.vec3.create(), up, target_to_eye);
+        gl_matrix_1.vec3.normalize(right, right);
+        let actual_up = gl_matrix_1.vec3.cross(gl_matrix_1.vec3.create(), target_to_eye, right);
+        this.lower_left_corner[0] =
+            this.position[0] -
+                focus_dist * half_width * right[0] -
+                focus_dist * half_height * actual_up[0] -
+                focus_dist * target_to_eye[0];
+        this.lower_left_corner[1] =
+            this.position[1] -
+                focus_dist * half_width * right[1] -
+                focus_dist * half_height * actual_up[1] -
+                focus_dist * target_to_eye[1];
+        this.lower_left_corner[2] =
+            this.position[2] -
+                focus_dist * half_width * right[2] -
+                focus_dist * half_height * actual_up[2] -
+                focus_dist * target_to_eye[2];
+        this.screen_horizontal = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), right, 2 * half_width * focus_dist);
+        this.screen_vertical = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), actual_up, 2 * half_height * focus_dist);
+    }
+    getRay(ray, u, v) {
+        let rand = this.temp2;
+        let offset = this.temp;
+        gl_matrix_1.vec3.scale(rand, randomInUnitDisk(rand), this.lens_radius);
+        offset[0] = this.screen_horizontal[0] * rand[0] + this.screen_vertical[0] * rand[1];
+        offset[1] = this.screen_horizontal[1] * rand[0] + this.screen_vertical[1] * rand[1];
+        offset[2] = this.screen_horizontal[2] * rand[0] + this.screen_vertical[2] * rand[1];
+        gl_matrix_1.vec3.add(ray.origin, this.position, offset);
+        ray.direction[0] =
+            this.lower_left_corner[0] +
+                u * this.screen_horizontal[0] +
+                v * this.screen_vertical[0] -
+                this.position[0] -
+                offset[0];
+        ray.direction[1] =
+            this.lower_left_corner[1] +
+                u * this.screen_horizontal[1] +
+                v * this.screen_vertical[1] -
+                this.position[1] -
+                offset[1];
+        ray.direction[2] =
+            this.lower_left_corner[2] +
+                u * this.screen_horizontal[2] +
+                v * this.screen_vertical[2] -
+                this.position[2] -
+                offset[2];
+        return ray;
+    }
+}
+exports.Camera = Camera;
+function randomInUnitDisk(out) {
+    do {
+        gl_matrix_1.vec3.set(out, 2 * SoftwareRenderer_1.default.nextFloat() - 1, 2 * SoftwareRenderer_1.default.nextFloat() - 1, 0);
+    } while (gl_matrix_1.vec3.dot(out, out) >= 1.0);
+    return out;
+}
+
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/Material.ts":
+/*!**************************************!*\
+  !*** ./src/gpu_renderer/Material.ts ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MatType;
+(function (MatType) {
+    MatType[MatType["Diffuse"] = 0] = "Diffuse";
+    MatType[MatType["Reflect"] = 1] = "Reflect";
+    MatType[MatType["Refract"] = 2] = "Refract";
+})(MatType = exports.MatType || (exports.MatType = {}));
+class Material {
+    constructor(type, color, modifier) {
+        this.type = type;
+        switch (type) {
+            case MatType.Diffuse:
+                this.diffuse = color;
+                break;
+            case MatType.Reflect:
+                this.reflect = color;
+                this.fuzz = modifier;
+                break;
+            case MatType.Refract:
+                this.refraction_index = modifier;
+                break;
+        }
+    }
+}
+exports.Material = Material;
+
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/WebglRenderer.ts":
+/*!*******************************************!*\
+  !*** ./src/gpu_renderer/WebglRenderer.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const shader_1 = __webpack_require__(/*! ./shader */ "./src/gpu_renderer/shader.ts");
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+const Material_1 = __webpack_require__(/*! ./Material */ "./src/gpu_renderer/Material.ts");
+const main_1 = __webpack_require__(/*! ../main */ "./src/main.ts");
+const Camera_1 = __webpack_require__(/*! ../Camera */ "./src/Camera.ts");
+const random = __webpack_require__(/*! fast-random */ "./node_modules/fast-random/index.js");
+const seed = 49;
+const gen = random(seed);
+class WebglRenderer {
+    constructor(canvas) {
+        this.current_source_id = 0;
+        this.sample_count = 0;
+        this.default_quadrants_row = main_1.is_mobile ? 4 : 3;
+        this.default_quadrants_col = main_1.is_mobile ? 4 : 3;
+        this.render_width = 0;
+        this.render_height = 0;
+        this.super_sampling = main_1.is_mobile ? 1 : 2;
+        this.max_ray_bounce = main_1.is_mobile ? 12 : 24;
+        this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
+        //if(is_mobile) this.super_sampling = 0;
+        if (this.super_sampling === 0)
+            this.super_sampling = 1;
+        this.num_quadrants =
+            this.super_sampling * this.super_sampling * this.default_quadrants_row * this.default_quadrants_col;
+        this.current_quadrant = 0;
+        this.initGL(canvas);
+        this.initRenderTexture();
+        this.initShader();
+        let aperture = 0.01;
+        let eye = gl_matrix_1.vec3.fromValues(10, 1.9, 2.5);
+        let target = gl_matrix_1.vec3.fromValues(4, 0.5, 1);
+        let up = gl_matrix_1.vec3.fromValues(0, 1, 0);
+        let dist_to_focus = gl_matrix_1.vec3.distance(eye, target);
+        this.bigSphereScene();
+        this.setCamera(eye, target, up, 30, this.gl.drawingBufferWidth / this.gl.drawingBufferHeight, aperture, dist_to_focus);
+        this.initBuffers();
+    }
+    draw() {
+        let gl = this.gl;
+        let destination_id = (this.current_source_id + 1) % 2;
+        //RENDER TO TEXTURE
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[destination_id]);
+        gl.viewport(0, 0, this.render_width, this.render_height);
+        this.shader.use();
+        this.shader.setIntByName("sample_count", this.sample_count);
+        this.shader.setFloatByName("rand_seed0", gen.nextFloat());
+        this.shader.setFloatByName("rand_seed1", gen.nextFloat());
+        this.shader.setIntByName("current_quadrant", this.current_quadrant);
+        //Wiggle for anti-aliasing
+        this.wiggleCamera();
+        gl.bindVertexArray(this.VAO);
+        gl.bindTexture(gl.TEXTURE_2D, this.float_textures[this.current_source_id]);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        //Draw to float texture and quad render texture
+        gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        this.quad_shader.use();
+        gl.bindVertexArray(this.VAO);
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        if (this.current_source_id == 0)
+            this.current_quadrant++;
+        if (this.current_quadrant >= this.num_quadrants) {
+            this.current_quadrant = 0;
+            this.sample_count++;
+            //  this.current_source_id = (this.current_source_id + 1) % 2;
+        }
+        // Ping pong the buffers
+        this.current_source_id = (this.current_source_id + 1) % 2;
+    }
+    getSampleCount() {
+        return this.sample_count * 2.0;
+    }
+    initGL(canvas) {
+        try {
+            this.gl = canvas.getContext("webgl2");
+        }
+        catch (e) {
+            throw "GL init error:\n" + e;
+        }
+        if (!this.gl) {
+            alert("WebGL2 is not available on your browser.");
+        }
+        this.gl.disable(this.gl.SAMPLE_COVERAGE);
+        this.gl.clearColor(0.2, 0.3, 0.3, 1.0);
+        this.gl.disable(this.gl.DEPTH_TEST);
+    }
+    initShader() {
+        let gl = this.gl;
+        const frag = __webpack_require__(/*! gpu_renderer/shaders/basic.frag */ "./src/gpu_renderer/shaders/basic.frag");
+        const vert = __webpack_require__(/*! gpu_renderer/shaders/basic.vert */ "./src/gpu_renderer/shaders/basic.vert");
+        this.shader = new shader_1.Shader(this.gl, vert, frag);
+        this.quad_shader = new shader_1.Shader(gl, __webpack_require__(/*! gpu_renderer/shaders/quad.vert */ "./src/gpu_renderer/shaders/quad.vert"), __webpack_require__(/*! gpu_renderer/shaders/quad.frag */ "./src/gpu_renderer/shaders/quad.frag"));
+        this.shader.setAttributes(["a_vertex"]);
+        let uniforms = new Map();
+        uniforms.set("width", this.gl.drawingBufferWidth);
+        uniforms.set("height", this.gl.drawingBufferHeight);
+        this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
+        this.shader.setIntByName("num_quadrants", this.num_quadrants);
+        this.shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row);
+        // this.addSpheres(uniforms);
+        this.shader.setIntByName("last_frame", 0);
+        uniforms.set("ambient_light", this.ambient_light);
+        this.shader.setUniforms(uniforms);
+        gl.bindVertexArray(this.VAO);
+        this.quad_shader.use();
+        this.quad_shader.setIntByName("u_texture", 0);
+    }
+    initRenderTexture() {
+        let gl = this.gl;
+        this.render_width = this.gl.drawingBufferWidth * this.super_sampling;
+        this.render_height = this.gl.drawingBufferHeight * this.super_sampling;
+        //Texture that is rendered to screen
+        this.quad_render_texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
+        // prettier-ignore
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        //Set up a frame buffer
+        this.frame_buffers = [gl.createFramebuffer(), gl.createFramebuffer()];
+        //Float texture support
+        this.float_tex_ext = gl.getExtension("EXT_color_buffer_float");
+        // The float texture we're going to render to
+        this.float_textures = [gl.createTexture(), gl.createTexture()];
+        for (let buffer_id = 0; buffer_id < this.frame_buffers.length; buffer_id++) {
+            // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+            gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[buffer_id]);
+            gl.bindTexture(gl.TEXTURE_2D, this.float_textures[buffer_id]);
+            // prettier-ignore
+            if (this.float_tex_ext)
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, this.render_width, this.render_height, 0, gl.RGBA, gl.FLOAT, null);
+            else
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.render_width, this.render_height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            //Set "float_texture" as our color attachment #0
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.float_textures[buffer_id], 0);
+            //Set "quad_render_texture" as our color attachment #1
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT1, gl.TEXTURE_2D, this.quad_render_texture, 0);
+            //Completed
+            const a = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+            console.log(`${a === gl.FRAMEBUFFER_COMPLETE ? "good" : "bad  "} frame buffer ${buffer_id}`);
+        }
+    }
+    bigSphereScene() {
+        this.shader.use();
+        let gl = this.gl;
+        //RGBA32F
+        let sphere_tex = gl.createTexture();
+        //RGBA8I
+        let mat_tex = gl.createTexture();
+        //RGBA32F
+        let mat_tex2 = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, sphere_tex);
+        let sphere_array = [];
+        let mat_array = [];
+        let mat_array2 = [];
+        sphere_array.push(0, -1000, 0, 1000);
+        mat_array.push(0.5 * 255, 0.5 * 255, 0.5 * 255, 255);
+        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
+        sphere_array.push(0, 1, 0, 1);
+        mat_array.push(0, 255, 0, 0);
+        mat_array2.push(Material_1.MatType.Refract, 1.2, 0, 0);
+        sphere_array.push(0, 1, 0, -0.95);
+        mat_array.push(0, 0, 0, 0);
+        mat_array2.push(Material_1.MatType.Refract, 1.2, 0, 0);
+        sphere_array.push(-4, 1, 0, 1);
+        mat_array.push(0.4 * 255, 0.2 * 255, 0.1 * 255, 0);
+        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
+        sphere_array.push(4, 1, 0, 1);
+        mat_array.push(0.7 * 255, 0.6 * 255, 0.5 * 255, 0);
+        mat_array2.push(Material_1.MatType.Reflect, 0, 0, 0);
+        let j = main_1.is_mobile ? -2 : -11;
+        let k = main_1.is_mobile ? 7 : 11;
+        for (let a = j; a < k; a++) {
+            for (let b = j; b < k; b++) {
+                let choose_mat = gen.nextFloat();
+                let center = gl_matrix_1.vec3.fromValues(a + 0.9 * gen.nextFloat(), 0.2, b + 0.9 * gen.nextFloat());
+                if (gl_matrix_1.vec3.distance(center, gl_matrix_1.vec3.fromValues(4, 0.2, 0)) > 0.9) {
+                    if (choose_mat < 0.5) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(gen.nextFloat() * 255, gen.nextFloat() * 255, gen.nextFloat() * 255, 0);
+                        mat_array2.push(Material_1.MatType.Diffuse, 0, 0, 0);
+                    }
+                    else if (choose_mat < 0.75) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(0.5 * (1 + gen.nextFloat()) * 255, 0.5 * (1 + gen.nextFloat()) * 255, 0.5 * (1 + gen.nextFloat()) * 255, 0);
+                        mat_array2.push(Material_1.MatType.Reflect, 0.5 * gen.nextFloat(), 0, 0);
+                    }
+                    else if (choose_mat < 0.95) {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
+                    }
+                    else {
+                        sphere_array.push(center[0], center[1], center[2], 0.2);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
+                        sphere_array.push(center[0], center[1], center[2], -0.18);
+                        mat_array.push(0, 0, 0, 0);
+                        mat_array2.push(Material_1.MatType.Refract, 1.5, 0, 0);
+                    }
+                }
+            }
+        }
+        let width = sphere_array.length / 4;
+        let num_spheres = width;
+        //We must round up the texture to the nearest multiple of 2 or it will not read properly
+        width = Math.pow(2, Math.ceil(Math.log(width) / Math.log(2)));
+        for (let i = num_spheres; i <= width; i++) {
+            sphere_array.push(0, 0, 0, 0);
+            mat_array.push(0, 0, 0, 0);
+            mat_array2.push(0, 0, 0, 0);
+        }
+        let height = 1;
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, sphere_tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width, height, 0, gl.RGBA, gl.FLOAT, new Float32Array(sphere_array));
+        this.shader.setIntByName("sphere_texture", 1);
+        gl.activeTexture(gl.TEXTURE2);
+        gl.bindTexture(gl.TEXTURE_2D, mat_tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(mat_array));
+        this.shader.setIntByName("mat_texture", 2);
+        gl.activeTexture(gl.TEXTURE3);
+        gl.bindTexture(gl.TEXTURE_2D, mat_tex2);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width, height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
+        this.shader.setIntByName("mat_texture_extra", 3);
+        this.shader.setIntByName("sphere_count", num_spheres);
+        this.shader.setFloatByName("sphere_texture_size", width);
+    }
+    setCamera(eye, target, up, vFov, aspect, aperture, focus_dist) {
+        let cam = new Camera_1.Camera(eye, target, up, vFov, aspect, aperture, focus_dist);
+        this.shader.use();
+        this.shader.setVec3ByName("screen.lower_left_corner", cam.lower_left_corner);
+        this.shader.setVec3ByName("screen.horizontal", cam.screen_horizontal);
+        this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
+        this.shader.setVec3ByName("screen.position", cam.position);
+        this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
+    }
+    wiggleCamera() {
+        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
+    }
+    initBuffers() {
+        let gl = this.gl;
+        this.vertex_buffer = gl.createBuffer();
+        this.VAO = gl.createVertexArray();
+        //prettier-ignore
+        let vertices = [
+            -1.0, -1.0, 0.0,
+            1.0, -1.0, 0.0,
+            -1.0, 1.0, 0.0,
+            -1.0, 1.0, 0.0,
+            1.0, -1.0, 0.0,
+            1.0, 1.0, 0.0
+        ];
+        gl.bindVertexArray(this.VAO);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(this.shader.getAttribLocation("a_vertex"));
+        gl.vertexAttribPointer(this.shader.getAttribLocation("a_vertex"), 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindVertexArray(null);
+    }
+}
+exports.WebglRenderer = WebglRenderer;
+
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/shader.ts":
+/*!************************************!*\
+  !*** ./src/gpu_renderer/shader.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class Shader {
+    constructor(gl, vertexSourceCode, fragmentSourceCode) {
+        this.gl = gl;
+        let vertexShader = this.getShader(gl, vertexSourceCode, gl.VERTEX_SHADER);
+        let fragmentShader = this.getShader(gl, fragmentSourceCode, gl.FRAGMENT_SHADER);
+        this.ID = gl.createProgram();
+        gl.attachShader(this.ID, vertexShader);
+        gl.attachShader(this.ID, fragmentShader);
+        gl.linkProgram(this.ID);
+        if (!gl.getProgramParameter(this.ID, gl.LINK_STATUS)) {
+            alert("Could not initialize shaders");
+        }
+        this.uniforms = new Map();
+        this.attributes = new Map();
+    }
+    delete() {
+        this.gl.deleteShader(this.ID);
+        delete this.uniforms;
+        delete this.attributes;
+    }
+    use() {
+        this.gl.useProgram(this.ID);
+    }
+    setAttributes(attr) {
+        this.use();
+        for (let a of attr) {
+            this.attributes.set(a, this.gl.getAttribLocation(this.ID, a));
+        }
+    }
+    setUniforms(uniforms) {
+        this.use();
+        for (let [name, value] of uniforms) {
+            if (value)
+                this.setAny(name, value);
+        }
+    }
+    getUniformLocation(name) {
+        let a = this.uniforms.get(name);
+        if (a === undefined) {
+            a = this.gl.getUniformLocation(this.ID, name);
+            this.uniforms.set(name, a);
+        }
+        return a;
+    }
+    getAttribLocation(name) {
+        let a = this.attributes.get(name);
+        if (a === undefined)
+            a = this.gl.getAttribLocation(this.ID, name);
+        return a;
+    }
+    setBool(id, value) {
+        this.gl.uniform1i(id, value ? 1 : 0);
+    }
+    setBoolByName(name, value) {
+        this.gl.uniform1i(this.getUniformLocation(name), value ? 1 : 0);
+    }
+    setInt(id, value) {
+        this.gl.uniform1i(id, value);
+    }
+    setIntByName(name, value) {
+        this.gl.uniform1i(this.getUniformLocation(name), value);
+    }
+    setIntV(id, value) {
+        this.gl.uniform1iv(id, value);
+    }
+    setIntVByName(name, value) {
+        this.gl.uniform1iv(this.getUniformLocation(name), value);
+    }
+    setFloat(id, value) {
+        this.gl.uniform1f(id, value);
+    }
+    setFloatByName(name, value) {
+        this.gl.uniform1f(this.getUniformLocation(name), value);
+    }
+    setMat4(id, matrix) {
+        this.gl.uniformMatrix4fv(id, false, matrix);
+    }
+    setMat4ByName(name, matrix) {
+        this.gl.uniformMatrix4fv(this.getUniformLocation(name), false, matrix);
+    }
+    setVec3(id, vec) {
+        this.gl.uniform3fv(id, vec);
+    }
+    setVec3ByName(name, vec) {
+        this.gl.uniform3fv(this.getUniformLocation(name), vec);
+    }
+    setVec4(id, vec) {
+        this.gl.uniform4fv(id, vec);
+    }
+    setVec4ByName(name, vec) {
+        this.gl.uniform4fv(this.getUniformLocation(name), vec);
+    }
+    setAny(name, value) {
+        let uniform = this.getUniformLocation(name);
+        if (typeof value === "number") {
+            this.setFloat(uniform, value);
+        }
+        else if (value === "boolean") {
+            this.setBool(uniform, value);
+        }
+        else if (value instanceof Float32Array) {
+            if (value.length == 3)
+                this.setVec3(uniform, value);
+            if (value.length == 4)
+                this.setVec4(uniform, value);
+            if (value.length == 16)
+                this.setMat4(uniform, value);
+        }
+    }
+    getShader(gl, sourceCode, type) {
+        let shader;
+        shader = gl.createShader(type);
+        gl.shaderSource(shader, sourceCode);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(shader));
+            return null;
+        }
+        return shader;
+    }
+}
+exports.Shader = Shader;
+
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/shaders/basic.frag":
+/*!*********************************************!*\
+  !*** ./src/gpu_renderer/shaders/basic.frag ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp float;\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nlayout(location=0) out vec4 fragColor;\r\nlayout(location=1) out vec4 fragColor2;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n    Material mat;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\n\r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / float(sphere_texture_size);\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.01, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color*final_color;\r\n}\r\n\r\nvoid main()\r\n{      \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n\r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n\r\n    vec3 new_color = color(ray);\r\n\r\n    float blend =  1.0 / float(sample_count+1);\r\n    //if(blend < 0.0025) blend = 0.0025;\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n\r\n    fragColor = vec4(final_color,1.0);         \r\n    fragColor2 = fragColor;\r\n    \r\n}\r\n\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/shaders/basic.vert":
+/*!*********************************************!*\
+  !*** ./src/gpu_renderer/shaders/basic.vert ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp  float;\r\nlayout (location = 0) in vec3 a_vertex;\r\n\r\nout vec2 pos;\r\nout vec3 eye;\r\nout vec3 ray_direction;\r\n\r\nconst vec2 pos_fix = vec2(0.5);\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform float width;\r\nuniform float height;\r\n\r\nuniform int num_quadrants;\r\nuniform int current_quadrant;\r\nuniform int quadrants_per_row;\r\n\r\nfloat random2(vec3 scale, float seed){\r\n    return fract(sin(dot(a_vertex + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvoid main()\r\n{\r\n    //match the quad to the quadrant we are rendering\r\n    float scale = 1. / float(quadrants_per_row);\r\n    vec3 new_vertex = a_vertex * vec3(scale) + vec3(float(1) - vec3(scale)) ;\r\n    \r\n    new_vertex.x -=  float(current_quadrant%quadrants_per_row) * scale * 2.;\r\n    new_vertex.y -=  floor(float(current_quadrant) / float(quadrants_per_row)) * scale * 2.;\r\n    \r\n    //fix position from -1 to 1 to 0 to 1\r\n    pos = new_vertex.xy * pos_fix + pos_fix;\r\n    \r\n    eye = screen.position;\r\n\r\n    ray_direction = screen.lower_left_corner +\r\n        screen.x_wiggle*1.0 + pos.x * screen.horizontal + \r\n        screen.y_wiggle*1.0 + pos.y * screen.vertical - \r\n        eye;\r\n        \r\n    gl_Position = vec4(new_vertex,1.0);\r\n}   "
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/shaders/quad.frag":
+/*!********************************************!*\
+  !*** ./src/gpu_renderer/shaders/quad.frag ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision mediump float;\r\n// Ouput data\r\nlayout(location = 0) out vec4 color;\r\n\r\nuniform sampler2D u_texture;\r\n\r\nin vec2 tex_coord;\r\n\r\n// Converts a color from linear light gamma to sRGB gamma\r\nvec4 fromLinear(vec4 linearRGB)\r\n{\r\n    bvec4 cutoff = lessThan(linearRGB, vec4(0.0031308));\r\n    vec4 higher = vec4(1.055)*pow(linearRGB, vec4(1.0/2.4)) - vec4(0.055);\r\n    vec4 lower = linearRGB * vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\n// Converts a color from sRGB gamma to linear light gamma\r\nvec4 toLinear(vec4 sRGB)\r\n{\r\n    bvec4 cutoff = lessThan(sRGB, vec4(0.04045));\r\n    vec4 higher = pow((sRGB + vec4(0.055))/vec4(1.055), vec4(2.4));\r\n    vec4 lower = sRGB/vec4(12.92);\r\n\r\n    return mix(higher, lower, cutoff);\r\n}\r\n\r\nvoid main()\r\n{\r\n\tvec3 c = texture(u_texture, tex_coord).rgb;\r\n\tcolor = fromLinear(vec4(c,1.0));\r\n//    if (tex_coord.x < 0.25)\r\n//        color = vec4(pow(color.r, 1./2.2),pow(color.g, 1./2.2),pow(color.b, 1./2.2),1.0);   // 2.2 Gamma\r\n//    else if (tex_coord.x < 0.5)\r\n//        color = fromLinear(color);        // sRGB \r\n//    else if (tex_coord.x < 0.75)\r\n//        color = (sqrt(color));    // sqrt approximation         \r\n//    else\r\n//        color = color;                // unadjusted\r\n}"
+
+/***/ }),
+
+/***/ "./src/gpu_renderer/shaders/quad.vert":
+/*!********************************************!*\
+  !*** ./src/gpu_renderer/shaders/quad.vert ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\n\r\n// Input vertex data, different for all executions of this shader.\r\nlayout(location = 0) in vec3 a_vertex;\r\n\r\n// Output data ; will be interpolated for each fragment.\r\nout vec2 tex_coord;\r\n\r\nvoid main()\r\n{\r\n\tgl_Position =  vec4(a_vertex,1);\r\n\ttex_coord = (a_vertex.xy + vec2(1.0,1.0)) / (2.0);\r\n}\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/main.ts":
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const WebglRenderer_1 = __webpack_require__(/*! ./gpu_renderer/WebglRenderer */ "./src/gpu_renderer/WebglRenderer.ts");
+let software_renderer;
+let webgl_renderer;
+exports.is_mobile = false;
+let min_frame_time = 33;
+let last_time = 0;
+let render_passes = 0;
+let temp_count = 0;
+let passes = 10000;
+(function loadWebGL() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        exports.is_mobile = true;
+        min_frame_time = 33;
+    }
+    let canvas_webgl2 = document.getElementById("canvas-webgl2");
+    // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
+    // software_renderer = new SoftwareRenderer(canvas);
+    webgl_renderer = new WebglRenderer_1.WebglRenderer(canvas_webgl2);
+    last_time = Date.now();
+    let desc = document.getElementById("desc");
+    desc.innerText = "" + canvas_webgl2.width + "x" + canvas_webgl2.height + " " + webgl_renderer.super_sampling + "x Super Sampling";
+    drawScene();
+    //  drawCanvas();
+})();
+function drawScene() {
+    let now = Date.now();
+    if (now - last_time > min_frame_time) {
+        if (render_passes < passes) {
+            requestAnimationFrame(drawWebgl);
+            last_time = now;
+        }
+    }
+    else
+        setTimeout(drawScene, min_frame_time - (now - last_time));
+}
+function drawWebgl() {
+    webgl_renderer.draw();
+    document.getElementById("webgl-text").textContent = "" + webgl_renderer.getSampleCount();
+    drawScene();
+}
+function drawCanvas() {
+    let now = Date.now();
+    software_renderer.draw();
+    document.getElementById("canvas-text").textContent = " " + (Date.now() - now).toFixed(2) + " ms";
+}
+
+
+/***/ }),
+
+/***/ "./src/renderer/Hitable.ts":
+/*!*********************************!*\
+  !*** ./src/renderer/Hitable.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+class HitRecord {
+    constructor(t = 0, pos = gl_matrix_1.vec3.create(), normal = gl_matrix_1.vec3.create()) {
+        this.t = t;
+        this.pos = pos;
+        this.normal = normal;
+        this.material = null;
+    }
+    clear() {
+        this.t = 0;
+        gl_matrix_1.vec3.set(this.pos, 0, 0, 0);
+        gl_matrix_1.vec3.set(this.normal, 0, 0, 0);
+        this.material = null;
+    }
+}
+exports.HitRecord = HitRecord;
+class Hitable {
+}
+exports.Hitable = Hitable;
+
+
+/***/ }),
+
+/***/ "./src/renderer/HitableList.ts":
+/*!*************************************!*\
+  !*** ./src/renderer/HitableList.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const Hitable_1 = __webpack_require__(/*! ./Hitable */ "./src/renderer/Hitable.ts");
+class HitableList extends Hitable_1.Hitable {
+    constructor(list = []) {
+        super();
+        this.list = list;
+        this.temp_rec = new Hitable_1.HitRecord();
+    }
+    hit(ray, t_min, t_max, rec) {
+        let hit_anything = false;
+        let closest_so_far = t_max;
+        for (let hitable of this.list) {
+            if (hitable.hit(ray, t_min, closest_so_far, rec)) {
+                hit_anything = true;
+                closest_so_far = rec.t;
+            }
+        }
+        return hit_anything;
+    }
+}
+exports.HitableList = HitableList;
+
+
+/***/ }),
+
+/***/ "./src/renderer/Material.ts":
+/*!**********************************!*\
+  !*** ./src/renderer/Material.ts ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+const SoftwareRenderer_1 = __webpack_require__(/*! ./SoftwareRenderer */ "./src/renderer/SoftwareRenderer.ts");
+class Material {
+}
+exports.Material = Material;
+class Lambertian extends Material {
+    constructor(albedo = gl_matrix_1.vec3.create()) {
+        super();
+        this.temp = gl_matrix_1.vec3.create();
+        this.albedo = albedo;
+    }
+    scatter(scattered_out, ray, rec, attenuation) {
+        // vec3.add(this.temp, rec.pos, );
+        gl_matrix_1.vec3.add(this.temp, randomInUnitSphere(this.temp), rec.normal);
+        gl_matrix_1.vec3.copy(scattered_out.origin, rec.pos);
+        gl_matrix_1.vec3.copy(scattered_out.direction, this.temp);
+        gl_matrix_1.vec3.copy(attenuation, this.albedo);
+        return true;
+    }
+}
+exports.Lambertian = Lambertian;
+class Metal extends Material {
+    constructor(albedo = gl_matrix_1.vec3.create(), fuzz = 0) {
+        super();
+        this.temp = gl_matrix_1.vec3.create();
+        this.albedo = gl_matrix_1.vec3.create();
+        this.albedo = albedo;
+        this.fuzz = fuzz > 1 ? 1 : (fuzz < 0 ? 0 : fuzz);
+    }
+    scatter(scattered_out, ray, rec, attenuation) {
+        gl_matrix_1.vec3.normalize(this.temp, ray.direction);
+        gl_matrix_1.vec3.copy(scattered_out.origin, rec.pos);
+        gl_matrix_1.vec3.add(scattered_out.direction, reflect(scattered_out.direction, this.temp, rec.normal), gl_matrix_1.vec3.scale(randomInUnitSphere(this.temp), this.temp, this.fuzz));
+        gl_matrix_1.vec3.copy(attenuation, this.albedo);
+        return gl_matrix_1.vec3.dot(scattered_out.direction, rec.normal) > 0.0;
+    }
+}
+exports.Metal = Metal;
+class Dielectric extends Material {
+    constructor(ref_idx) {
+        super();
+        this.temp = gl_matrix_1.vec3.create();
+        this.outward_normal = gl_matrix_1.vec3.create();
+        this.refracted = gl_matrix_1.vec3.create();
+        this.reflected = gl_matrix_1.vec3.create();
+        this.refraction_index = ref_idx;
+    }
+    scatter(scattered_out, ray, rec, attenuation) {
+        let ni_over_nt;
+        let cosine;
+        let reflect_prob;
+        gl_matrix_1.vec3.normalize(this.temp, ray.direction);
+        reflect(this.reflected, this.temp, rec.normal);
+        gl_matrix_1.vec3.set(attenuation, 1, 1, 1);
+        if (gl_matrix_1.vec3.dot(ray.direction, rec.normal) > 0.0) {
+            gl_matrix_1.vec3.negate(this.outward_normal, rec.normal);
+            ni_over_nt = this.refraction_index;
+            cosine = this.refraction_index * gl_matrix_1.vec3.dot(ray.direction, rec.normal) / gl_matrix_1.vec3.length(ray.direction);
+        }
+        else {
+            gl_matrix_1.vec3.copy(this.outward_normal, rec.normal);
+            ni_over_nt = 1.0 / this.refraction_index;
+            cosine = -gl_matrix_1.vec3.dot(ray.direction, rec.normal) / gl_matrix_1.vec3.length(ray.direction);
+        }
+        // vec3.normalize(this.outward_normal,this.outward_normal);
+        gl_matrix_1.vec3.normalize(this.temp, ray.direction);
+        refract(this.refracted, this.temp, this.outward_normal, ni_over_nt);
+        if (gl_matrix_1.vec3.length(this.refracted) > 0.0) {
+            reflect_prob = schlick(cosine, this.refraction_index);
+        }
+        else {
+            reflect_prob = 1.0;
+        }
+        if (SoftwareRenderer_1.default.nextFloat() < reflect_prob) {
+            gl_matrix_1.vec3.copy(scattered_out.direction, this.reflected);
+        }
+        else {
+            gl_matrix_1.vec3.copy(scattered_out.direction, this.refracted);
+        }
+        gl_matrix_1.vec3.copy(scattered_out.origin, rec.pos);
+        return true;
+    }
+}
+exports.Dielectric = Dielectric;
+function randomInUnitSphere(out) {
+    do {
+        gl_matrix_1.vec3.set(out, 2 * SoftwareRenderer_1.default.nextFloat() - 1, 2 * SoftwareRenderer_1.default.nextFloat() - 1, 2 * SoftwareRenderer_1.default.nextFloat() - 1);
+    } while (gl_matrix_1.vec3.dot(out, out) >= 1.0);
+    return out;
+}
+function reflect(out, v, n) {
+    let dot = gl_matrix_1.vec3.dot(n, v);
+    out[0] = v[0] - (n[0] * 2 * dot);
+    out[1] = v[1] - (n[1] * 2 * dot);
+    out[2] = v[2] - (n[2] * 2 * dot);
+    return out;
+}
+function refract(refracted_out, v, n, ni_over_nt) {
+    let dt = gl_matrix_1.vec3.dot(v, n);
+    let discriminant = 1.0 - ni_over_nt * ni_over_nt * (1.0 - dt * dt);
+    if (discriminant > 0.0) {
+        //Book formula - v must be normalized
+        //refracted = ni_over_nt * ( v - n*dt) - n * sqrt(discriminant);
+        let sq = Math.sqrt(discriminant);
+        refracted_out[0] = ni_over_nt * (v[0] - n[0] * dt) - n[0] * sq;
+        refracted_out[1] = ni_over_nt * (v[1] - n[1] * dt) - n[1] * sq;
+        refracted_out[2] = ni_over_nt * (v[2] - n[2] * dt) - n[2] * sq;
+        //OpenGL formula - v,n must be normalized
+        //refracted = ni_over_nt * v - (ni_over_nt * dt + sqrt(discriminant)) * n;
+        return true;
+    }
+    else
+        gl_matrix_1.vec3.set(refracted_out, 0, 0, 0);
+    return false;
+}
+function schlick(cosine, ref_idx) {
+    let r0 = (1 - ref_idx) / (1 + ref_idx);
+    r0 = r0 * r0;
+    return r0 + (1 - r0) * Math.pow((1 - cosine), 5);
+}
+
+
+/***/ }),
+
+/***/ "./src/renderer/Ray.ts":
+/*!*****************************!*\
+  !*** ./src/renderer/Ray.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+class Ray {
+    constructor(origin = gl_matrix_1.vec3.create(), direction = gl_matrix_1.vec3.create()) {
+        this.origin = origin;
+        this.direction = direction;
+    }
+    pointAtParameter(out, t) {
+        out[0] = this.origin[0] + t * this.direction[0];
+        out[1] = this.origin[1] + t * this.direction[1];
+        out[2] = this.origin[2] + t * this.direction[2];
+        return out;
+    }
+}
+exports.Ray = Ray;
+
+
+/***/ }),
+
+/***/ "./src/renderer/SoftwareRenderer.ts":
+/*!******************************************!*\
+  !*** ./src/renderer/SoftwareRenderer.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+const Ray_1 = __webpack_require__(/*! ./Ray */ "./src/renderer/Ray.ts");
+const Hitable_1 = __webpack_require__(/*! ./Hitable */ "./src/renderer/Hitable.ts");
+const Sphere_1 = __webpack_require__(/*! ./Sphere */ "./src/renderer/Sphere.ts");
+const HitableList_1 = __webpack_require__(/*! ./HitableList */ "./src/renderer/HitableList.ts");
+const Camera_1 = __webpack_require__(/*! ../Camera */ "./src/Camera.ts");
+const Material_1 = __webpack_require__(/*! ./Material */ "./src/renderer/Material.ts");
+const main_1 = __webpack_require__(/*! ../main */ "./src/main.ts");
+const random = __webpack_require__(/*! fast-random */ "./node_modules/fast-random/index.js");
+const seed = 1;
+const gen = random(seed);
+exports.default = gen;
+class SoftwareRenderer {
+    constructor(canvas) {
+        this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
+        this.temp = gl_matrix_1.vec3.create();
+        this.temp_rec = new Hitable_1.HitRecord();
+        this.max_ray_bounce = main_1.is_mobile ? 8 : 16;
+        this.num_samples = main_1.is_mobile ? 12 : 16;
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+        this.image_data = this.ctx.createImageData(this.canvas.width, this.canvas.height);
+    }
+    draw() {
+        let width = this.canvas.width;
+        let height = this.canvas.height;
+        let color = gl_matrix_1.vec3.create();
+        let sum_color = gl_matrix_1.vec3.create();
+        let list = Array(5);
+        list[0] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(0, 0, -1), 0.5, new Material_1.Lambertian(gl_matrix_1.vec3.fromValues(0.1, 0.2, 0.5)));
+        list[1] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(0, -100.5, -1), 100, new Material_1.Lambertian(gl_matrix_1.vec3.fromValues(0.8, 0.8, 0.0)));
+        list[2] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(1, 0, -1), 0.5, new Material_1.Metal(gl_matrix_1.vec3.fromValues(0.8, 0.6, 0.2), 0.3));
+        list[3] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(-1, 0, -1), 0.5, new Material_1.Dielectric(1.5));
+        list[4] = new Sphere_1.Sphere(gl_matrix_1.vec3.fromValues(-1, 0, -1), -0.45, new Material_1.Dielectric(1.5));
+        let world = new HitableList_1.HitableList(list);
+        let aperture = 0.02;
+        let eye = gl_matrix_1.vec3.fromValues(3, 3, 2);
+        let target = gl_matrix_1.vec3.fromValues(0, 0, -1);
+        let up = gl_matrix_1.vec3.fromValues(0, 1, 0);
+        let dist_to_focus = gl_matrix_1.vec3.distance(eye, target);
+        let cam = new Camera_1.Camera(eye, target, up, 20, width / height, aperture, dist_to_focus);
+        let ray = new Ray_1.Ray();
+        //Self Sample
+        // for (let s = 0; s < num_samples; s++) {
+        //     for (let y = 0; y < height; y++) {
+        //         for (let x = 0; x < width; x++) {
+        //             this.getPixelv3f(this.image_data, x, y, sum_color);
+        //             let u = (x + gen.random()) / width;
+        //             let v = 1 - (y + gen.random()) / height;
+        //             let ray = cam.getRay(u, v);
+        //             ray.pointAtParameter(temp, 2.0);
+        //             this.color(color, ray, world);
+        //             //vec3.add(sum_color, sum_color, color);
+        //             this.colorLERP(sum_color, sum_color, color, 1 / (s + 1));
+        //             this.setPixelv3f(this.image_data, x, y, sum_color);
+        //         }
+        //     }
+        //
+        //     this.ctx.putImageData(this.image_data, 0, 0);
+        // }
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                gl_matrix_1.vec3.set(sum_color, 0, 0, 0);
+                for (let s = 0; s < this.num_samples; s++) {
+                    let u = (x + gen.nextFloat() - 0.5) / width;
+                    let v = 1 - (y + gen.nextFloat() - 0.5) / height;
+                    cam.getRay(ray, u, v);
+                    //ray.pointAtParameter(temp, 2.0);
+                    this.color(color, ray, world);
+                    gl_matrix_1.vec3.add(sum_color, sum_color, color);
+                }
+                gl_matrix_1.vec3.scale(sum_color, sum_color, 1 / this.num_samples);
+                gl_matrix_1.vec3.set(sum_color, Math.sqrt(sum_color[0]), Math.sqrt(sum_color[1]), Math.sqrt(sum_color[2]));
+                this.setPixelv3f(this.image_data, x, y, sum_color);
+            }
+        }
+        this.ctx.putImageData(this.image_data, 0, 0);
+    }
+    color(out, ray, world) {
+        let frac = gl_matrix_1.vec3.fromValues(1, 1, 1);
+        let attenuation = gl_matrix_1.vec3.create();
+        for (let ray_bounce = 0; ray_bounce <= this.max_ray_bounce; ray_bounce++) {
+            if (world.hit(ray, 0.001, Number.MAX_VALUE, this.temp_rec)) {
+                if (this.temp_rec.material.scatter(ray, ray, this.temp_rec, attenuation)) {
+                    gl_matrix_1.vec3.mul(frac, frac, attenuation);
+                }
+                else {
+                    gl_matrix_1.vec3.set(frac, 0, 0, 0);
+                }
+            }
+            else {
+                gl_matrix_1.vec3.copy(this.temp, ray.direction);
+                gl_matrix_1.vec3.normalize(this.temp, this.temp);
+                let t = 0.5 * (this.temp[1] + 1.0);
+                gl_matrix_1.vec3.set(out, 1.0 - t + t * this.ambient_light[0], 1.0 - t + t * this.ambient_light[1], 1.0 - t + t * this.ambient_light[2]);
+                break;
+            }
+        }
+        gl_matrix_1.vec3.mul(out, out, frac);
+        return out;
+    }
+    colorLERP(out_color, color1, color2, t) {
+        out_color[0] = color1[0] * (1 - t) + color2[0] * t;
+        out_color[1] = color1[1] * (1 - t) + color2[1] * t;
+        out_color[2] = color1[2] * (1 - t) + color2[2] * t;
+    }
+    setPixelv3f(imageData, x, y, vec, a = 1.0) {
+        let index = (x + y * imageData.width) * 4;
+        imageData.data[index + 0] = vec[0] * 255.99;
+        imageData.data[index + 1] = vec[1] * 255.99;
+        imageData.data[index + 2] = vec[2] * 255.99;
+        imageData.data[index + 3] = a * 255.99;
+    }
+    getPixelv3f(imageData, x, y, out_color) {
+        let index = (x + y * imageData.width) * 4;
+        out_color[0] = imageData.data[index + 0] / 255;
+        out_color[1] = imageData.data[index + 1] / 255;
+        out_color[2] = imageData.data[index + 2] / 255;
+    }
+    setPixelf(imageData, x, y, r, g, b, a = 1.0) {
+        let index = (x + y * imageData.width) * 4;
+        imageData.data[index + 0] = r * 255.99;
+        imageData.data[index + 1] = g * 255.99;
+        imageData.data[index + 2] = b * 255.99;
+        imageData.data[index + 3] = a * 255.99;
+    }
+    setPixel(imageData, x, y, r, g, b, a = 255) {
+        let index = (x + y * imageData.width) * 4;
+        imageData.data[index + 0] = r;
+        imageData.data[index + 1] = g;
+        imageData.data[index + 2] = b;
+        imageData.data[index + 3] = a;
+    }
+    setPixelv3(imageData, x, y, vec, a = 255) {
+        let index = (x + y * imageData.width) * 4;
+        imageData.data[index + 0] = vec[0];
+        imageData.data[index + 1] = vec[1];
+        imageData.data[index + 2] = vec[2];
+        imageData.data[index + 3] = a;
+    }
+}
+exports.SoftwareRenderer = SoftwareRenderer;
+
+
+/***/ }),
+
+/***/ "./src/renderer/Sphere.ts":
+/*!********************************!*\
+  !*** ./src/renderer/Sphere.ts ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const Hitable_1 = __webpack_require__(/*! ./Hitable */ "./src/renderer/Hitable.ts");
+const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
+class Sphere extends Hitable_1.Hitable {
+    constructor(center, radius, material) {
+        super();
+        this.center = center;
+        this.radius = radius;
+        this.material = material;
+        this.temp = gl_matrix_1.vec3.create();
+    }
+    hit(ray, t_min, t_max, rec) {
+        let to_sphere = gl_matrix_1.vec3.sub(this.temp, ray.origin, this.center);
+        let a = gl_matrix_1.vec3.dot(ray.direction, ray.direction);
+        let b = gl_matrix_1.vec3.dot(to_sphere, ray.direction);
+        let c = gl_matrix_1.vec3.dot(to_sphere, to_sphere) - this.radius * this.radius;
+        let discriminant = b * b - a * c;
+        if (discriminant > 0) {
+            let temp = (-b - Math.sqrt(discriminant)) / a;
+            if (temp < t_max && temp > t_min) {
+                rec.t = temp;
+                ray.pointAtParameter(rec.pos, rec.t);
+                rec.normal[0] = (rec.pos[0] - this.center[0]) / this.radius;
+                rec.normal[1] = (rec.pos[1] - this.center[1]) / this.radius;
+                rec.normal[2] = (rec.pos[2] - this.center[2]) / this.radius;
+                rec.material = this.material;
+                return true;
+            }
+            temp = (-b + Math.sqrt(discriminant)) / a;
+            if (temp < t_max && temp > t_min) {
+                rec.t = temp;
+                ray.pointAtParameter(rec.pos, rec.t);
+                rec.normal[0] = (rec.pos[0] - this.center[0]) / this.radius;
+                rec.normal[1] = (rec.pos[1] - this.center[1]) / this.radius;
+                rec.normal[2] = (rec.pos[2] - this.center[2]) / this.radius;
+                rec.material = this.material;
+                return true;
+            }
+        }
+        return false;
+    }
+}
+exports.Sphere = Sphere;
+
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=bundle.js.map

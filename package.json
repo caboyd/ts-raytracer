@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "npm run build -- --watch",
     "build": "webpack --progress --colors --mode=production",
+    "devbuild": "webpack --progress --colors --mode=development",
     "dev": "webpack-dev-server --content-base ./ --colors --hot --inline --mode=development",
     "dev2": "npm run dev -- --host=0.0.0.0"
   },
