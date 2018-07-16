@@ -4,6 +4,13 @@ Implementation of a Raytracter in Typescript using webgl2
 
 [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
 
+3200 x 2400 image with 850 render passes.
+<img src="https://i.imgur.com/uVZMcem.jpg" alt="Ray Tracer image">
+ 
+[Full Resolution Imgur Link](https://i.imgur.com/uVZMcem.jpg)
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine.
