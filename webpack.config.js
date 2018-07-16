@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
 	return {
 		entry: './src/main.ts',
 		output: {
-			path: path.resolve(__dirname, 'docs'),
+			path: path.resolve(__dirname, 'dist'),
 			filename: 'bundle.js',
 			publicPath: ''
 		},
