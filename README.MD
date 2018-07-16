@@ -1,6 +1,9 @@
 # Typescript Webgl2 Raytracer
 
-Implementation of a Raytracter in Typescript using webgl2
+Implementation of a Raytracter in Typescript using webgl2.  
+Following [Ray Tracing in One Weekend](http://in1weekend.blogspot.com/2016/01/ray-tracing-in-one-weekend.html) book.  
+Implements Diffuse, Metals, and Dieletrics, with defocus blur and antialising (Super Sampling and Multi Sampling).  
+Renders small sections of scene at a time to stall the GPU.
 
 [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
 
