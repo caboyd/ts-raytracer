@@ -7449,69 +7449,149 @@ const forEach = (function() {
 Object.defineProperty(exports, "__esModule", { value: true });
 const gl_matrix_1 = __webpack_require__(/*! gl-matrix */ "./node_modules/gl-matrix/src/gl-matrix.js");
 const SoftwareRenderer_1 = __webpack_require__(/*! ./renderer/SoftwareRenderer */ "./src/renderer/SoftwareRenderer.ts");
+let temp_quat = gl_matrix_1.quat.create();
+const SPEED = 5.0;
+const SENSITIVITY = 0.005;
+var Camera_Movement;
+(function (Camera_Movement) {
+    Camera_Movement[Camera_Movement["FORWARD"] = 0] = "FORWARD";
+    Camera_Movement[Camera_Movement["BACKWARD"] = 1] = "BACKWARD";
+    Camera_Movement[Camera_Movement["LEFT"] = 2] = "LEFT";
+    Camera_Movement[Camera_Movement["RIGHT"] = 3] = "RIGHT";
+    Camera_Movement[Camera_Movement["UP"] = 4] = "UP";
+})(Camera_Movement = exports.Camera_Movement || (exports.Camera_Movement = {}));
 class Camera {
     constructor(eye, target, up, vFov, aspect, aperture, focus_dist) {
         this.lower_left_corner = gl_matrix_1.vec3.create();
         this.screen_horizontal = gl_matrix_1.vec3.create();
         this.screen_vertical = gl_matrix_1.vec3.create();
         this.position = gl_matrix_1.vec3.create();
+        this.front = gl_matrix_1.vec3.create();
+        this.right = gl_matrix_1.vec3.create();
+        this.up = gl_matrix_1.vec3.create();
+        this.world_up = gl_matrix_1.vec3.fromValues(0, 1, 0);
+        this.world_right = gl_matrix_1.vec3.fromValues(1, 0, 0);
+        this.orientation = gl_matrix_1.quat.create();
         this.temp = gl_matrix_1.vec3.create();
         this.temp2 = gl_matrix_1.vec3.create();
         this.lens_radius = aperture / 2;
+        this.focus_dist = focus_dist;
+        //conver to radians
         let theta = (vFov * Math.PI) / 180.0;
-        let half_height = Math.tan(theta / 2);
-        let half_width = aspect * half_height;
+        this.half_height = Math.tan(theta / 2);
+        this.half_width = aspect * this.half_height;
         gl_matrix_1.vec3.copy(this.position, eye);
         let target_to_eye = gl_matrix_1.vec3.sub(gl_matrix_1.vec3.create(), eye, target);
         gl_matrix_1.vec3.normalize(target_to_eye, target_to_eye);
-        let right = gl_matrix_1.vec3.cross(gl_matrix_1.vec3.create(), up, target_to_eye);
-        gl_matrix_1.vec3.normalize(right, right);
-        let actual_up = gl_matrix_1.vec3.cross(gl_matrix_1.vec3.create(), target_to_eye, right);
-        this.lower_left_corner[0] =
-            this.position[0] -
-                focus_dist * half_width * right[0] -
-                focus_dist * half_height * actual_up[0] -
-                focus_dist * target_to_eye[0];
-        this.lower_left_corner[1] =
-            this.position[1] -
-                focus_dist * half_width * right[1] -
-                focus_dist * half_height * actual_up[1] -
-                focus_dist * target_to_eye[1];
-        this.lower_left_corner[2] =
-            this.position[2] -
-                focus_dist * half_width * right[2] -
-                focus_dist * half_height * actual_up[2] -
-                focus_dist * target_to_eye[2];
-        this.screen_horizontal = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), right, 2 * half_width * focus_dist);
-        this.screen_vertical = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), actual_up, 2 * half_height * focus_dist);
+        this.pitch = Math.asin(target_to_eye[1]);
+        this.heading = -Math.atan2(target_to_eye[0], target_to_eye[2]);
+        this.calculateOrientation();
     }
     getRay(ray, u, v) {
         let rand = this.temp2;
         let offset = this.temp;
         gl_matrix_1.vec3.scale(rand, randomInUnitDisk(rand), this.lens_radius);
-        offset[0] = this.screen_horizontal[0] * rand[0] + this.screen_vertical[0] * rand[1];
-        offset[1] = this.screen_horizontal[1] * rand[0] + this.screen_vertical[1] * rand[1];
-        offset[2] = this.screen_horizontal[2] * rand[0] + this.screen_vertical[2] * rand[1];
+        for (let i = 0; i < 3; i++)
+            offset[i] = this.screen_horizontal[i] * rand[0] + this.screen_vertical[i] * rand[1];
         gl_matrix_1.vec3.add(ray.origin, this.position, offset);
-        ray.direction[0] =
-            this.lower_left_corner[0] +
-                u * this.screen_horizontal[0] +
-                v * this.screen_vertical[0] -
-                this.position[0] -
-                offset[0];
-        ray.direction[1] =
-            this.lower_left_corner[1] +
-                u * this.screen_horizontal[1] +
-                v * this.screen_vertical[1] -
-                this.position[1] -
-                offset[1];
-        ray.direction[2] =
-            this.lower_left_corner[2] +
-                u * this.screen_horizontal[2] +
-                v * this.screen_vertical[2] -
-                this.position[2] -
-                offset[2];
+        //for x,y,z
+        for (let i = 0; i < 3; i++)
+            ray.direction[i] =
+                this.lower_left_corner[i] +
+                    u * this.screen_horizontal[i] +
+                    v * this.screen_vertical[i] -
+                    this.position[i] -
+                    offset[i];
         return ray;
+    }
+    getRight(out) {
+        gl_matrix_1.quat.conjugate(temp_quat, this.orientation);
+        gl_matrix_1.vec3.set(out, 1, 0, 0);
+        gl_matrix_1.vec3.transformQuat(out, out, temp_quat);
+        return out;
+    }
+    getForward(out) {
+        gl_matrix_1.quat.conjugate(temp_quat, this.orientation);
+        gl_matrix_1.vec3.set(out, 0, 0, -1);
+        gl_matrix_1.vec3.transformQuat(out, out, temp_quat);
+        return out;
+    }
+    getUp(out) {
+        gl_matrix_1.quat.conjugate(temp_quat, this.orientation);
+        gl_matrix_1.vec3.set(out, 0, 1, 0);
+        gl_matrix_1.vec3.transformQuat(out, out, temp_quat);
+        return out;
+    }
+    lookAt(target) {
+        gl_matrix_1.vec3.sub(this.front, target, this.position);
+        gl_matrix_1.vec3.normalize(this.front, this.front);
+        this.pitch = -Math.asin(this.front[1]);
+        this.heading = -(Math.atan2(this.front[0], this.front[2]) - Math.PI);
+        this.calculateOrientation();
+    }
+    processKeyboard(direction, deltaTime) {
+        let velocity = SPEED * deltaTime;
+        this.getForward(this.front);
+        this.getRight(this.right);
+        if (direction == Camera_Movement.FORWARD) {
+            gl_matrix_1.vec3.scaleAndAdd(this.position, this.position, this.front, velocity);
+        }
+        else if (direction == Camera_Movement.BACKWARD) {
+            gl_matrix_1.vec3.scaleAndAdd(this.position, this.position, this.front, -velocity);
+        }
+        else if (direction == Camera_Movement.LEFT) {
+            gl_matrix_1.vec3.scaleAndAdd(this.position, this.position, this.right, -velocity);
+        }
+        else if (direction == Camera_Movement.RIGHT) {
+            gl_matrix_1.vec3.scaleAndAdd(this.position, this.position, this.right, velocity);
+        }
+        else if (direction == Camera_Movement.UP) {
+            gl_matrix_1.vec3.scaleAndAdd(this.position, this.position, this.world_up, velocity);
+        }
+        this.calculateOrientation();
+    }
+    processMouseMovement(xOffset, yOffset, constrainPitch = true) {
+        if (xOffset === 0 && yOffset === 0)
+            return;
+        xOffset *= SENSITIVITY;
+        yOffset *= SENSITIVITY;
+        this.heading += xOffset;
+        if (this.heading > 2 * Math.PI)
+            this.heading -= 2 * Math.PI;
+        if (this.heading < 0)
+            this.heading += 2 * Math.PI;
+        this.pitch += yOffset;
+        if (this.pitch > Math.PI)
+            this.pitch -= 2 * Math.PI;
+        if (this.pitch < -Math.PI)
+            this.pitch += 2 * Math.PI;
+        if (constrainPitch) {
+            if (this.pitch > Math.PI / 2)
+                this.pitch = Math.PI / 2;
+            if (this.pitch < -Math.PI / 2)
+                this.pitch = -Math.PI / 2;
+        }
+        this.calculateOrientation();
+    }
+    calculateOrientation() {
+        let pitch_quat = gl_matrix_1.quat.setAxisAngle(gl_matrix_1.quat.create(), this.world_right, this.pitch);
+        let heading_quat = gl_matrix_1.quat.setAxisAngle(gl_matrix_1.quat.create(), this.world_up, this.heading);
+        gl_matrix_1.quat.identity(this.orientation);
+        gl_matrix_1.quat.mul(this.orientation, this.orientation, pitch_quat);
+        gl_matrix_1.quat.mul(this.orientation, this.orientation, heading_quat);
+        this.getForward(this.front);
+        this.getRight(this.right);
+        this.getUp(this.up);
+        //For x,y,z
+        //code is cleaner this way
+        for (let i = 0; i < 3; i++)
+            this.lower_left_corner[i] =
+                this.position[i] -
+                    this.focus_dist * this.half_width * this.right[i] -
+                    this.focus_dist * this.half_height * this.up[i] +
+                    this.focus_dist * this.front[i];
+        this.screen_horizontal = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), this.right, 2 * this.half_width * this.focus_dist);
+        this.screen_vertical = gl_matrix_1.vec3.scale(gl_matrix_1.vec3.create(), this.up, 2 * this.half_height * this.focus_dist);
     }
 }
 exports.Camera = Camera;
@@ -7581,17 +7661,25 @@ const Camera_1 = __webpack_require__(/*! ../Camera */ "./src/Camera.ts");
 const random = __webpack_require__(/*! fast-random */ "./node_modules/fast-random/index.js");
 const seed = 49;
 const gen = random(seed);
+let vFov = 60;
+let aperture = 0.0;
+let eye = gl_matrix_1.vec3.fromValues(10, 1.9, 2.5);
+let target = gl_matrix_1.vec3.fromValues(4, 0.5, 1);
+let up = gl_matrix_1.vec3.fromValues(0, 1, 0);
+let dist_to_focus = gl_matrix_1.vec3.distance(eye, target);
 class WebglRenderer {
     constructor(canvas) {
-        this.current_source_id = 0;
+        this.current_source_id = 1;
         this.sample_count = 0;
-        this.default_quadrants_row = main_1.is_mobile ? 4 : 3;
-        this.default_quadrants_col = main_1.is_mobile ? 4 : 3;
+        this.default_quadrants_row = main_1.is_mobile ? 1 : 2;
+        this.default_quadrants_col = main_1.is_mobile ? 1 : 2;
         this.render_width = 0;
         this.render_height = 0;
-        this.super_sampling = main_1.is_mobile ? 1 : 2;
-        this.max_ray_bounce = main_1.is_mobile ? 12 : 24;
+        this.super_sampling = main_1.is_mobile ? 1 : 1;
+        this.max_ray_bounce = main_1.is_mobile ? 12 : 12;
         this.ambient_light = gl_matrix_1.vec3.fromValues(0.5, 0.7, 1.0);
+        this.default_quadrants_row = Math.ceil((canvas.height / 200) / this.default_quadrants_row);
+        this.default_quadrants_col = Math.ceil((canvas.width / 200) / this.default_quadrants_col);
         //if(is_mobile) this.super_sampling = 0;
         if (this.super_sampling === 0)
             this.super_sampling = 1;
@@ -7601,13 +7689,9 @@ class WebglRenderer {
         this.initGL(canvas);
         this.initRenderTexture();
         this.initShader();
-        let aperture = 0.01;
-        let eye = gl_matrix_1.vec3.fromValues(10, 1.9, 2.5);
-        let target = gl_matrix_1.vec3.fromValues(4, 0.5, 1);
-        let up = gl_matrix_1.vec3.fromValues(0, 1, 0);
-        let dist_to_focus = gl_matrix_1.vec3.distance(eye, target);
         this.bigSphereScene();
-        this.setCamera(eye, target, up, 30, this.gl.drawingBufferWidth / this.gl.drawingBufferHeight, aperture, dist_to_focus);
+        this.camera = new Camera_1.Camera(eye, target, up, vFov, this.gl.drawingBufferWidth / this.gl.drawingBufferHeight, aperture, dist_to_focus);
+        this.updateCamera();
         this.initBuffers();
     }
     draw() {
@@ -7621,6 +7705,7 @@ class WebglRenderer {
         this.shader.setFloatByName("rand_seed0", gen.nextFloat());
         this.shader.setFloatByName("rand_seed1", gen.nextFloat());
         this.shader.setIntByName("current_quadrant", this.current_quadrant);
+        this.updateCamera();
         //Wiggle for anti-aliasing
         this.wiggleCamera();
         gl.bindVertexArray(this.VAO);
@@ -7643,6 +7728,16 @@ class WebglRenderer {
         }
         // Ping pong the buffers
         this.current_source_id = (this.current_source_id + 1) % 2;
+    }
+    resetCamera() {
+        this.camera.position = eye;
+        this.camera.lookAt(target);
+    }
+    resetSamples() {
+        let gl = this.gl;
+        this.sample_count = 0;
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[this.current_source_id]);
+        gl.clear(gl.COLOR_BUFFER_BIT);
     }
     getSampleCount() {
         return this.sample_count * 2.0;
@@ -7788,6 +7883,7 @@ class WebglRenderer {
         let num_spheres = width;
         //We must round up the texture to the nearest multiple of 2 or it will not read properly
         width = Math.pow(2, Math.ceil(Math.log(width) / Math.log(2)));
+        //Fill with empty
         for (let i = num_spheres; i <= width; i++) {
             sphere_array.push(0, 0, 0, 0);
             mat_array.push(0, 0, 0, 0);
@@ -7821,14 +7917,13 @@ class WebglRenderer {
         this.shader.setIntByName("sphere_count", num_spheres);
         this.shader.setFloatByName("sphere_texture_size", width);
     }
-    setCamera(eye, target, up, vFov, aspect, aperture, focus_dist) {
-        let cam = new Camera_1.Camera(eye, target, up, vFov, aspect, aperture, focus_dist);
+    updateCamera() {
         this.shader.use();
-        this.shader.setVec3ByName("screen.lower_left_corner", cam.lower_left_corner);
-        this.shader.setVec3ByName("screen.horizontal", cam.screen_horizontal);
-        this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
-        this.shader.setVec3ByName("screen.position", cam.position);
-        this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
+        this.shader.setVec3ByName("screen.lower_left_corner", this.camera.lower_left_corner);
+        this.shader.setVec3ByName("screen.horizontal", this.camera.screen_horizontal);
+        this.shader.setVec3ByName("screen.vertical", this.camera.screen_vertical);
+        this.shader.setVec3ByName("screen.position", this.camera.position);
+        this.shader.setFloatByName("screen.lens_radius", this.camera.lens_radius);
         this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
         this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }
@@ -8007,7 +8102,7 @@ exports.Shader = Shader;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\nprecision highp float;\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nlayout(location=0) out vec4 fragColor;\r\nlayout(location=1) out vec4 fragColor2;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n    Material mat;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\n\r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / float(sphere_texture_size);\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 final_color = vec3(0.0);\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.01, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color*final_color;\r\n}\r\n\r\nvoid main()\r\n{      \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n\r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n\r\n    vec3 new_color = color(ray);\r\n\r\n    float blend =  1.0 / float(sample_count+1);\r\n    //if(blend < 0.0025) blend = 0.0025;\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n\r\n    fragColor = vec4(final_color,1.0);         \r\n    fragColor2 = fragColor;\r\n    \r\n}\r\n\r\n\r\n"
+module.exports = "#version 300 es\r\nprecision highp float;\r\n#define FLT_MAX 3.402823466e+38\r\n\r\nin vec2 pos;\r\nin vec3 eye;\r\nin vec3 ray_direction;\r\n\r\nlayout(location=0) out vec4 fragColor;\r\nlayout(location=1) out vec4 fragColor2;\r\n\r\nuniform float width;\r\nuniform float height;\r\n\r\nstruct Ray{\r\n    vec3 origin;\r\n    vec3 direction;\r\n};\r\n\r\nconst int Diffuse = 0;\r\nconst int Reflect = 1;\r\nconst int Refract = 2;\r\n\r\nstruct Material{\r\n    int type;\r\n    vec3 color;\r\n    float fuzz;\r\n    float refraction_index;\r\n};\r\n\r\nstruct HitRecord{\r\n    float t;\r\n    vec3 pos;\r\n    vec3 normal;\r\n    Material mat;\r\n};\r\n\r\nstruct Sphere{\r\n    vec3 center;\r\n    float radius;\r\n};\r\n\r\nstruct Screen{\r\n    vec3 position;\r\n    vec3 lower_left_corner;\r\n    vec3 horizontal;\r\n    vec3 vertical;\r\n    float lens_radius;\r\n    float x_wiggle;\r\n    float y_wiggle;\r\n};\r\n\r\nuniform Screen screen;\r\n\r\nuniform vec3 ambient_light;\r\nuniform int sphere_count;\r\nuniform int sample_count;\r\nuniform int samples;\r\nuniform int max_ray_bounce;\r\n//uniform Sphere spheres[150];\r\n\r\nuniform float rand_seed0;\r\nuniform float rand_seed1;\r\nuniform sampler2D last_frame;\r\nuniform float sphere_texture_size;\r\nuniform sampler2D sphere_texture;\r\nuniform sampler2D mat_texture; \r\nuniform sampler2D mat_texture_extra; \r\n\r\n\r\nfloat random(vec3 scale, float seed){\r\n    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);\r\n}\r\n\r\nvec3 uniformlyRandomDirection(float seed) {\r\n   float u = random(vec3(12.9898, 78.233, 151.7182), seed);\r\n   float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n   float z = 1.0 - 2.0 * u;\r\n   float r = sqrt(1.0 - z * z);\r\n   float angle = 6.283185307179586 * v;\r\n   return vec3(r * cos(angle), r * sin(angle), z);\r\n}\r\n\r\nvec3 uniformlyRandomVector(float seed){\r\n    return uniformlyRandomDirection(seed) * sqrt(random(vec3(36.7539, 50.3658, 306.2759), seed));\r\n}\r\n\r\nvec2 uniformlyRandomVec2(vec3 scale, float seed, float seed2){\r\n    float r = sqrt(random(scale.xyz,seed));\r\n    float t = (random(scale.xyz,seed2))* 6.283185307179586;\r\n    vec2 result;\r\n    result.x = r * cos(t);\r\n    result.y = r * sin(t);\r\n    return result;\r\n}\r\n\r\n\r\nvec3 cosineWeightedDirection(float seed, vec3 normal){\r\n    float u =random(vec3(12.9898, 78.233, 151.7182), seed);\r\n    float v = random(vec3(63.7264, 10.873, 623.6736), seed);\r\n    float r = sqrt(u);\r\n    float angle = 6.283185307179586 * v;\r\n    vec3 sdir, tdir;\r\n    if (abs(normal.x) < 0.5)\r\n        sdir = cross(normal, vec3(1,0,0));\r\n    else \r\n        sdir = cross(normal, vec3(0,1,0));\r\n    \r\n    tdir = cross(normal, sdir);\r\n    return r*cos(angle)*sdir + r*sin(angle)*tdir + sqrt(1.-u)*normal;\r\n}\r\n\r\n//Schlick used for refraction\r\nfloat schlick(float cosine, float ref_idx){\r\n    float r0 = (1.0-ref_idx) / (1.0 + ref_idx);\r\n    r0 = r0*r0;\r\n    return r0 + (1.0-r0) * pow((1.0 - cosine), 5.0);\r\n}\r\n\r\n//Intersect with this sphere. updates hit record\r\nbool sphereIntersection(Sphere s, Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    vec3 to_sphere = ray.origin - s.center;\r\n    float a = dot(ray.direction, ray.direction);\r\n    float b = dot(to_sphere, ray.direction);\r\n    float c = dot(to_sphere,to_sphere) - s.radius * s.radius;\r\n    float discriminant = b * b -  a * c;\r\n    \r\n    float temp = (-b - sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n        rec.t = temp;\r\n        rec.pos = ray.origin + rec.t * ray.direction;\r\n        rec.normal = (rec.pos - s.center) / s.radius;\r\n        return true;\r\n    }\r\n    temp = (-b + sqrt(discriminant)) / a;\r\n    if(temp < t_max && temp > t_min){\r\n       rec.t = temp;\r\n       rec.pos = ray.origin + rec.t * ray.direction;\r\n       rec.normal = (rec.pos - s.center) / s.radius;\r\n       return true;\r\n    }\r\n    \r\n    return false;\r\n}\r\n\r\n//Intersects with all objects and updates the hit record\r\nbool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){\r\n    bool hit_anything = false;\r\n    float closest_so_far = t_max;\r\n    \r\n    //Spheres Loop\r\n    Sphere sphere;\r\n    float index_of_hit = 0.0;\r\n    float index;\r\n    vec4 s;\r\n    float size = float(sphere_texture_size);\r\n    \r\n    for(int i = 0; i < sphere_count; i++){\r\n        index = float(i) / size;\r\n        s = texture(sphere_texture, vec2(index,0.5));\r\n        sphere.center = s.xyz;\r\n        sphere.radius = s.w;     \r\n\r\n        if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){\r\n            index_of_hit = index;\r\n            hit_anything = true;\r\n            closest_so_far = rec.t;\r\n        }\r\n    }\r\n    \r\n    //If we don't hit anything it doesnt matter since this data won't be used\r\n    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; \r\n    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;\r\n    rec.mat.type = int(mat.x);\r\n    rec.mat.fuzz = mat.y;\r\n    rec.mat.refraction_index = mat.y;\r\n        \r\n    return hit_anything;\r\n}\r\n\r\nvec3 color(inout Ray ray){\r\n    HitRecord rec;\r\n    vec3 color = vec3(1.0);\r\n\r\n    for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){\r\n        float rf = float(ray_bounce);\r\n        \r\n        if(intersectAll(ray, 0.01, FLT_MAX, rec )){\r\n            ray.origin = rec.pos;\r\n            vec3 rand =  uniformlyRandomDirection(rand_seed1 + rf);    \r\n            \r\n            if(rec.mat.type == Diffuse){\r\n                ray.direction = rec.normal + rand;\r\n                color *= rec.mat.color;\r\n                \r\n            }else if(rec.mat.type == Reflect){     \r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n                ray.direction = reflected + rec.mat.fuzz * rand;\r\n                if(dot(ray.direction, rec.normal) > 0.0)\r\n                    color *= rec.mat.color;\r\n                else\r\n                    color = vec3(0);\r\n                    \r\n            }else if(rec.mat.type == Refract){\r\n                vec3 outward_normal;\r\n                float ni_over_nt;\r\n                float reflect_prob;\r\n                float cosine;\r\n                vec3 reflected = reflect(normalize(ray.direction), rec.normal);\r\n               \r\n                if(dot(ray.direction, rec.normal) > 0.0){\r\n                   outward_normal = -rec.normal;\r\n                   ni_over_nt = rec.mat.refraction_index;\r\n                   cosine = rec.mat.refraction_index * dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }else{\r\n                   outward_normal = rec.normal;\r\n                   ni_over_nt = 1.0 / rec.mat.refraction_index;\r\n                   cosine = -dot(ray.direction, rec.normal) / length(ray.direction);\r\n                }\r\n                \r\n                vec3 refracted = refract(normalize(ray.direction), outward_normal, ni_over_nt);\r\n                if(length(refracted) > 0.0){\r\n                   reflect_prob = schlick(cosine, rec.mat.refraction_index);\r\n                }else{\r\n                   reflect_prob = 1.0;\r\n                }\r\n                \r\n                float r = random(rand, rand_seed0 + rf);\r\n                if(r > reflect_prob){\r\n                   ray.direction = refracted;\r\n                }else\r\n                   ray.direction = reflected;\r\n            }\r\n            \r\n        }else{\r\n             vec3 unit_direction = normalize(ray.direction);\r\n             float t = 0.5 * (unit_direction.y + 1.0);\r\n             color *=  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;\r\n             break;\r\n        }\r\n    }\r\n    return color;\r\n}\r\n\r\nvoid main()\r\n{      \r\n    vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;\r\n\r\n    //Random depth of field blur based on lens radius\r\n    vec2 rd =  screen.lens_radius * (uniformlyRandomVec2(gl_FragCoord.xyz, rand_seed0, rand_seed1));\r\n    vec3 offset =  screen.horizontal * rd.x + screen.vertical * rd.y;\r\n\r\n    Ray ray;\r\n    ray.origin =  eye + offset;\r\n    ray.direction = ray_direction - offset ;\r\n\r\n    vec3 new_color = color(ray);\r\n\r\n    float blend =  1.0 / float(sample_count+1);\r\n\r\n    //Blend new color with color of last frame\r\n    vec3 final_color = mix(prev_color,new_color,blend);\r\n\r\n    fragColor = vec4(final_color,1.0);         \r\n    fragColor2 = fragColor;\r\n    \r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -8055,6 +8150,7 @@ module.exports = "#version 300 es\r\n\r\n// Input vertex data, different for all
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const WebglRenderer_1 = __webpack_require__(/*! ./gpu_renderer/WebglRenderer */ "./src/gpu_renderer/WebglRenderer.ts");
+const Camera_1 = __webpack_require__(/*! ./Camera */ "./src/Camera.ts");
 let software_renderer;
 let webgl_renderer;
 exports.is_mobile = false;
@@ -8062,13 +8158,49 @@ let min_frame_time = 33;
 let last_time = 0;
 let render_passes = 0;
 let temp_count = 0;
-let passes = 10000;
+let mouse_x_total = 0;
+let mouse_y_total = 0;
+let keys = [];
+let moved = false;
+const moveCallback = (e) => {
+    //@ts-ignore
+    let movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
+    //@ts-ignore
+    let movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
+    if (e.which == 1) {
+        mouse_x_total += movementX;
+        mouse_y_total += movementY;
+        moved = true;
+    }
+};
+let last_x = 0, last_y = 0;
+let touch_foward = false;
+const touchCallback = (e) => {
+    touch_foward = e.touches.length >= 2;
+    //@ts-ignore
+    let movementX = e.changedTouches[0].clientX || 0;
+    //@ts-ignore
+    let movementY = e.changedTouches[0].clientY || 0;
+    if (movementX > last_x)
+        mouse_x_total += movementX / 100;
+    else if (movementX < last_x)
+        mouse_x_total -= movementX / 100;
+    last_x = movementX;
+    if (movementY > last_y)
+        mouse_y_total += movementY / 100;
+    else if (movementY < last_y)
+        mouse_y_total -= movementY / 100;
+    last_y = movementY;
+    moved = true;
+};
 (function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         exports.is_mobile = true;
         min_frame_time = 33;
     }
     let canvas_webgl2 = document.getElementById("canvas-webgl2");
+    document.addEventListener("mousemove", moveCallback, false);
+    document.addEventListener("touchmove", touchCallback, false);
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
     webgl_renderer = new WebglRenderer_1.WebglRenderer(canvas_webgl2);
@@ -8080,11 +8212,11 @@ let passes = 10000;
 })();
 function drawScene() {
     let now = Date.now();
-    if (now - last_time > min_frame_time) {
-        if (render_passes < passes) {
-            requestAnimationFrame(drawWebgl);
-            last_time = now;
-        }
+    let dt = (now - last_time);
+    if (dt > min_frame_time) {
+        update(dt / 1000);
+        requestAnimationFrame(drawWebgl);
+        last_time = now;
     }
     else
         setTimeout(drawScene, min_frame_time - (now - last_time));
@@ -8094,11 +8226,50 @@ function drawWebgl() {
     document.getElementById("webgl-text").textContent = "" + webgl_renderer.getSampleCount();
     drawScene();
 }
+function update(dt) {
+    let camera = webgl_renderer.camera;
+    if (keys[87] || touch_foward) {
+        moved = true;
+        camera.processKeyboard(Camera_1.Camera_Movement.FORWARD, dt);
+    }
+    else if (keys[83]) {
+        moved = true;
+        camera.processKeyboard(Camera_1.Camera_Movement.BACKWARD, dt);
+    }
+    if (keys[65]) {
+        moved = true;
+        camera.processKeyboard(Camera_1.Camera_Movement.LEFT, dt);
+    }
+    else if (keys[68]) {
+        moved = true;
+        camera.processKeyboard(Camera_1.Camera_Movement.RIGHT, dt);
+    }
+    if (keys[82]) {
+        moved = true;
+        webgl_renderer.resetCamera();
+    }
+    if (keys[32]) {
+        moved = true;
+        camera.processKeyboard(Camera_1.Camera_Movement.UP, dt);
+    }
+    camera.processMouseMovement(-mouse_x_total, -mouse_y_total, true);
+    mouse_x_total = 0;
+    mouse_y_total = 0;
+    if (moved)
+        webgl_renderer.resetSamples();
+    moved = false;
+}
 function drawCanvas() {
     let now = Date.now();
     software_renderer.draw();
     document.getElementById("canvas-text").textContent = " " + (Date.now() - now).toFixed(2) + " ms";
 }
+window.onkeydown = function (e) {
+    keys[e.keyCode] = true;
+};
+window.onkeyup = function (e) {
+    keys[e.keyCode] = false;
+};
 
 
 /***/ }),
