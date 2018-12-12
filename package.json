@@ -6,9 +6,10 @@
   "scripts": {
     "watch": "npm run build -- --watch",
     "build": "webpack --progress --colors --mode=production",
-    "devbuild": "webpack --progress --colors --mode=development",
+    "builddev": "webpack --progress --colors --mode=development",
     "dev": "webpack-dev-server --content-base ./ --colors --hot --inline --mode=development",
-    "dev2": "npm run dev -- --host=0.0.0.0"
+    "dev2": "npm run dev -- --host=0.0.0.0",
+    "gh-publish": "npm run builddev&&cd dist&&git add --all&&git commit -m \"Deploy to gh-pages\"&&git push origin gh-pages&&cd.."
   },
   "author": "Chris Boyd",
   "license": "MIT",

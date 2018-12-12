@@ -38,7 +38,6 @@ struct HitRecord{
 struct Sphere{
     vec3 center;
     float radius;
-    Material mat;
 };
 
 struct Screen{
@@ -67,7 +66,6 @@ uniform float sphere_texture_size;
 uniform sampler2D sphere_texture;
 uniform sampler2D mat_texture; 
 uniform sampler2D mat_texture_extra; 
-
 
 
 float random(vec3 scale, float seed){
@@ -155,8 +153,10 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
     float index_of_hit = 0.0;
     float index;
     vec4 s;
+    float size = float(sphere_texture_size);
+    
     for(int i = 0; i < sphere_count; i++){
-        index = float(i) / float(sphere_texture_size);
+        index = float(i) / size;
         s = texture(sphere_texture, vec2(index,0.5));
         sphere.center = s.xyz;
         sphere.radius = s.w;     
@@ -180,7 +180,6 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
 
 vec3 color(inout Ray ray){
     HitRecord rec;
-    vec3 final_color = vec3(0.0);
     vec3 color = vec3(1.0);
 
     for(int ray_bounce=0; ray_bounce <= max_ray_bounce; ray_bounce++){
@@ -236,11 +235,11 @@ vec3 color(inout Ray ray){
         }else{
              vec3 unit_direction = normalize(ray.direction);
              float t = 0.5 * (unit_direction.y + 1.0);
-             final_color =  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;
+             color *=  (1.0 - t) * vec3(1.0) +   t * ambient_light  ;
              break;
         }
     }
-    return color*final_color;
+    return color;
 }
 
 void main()
@@ -258,7 +257,6 @@ void main()
     vec3 new_color = color(ray);
 
     float blend =  1.0 / float(sample_count+1);
-    //if(blend < 0.0025) blend = 0.0025;
 
     //Blend new color with color of last frame
     vec3 final_color = mix(prev_color,new_color,blend);

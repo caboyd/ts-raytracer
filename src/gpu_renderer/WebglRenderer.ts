@@ -9,7 +9,16 @@ const random = require("fast-random");
 const seed = 49;
 const gen = random(seed);
 
+let vFov = 60;
+let aperture = 0.0;
+let eye = vec3.fromValues(10, 1.9, 2.5);
+let target = vec3.fromValues(4, 0.5, 1);
+let up = vec3.fromValues(0, 1, 0);
+let dist_to_focus = vec3.distance(eye, target);
+
+
 export class WebglRenderer {
+    public camera: Camera;
     private gl: WebGL2RenderingContext;
     private shader: Shader;
     private quad_shader: Shader;
@@ -19,26 +28,30 @@ export class WebglRenderer {
 
     private frame_buffers: WebGLFramebuffer[];
     private float_textures: WebGLTexture[];
-    private current_source_id = 0;
+    private current_source_id = 1;
 
     private quad_render_texture: WebGLTexture;
 
     private sample_count = 0;
-    private default_quadrants_row = is_mobile ? 4 : 3;
-    private default_quadrants_col = is_mobile ? 4 : 3;
+    private default_quadrants_row = is_mobile ? 1 : 2;
+    private default_quadrants_col = is_mobile ? 1 : 2;
     public num_quadrants;
     private current_quadrant;
 
     private render_width = 0;
     private render_height = 0;
 
-    public super_sampling = is_mobile ? 1 : 2;
-    private max_ray_bounce = is_mobile ? 12 : 24;
+    public super_sampling = is_mobile ? 1 : 1;
+    private max_ray_bounce = is_mobile ? 12 : 12;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
     private float_tex_ext: boolean;
 
     constructor(canvas: HTMLCanvasElement) {
+        
+        this.default_quadrants_row = Math.ceil((canvas.height / 200) / this.default_quadrants_row);
+        this.default_quadrants_col = Math.ceil((canvas.width / 200) / this.default_quadrants_col);
+
         //if(is_mobile) this.super_sampling = 0;
         if (this.super_sampling === 0) this.super_sampling = 1;
         this.num_quadrants =
@@ -49,22 +62,18 @@ export class WebglRenderer {
         this.initRenderTexture();
         this.initShader();
 
-        let aperture = 0.01;
-        let eye = vec3.fromValues(10, 1.9, 2.5);
-        let target = vec3.fromValues(4, 0.5, 1);
-        let up = vec3.fromValues(0, 1, 0);
-        let dist_to_focus = vec3.distance(eye, target);
 
         this.bigSphereScene();
-        this.setCamera(
+        this.camera = new Camera(
             eye,
             target,
             up,
-            30,
+            vFov,
             this.gl.drawingBufferWidth / this.gl.drawingBufferHeight,
             aperture,
             dist_to_focus
         );
+        this.updateCamera();
         this.initBuffers();
     }
 
@@ -83,6 +92,7 @@ export class WebglRenderer {
         this.shader.setFloatByName("rand_seed1", gen.nextFloat());
         this.shader.setIntByName("current_quadrant", this.current_quadrant);
 
+        this.updateCamera();
         //Wiggle for anti-aliasing
         this.wiggleCamera();
 
@@ -112,7 +122,20 @@ export class WebglRenderer {
         // Ping pong the buffers
         this.current_source_id = (this.current_source_id + 1) % 2;
     }
+    
+    public resetCamera(): void {
+        this.camera.position = eye;
+        this.camera.lookAt(target);
+    }
 
+    public  resetSamples(): void {
+        let gl = this.gl;
+        this.sample_count = 0;
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[this.current_source_id]);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        
+    }
+    
     public getSampleCount(): number {
         return this.sample_count * 2.0;
     }
@@ -130,6 +153,7 @@ export class WebglRenderer {
 
         this.gl.clearColor(0.2, 0.3, 0.3, 1.0);
         this.gl.disable(this.gl.DEPTH_TEST);
+
     }
 
     private initShader() {
@@ -307,9 +331,11 @@ export class WebglRenderer {
         let width = sphere_array.length / 4;
         let num_spheres = width;
 
+
         //We must round up the texture to the nearest multiple of 2 or it will not read properly
         width = Math.pow(2, Math.ceil(Math.log(width) / Math.log(2)));
 
+        //Fill with empty
         for (let i = num_spheres; i <= width; i++) {
             sphere_array.push(0, 0, 0, 0);
             mat_array.push(0, 0, 0, 0);
@@ -370,23 +396,13 @@ export class WebglRenderer {
         this.shader.setFloatByName("sphere_texture_size", width);
     }
 
-    private setCamera(
-        eye: vec3,
-        target: vec3,
-        up: vec3,
-        vFov: number,
-        aspect: number,
-        aperture: number,
-        focus_dist: number
-    ): void {
-        let cam = new Camera(eye, target, up, vFov, aspect, aperture, focus_dist);
-
+    private updateCamera() {
         this.shader.use();
-        this.shader.setVec3ByName("screen.lower_left_corner", cam.lower_left_corner);
-        this.shader.setVec3ByName("screen.horizontal", cam.screen_horizontal);
-        this.shader.setVec3ByName("screen.vertical", cam.screen_vertical);
-        this.shader.setVec3ByName("screen.position", cam.position);
-        this.shader.setFloatByName("screen.lens_radius", cam.lens_radius);
+        this.shader.setVec3ByName("screen.lower_left_corner", this.camera.lower_left_corner);
+        this.shader.setVec3ByName("screen.horizontal", this.camera.screen_horizontal);
+        this.shader.setVec3ByName("screen.vertical", this.camera.screen_vertical);
+        this.shader.setVec3ByName("screen.position", this.camera.position);
+        this.shader.setFloatByName("screen.lens_radius", this.camera.lens_radius);
         this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
         this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }

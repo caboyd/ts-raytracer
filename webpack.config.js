@@ -27,7 +27,7 @@ module.exports = (env, argv) => {
 				{
 					from: 'assets',
 					to: 'assets',
-					ignore: ['*.bmp']
+					ignore: ['*.bmp', '.gitkeep']
 				}
 			]),
 			new ImageminPlugin(
