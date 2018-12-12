@@ -8257,6 +8257,7 @@ function update(dt) {
     mouse_y_total = 0;
     if (moved)
         webgl_renderer.resetSamples();
+    touch_foward = false;
     moved = false;
 }
 function drawCanvas() {
