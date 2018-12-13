@@ -6,11 +6,8 @@ let software_renderer: SoftwareRenderer;
 let webgl_renderer: WebglRenderer;
 export var is_mobile: boolean = false;
 
-
-let min_frame_time = 33;
+let min_frame_time = 7;
 let last_time = 0;
-let render_passes = 0;
-let temp_count = 0;
 let mouse_x_total = 0;
 let mouse_y_total = 0;
 
@@ -136,7 +133,8 @@ function update(dt: number) {
 
     if (moved)
         webgl_renderer.resetSamples();
-
+    
+    touch_foward = false
     moved = false;
 }
 

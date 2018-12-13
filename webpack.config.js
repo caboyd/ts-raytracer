@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ImageminPlugin = require('imagemin-webpack');
+const imageminJpegtran = require("imagemin-jpegtran");
+const imageminOptipng = require("imagemin-optipng");
 
 module.exports = (env, argv) => {
 	const isProduction = argv.mode === 'production';
@@ -32,9 +34,18 @@ module.exports = (env, argv) => {
 			]),
 			new ImageminPlugin(
 				{
-					test: /\.(jpe?g|png|gif|svg)$/i,
-					jpegtran: {
-						progressive: true
+					bail: false, // Ignore errors on corrupted images
+					cache: true,
+					imageminOptions: {
+
+						plugins: [
+							imageminJpegtran({
+								progressive: true
+							}),
+							imageminOptipng({
+								optimizationLevel: 5
+							}),
+						]
 					}
 				}
 			)
@@ -60,8 +71,16 @@ module.exports = (env, argv) => {
 					loader: 'raw-loader'
 				},
 				{
-					test: /\.(txt|obj|mtl|bmp|jpg)$/,
+					test: /\.(txt|obj|mtl|bmp)$/,
 					loader: 'raw-loader'
+				},
+				{
+					test: /\.(jpe?g|png|gif|svg)$/i,
+					use: [
+						{
+							loader: "file-loader"
+						}
+					]
 				}
 			]
 		},

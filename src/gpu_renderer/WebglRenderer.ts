@@ -20,7 +20,7 @@ let dist_to_focus = vec3.distance(eye, target);
 export class WebglRenderer {
     public camera: Camera;
     private gl: WebGL2RenderingContext;
-    private shader: Shader;
+    private ray_trace_shader: Shader;
     private quad_shader: Shader;
 
     private VAO: WebGLVertexArrayObject;
@@ -28,7 +28,7 @@ export class WebglRenderer {
 
     private frame_buffers: WebGLFramebuffer[];
     private float_textures: WebGLTexture[];
-    private current_source_id = 1;
+    private current_source_id = 0;
 
     private quad_render_texture: WebGLTexture;
 
@@ -42,15 +42,17 @@ export class WebglRenderer {
     private render_height = 0;
 
     public super_sampling = is_mobile ? 1 : 1;
-    private max_ray_bounce = is_mobile ? 12 : 12;
+    private max_ray_bounce = is_mobile ? 12 : 24;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
     private float_tex_ext: boolean;
 
+    private reset = true;
+
     constructor(canvas: HTMLCanvasElement) {
-        
-        this.default_quadrants_row = Math.ceil((canvas.height / 200) / this.default_quadrants_row);
-        this.default_quadrants_col = Math.ceil((canvas.width / 200) / this.default_quadrants_col);
+
+        this.default_quadrants_row = Math.ceil((canvas.height / 150) / this.default_quadrants_row);
+        this.default_quadrants_col = Math.ceil((canvas.width / 150) / this.default_quadrants_col);
 
         //if(is_mobile) this.super_sampling = 0;
         if (this.super_sampling === 0) this.super_sampling = 1;
@@ -83,14 +85,30 @@ export class WebglRenderer {
 
         //RENDER TO TEXTURE
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[destination_id]);
-
         gl.viewport(0, 0, this.render_width, this.render_height);
 
-        this.shader.use();
-        this.shader.setIntByName("sample_count", this.sample_count);
-        this.shader.setFloatByName("rand_seed0", gen.nextFloat());
-        this.shader.setFloatByName("rand_seed1", gen.nextFloat());
-        this.shader.setIntByName("current_quadrant", this.current_quadrant);
+        this.ray_trace_shader.use();
+
+        if (this.reset) {
+            this.reset = false;
+            this.sample_count = 0;
+            this.current_quadrant = -1;
+            this.ray_trace_shader.setIntByName("max_ray_bounce", Math.floor(this.max_ray_bounce / this.num_quadrants / 2));
+            this.ray_trace_shader.setIntByName("num_quadrants", 0);
+            this.ray_trace_shader.setIntByName("quadrants_per_row", 1);
+            this.ray_trace_shader.setIntByName("current_quadrant", 0);
+        }
+        else {
+            this.ray_trace_shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
+            this.ray_trace_shader.setIntByName("num_quadrants", this.num_quadrants);
+            this.ray_trace_shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row)
+            this.ray_trace_shader.setIntByName("current_quadrant", this.current_quadrant);
+        }
+
+        this.ray_trace_shader.setIntByName("sample_count", this.sample_count);
+        this.ray_trace_shader.setFloatByName("rand_seed0", gen.nextFloat());
+        this.ray_trace_shader.setFloatByName("rand_seed1", gen.nextFloat());
+  
 
         this.updateCamera();
         //Wiggle for anti-aliasing
@@ -98,10 +116,10 @@ export class WebglRenderer {
 
         gl.bindVertexArray(this.VAO);
         gl.bindTexture(gl.TEXTURE_2D, this.float_textures[this.current_source_id]);
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
 
         //Draw to float texture and quad render texture
         gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
@@ -111,33 +129,34 @@ export class WebglRenderer {
         gl.bindTexture(gl.TEXTURE_2D, this.quad_render_texture);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        if (this.current_source_id == 0) this.current_quadrant++;
+        this.current_quadrant++;
 
         if (this.current_quadrant >= this.num_quadrants) {
             this.current_quadrant = 0;
-            this.sample_count++;
-            //  this.current_source_id = (this.current_source_id + 1) % 2;
+            this.sample_count += 1;
+            // Ping pong the buffers
+            this.current_source_id = destination_id;
         }
 
-        // Ping pong the buffers
-        this.current_source_id = (this.current_source_id + 1) % 2;
+
     }
-    
+
     public resetCamera(): void {
         this.camera.position = eye;
         this.camera.lookAt(target);
     }
 
-    public  resetSamples(): void {
+    public resetSamples(): void {
+        this.updateCamera();
         let gl = this.gl;
+        this.current_source_id = 0;
+
         this.sample_count = 0;
-        gl.bindFramebuffer(gl.FRAMEBUFFER, this.frame_buffers[this.current_source_id]);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        
+        this.reset = true;
     }
-    
+
     public getSampleCount(): number {
-        return this.sample_count * 2.0;
+        return this.sample_count;
     }
 
     private initGL(canvas: HTMLCanvasElement) {
@@ -159,30 +178,30 @@ export class WebglRenderer {
     private initShader() {
         let gl = this.gl;
 
-        const frag: string = require("gpu_renderer/shaders/basic.frag");
-        const vert: string = require("gpu_renderer/shaders/basic.vert");
-        this.shader = new Shader(this.gl, vert, frag);
+        const frag: string = require("gpu_renderer/shaders/ray_trace.frag");
+        const vert: string = require("gpu_renderer/shaders/ray_trace.vert");
+        this.ray_trace_shader = new Shader(this.gl, vert, frag);
         this.quad_shader = new Shader(
             gl,
             require("gpu_renderer/shaders/quad.vert"),
             require("gpu_renderer/shaders/quad.frag")
         );
 
-        this.shader.setAttributes(["a_vertex"]);
+        this.ray_trace_shader.setAttributes(["a_vertex"]);
 
         let uniforms = new Map();
         uniforms.set("width", this.gl.drawingBufferWidth);
         uniforms.set("height", this.gl.drawingBufferHeight);
 
-        this.shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
-        this.shader.setIntByName("num_quadrants", this.num_quadrants);
-        this.shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row);
+        this.ray_trace_shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
+        this.ray_trace_shader.setIntByName("num_quadrants", this.num_quadrants);
+        this.ray_trace_shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row);
         // this.addSpheres(uniforms);
-        this.shader.setIntByName("last_frame", 0);
+        this.ray_trace_shader.setIntByName("last_frame", 0);
 
         uniforms.set("ambient_light", this.ambient_light);
 
-        this.shader.setUniforms(uniforms);
+        this.ray_trace_shader.setUniforms(uniforms);
         gl.bindVertexArray(this.VAO);
 
         this.quad_shader.use();
@@ -256,7 +275,7 @@ export class WebglRenderer {
     }
 
     private bigSphereScene(): void {
-        this.shader.use();
+        this.ray_trace_shader.use();
         let gl = this.gl;
         //RGBA32F
         let sphere_tex = gl.createTexture();
@@ -362,7 +381,7 @@ export class WebglRenderer {
             gl.FLOAT,
             new Float32Array(sphere_array)
         );
-        this.shader.setIntByName("sphere_texture", 1);
+        this.ray_trace_shader.setIntByName("sphere_texture", 1);
 
         gl.activeTexture(gl.TEXTURE2);
         gl.bindTexture(gl.TEXTURE_2D, mat_tex);
@@ -381,7 +400,7 @@ export class WebglRenderer {
             gl.UNSIGNED_BYTE,
             new Uint8Array(mat_array)
         );
-        this.shader.setIntByName("mat_texture", 2);
+        this.ray_trace_shader.setIntByName("mat_texture", 2);
 
         gl.activeTexture(gl.TEXTURE3);
         gl.bindTexture(gl.TEXTURE_2D, mat_tex2);
@@ -390,26 +409,26 @@ export class WebglRenderer {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, width, height, 0, gl.RGBA, gl.FLOAT, new Float32Array(mat_array2));
-        this.shader.setIntByName("mat_texture_extra", 3);
+        this.ray_trace_shader.setIntByName("mat_texture_extra", 3);
 
-        this.shader.setIntByName("sphere_count", num_spheres);
-        this.shader.setFloatByName("sphere_texture_size", width);
+        this.ray_trace_shader.setIntByName("sphere_count", num_spheres);
+        this.ray_trace_shader.setFloatByName("sphere_texture_size", width);
     }
 
     private updateCamera() {
-        this.shader.use();
-        this.shader.setVec3ByName("screen.lower_left_corner", this.camera.lower_left_corner);
-        this.shader.setVec3ByName("screen.horizontal", this.camera.screen_horizontal);
-        this.shader.setVec3ByName("screen.vertical", this.camera.screen_vertical);
-        this.shader.setVec3ByName("screen.position", this.camera.position);
-        this.shader.setFloatByName("screen.lens_radius", this.camera.lens_radius);
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
+        this.ray_trace_shader.use();
+        this.ray_trace_shader.setVec3ByName("screen.lower_left_corner", this.camera.lower_left_corner);
+        this.ray_trace_shader.setVec3ByName("screen.horizontal", this.camera.screen_horizontal);
+        this.ray_trace_shader.setVec3ByName("screen.vertical", this.camera.screen_vertical);
+        this.ray_trace_shader.setVec3ByName("screen.position", this.camera.position);
+        this.ray_trace_shader.setFloatByName("screen.lens_radius", this.camera.lens_radius);
+        this.ray_trace_shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.ray_trace_shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }
 
     private wiggleCamera(): void {
-        this.shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
-        this.shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
+        this.ray_trace_shader.setFloatByName("screen.x_wiggle", gen.nextFloat() / this.render_width);
+        this.ray_trace_shader.setFloatByName("screen.y_wiggle", gen.nextFloat() / this.render_height);
     }
 
     private initBuffers() {
@@ -433,8 +452,8 @@ export class WebglRenderer {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertex_buffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-        gl.enableVertexAttribArray(this.shader.getAttribLocation("a_vertex"));
-        gl.vertexAttribPointer(this.shader.getAttribLocation("a_vertex"), 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(this.ray_trace_shader.getAttribLocation("a_vertex"));
+        gl.vertexAttribPointer(this.ray_trace_shader.getAttribLocation("a_vertex"), 3, gl.FLOAT, false, 0, 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
         gl.bindVertexArray(null);
     }
