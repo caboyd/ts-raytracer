@@ -1,16 +1,17 @@
 import {Shader} from "./shader";
 import {vec3} from "gl-matrix";
 import {MatType} from "./Material";
-import {is_mobile} from "../main";
 import {Camera} from "../Camera";
 import * as ImGui from "../imgui/imgui";
 import {ImGuiIO} from "../imgui/imgui";
 import * as ImGui_Impl from "../imgui/imgui_impl";
+import {Global} from "../globals";
 
 const random = require("fast-random");
 
 const seed = 49;
 const gen = random(seed);
+
 
 let vFov = 60;
 let aperture = 0.0;
@@ -20,7 +21,7 @@ let up = vec3.fromValues(0, 1, 0);
 let dist_to_focus = vec3.distance(eye, target);
 
 let hud_gl: WebGLRenderingContext;
-let g_FontTexture: WebGLTexture | null = null;
+
 
 export class WebglRenderer {
     public camera: Camera;
@@ -38,16 +39,28 @@ export class WebglRenderer {
     private quad_render_texture: WebGLTexture;
 
     private sample_count = 0;
-    private default_quadrants_row = is_mobile ? 1 : 2;
-    private default_quadrants_col = is_mobile ? 1 : 2;
+    private quadrants_row = Global.is_mobile ? 3 : 2;
+    private quadrants_col = Global.is_mobile ? 3 : 2;
     public num_quadrants;
     private current_quadrant;
 
     private render_width = 0;
     private render_height = 0;
 
-    public super_sampling = is_mobile ? 1 : 1;
-    private max_ray_bounce = is_mobile ? 12 : 24;
+    private _super_sampling = Global.is_mobile ? 1 : 1;
+    get super_sampling() {
+        return this._super_sampling;
+    }
+
+    set super_sampling(ss: number) {
+        if (this._super_sampling == ss) return;
+        this._super_sampling = ss;
+        this.gl && this.initRenderTexture();
+        this.reset = true;
+    };
+
+    private max_ray_bounce = Global.is_mobile ? 12 : 24;
+    private min_ray_bounce = 0;
     private ambient_light = vec3.fromValues(0.5, 0.7, 1.0);
 
     private float_tex_ext: boolean;
@@ -55,13 +68,7 @@ export class WebglRenderer {
     private reset = true;
 
     constructor(canvas: HTMLCanvasElement) {
-        this.default_quadrants_row = Math.ceil((canvas.height / 150) / this.default_quadrants_row);
-        this.default_quadrants_col = Math.ceil((canvas.width / 150) / this.default_quadrants_col);
-
-        //if(is_mobile) this.super_sampling = 0;
-        if (this.super_sampling === 0) this.super_sampling = 1;
-        this.num_quadrants =
-            this.super_sampling * this.super_sampling * this.default_quadrants_row * this.default_quadrants_col;
+        this.num_quadrants = this.quadrants_row * this.quadrants_col;
         this.current_quadrant = 0;
 
         this.initGL(canvas);
@@ -97,6 +104,7 @@ export class WebglRenderer {
         //ImGui.StyleColorsClassic();
 
         io.Fonts.AddFontDefault();
+        io.WantCaptureMouse = true;
         ImGui_Impl.Init(hud_gl);
     }
 
@@ -110,11 +118,13 @@ export class WebglRenderer {
 
         this.ray_trace_shader.use();
 
+        this.num_quadrants = this.quadrants_row * this.quadrants_col;
+
         if (this.reset) {
             this.reset = false;
             this.sample_count = 0;
             this.current_quadrant = -1;
-            this.ray_trace_shader.setIntByName("max_ray_bounce", Math.floor(this.max_ray_bounce / this.num_quadrants / 2));
+            this.ray_trace_shader.setIntByName("max_ray_bounce", this.min_ray_bounce);
             this.ray_trace_shader.setIntByName("num_quadrants", 0);
             this.ray_trace_shader.setIntByName("quadrants_per_row", 1);
             this.ray_trace_shader.setIntByName("current_quadrant", 0);
@@ -122,7 +132,7 @@ export class WebglRenderer {
         else {
             this.ray_trace_shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
             this.ray_trace_shader.setIntByName("num_quadrants", this.num_quadrants);
-            this.ray_trace_shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row)
+            this.ray_trace_shader.setIntByName("quadrants_per_row", this.quadrants_col);
             this.ray_trace_shader.setIntByName("current_quadrant", this.current_quadrant);
         }
 
@@ -142,8 +152,8 @@ export class WebglRenderer {
         gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
@@ -159,22 +169,35 @@ export class WebglRenderer {
             this.current_source_id = destination_id;
         }
 
-        if(!hud_gl) return;
+        if (!hud_gl) return;
 
         // Start the Dear ImGui frame
         ImGui_Impl.NewFrame(0);
         ImGui.NewFrame();
+        ImGui.SetNextWindowPos(new ImGui.ImVec2(2, 2), ImGui.Cond.FirstUseEver);
+        ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 200), ImGui.Cond.FirstUseEver);
         {
-            ImGui.Begin("Hello, world!");
-            ImGui.Text("This is some useful text.");
+            ImGui.Begin("Settings");
+            ImGui.Text(`FPS: ${Global.fps.toFixed(2)}`);
+            ImGui.SliderInt("Max FPS", (value = Global.max_fps) => Global.max_fps = value, 5, 144);
+            ImGui.Text("Ray Bounces");
+            ImGui.SliderInt("Cam Moving", (value = this.min_ray_bounce) => this.min_ray_bounce = value, 0, 50);
+            ImGui.SliderInt("Cam Still", (value = this.max_ray_bounce) => this.max_ray_bounce = value, 0, 200);
+            ImGui.Separator();
+            ImGui.Text("Rendering Tiles");
+            ImGui.InputInt("Rows", (value = this.quadrants_row) => this.quadrants_row = value, 1, 1);
+            ImGui.InputInt("Cols", (value = this.quadrants_col) => this.quadrants_col = value, 1, 1);
+
+            ImGui.Text("Supersamping");
+            ImGui.SliderInt("SSAA", (value = this.super_sampling) => this.super_sampling = value, 1, 2);
             ImGui.End();
         }
         ImGui.EndFrame();
         ImGui.Render();
-     
+
         if (hud_gl) {
             hud_gl.viewport(0, 0, hud_gl.drawingBufferWidth, hud_gl.drawingBufferHeight);
-            hud_gl.clearColor(0,0,0,0.0);
+            hud_gl.clearColor(0, 0, 0, 0.0);
             hud_gl.clear(hud_gl.COLOR_BUFFER_BIT);
             //gl.useProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
         }
@@ -196,7 +219,7 @@ export class WebglRenderer {
 
     private initGL(canvas: HTMLCanvasElement) {
         try {
-            this.gl = <WebGL2RenderingContext>canvas.getContext("webgl2", {alpha:true});
+            this.gl = <WebGL2RenderingContext>canvas.getContext("webgl2", {alpha: true});
         } catch (e) {
             throw "GL init error:\n" + e;
         }
@@ -230,7 +253,7 @@ export class WebglRenderer {
 
         this.ray_trace_shader.setIntByName("max_ray_bounce", this.max_ray_bounce);
         this.ray_trace_shader.setIntByName("num_quadrants", this.num_quadrants);
-        this.ray_trace_shader.setIntByName("quadrants_per_row", this.super_sampling * this.default_quadrants_row);
+        this.ray_trace_shader.setIntByName("quadrants_per_row", this.super_sampling * this.quadrants_row);
         // this.addSpheres(uniforms);
         this.ray_trace_shader.setIntByName("last_frame", 0);
 
@@ -344,8 +367,8 @@ export class WebglRenderer {
         mat_array.push(0.7 * 255, 0.6 * 255, 0.5 * 255, 0);
         mat_array2.push(MatType.Reflect, 0, 0, 0);
 
-        let j = is_mobile ? -2 : -11;
-        let k = is_mobile ? 7 : 11;
+        let j = Global.is_mobile ? -2 : -11;
+        let k = Global.is_mobile ? 7 : 11;
 
         for (let a = j; a < k; a++) {
             for (let b = j; b < k; b++) {

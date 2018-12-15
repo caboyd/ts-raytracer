@@ -5,7 +5,7 @@ import {Sphere} from "./Sphere";
 import {HitableList} from "./HitableList";
 import {Camera} from "../Camera";
 import {Dielectric, Lambertian, Metal} from "./Material";
-import {is_mobile} from "../main";
+import {Global} from "../globals";
 
 const random = require("fast-random");
 
@@ -22,8 +22,8 @@ export class SoftwareRenderer {
     temp = vec3.create();
     temp_rec = new HitRecord();
 
-    max_ray_bounce = is_mobile ? 8 : 16;
-    num_samples = is_mobile ? 12 : 16;
+    max_ray_bounce = Global.is_mobile ? 8 : 16;
+    num_samples = Global.is_mobile ? 12 : 16;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;

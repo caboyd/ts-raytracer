@@ -1,12 +1,11 @@
 import {SoftwareRenderer} from "./renderer/SoftwareRenderer";
 import {WebglRenderer} from "./gpu_renderer/WebglRenderer";
 import {Camera_Movement} from "./Camera";
+import {Global} from "./globals";
 
 let software_renderer: SoftwareRenderer;
 let webgl_renderer: WebglRenderer;
-export var is_mobile: boolean = false;
 
-let min_frame_time = 7;
 let last_time = 0;
 let mouse_x_total = 0;
 let mouse_y_total = 0;
@@ -32,7 +31,7 @@ let touch_foward = false;
 const touchCallback = (e: TouchEvent): void => {
     touch_foward = e.touches.length >= 2;
 
-    
+
     //@ts-ignore
     let movementX = e.changedTouches[0].clientX || 0;
     //@ts-ignore
@@ -54,29 +53,27 @@ const touchCallback = (e: TouchEvent): void => {
 
 };
 
+let canvas_webgl2: HTMLCanvasElement;
 
 (async function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        is_mobile = true;
-        min_frame_time = 33;
+        Global.is_mobile = true;
+        Global.max_fps = 30;
     }
 
-    let canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
+    canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
     let canvas_webgl2_hud = <HTMLCanvasElement>document.getElementById("canvas-webgl2-hud");
-    let webgl_hud = <WebGLRenderingContext>canvas_webgl2_hud.getContext("webgl",  { alpha: true });
+    let webgl_hud = <WebGLRenderingContext>canvas_webgl2_hud.getContext("webgl", {alpha: true});
     canvas_webgl2_hud.addEventListener("mousemove", moveCallback, false);
     canvas_webgl2.addEventListener("touchmove", touchCallback, false);
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
     webgl_renderer = new WebglRenderer(canvas_webgl2);
-    
+
     await webgl_renderer.initImGui(webgl_hud);
 
     last_time = Date.now();
 
-
-    let desc = document.getElementById("desc");
-    desc.innerText = "" + canvas_webgl2.width + "x" + canvas_webgl2.height + " " + webgl_renderer.super_sampling + "x Super Sampling";
 
     drawScene();
     //  drawCanvas();
@@ -86,14 +83,14 @@ function drawScene() {
     let now = Date.now();
     let dt = (now - last_time);
 
-    if (dt > min_frame_time) {
+    if (dt > 1000 / Global.max_fps) {
         update(dt / 1000);
         requestAnimationFrame(drawWebgl);
         last_time = now;
-
+        Global.fps = 1000 / dt;
     }
     else
-        setTimeout(drawScene, min_frame_time - (now - last_time))
+        setTimeout(drawScene, (1000 / Global.max_fps) - (now - last_time))
 
 }
 
@@ -101,7 +98,8 @@ function drawWebgl() {
     webgl_renderer.draw();
 
     document.getElementById("webgl-text").textContent = "" + webgl_renderer.getSampleCount();
-
+    let desc = document.getElementById("desc");
+    desc.innerText = "" + canvas_webgl2.width + "x" + canvas_webgl2.height + " " + webgl_renderer.super_sampling + "x Super Sampling";
     drawScene();
 }
 
@@ -138,7 +136,7 @@ function update(dt: number) {
 
     if (moved)
         webgl_renderer.resetSamples();
-    
+
     touch_foward = false
     moved = false;
 }
@@ -156,3 +154,18 @@ window.onkeydown = function (e) {
 window.onkeyup = function (e) {
     keys[e.keyCode] = false;
 };
+
+(function () {
+    let script = document.createElement('script');
+    script.onload = function () {
+        //@ts-ignore
+        let stats = new Stats();
+        document.body.appendChild(stats.dom);
+        requestAnimationFrame(function loop() {
+            stats.update();
+            requestAnimationFrame(loop)
+        });
+    };
+    script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';
+    document.head.appendChild(script);
+})()

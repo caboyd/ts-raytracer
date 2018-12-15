@@ -131,9 +131,10 @@ function canvas_on_pointerdown(event: PointerEvent): void {
     io.MousePos.x = event.offsetX;
     io.MousePos.y = event.offsetY;
     io.MouseDown[mouse_button_map[event.button]] = true;
-    // if (io.WantCaptureMouse) {
-    //     event.preventDefault();
-    // }
+    if (io.WantCaptureMouse) {
+        event.preventDefault();
+    }
+
 }
 
 function canvas_on_contextmenu(event: Event): void {
