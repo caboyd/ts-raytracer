@@ -2,8 +2,9 @@
 
 Implementation of a Raytracter in Typescript using webgl2.  
 Following [Ray Tracing in One Weekend](http://in1weekend.blogspot.com/2016/01/ray-tracing-in-one-weekend.html) book.  
-Implements Diffuse, Metals, and Dieletrics, with defocus blur and antialising (Super Sampling and Multi Sampling).  
-Renders small sections of scene at a time to stall the GPU.
+Implements Lambertian Diffuse, Metals, and Dielectrics.  
+Camera for zooming around the scene.  
+UI overlay using imgui-js
 
 [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
 
@@ -96,7 +97,7 @@ cd ..
 
 * [gl-matrix](http://glmatrix.net/) - Vector math
 * [html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin) - HTML templater
-* [copy-webpack-plugin](https://www.npmjs.com/package/copy-webpack-plugin) - Copy files from assets to docs/assets
+* [copy-webpack](https://www.npmjs.com/package/copy-webpack) - Copy files from assets to docs/assets
 * [imagemin-webpack-plugin](https://www.npmjs.com/package/imagemin-webpack-plugin) - Compress images
 * [raw-loader](https://www.npmjs.com/package/raw-loader) - require files as strings
 * [ts-loader](https://www.npmjs.com/package/ts-loader) - require ts files
@@ -104,6 +105,7 @@ cd ..
 * [uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin) - minimizer
 * [webpack](https://webpack.js.org/) - Build tool
 * [webpack-dev-server](https://www.npmjs.com/package/webpack-dev-server) - Hotload development environment
+* [imgui-js](https://github.com/flyover/imgui-js) - UI
 
 
 ## License
