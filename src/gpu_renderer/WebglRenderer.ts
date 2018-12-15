@@ -3,6 +3,7 @@ import {vec3} from "gl-matrix";
 import {MatType} from "./Material";
 import {is_mobile} from "../main";
 import {Camera} from "../Camera";
+import * as ImGui from "../imgui/imgui";
 
 const random = require("fast-random");
 
@@ -50,6 +51,7 @@ export class WebglRenderer {
     private reset = true;
 
     constructor(canvas: HTMLCanvasElement) {
+   
 
         this.default_quadrants_row = Math.ceil((canvas.height / 150) / this.default_quadrants_row);
         this.default_quadrants_col = Math.ceil((canvas.width / 150) / this.default_quadrants_col);
@@ -77,6 +79,12 @@ export class WebglRenderer {
         );
         this.updateCamera();
         this.initBuffers();
+    }
+    
+    public async initImGui() {
+        await ImGui.default();
+        ImGui.IMGUI_CHECKVERSION();
+     
     }
 
     public draw(): void {
@@ -147,11 +155,6 @@ export class WebglRenderer {
     }
 
     public resetSamples(): void {
-        this.updateCamera();
-        let gl = this.gl;
-        this.current_source_id = 0;
-
-        this.sample_count = 0;
         this.reset = true;
     }
 

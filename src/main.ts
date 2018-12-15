@@ -55,7 +55,7 @@ const touchCallback = (e: TouchEvent): void => {
 };
 
 
-(function loadWebGL() {
+(async function loadWebGL() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         is_mobile = true;
         min_frame_time = 33;
@@ -67,6 +67,7 @@ const touchCallback = (e: TouchEvent): void => {
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
     webgl_renderer = new WebglRenderer(canvas_webgl2);
+    await webgl_renderer.initImGui();
     last_time = Date.now();
 
 

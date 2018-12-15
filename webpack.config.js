@@ -14,6 +14,10 @@ module.exports = (env, argv) => {
 			filename: 'bundle.js',
 			publicPath: ''
 		},
+		//Required for imgui-js to work
+		node: {
+			fs: 'empty'
+		},
 		plugins: [
 			new HtmlWebpackPlugin({
 					title: '',

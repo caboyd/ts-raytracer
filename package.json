@@ -23,6 +23,7 @@
     "parser": "typescript"
   },
   "devDependencies": {
+    "@types/emscripten": "0.0.31",
     "@types/gl-matrix": "^2.4.4",
     "@types/node": "^10.12.14",
     "@types/webgl2": "^0.0.4",
