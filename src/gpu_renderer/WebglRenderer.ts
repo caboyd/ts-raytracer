@@ -4,6 +4,8 @@ import {MatType} from "./Material";
 import {is_mobile} from "../main";
 import {Camera} from "../Camera";
 import * as ImGui from "../imgui/imgui";
+import {ImGuiIO} from "../imgui/imgui";
+import * as ImGui_Impl from "../imgui/imgui_impl";
 
 const random = require("fast-random");
 
@@ -17,6 +19,8 @@ let target = vec3.fromValues(4, 0.5, 1);
 let up = vec3.fromValues(0, 1, 0);
 let dist_to_focus = vec3.distance(eye, target);
 
+let hud_gl: WebGLRenderingContext;
+let g_FontTexture: WebGLTexture | null = null;
 
 export class WebglRenderer {
     public camera: Camera;
@@ -51,8 +55,6 @@ export class WebglRenderer {
     private reset = true;
 
     constructor(canvas: HTMLCanvasElement) {
-   
-
         this.default_quadrants_row = Math.ceil((canvas.height / 150) / this.default_quadrants_row);
         this.default_quadrants_col = Math.ceil((canvas.width / 150) / this.default_quadrants_col);
 
@@ -80,11 +82,22 @@ export class WebglRenderer {
         this.updateCamera();
         this.initBuffers();
     }
-    
-    public async initImGui() {
+
+    public async initImGui(gl: WebGLRenderingContext) {
+        hud_gl = gl;
         await ImGui.default();
         ImGui.IMGUI_CHECKVERSION();
-     
+        ImGui.CreateContext();
+
+        const io: ImGuiIO = ImGui.GetIO();
+        // io.ConfigFlags |= ImGui.ConfigFlags.NavEnableKeyboard;  // Enable Keyboard Controls
+
+        // Setup style
+        ImGui.StyleColorsDark();
+        //ImGui.StyleColorsClassic();
+
+        io.Fonts.AddFontDefault();
+        ImGui_Impl.Init(hud_gl);
     }
 
     public draw(): void {
@@ -116,7 +129,7 @@ export class WebglRenderer {
         this.ray_trace_shader.setIntByName("sample_count", this.sample_count);
         this.ray_trace_shader.setFloatByName("rand_seed0", gen.nextFloat());
         this.ray_trace_shader.setFloatByName("rand_seed1", gen.nextFloat());
-  
+
 
         this.updateCamera();
         //Wiggle for anti-aliasing
@@ -129,8 +142,8 @@ export class WebglRenderer {
         gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+         gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
         this.quad_shader.use();
         gl.bindVertexArray(this.VAO);
@@ -146,7 +159,26 @@ export class WebglRenderer {
             this.current_source_id = destination_id;
         }
 
+        if(!hud_gl) return;
 
+        // Start the Dear ImGui frame
+        ImGui_Impl.NewFrame(0);
+        ImGui.NewFrame();
+        {
+            ImGui.Begin("Hello, world!");
+            ImGui.Text("This is some useful text.");
+            ImGui.End();
+        }
+        ImGui.EndFrame();
+        ImGui.Render();
+     
+        if (hud_gl) {
+            hud_gl.viewport(0, 0, hud_gl.drawingBufferWidth, hud_gl.drawingBufferHeight);
+            hud_gl.clearColor(0,0,0,0.0);
+            hud_gl.clear(hud_gl.COLOR_BUFFER_BIT);
+            //gl.useProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
+        }
+        ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
     }
 
     public resetCamera(): void {
@@ -164,7 +196,7 @@ export class WebglRenderer {
 
     private initGL(canvas: HTMLCanvasElement) {
         try {
-            this.gl = <WebGL2RenderingContext>canvas.getContext("webgl2");
+            this.gl = <WebGL2RenderingContext>canvas.getContext("webgl2", {alpha:true});
         } catch (e) {
             throw "GL init error:\n" + e;
         }
@@ -461,3 +493,4 @@ export class WebglRenderer {
         gl.bindVertexArray(null);
     }
 }
+

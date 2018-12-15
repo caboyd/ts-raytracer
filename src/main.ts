@@ -62,12 +62,16 @@ const touchCallback = (e: TouchEvent): void => {
     }
 
     let canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
-    document.addEventListener("mousemove", moveCallback, false);
-    document.addEventListener("touchmove", touchCallback, false);
+    let canvas_webgl2_hud = <HTMLCanvasElement>document.getElementById("canvas-webgl2-hud");
+    let webgl_hud = <WebGLRenderingContext>canvas_webgl2_hud.getContext("webgl",  { alpha: true });
+    canvas_webgl2_hud.addEventListener("mousemove", moveCallback, false);
+    canvas_webgl2.addEventListener("touchmove", touchCallback, false);
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
     webgl_renderer = new WebglRenderer(canvas_webgl2);
-    await webgl_renderer.initImGui();
+    
+    await webgl_renderer.initImGui(webgl_hud);
+
     last_time = Date.now();
 
 

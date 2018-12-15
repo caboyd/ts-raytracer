@@ -9,8 +9,9 @@
 			-ms-user-select: none;
 			user-select: none;
 		}
+
 		html, body {
-			font-family: Arial,sans-serif;
+			font-family: Arial, sans-serif;
 			font-size: 20px;
 			height: 100%;
 			letter-spacing: 0.5px;
@@ -25,17 +26,17 @@
 			cursor: pointer;
 			font-weight: bold;
 		}
+
 		canvas {
-			background-color: #EEEEEE;
-			margin:auto;
-	
+			margin: auto;
 		}
-		
-		body{
-			overflow:scroll;
+
+		body {
+			overflow: scroll;
 		}
+
 		#fpscounter {
-			z-index:2147483647;
+			z-index: 2147483647;
 			color: greenyellow;
 			top: 10px;
 			display: block;
@@ -43,36 +44,44 @@
 			position: absolute;
 		}
 
-		#container{
-		
+		#container {
 			position: relative;
-			display:flex;
-			padding-top: 10vh;
-		
-		}
-		#container > div{
-			display:flex;
-		
+			display: flex;
 			flex-direction: column;
-			margin:auto;
+			padding-top: 10vh;
+
 		}
 
+		#container > div {
+			display: flex;
+			flex-direction: column;
+			margin: auto;
+		}
+
+		[id*="-hud"] {
+			z-index: 2;
+			position: absolute;
+
+		}
+
+		
 	</style>
 </head>
 <body>
 <div id="container">
+	<div><span>Webgl2 Canvas Ray Tracer (<span id="desc"></span>)</span> <span>Render Passes: <span
+		id="webgl-text"></span></span></div>
 	<div>
-		<span>Webgl2 Canvas Ray Tracer (<span id="desc"></span>)</span>  <span>Render Passes: <span id="webgl-text"></span></span>
-	
+
 		<canvas id="canvas-webgl2" width="600" height="600"></canvas>
-	</div>
-	
-	<!--<div>-->
-		<!--<span>Canvas</span><span id="canvas-text"></span>-->
-		<!--<canvas id="canvas" width="400" height="250"></canvas>-->
-	<!--</div>-->
+		<canvas id="canvas-webgl2-hud" width="600" height="600"></canvas>
 	</div>
 
+	<!--<div>-->
+	<!--<span>Canvas</span><span id="canvas-text"></span>-->
+	<!--<canvas id="canvas" width="400" height="250"></canvas>-->
+	<!--</div>-->
+</div>
 
 <div id="fpscounter"></div>
 </body>
