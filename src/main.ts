@@ -11,47 +11,7 @@ let mouse_x_total = 0;
 let mouse_y_total = 0;
 
 let keys: Array<boolean> = [];
-let moved: boolean = false;
-
-const moveCallback = (e: MouseEvent): void => {
-    //@ts-ignore
-    let movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
-    //@ts-ignore
-    let movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
-    if (e.which == 1) {
-        mouse_x_total += movementX;
-        mouse_y_total += movementY;
-        moved = true;
-    }
-};
-
-
-let last_x = 0, last_y = 0;
-let touch_foward = false;
-const touchCallback = (e: TouchEvent): void => {
-    touch_foward = e.touches.length >= 2;
-
-
-    //@ts-ignore
-    let movementX = e.changedTouches[0].clientX || 0;
-    //@ts-ignore
-    let movementY = e.changedTouches[0].clientY || 0;
-
-    if (movementX > last_x)
-        mouse_x_total += movementX / 100;
-    else if (movementX < last_x)
-        mouse_x_total -= movementX / 100;
-    last_x = movementX;
-
-    if (movementY > last_y)
-        mouse_y_total += movementY / 100;
-    else if (movementY < last_y)
-        mouse_y_total -= movementY / 100;
-    last_y = movementY;
-
-    moved = true;
-
-};
+let moved = false;
 
 let canvas_webgl2: HTMLCanvasElement;
 
@@ -62,15 +22,11 @@ let canvas_webgl2: HTMLCanvasElement;
     }
 
     canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
-    let canvas_webgl2_hud = <HTMLCanvasElement>document.getElementById("canvas-webgl2-hud");
-    let webgl_hud = <WebGLRenderingContext>canvas_webgl2_hud.getContext("webgl", {alpha: true});
-    canvas_webgl2_hud.addEventListener("mousemove", moveCallback, false);
-    canvas_webgl2.addEventListener("touchmove", touchCallback, false);
     // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
     webgl_renderer = new WebglRenderer(canvas_webgl2);
 
-    await webgl_renderer.initImGui(webgl_hud);
+    await webgl_renderer.initImGui();
 
     last_time = Date.now();
 
@@ -96,16 +52,12 @@ function drawScene() {
 
 function drawWebgl() {
     webgl_renderer.draw();
-
-    document.getElementById("webgl-text").textContent = "" + webgl_renderer.getSampleCount();
-    let desc = document.getElementById("desc");
-    desc.innerText = "" + canvas_webgl2.width + "x" + canvas_webgl2.height + " " + webgl_renderer.super_sampling + "x Super Sampling";
     drawScene();
 }
 
 function update(dt: number) {
     let camera = webgl_renderer.camera;
-    if (keys[87] || touch_foward) {
+    if (keys[87]) {
         moved = true;
         camera.processKeyboard(Camera_Movement.FORWARD, dt);
     }
@@ -130,14 +82,9 @@ function update(dt: number) {
         camera.processKeyboard(Camera_Movement.UP, dt);
     }
 
-    camera.processMouseMovement(-mouse_x_total, -mouse_y_total, true);
-    mouse_x_total = 0;
-    mouse_y_total = 0;
-
     if (moved)
         webgl_renderer.resetSamples();
 
-    touch_foward = false
     moved = false;
 }
 

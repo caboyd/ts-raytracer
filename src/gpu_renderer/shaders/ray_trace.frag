@@ -242,6 +242,18 @@ vec3 color(inout Ray ray){
     return color;
 }
 
+
+
+// Converts a color from linear light gamma to sRGB gamma
+vec4 fromLinear(vec4 linearRGB)
+{
+    bvec4 cutoff = lessThan(linearRGB, vec4(0.0031308));
+    vec4 higher = vec4(1.055)*pow(linearRGB, vec4(1.0/2.4)) - vec4(0.055);
+    vec4 lower = linearRGB * vec4(12.92);
+
+    return mix(higher, lower, cutoff);
+}
+
 void main()
 {      
     vec3 prev_color =  texture(last_frame, vec2(pos.xy)).rgb;
@@ -262,7 +274,7 @@ void main()
     vec3 final_color = mix(prev_color,new_color,blend);
 
     fragColor = vec4(final_color,1.0);         
-    fragColor2 = fragColor;
+    fragColor2 =  fromLinear(vec4(final_color,1.0));
     
 }
 

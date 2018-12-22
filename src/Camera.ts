@@ -18,8 +18,8 @@ export class Camera {
     public lower_left_corner: vec3 = vec3.create();
     public screen_horizontal: vec3 = vec3.create();
     public screen_vertical: vec3 = vec3.create();
-    private readonly half_width: number;
-    private readonly half_height: number;
+    public half_width: number;
+    public half_height: number;
 
     public position: vec3 = vec3.create();
     public front: vec3 = vec3.create();
