@@ -10613,6 +10613,7 @@ class WebglRenderer {
         this.render_height = 0;
         this.render_resolution = 600;
         this.display_resolution = 600;
+        this.mouse_invert = false;
         this._super_sampling = _globals__WEBPACK_IMPORTED_MODULE_6__["Global"].is_mobile ? 1 : 1;
         this.max_ray_bounce = _globals__WEBPACK_IMPORTED_MODULE_6__["Global"].is_mobile ? 12 : 24;
         this.min_ray_bounce = 0;
@@ -10714,6 +10715,7 @@ class WebglRenderer {
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Separator"]();
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Text"](`FPS: ${_globals__WEBPACK_IMPORTED_MODULE_6__["Global"].fps.toFixed(2)}`);
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["SliderInt"]("Max FPS", (value = _globals__WEBPACK_IMPORTED_MODULE_6__["Global"].max_fps) => _globals__WEBPACK_IMPORTED_MODULE_6__["Global"].max_fps = value, 5, 144);
+            _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Checkbox"]("Invert Mouse", (value = this.mouse_invert) => this.mouse_invert = value);
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Separator"]();
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Text"]("Ray Bounces");
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["SliderInt"]("Cam Moving", (value = this.min_ray_bounce) => this.min_ray_bounce = value, 0, 50);
@@ -10737,7 +10739,8 @@ class WebglRenderer {
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImageButton"](this.quad_render_texture, size, new _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImVec2"](0, 1), new _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImVec2"](1, 0), 0);
             if (_imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["IsItemClicked"]()) {
                 const mouse_delta = io.MouseDelta;
-                this.camera.processMouseMovement(-mouse_delta.x, -mouse_delta.y, true);
+                let invert = this.mouse_invert ? -1 : 1;
+                this.camera.processMouseMovement(invert * mouse_delta.x, invert * mouse_delta.y, true);
                 this.reset = true;
             }
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["End"]();
