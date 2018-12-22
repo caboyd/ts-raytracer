@@ -10737,7 +10737,7 @@ class WebglRenderer {
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["Begin"]("GPU Rendered Scene");
             let size = new _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImVec2"](this.display_resolution, this.display_resolution);
             _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImageButton"](this.quad_render_texture, size, new _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImVec2"](0, 1), new _imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["ImVec2"](1, 0), 0);
-            if (_imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["IsItemClicked"]()) {
+            if (_imgui_imgui__WEBPACK_IMPORTED_MODULE_4__["IsItemActive"]()) {
                 const mouse_delta = io.MouseDelta;
                 let invert = this.mouse_invert ? -1 : 1;
                 this.camera.processMouseMovement(invert * mouse_delta.x, invert * mouse_delta.y, true);
