@@ -28,40 +28,20 @@
 		}
 
 		canvas {
+			background-color: aliceblue;
 			margin: auto;
+			width: 100vw;
+			height: 100vh;
 		}
 
 		body {
 			overflow: scroll;
 		}
 
-		#fpscounter {
-			z-index: 2147483647;
-			color: greenyellow;
-			top: 10px;
-			display: block;
-			left: 20px;
-			position: absolute;
-		}
-
 		#container {
 			position: relative;
 			display: flex;
 			flex-direction: column;
-			padding-top: 10vh;
-
-		}
-
-		#container > div {
-			display: flex;
-			flex-direction: column;
-			margin: auto;
-		}
-
-		[id*="-hud"] {
-			z-index: 2;
-			position: absolute;
-
 		}
 
 		
@@ -69,12 +49,9 @@
 </head>
 <body>
 <div id="container">
-	<div><span>Webgl2 Canvas Ray Tracer (<span id="desc"></span>)</span> <span>Render Passes: <span id="webgl-text"></span></span></div>
-	<div>
-
 		<canvas id="canvas-webgl2" width="600" height="600"></canvas>
-		<canvas id="canvas-webgl2-hud" width="600" height="600"></canvas>
-	</div>
+		<!--<canvas id="canvas-webgl2-hud" width="600" height="600"></canvas>-->
+
 
 	<!--<div>-->
 	<!--<span>Canvas</span><span id="canvas-text"></span>-->
@@ -82,6 +59,5 @@
 	<!--</div>-->
 </div>
 
-<div id="fpscounter"></div>
 <script type="text/javascript" src="bundle.js"></script></body>
 </html>
