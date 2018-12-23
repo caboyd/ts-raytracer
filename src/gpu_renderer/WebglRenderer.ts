@@ -48,6 +48,8 @@ export class WebglRenderer {
     private render_height = 0;
     private render_resolution = 600;
     private display_resolution = 600;
+    
+    private mouse_invert = false;
 
     private _super_sampling = Global.is_mobile ? 1 : 1;
     get super_sampling() {
@@ -186,6 +188,7 @@ export class WebglRenderer {
             ImGui.Separator();
             ImGui.Text(`FPS: ${Global.fps.toFixed(2)}`);
             ImGui.SliderInt("Max FPS", (value = Global.max_fps) => Global.max_fps = value, 5, 144);
+            ImGui.Checkbox("Invert Mouse", (value = this.mouse_invert) => this.mouse_invert = value)
             ImGui.Separator();
             ImGui.Text("Ray Bounces");
             ImGui.SliderInt("Cam Moving", (value = this.min_ray_bounce) => this.min_ray_bounce = value, 0, 50);
@@ -211,9 +214,10 @@ export class WebglRenderer {
             let size = new ImGui.ImVec2(this.display_resolution, this.display_resolution);
   
             ImGui.ImageButton(this.quad_render_texture, size, new ImGui.ImVec2(0, 1), new ImGui.ImVec2(1, 0), 0);
-            if (ImGui.IsItemClicked()) {
+            if (ImGui.IsItemActive()) {
                 const mouse_delta: Readonly<ImGui.reference_ImVec2> = io.MouseDelta;
-                this.camera.processMouseMovement(-mouse_delta.x, -mouse_delta.y, true);
+                let invert = this.mouse_invert ? -1: 1;
+                this.camera.processMouseMovement(invert *mouse_delta.x, invert *mouse_delta.y, true);
                 this.reset = true;
             }
             ImGui.End();
