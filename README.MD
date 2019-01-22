@@ -9,11 +9,13 @@ UI overlay using imgui-js
 ## [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
 Use Chrome or Firefox
 
+Demo Screenshot
+<img src="https://i.imgur.com/o8jEVVHg.png" alt="Typescript Webgl2 Raytracer demo image">
+
 3200 x 2400 image with 850 render passes.
 <img src="https://i.imgur.com/uVZMcem.jpg" alt="Ray Tracer image">
  
 [Full Resolution Imgur Link](https://i.imgur.com/uVZMcem.jpg)
-
 
 
 ## Getting Started
