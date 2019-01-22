@@ -6,7 +6,7 @@ Implements Lambertian Diffuse, Metals, and Dielectrics.
 Camera for zooming around the scene.  
 UI overlay using imgui-js
 
-[Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
+## [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
 
 3200 x 2400 image with 850 render passes.
 <img src="https://i.imgur.com/uVZMcem.jpg" alt="Ray Tracer image">
