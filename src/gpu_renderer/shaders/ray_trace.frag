@@ -150,27 +150,26 @@ bool intersectAll(Ray ray, float t_min, float t_max, inout HitRecord rec){
     
     //Spheres Loop
     Sphere sphere;
-    float index_of_hit = 0.0;
+    int index_of_hit = 0;
     float index;
     vec4 s;
     float size = float(sphere_texture_size);
     
     for(int i = 0; i < sphere_count; i++){
-        index = float(i) / size;
-        s = texture(sphere_texture, vec2(index,0.5));
+        s = texelFetch(sphere_texture, ivec2(i,0), 0);
         sphere.center = s.xyz;
         sphere.radius = s.w;     
 
         if(sphereIntersection(sphere, ray, t_min, closest_so_far, rec)){
-            index_of_hit = index;
+            index_of_hit = i;
             hit_anything = true;
             closest_so_far = rec.t;
         }
     }
     
     //If we don't hit anything it doesnt matter since this data won't be used
-    rec.mat.color = texture(mat_texture, vec2(index_of_hit,0.5)).rgb; 
-    vec2 mat = texture(mat_texture_extra, vec2(index_of_hit,0.5)).xy;
+    rec.mat.color = texelFetch(mat_texture, ivec2(index_of_hit,0), 0).rgb; 
+    vec2 mat = texelFetch(mat_texture_extra, ivec2(index_of_hit,0), 0).xy;
     rec.mat.type = int(mat.x);
     rec.mat.fuzz = mat.y;
     rec.mat.refraction_index = mat.y;

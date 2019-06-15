@@ -256,7 +256,7 @@ export class WebglRenderer {
         if (!this.gl) {
             alert("WebGL2 is not available on your browser.");
         }
-        this.gl.disable(this.gl.SAMPLE_COVERAGE);
+        //this.gl.disable(this.gl.SAMPLE_COVERAGE);
 
         this.gl.clearColor(0.2, 0.3, 0.3, 1.0);
         this.gl.disable(this.gl.DEPTH_TEST);

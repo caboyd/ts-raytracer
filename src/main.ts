@@ -7,8 +7,6 @@ let software_renderer: SoftwareRenderer;
 let webgl_renderer: WebglRenderer;
 
 let last_time = 0;
-let mouse_x_total = 0;
-let mouse_y_total = 0;
 
 let keys: Array<boolean> = [];
 let moved = false;
@@ -22,17 +20,15 @@ let canvas_webgl2: HTMLCanvasElement;
     }
 
     canvas_webgl2 = <HTMLCanvasElement>document.getElementById("canvas-webgl2");
-    // let canvas = <HTMLCanvasElement>document.getElementById("canvas");
     // software_renderer = new SoftwareRenderer(canvas);
+    
     webgl_renderer = new WebglRenderer(canvas_webgl2);
-
     await webgl_renderer.initImGui();
 
     last_time = Date.now();
 
-
     drawScene();
-    //  drawCanvas();
+
 })();
 
 function drawScene() {
