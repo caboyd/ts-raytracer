@@ -6,7 +6,7 @@ Implements Lambertian Diffuse, Metals, and Dielectrics.
 Camera for zooming around the scene.  
 UI overlay using imgui-js
 
-## [Demo](http://iwanttoeatyo.github.io/ts-raytracer/index.html)
+## [Demo](http://caboyd.github.io/ts-raytracer/index.html)
 Use Chrome or Firefox. GPU recommended.  
 Click in window and drag to look around. WASD to move camera.
  
