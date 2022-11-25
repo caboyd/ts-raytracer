@@ -4,3 +4,4 @@ src/**/*.js
 node_modules/
 .git/
 dist/
+!src/imgui/**/*.js
